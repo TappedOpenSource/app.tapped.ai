@@ -33,11 +33,11 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
         <title>Bob from Tapped App</title>
         <meta
           property="og:image"
-          content="https://nextjsconf-pics.vercel.app/og-image.png"
+          content="https://bob.tapped.ai/og.png"
         />
         <meta
           name="twitter:image"
-          content="https://nextjsconf-pics.vercel.app/og-image.png"
+          content="https://bob.tapped.ai/og.png"
         />
       </Head>
       <main className="mx-auto max-w-[1960px] p-4">
