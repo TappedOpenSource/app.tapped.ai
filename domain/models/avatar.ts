@@ -1,12 +1,13 @@
 import { DocumentSnapshot, Timestamp } from "firebase/firestore";
+import { Option, Some, None } from "@sniptt/monads";
 
 export type Avatar = {
     id: number;
     userId: number;
     prompt: string;
-    url: string;
     status: AvatarStatus;
-    errorMsg?: string;
+    url: Option<string>;
+    errorMsg: Option<string>;
     createdAt: Date;
     updatedAt: Date;
 };
@@ -17,6 +18,8 @@ export const avatarConverter = {
     toFirestore: (avatar: Avatar) => {
         return {
             ...avatar,
+            url: avatar.url.unwrapOr(undefined),
+            errorMsg: avatar.errorMsg.unwrapOr(undefined),
             createdAt: Timestamp.fromDate(avatar.createdAt),
             updatedAt: Timestamp.fromDate(avatar.updatedAt),
         };
@@ -27,9 +30,9 @@ export const avatarConverter = {
             id: data.id,
             userId: data.userId,
             prompt: data.prompt,
-            url: data.url,
             status: data.status,
-            errorMsg: data.errorMsg,
+            url: data.url ? Some(data.url) : None,
+            errorMsg: data.errorMsg ? Some(data.errorMsg) : None,
             createdAt: data.createdAt.toDate(),
             updatedAt: data.updatedAt.toDate(),
         };

@@ -1,6 +1,6 @@
 
 import { Option, None, Some } from "@sniptt/monads";
-import { Avatar, avatarConverter } from "../models/avatar";
+import { Avatar, avatarConverter } from "../domain/models/avatar";
 import firebase from "./firebase";
 import { doc, collection, addDoc, getDoc } from "firebase/firestore";
 
