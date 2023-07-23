@@ -40,7 +40,7 @@ export const pollAvatarStatus = async (
             }
 
             const prompt = avatar.prompt;
-            pollHuggingFaceAvatarModel({prompt: prompt}).catch((error) => {
+            pollHuggingFaceAvatarModel({prompt, avatarId: avatar.id}).catch((error) => {
                 console.error(error);
             });
 

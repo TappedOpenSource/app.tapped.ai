@@ -12,7 +12,7 @@ export type Avatar = {
     updatedAt: Date;
 };
 
-export type AvatarStatus = 'initial' | "generating" | "uploading" | "complete" | "error"
+export type AvatarStatus = 'initial' | "generating" | "complete" | "error"
 
 export const avatarConverter = {
     toFirestore: (avatar: Avatar) => {
