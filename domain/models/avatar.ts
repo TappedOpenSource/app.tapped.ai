@@ -18,8 +18,8 @@ export const avatarConverter = {
     toFirestore: (avatar: Avatar) => {
         return {
             ...avatar,
-            url: avatar.url.unwrapOr(undefined),
-            errorMsg: avatar.errorMsg.unwrapOr(undefined),
+            url: avatar.url.isSome() ? avatar.url.unwrap() : null,
+            errorMsg: avatar.errorMsg.isSome() ? avatar.errorMsg.unwrap() : null,
             createdAt: Timestamp.fromDate(avatar.createdAt),
             updatedAt: Timestamp.fromDate(avatar.updatedAt),
         };

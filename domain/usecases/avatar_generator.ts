@@ -1,8 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import { createAvatar, getAvatar } from "../../data/firestore";
 import { Avatar, AvatarStatus } from "../models/avatar";
-import { None, Option } from '@sniptt/monads';
-import { pollHuggingFaceAvatarModel } from '../../data/functions';
+import { None } from '@sniptt/monads';
+import { pollHuggingFaceAvatarModel } from '../../data/functions_api';
+import firebase from "../../utils/firebase";
 
 export const generateAvatar = async ({ prompt }: {
     prompt: string,
@@ -10,7 +11,7 @@ export const generateAvatar = async ({ prompt }: {
     const uuid = uuidv4();
     const avatar: Avatar = {
         id: uuid,
-        userId: '123', // TODO: get from auth
+        userId: firebase.JOHANNES_USERID, // TODO: get from auth
         prompt,
         status: "initial",
         url: None,
@@ -27,10 +28,13 @@ export const generateAvatar = async ({ prompt }: {
 export const pollAvatarStatus = async (
     avatarId: string,
 ): Promise<AvatarStatus> => {
-    const avatar = await getAvatar(avatarId);
+    const avatar = await getAvatar({
+        id: avatarId,
+        userId: firebase.JOHANNES_USERID, // TODO: get from auth
+    });
 
-    return avatar.match({
-        some: (avatar: Avatar): AvatarStatus => {
+    return await avatar.match({
+        some: async (avatar: Avatar): Promise<AvatarStatus> => {
             const status = avatar.status;
 
             console.log(`avatar status: ${status}`);
@@ -40,13 +44,16 @@ export const pollAvatarStatus = async (
             }
 
             const prompt = avatar.prompt;
-            pollHuggingFaceAvatarModel({prompt, avatarId: avatar.id}).catch((error) => {
-                console.error(error);
+            const result = await pollHuggingFaceAvatarModel({ 
+                prompt, 
+                userId: avatar.userId,
+                avatarId: avatar.id, 
             });
+            console.log(JSON.stringify(result));
 
             return status;
         },
-        none: (): AvatarStatus => {
+        none: async (): Promise<AvatarStatus> => {
             console.log("No avatar found")
             return "error";
         },

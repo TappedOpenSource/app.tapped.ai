@@ -1,15 +1,17 @@
-import type {NextPage} from "next/types";
+import type { NextPage } from "next/types";
 import Head from "next/head";
 import Image from "next/image";
 // import {useRouter} from "next/router";
-import {Button, CircularProgress, Input} from "@mui/material";
-import {useState, useEffect} from "react";
-import {getFunctions, httpsCallable} from "firebase/functions";
+import { Button, CircularProgress, Input } from "@mui/material";
+import { useState, useEffect } from "react";
 
-import {Option, None, Some} from "@sniptt/monads";
+import { Option, None } from "@sniptt/monads";
+import { generateAvatar, pollAvatarStatus } from "../domain/usecases/avatar_generator";
+import { getAvatar } from "../data/firestore";
+import firebase from "../utils/firebase";
 
 const Dashboard: NextPage = () => {
-//   const {push} = useRouter();
+  //   const {push} = useRouter();
 
   const maxRetries = 20;
   const [fiveWords, setFiveWords] = useState<string>("");
@@ -20,6 +22,8 @@ const Dashboard: NextPage = () => {
   const [retryCount, setRetryCount] = useState(maxRetries);
 
   const [avatar, setAvatar] = useState<Option<string>>(None);
+
+  const FAKE_PROMPT = "johannes playing the piano at a fancy opera house";
 
   useEffect(() => {
     const runRetry = async () => {
@@ -47,21 +51,34 @@ const Dashboard: NextPage = () => {
   const generateBranding = async () => {
     isGenerating(true);
 
-    // const uuid = generateAvatar();
-    const result = "success";
-    // if (result === "waiting") {
-    //   const {estimatedTime} = imageResp.data as {estimatedTime: number};
-    //   setRetry(estimatedTime);
-    //   isGenerating(false);
-    //   return;
-    // }
-    // if (result === "success") {
-    //   const {image: imageData} = imageResp.data as {image: string};
-    //   const image = Some(imageData);
-    //   setAvatar(image);
-    //   isGenerating(false);
-    // //   await push("/results");
-    // }
+    const uuid = await generateAvatar({
+      prompt: FAKE_PROMPT,
+    });
+    const status = await pollAvatarStatus(uuid);
+    switch (status) {
+      case "initial":
+        setRetry(5);
+        break;
+      case "generating":
+        // const { estimatedTime } = imageResp.data as { estimatedTime: number };
+        // setRetry(estimatedTime);
+        setRetry(20);
+        break;
+      case "complete":
+        const avatar = await getAvatar({
+          id: uuid,
+          userId: firebase.JOHANNES_USERID,
+        });
+        const imageUrl = avatar.unwrap().url;
+        const image = imageUrl;
+        setAvatar(image);
+        isGenerating(false);
+        break;
+      case "error":
+        isGenerating(false);
+        console.log("error");
+        break;
+    }
   };
 
   const sleep = (ms: number) => {
@@ -175,7 +192,7 @@ const Dashboard: NextPage = () => {
             peer-disabled:before:border-transparent
             peer-disabled:after:border-transparent
             peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                        Outlined
+            Outlined
           </label>
         </div>
         <div className="pt-12"></div>
@@ -272,13 +289,13 @@ const Dashboard: NextPage = () => {
             peer-disabled:before:border-transparent
             peer-disabled:after:border-transparent
             peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                        Outlined
+            Outlined
           </label>
         </div>
         <div className="pt-12"></div>
         <p
           className="">
-                    Upload a few photos of yourself
+          Upload a few photos of yourself
         </p>
         <div className="pt-12"></div>
         {generating ? (

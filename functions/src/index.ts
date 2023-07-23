@@ -1,16 +1,20 @@
 
 import {initializeApp} from "firebase-admin/app";
-import {getFirestore} from "firebase-admin/firestore";
+import {Timestamp, getFirestore} from "firebase-admin/firestore";
 import {HttpsError, onCall} from "firebase-functions/v2/https";
+import {
+  onDocumentCreated,
+} from "firebase-functions/v2/firestore";
+
 import {defineSecret} from "firebase-functions/params";
 import * as logger from "firebase-functions/logger";
-import {HfInference} from "@huggingface/inference";
 import {getStorage} from "firebase-admin/storage";
+import {pollHuggingFace, completeAvatarGeneration} from "./utils/huggingface";
 
 
 const app = initializeApp();
-const db = getFirestore(app);
 const bucket = getStorage(app).bucket();
+const db = getFirestore(app);
 
 const avatarsRef = db.collection("avatars");
 
@@ -22,13 +26,12 @@ export const pollHuggingFaceAvatarModel = onCall(
   {secrets: [HF_AUTH_KEY]},
   async (request) => {
     const hfKey = HF_AUTH_KEY.value();
-    const hf = new HfInference(hfKey);
     const {prompt, userId, avatarId} = request.data;
 
     if (!(typeof prompt === "string") || prompt.length === 0) {
       // Throwing an HttpsError so that the client gets the error details.
       throw new HttpsError("invalid-argument", "The function must be called " +
-        "with one arguments \"prompt\" containing the message text to add.");
+        "with one argument \"prompt\" containing the message prompt to input.");
     }
 
     // Checking that the user is authenticated.
@@ -38,40 +41,64 @@ export const pollHuggingFaceAvatarModel = onCall(
     //       "called while authenticated.");
     // }
 
-    logger.log("Generating image");
-    const output = await hf.textToImage({
+    const imageBlob = await pollHuggingFace({
       model: MODEL_NAME,
-      inputs: prompt,
+      prompt,
+      hfKey,
     });
 
-    // TODO: check if output is waiting, errored, of done
-
-    // TODO: if errored, return error message
-
-    // TODO: if waiting, return estimated time
-
-    // TODO: if done, upload to firebase storage and update firestore
-    const file = bucket.file(`images/${userId}/imageName.png`);
-    const imageStream = output.stream();
-    const writeStream = file.createWriteStream({
-      metadata: {
-        contentType: "image/jpeg",
-      },
+    const updatePayload = await completeAvatarGeneration({
+      output: imageBlob,
+      bucket,
+      avatarsRef,
+      userId,
+      avatarId,
     });
 
+    return updatePayload;
+  });
 
-    logger.log("Uploading image to firebase storage");
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    /* @ts-ignore */
-    await imageStream.pipeTo(writeStream);
-    logger.log("Image uploaded to firebase storage");
+export const generateAvatarOnAvatarCreated = onDocumentCreated(
+  {
+    document: "avatars/{userId}/{userAvatar}/{avatarId}",
+    secrets: [HF_AUTH_KEY],
+  },
+  async (event) => {
+    const hfKey = HF_AUTH_KEY.value();
+    const {userId, avatarId} = event.params;
+    const snapshot = event.data;
+    const prompt = snapshot?.data().prompt;
 
-    logger.log("Updating firestore");
-    await avatarsRef.doc(avatarId).update({
-      status: "complete",
+    logger.log(`new avatar created for user ${userId} with prompt ${prompt}`);
+
+    if (!(typeof prompt === "string") || prompt.length === 0) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError("invalid-argument", "The function must be called " +
+        "with one argument \"prompt\" containing the message prompt to input.");
+    }
+
+    await avatarsRef
+      .doc(userId)
+      .collection("userAvatars")
+      .doc(avatarId)
+      .update({
+        status: "generating",
+        updatedAt: Timestamp.fromDate(new Date()),
+      });
+
+    const imageBlob = await pollHuggingFace({
+      model: MODEL_NAME,
+      prompt,
+      hfKey,
     });
 
-    return {
-      result: "success",
-    };
+    const updatePayload = await completeAvatarGeneration({
+      output: imageBlob,
+      bucket,
+      avatarsRef,
+      userId,
+      avatarId,
+    });
+
+    return updatePayload;
   });
