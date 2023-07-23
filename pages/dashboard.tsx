@@ -53,38 +53,33 @@ const Dashboard: NextPage = () => {
   }, [retry, avatar]);
 
   const pollBranding = async (a: Avatar) => {
-    if (a) {
-      console.log(`avatar is none ${JSON.stringify(avatar)}`);
-      return;
-    }
-
     const uuid = a.id;
     const status = await pollAvatarStatus(uuid);
     switch (status) {
-      case "initial":
-        setRetry(5);
-        break;
-      case "generating":
-        // const { estimatedTime } = imageResp.data as { estimatedTime: number };
-        // setRetry(estimatedTime);
-        setRetry(20);
-        break;
-      case "complete":
-        const avatar = await database.getAvatar({
-          id: uuid,
-          userId: firebase.JOHANNES_USERID,
-        });
-        const imageUrl = avatar.unwrap().url;
-        const image = imageUrl;
-        setAvatarUrl(image);
-        isGenerating(false);
-        break;
-      case "error":
-        isGenerating(false);
-        console.log("error");
-        break;
+    case "initial":
+      setRetry(5);
+      break;
+    case "generating":
+      // const { estimatedTime } = imageResp.data as { estimatedTime: number };
+      // setRetry(estimatedTime);
+      setRetry(20);
+      break;
+    case "complete":
+      const avatar = await database.getAvatar({
+        id: uuid,
+        userId: firebase.JOHANNES_USERID,
+      });
+      const imageUrl = avatar.unwrap().url;
+      const image = imageUrl;
+      setAvatarUrl(image);
+      isGenerating(false);
+      break;
+    case "error":
+      isGenerating(false);
+      console.log("error");
+      break;
     }
-  }
+  };
 
   const generateBranding = async () => {
     isGenerating(true);

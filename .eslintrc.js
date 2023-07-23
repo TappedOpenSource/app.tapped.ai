@@ -26,10 +26,12 @@ module.exports = {
   ],
   rules: {
     "quotes": ["error", "double"],
+    "object-curly-spacing": [1, "always"],
     "import/no-unresolved": 0,
     "indent": ["error", 2],
     "new-cap": 0,
     "require-jsdoc": 0,
-    "max-len": ["warning", {"code": 120}],
+    "max-len": [0, {"code": 120}],
+    "no-case-declarations": 0,
   },
 };

@@ -56,13 +56,13 @@ const FirebaseFuncs: Api = {
             Gpt3MarketingPlanInput,
             Gpt3MarketingPlanOutput
         >(functions, "gpt3MarketingPlan");
-        const resp = await func({
+    const resp = await func({
             artistName,
             artistGenres,
             igFollowerCount,
         });
         const { text } = resp.data;
-        console.log(`res: ${text}`);
+        console.log(`res: ${JSON.stringify(text)}`);
 
         return resp.data;
     },

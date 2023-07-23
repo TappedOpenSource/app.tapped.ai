@@ -67,7 +67,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
               Login/Signup
             </Link>
           </div>
-          {images.map(({ id, public_id, format, blurDataUrl }) => (
+          {images.map(({ id, publicId, format, blurDataUrl }) => (
             <Link
               key={id}
               href={`/?photoId=${id}`}
@@ -82,7 +82,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                 style={{ transform: "translate3d(0, 0, 0)" }}
                 placeholder="blur"
                 blurDataURL={blurDataUrl}
-                src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_720/${public_id}.${format}`}
+                src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_720/${publicId}.${format}`}
                 width={720}
                 height={480}
                 sizes="(max-width: 640px) 100vw,
@@ -117,7 +117,7 @@ export async function getStaticProps() {
       id: i,
       height: result.height,
       width: result.width,
-      public_id: result.public_id,
+      publicId: result.public_id,
       format: result.format,
     });
     i++;

@@ -11,7 +11,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-let auth = firebase.auth;
+const auth = firebase.auth;
 
 const Login = () => {
   const router = useRouter();

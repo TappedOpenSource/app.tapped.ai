@@ -142,7 +142,5 @@ export const gpt3MarketingPlan = onCall(
       apiKey: oak,
     });
 
-    return {
-      text: res,
-    };
+    return res;
   });
