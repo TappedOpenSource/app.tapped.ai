@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { createAvatar, getAvatar } from "../../data/firestore";
 import { Avatar, AvatarStatus } from "../models/avatar";
 import { None } from '@sniptt/monads';
-import { pollHuggingFaceAvatarModel } from '../../data/functions_api';
+import { gpt3MarketingPlan, pollHuggingFaceAvatarModel } from '../../data/functions_api';
 import firebase from "../../utils/firebase";
 
 export const generateAvatar = async ({ prompt }: {
@@ -61,3 +61,21 @@ export const pollAvatarStatus = async (
     });
 
 }
+
+export const generateMarketingPlan = async ({
+    artistName,
+    artistGenres,
+    igFollowerCount,
+}: {
+    artistName: string;
+    artistGenres: string;
+    igFollowerCount: number;
+}): Promise<string> => {
+    const res = await gpt3MarketingPlan({
+        artistName,
+        artistGenres,
+        igFollowerCount,
+    });
+
+    return res.text;
+};

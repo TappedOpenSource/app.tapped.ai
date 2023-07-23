@@ -1,0 +1,63 @@
+
+import * as logger from "firebase-functions/logger";
+import {OpenAI} from "langchain/llms/openai";
+import {PromptTemplate} from "langchain/prompts";
+import {LLMChain} from "langchain/chains";
+
+const MARKETING_PLAN_TEMPLATE = `
+You will now assume the role of a manager at a 
+record label and create branding for an artist 
+that we want to become more well known. 
+Your role is to create branding, marketing strategy, 
+and social media direction. 
+In this specific example you will be working 
+for an artist named {ARTIST_NAME}. 
+Her biggest genres are {ARTIST_GENRES}. 
+She's currently has {IG_FOLLOWER_COUNT} followers on social media, 
+and mainly posts content about her lifestyle, time touring, 
+snippets, and about her personality. Her main advantage 
+and selling point is that she's great at live performances 
+and has lots of energy. 
+Create a detailed report that will essentially 
+be a blue print for her career.
+`;
+
+export const generateMarketingPlan = async ({
+  artistName,
+  artistGenres,
+  igFollowerCount,
+  apiKey,
+}: {
+    artistName: string;
+    artistGenres: string;
+    igFollowerCount: number;
+    apiKey: string;
+}) => {
+  process.env.OPENAI_API_KEY = apiKey;
+
+  const model = new OpenAI({temperature: 0});
+  const prompt = new PromptTemplate({
+    inputVariables: [
+      "ARTIST_NAME",
+      "ARTIST_GENRES",
+      "IG_FOLLOWER_COUNT",
+    ],
+    template: MARKETING_PLAN_TEMPLATE,
+  });
+
+  const chain = new LLMChain({
+    llm: model,
+    prompt: prompt,
+  });
+
+  const res = await chain.call({
+    ARTIST_NAME: artistName,
+    ARTIST_GENRES: artistGenres,
+    IG_FOLLOWER_COUNT: igFollowerCount,
+  });
+  logger.log({res});
+
+  // TODO : save response to firestore
+
+  return res;
+};

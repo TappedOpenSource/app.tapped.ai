@@ -9,7 +9,10 @@ import {
 import {defineSecret} from "firebase-functions/params";
 import * as logger from "firebase-functions/logger";
 import {getStorage} from "firebase-admin/storage";
+
+
 import {pollHuggingFace, completeAvatarGeneration} from "./utils/huggingface";
+import {generateMarketingPlan} from "./utils/openai";
 
 
 const app = initializeApp();
@@ -19,6 +22,7 @@ const db = getFirestore(app);
 const avatarsRef = db.collection("avatars");
 
 const HF_AUTH_KEY = defineSecret("HUGGINGFACE_API_KEY");
+const OPEN_AI_KEY = defineSecret("OPEN_AI_KEY");
 
 const MODEL_NAME = "jonaylor89/sd-johannes";
 
@@ -101,4 +105,44 @@ export const generateAvatarOnAvatarCreated = onDocumentCreated(
     });
 
     return updatePayload;
+  });
+
+export const gpt3MarketingPlan = onCall(
+  {secrets: [OPEN_AI_KEY]},
+  async (request) => {
+    const oak = OPEN_AI_KEY.value();
+    const {
+      artistName,
+      artistGenres,
+      igFollowerCount,
+    } = request.data;
+
+    if (!(typeof artistName === "string") || artistName.length === 0) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError("invalid-argument", "The function must be called " +
+        "with argument \"artistName\".");
+    }
+
+    if (!(typeof artistGenres === "string") || artistGenres.length === 0) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError("invalid-argument", "The function must be called " +
+        "with argument \"artistGenres\".");
+    }
+
+    if (!(typeof igFollowerCount === "number") || artistName.length <= 0) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError("invalid-argument", "The function must be called " +
+        "with argument \"igFollowerCount\".");
+    }
+
+    const res = await generateMarketingPlan({
+      artistName,
+      artistGenres,
+      igFollowerCount,
+      apiKey: oak,
+    });
+
+    return {
+      text: res,
+    };
   });

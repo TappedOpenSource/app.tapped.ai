@@ -13,15 +13,11 @@ type PollHuggingFaceAvatarModelOutput = {
     updatedAt: Date;
 }
 
-export const pollHuggingFaceAvatarModel = async ({ prompt, userId, avatarId }: {
-    userId: string
-    avatarId: string,
-    prompt: string,
-}): Promise<{
-    url: string;
-    status: string;
-    updatedAt: Date;
-}> => {
+export const pollHuggingFaceAvatarModel = async ({ 
+    prompt, 
+    userId, 
+    avatarId,
+ }: PollHuggingFaceAvatarModelInput): Promise<PollHuggingFaceAvatarModelOutput> => {
     const functions = getFunctions();
     const func = httpsCallable<
         PollHuggingFaceAvatarModelInput,
@@ -33,3 +29,34 @@ export const pollHuggingFaceAvatarModel = async ({ prompt, userId, avatarId }: {
 
     return resp.data;
 }
+
+type Gpt3MarketingPlanInput = {
+    artistName: string,
+    artistGenres: string,
+    igFollowerCount: number,
+}
+
+type Gpt3MarketingPlanOutput = {
+    text: string;
+}
+
+export const gpt3MarketingPlan = async ({ 
+    artistName, 
+    artistGenres, 
+    igFollowerCount, 
+}: Gpt3MarketingPlanInput): Promise<Gpt3MarketingPlanOutput> => {
+    const functions = getFunctions();
+    const func = httpsCallable<
+        Gpt3MarketingPlanInput,
+        Gpt3MarketingPlanOutput
+    >(functions, "gpt3MarketingPlan");
+    const resp = await func({ 
+        artistName, 
+        artistGenres, 
+        igFollowerCount, 
+    });
+    const { text } = resp.data;
+    console.log(`res: ${text}`);
+
+    return resp.data;
+};

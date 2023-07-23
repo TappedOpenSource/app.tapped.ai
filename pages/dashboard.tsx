@@ -6,7 +6,7 @@ import { Button, CircularProgress, Input } from "@mui/material";
 import { useState, useEffect } from "react";
 
 import { Option, None, Some } from "@sniptt/monads";
-import { generateAvatar, pollAvatarStatus } from "../domain/usecases/avatar_generator";
+import { generateAvatar, generateMarketingPlan, pollAvatarStatus } from "../domain/usecases/avatar_generator";
 import { getAvatar } from "../data/firestore";
 import firebase from "../utils/firebase";
 import { Avatar } from "../domain/models/avatar";
@@ -22,8 +22,10 @@ const Dashboard: NextPage = () => {
   const [retry, setRetry] = useState(0);
   const [retryCount, setRetryCount] = useState(maxRetries);
 
-  const [avatar, setAvatar] = useState<Avatar | null>(null);
+  const [avatar, setAvatar] = useState<Option<Avatar>>(None);
   const [avatarUrl, setAvatarUrl] = useState<Option<string>>(None);
+
+  const [marketingPlan, setMarketingPlan] = useState<Option<string>>(None);
 
   const FAKE_PROMPT = "johannes playing the piano at a fancy opera house";
 
@@ -40,7 +42,7 @@ const Dashboard: NextPage = () => {
 
       await sleep(retry * 1000);
 
-      await pollBranding(avatar);
+      await pollBranding(avatar.unwrap());
     };
 
     if (retry === 0) {
@@ -51,7 +53,7 @@ const Dashboard: NextPage = () => {
   }, [retry, avatar]);
 
   const pollBranding = async (a: Avatar) => {
-    if (a === null) {
+    if (a) {
       console.log(`avatar is none ${JSON.stringify(avatar)}`);
       return;
     }
@@ -87,10 +89,18 @@ const Dashboard: NextPage = () => {
   const generateBranding = async () => {
     isGenerating(true);
 
-    const a = await generateAvatar({
-      prompt: FAKE_PROMPT,
-    });
-    setAvatar(a);
+    const [a, market] = await Promise.all([
+      generateAvatar({
+        prompt: FAKE_PROMPT,
+      }),
+      generateMarketingPlan({
+        artistName: "Johannes",
+        artistGenres: "classical, piano, jazz",
+        igFollowerCount: 0,
+      }),
+    ]);
+    setAvatar(Some(a));
+    setMarketingPlan(Some(market));
 
     await pollBranding(a);
   };
@@ -332,6 +342,12 @@ const Dashboard: NextPage = () => {
             />
             {/* <p>{finalPrompt}</p> */}
           </div>
+        )}
+        <div className="pt-12"></div>
+        {marketingPlan.isSome() && (
+          <p>
+            {marketingPlan.unwrap()}
+          </p>
         )}
       </div>
     </>
