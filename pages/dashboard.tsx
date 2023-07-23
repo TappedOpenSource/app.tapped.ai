@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 import { Option, None, Some } from "@sniptt/monads";
 import { generateAvatar, generateMarketingPlan, pollAvatarStatus } from "../domain/usecases/avatar_generator";
-import { getAvatar } from "../data/firestore";
+import database from "../data/database";
 import firebase from "../utils/firebase";
 import { Avatar } from "../domain/models/avatar";
 
@@ -70,7 +70,7 @@ const Dashboard: NextPage = () => {
         setRetry(20);
         break;
       case "complete":
-        const avatar = await getAvatar({
+        const avatar = await database.getAvatar({
           id: uuid,
           userId: firebase.JOHANNES_USERID,
         });

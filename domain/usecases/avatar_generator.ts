@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-import { createAvatar, getAvatar } from "../../data/firestore";
+import api from '../../data/api';
+import database from "../../data/database";
 import { Avatar, AvatarStatus } from "../models/avatar";
 import { None } from '@sniptt/monads';
-import { gpt3MarketingPlan, pollHuggingFaceAvatarModel } from '../../data/functions_api';
 import firebase from "../../utils/firebase";
 
 export const generateAvatar = async ({ prompt }: {
@@ -20,7 +20,7 @@ export const generateAvatar = async ({ prompt }: {
         updatedAt: new Date(),
     };
 
-    const avatarId = await createAvatar({ avatar });
+    const avatarId = await database.createAvatar(avatar);
     console.log(`created avatar with id ${avatarId}`)
 
     return avatar;
@@ -29,7 +29,7 @@ export const generateAvatar = async ({ prompt }: {
 export const pollAvatarStatus = async (
     avatarId: string,
 ): Promise<AvatarStatus> => {
-    const avatar = await getAvatar({
+    const avatar = await database.getAvatar({
         id: avatarId,
         userId: firebase.JOHANNES_USERID, // TODO: get from auth
     });
@@ -45,7 +45,7 @@ export const pollAvatarStatus = async (
             }
 
             const prompt = avatar.prompt;
-            const result = await pollHuggingFaceAvatarModel({ 
+            const result = await api.pollHuggingFaceAvatarModel({ 
                 prompt, 
                 userId: avatar.userId,
                 avatarId: avatar.id, 
@@ -71,7 +71,7 @@ export const generateMarketingPlan = async ({
     artistGenres: string;
     igFollowerCount: number;
 }): Promise<string> => {
-    const res = await gpt3MarketingPlan({
+    const res = await api.gpt3MarketingPlan({
         artistName,
         artistGenres,
         igFollowerCount,
