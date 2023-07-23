@@ -1,15 +1,18 @@
-import type {NextPage} from "next/types";
+import type { NextPage } from "next/types";
 import Head from "next/head";
 import Image from "next/image";
 // import {useRouter} from "next/router";
-import {Button, CircularProgress, Input} from "@mui/material";
-import {useState, useEffect} from "react";
-import {getFunctions, httpsCallable} from "firebase/functions";
+import { Button, CircularProgress, Input } from "@mui/material";
+import { useState, useEffect } from "react";
 
-import {Option, None, Some} from "@sniptt/monads";
+import { Option, None, Some } from "@sniptt/monads";
+import { generateAvatar, pollAvatarStatus } from "../domain/usecases/avatar_generator";
+import { getAvatar } from "../data/firestore";
+import firebase from "../utils/firebase";
+import { Avatar } from "../domain/models/avatar";
 
 const Dashboard: NextPage = () => {
-//   const {push} = useRouter();
+  //   const {push} = useRouter();
 
   const maxRetries = 20;
   const [fiveWords, setFiveWords] = useState<string>("");
@@ -19,7 +22,10 @@ const Dashboard: NextPage = () => {
   const [retry, setRetry] = useState(0);
   const [retryCount, setRetryCount] = useState(maxRetries);
 
-  const [avatar, setAvatar] = useState<Option<string>>(None);
+  const [avatar, setAvatar] = useState<Avatar | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<Option<string>>(None);
+
+  const FAKE_PROMPT = "johannes playing the piano at a fancy opera house";
 
   useEffect(() => {
     const runRetry = async () => {
@@ -34,7 +40,7 @@ const Dashboard: NextPage = () => {
 
       await sleep(retry * 1000);
 
-      await generateBranding();
+      await pollBranding(avatar);
     };
 
     if (retry === 0) {
@@ -42,29 +48,51 @@ const Dashboard: NextPage = () => {
     }
 
     runRetry();
-  }, [retry]);
+  }, [retry, avatar]);
+
+  const pollBranding = async (a: Avatar) => {
+    if (a === null) {
+      console.log(`avatar is none ${JSON.stringify(avatar)}`);
+      return;
+    }
+
+    const uuid = a.id;
+    const status = await pollAvatarStatus(uuid);
+    switch (status) {
+      case "initial":
+        setRetry(5);
+        break;
+      case "generating":
+        // const { estimatedTime } = imageResp.data as { estimatedTime: number };
+        // setRetry(estimatedTime);
+        setRetry(20);
+        break;
+      case "complete":
+        const avatar = await getAvatar({
+          id: uuid,
+          userId: firebase.JOHANNES_USERID,
+        });
+        const imageUrl = avatar.unwrap().url;
+        const image = imageUrl;
+        setAvatarUrl(image);
+        isGenerating(false);
+        break;
+      case "error":
+        isGenerating(false);
+        console.log("error");
+        break;
+    }
+  }
 
   const generateBranding = async () => {
     isGenerating(true);
 
+    const a = await generateAvatar({
+      prompt: FAKE_PROMPT,
+    });
+    setAvatar(a);
 
-    const functions = getFunctions();
-    const generateAvatar = httpsCallable(functions, "generateAvatar");
-    const imageResp = await generateAvatar({input: "johannes playing piano"});
-    const {result} = imageResp.data as {result: string};
-    if (result === "waiting") {
-      const {estimatedTime} = imageResp.data as {estimatedTime: number};
-      setRetry(estimatedTime);
-      isGenerating(false);
-      return;
-    }
-    if (result === "success") {
-      const {image: imageData} = imageResp.data as {image: string};
-      const image = Some(imageData);
-      setAvatar(image);
-      isGenerating(false);
-    //   await push("/results");
-    }
+    await pollBranding(a);
   };
 
   const sleep = (ms: number) => {
@@ -178,7 +206,7 @@ const Dashboard: NextPage = () => {
             peer-disabled:before:border-transparent
             peer-disabled:after:border-transparent
             peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                        Outlined
+            Outlined
           </label>
         </div>
         <div className="pt-12"></div>
@@ -275,13 +303,13 @@ const Dashboard: NextPage = () => {
             peer-disabled:before:border-transparent
             peer-disabled:after:border-transparent
             peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                        Outlined
+            Outlined
           </label>
         </div>
         <div className="pt-12"></div>
         <p
           className="">
-                    Upload a few photos of yourself
+          Upload a few photos of yourself
         </p>
         <div className="pt-12"></div>
         {generating ? (
@@ -294,10 +322,10 @@ const Dashboard: NextPage = () => {
           </Button>
         )}
         <div className="pt-12"></div>
-        {avatar.isSome() && (
+        {avatarUrl.isSome() && (
           <div className="output-content">
             <Image
-              src={avatar.unwrap()}
+              src={avatarUrl.unwrap()}
               width={512}
               height={512}
               alt={"johannes input"}
