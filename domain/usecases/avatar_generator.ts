@@ -7,7 +7,7 @@ import firebase from "../../utils/firebase";
 
 export const generateAvatar = async ({ prompt }: {
     prompt: string,
-}): Promise<string> => {
+}): Promise<Avatar> => {
     const uuid = uuidv4();
     const avatar: Avatar = {
         id: uuid,
@@ -21,8 +21,9 @@ export const generateAvatar = async ({ prompt }: {
     };
 
     const avatarId = await createAvatar({ avatar });
+    console.log(`created avatar with id ${avatarId}`)
 
-    return avatarId;
+    return avatar;
 };
 
 export const pollAvatarStatus = async (

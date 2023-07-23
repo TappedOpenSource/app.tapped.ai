@@ -5,10 +5,11 @@ import Image from "next/image";
 import { Button, CircularProgress, Input } from "@mui/material";
 import { useState, useEffect } from "react";
 
-import { Option, None } from "@sniptt/monads";
+import { Option, None, Some } from "@sniptt/monads";
 import { generateAvatar, pollAvatarStatus } from "../domain/usecases/avatar_generator";
 import { getAvatar } from "../data/firestore";
 import firebase from "../utils/firebase";
+import { Avatar } from "../domain/models/avatar";
 
 const Dashboard: NextPage = () => {
   //   const {push} = useRouter();
@@ -21,7 +22,8 @@ const Dashboard: NextPage = () => {
   const [retry, setRetry] = useState(0);
   const [retryCount, setRetryCount] = useState(maxRetries);
 
-  const [avatar, setAvatar] = useState<Option<string>>(None);
+  const [avatar, setAvatar] = useState<Avatar | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<Option<string>>(None);
 
   const FAKE_PROMPT = "johannes playing the piano at a fancy opera house";
 
@@ -38,7 +40,7 @@ const Dashboard: NextPage = () => {
 
       await sleep(retry * 1000);
 
-      await generateBranding();
+      await pollBranding(avatar);
     };
 
     if (retry === 0) {
@@ -46,14 +48,15 @@ const Dashboard: NextPage = () => {
     }
 
     runRetry();
-  }, [retry]);
+  }, [retry, avatar]);
 
-  const generateBranding = async () => {
-    isGenerating(true);
+  const pollBranding = async (a: Avatar) => {
+    if (a === null) {
+      console.log(`avatar is none ${JSON.stringify(avatar)}`);
+      return;
+    }
 
-    const uuid = await generateAvatar({
-      prompt: FAKE_PROMPT,
-    });
+    const uuid = a.id;
     const status = await pollAvatarStatus(uuid);
     switch (status) {
       case "initial":
@@ -71,7 +74,7 @@ const Dashboard: NextPage = () => {
         });
         const imageUrl = avatar.unwrap().url;
         const image = imageUrl;
-        setAvatar(image);
+        setAvatarUrl(image);
         isGenerating(false);
         break;
       case "error":
@@ -79,6 +82,17 @@ const Dashboard: NextPage = () => {
         console.log("error");
         break;
     }
+  }
+
+  const generateBranding = async () => {
+    isGenerating(true);
+
+    const a = await generateAvatar({
+      prompt: FAKE_PROMPT,
+    });
+    setAvatar(a);
+
+    await pollBranding(a);
   };
 
   const sleep = (ms: number) => {
@@ -308,10 +322,10 @@ const Dashboard: NextPage = () => {
           </Button>
         )}
         <div className="pt-12"></div>
-        {avatar.isSome() && (
+        {avatarUrl.isSome() && (
           <div className="output-content">
             <Image
-              src={avatar.unwrap()}
+              src={avatarUrl.unwrap()}
               width={512}
               height={512}
               alt={"johannes input"}

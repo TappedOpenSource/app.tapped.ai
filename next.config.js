@@ -1,7 +1,10 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    formats: ['image/avif', 'image/webp'],
-    domains: ['res.cloudinary.com'],
+    // formats: ['image/avif', 'image/webp', 'image/png', 'image/jpeg'],
+    domains: [
+      'res.cloudinary.com', 
+      'firebasestorage.googleapis.com',
+    ],
   },
 }
