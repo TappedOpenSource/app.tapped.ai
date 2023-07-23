@@ -1,8 +1,8 @@
 
+import { doc, collection, addDoc, getDoc } from "firebase/firestore";
 import { Option, None, Some } from "@sniptt/monads";
 import { Avatar, avatarConverter } from "../domain/models/avatar";
-import firebase from "./firebase";
-import { doc, collection, addDoc, getDoc } from "firebase/firestore";
+import firebase from "../utils/firebase";
 
 
 const db = firebase.db;

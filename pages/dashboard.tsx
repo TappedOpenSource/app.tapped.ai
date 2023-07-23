@@ -47,24 +47,21 @@ const Dashboard: NextPage = () => {
   const generateBranding = async () => {
     isGenerating(true);
 
-
-    const functions = getFunctions();
-    const generateAvatar = httpsCallable(functions, "generateAvatar");
-    const imageResp = await generateAvatar({input: "johannes playing piano"});
-    const {result} = imageResp.data as {result: string};
-    if (result === "waiting") {
-      const {estimatedTime} = imageResp.data as {estimatedTime: number};
-      setRetry(estimatedTime);
-      isGenerating(false);
-      return;
-    }
-    if (result === "success") {
-      const {image: imageData} = imageResp.data as {image: string};
-      const image = Some(imageData);
-      setAvatar(image);
-      isGenerating(false);
-    //   await push("/results");
-    }
+    // const uuid = generateAvatar();
+    const result = "success";
+    // if (result === "waiting") {
+    //   const {estimatedTime} = imageResp.data as {estimatedTime: number};
+    //   setRetry(estimatedTime);
+    //   isGenerating(false);
+    //   return;
+    // }
+    // if (result === "success") {
+    //   const {image: imageData} = imageResp.data as {image: string};
+    //   const image = Some(imageData);
+    //   setAvatar(image);
+    //   isGenerating(false);
+    // //   await push("/results");
+    // }
   };
 
   const sleep = (ms: number) => {

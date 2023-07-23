@@ -2,8 +2,8 @@ import { DocumentSnapshot, Timestamp } from "firebase/firestore";
 import { Option, Some, None } from "@sniptt/monads";
 
 export type Avatar = {
-    id: number;
-    userId: number;
+    id: string;
+    userId: string;
     prompt: string;
     status: AvatarStatus;
     url: Option<string>;
@@ -12,7 +12,7 @@ export type Avatar = {
     updatedAt: Date;
 };
 
-export type AvatarStatus = "generating" | "uploading" | "complete" | "error"
+export type AvatarStatus = 'initial' | "generating" | "uploading" | "complete" | "error"
 
 export const avatarConverter = {
     toFirestore: (avatar: Avatar) => {
