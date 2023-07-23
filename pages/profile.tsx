@@ -2,7 +2,7 @@ import type { NextPage } from "next/types";
 import Head from "next/head";
 import Image from "next/image";
 // import {useRouter} from "next/router";
-import { Button, Card, CircularProgress, Input } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { useState, useEffect } from "react";
 
 import { Option, None, Some } from "@sniptt/monads";
