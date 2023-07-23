@@ -1,29 +1,29 @@
-import type {NextPage} from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import {useRouter} from "next/router";
-import {useEffect, useRef} from "react";
+import { useRouter } from "next/router";
+import { useEffect, useRef } from "react";
 import Logo from "../components/Icons/Logo";
 import Modal from "../components/Modal";
 import cloudinary from "../utils/cloudinary";
 import getBase64ImageUrl from "../utils/generateBlurPlaceholder";
-import type {ImageProps} from "../utils/types";
-import {useLastViewedPhoto} from "../utils/useLastViewedPhoto";
+import type { ImageProps } from "../utils/types";
+import { useLastViewedPhoto } from "../utils/useLastViewedPhoto";
 
-const Home: NextPage = ({images}: { images: ImageProps[] }) => {
+const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   const router = useRouter();
-  const {photoId} = router.query;
+  const { photoId } = router.query;
   const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto();
 
   const lastViewedPhotoRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
-    // This effect keeps track of the 
+    // This effect keeps track of the
     // last viewed photo in the modal to
     // keep the index page in sync when the user navigates back
     if (lastViewedPhoto && !photoId) {
-      lastViewedPhotoRef.current.scrollIntoView({block: "center"});
+      lastViewedPhotoRef.current.scrollIntoView({ block: "center" });
       setLastViewedPhoto(null);
     }
   }, [photoId, lastViewedPhoto, setLastViewedPhoto]);
@@ -32,14 +32,8 @@ const Home: NextPage = ({images}: { images: ImageProps[] }) => {
     <>
       <Head>
         <title>Bob from Tapped App</title>
-        <meta
-          property="og:image"
-          content="https://bob.tapped.ai/og.png"
-        />
-        <meta
-          name="twitter:image"
-          content="https://bob.tapped.ai/og.png"
-        />
+        <meta property="og:image" content="https://bob.tapped.ai/og.png" />
+        <meta name="twitter:image" content="https://bob.tapped.ai/og.png" />
       </Head>
       <main className="mx-auto max-w-[1960px] p-4">
         {photoId && (
@@ -53,12 +47,12 @@ const Home: NextPage = ({images}: { images: ImageProps[] }) => {
         <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4">
           <div className="after:content relative mb-5 flex h-[629px] flex-col items-center justify-end gap-4 overflow-hidden rounded-lg bg-white/10 px-6 pb-16 pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0">
             <Logo />
-            <h1 className="mt-8 mb-4 text-base font-bold uppercase tracking-widest">
+            <h1 className="mb-4 mt-8 text-base font-bold uppercase tracking-widest">
               Create Your Brand with AI
             </h1>
             <p className="max-w-[40ch] text-white/75 sm:max-w-[32ch]">
-              Join the professionals and get a one of a kind branding
-              package personalized just for you.
+              Join the professionals and get a one of a kind branding package
+              personalized just for you.
             </p>
             <Link
               className="pointer z-10 mt-6 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-4"
@@ -66,8 +60,14 @@ const Home: NextPage = ({images}: { images: ImageProps[] }) => {
             >
               Get Started
             </Link>
+            <Link
+              className="pointer z-10 mt-6 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-4"
+              href="/login"
+            >
+              Login/Signup
+            </Link>
           </div>
-          {images.map(({id, public_id, format, blurDataUrl}) => (
+          {images.map(({ id, public_id, format, blurDataUrl }) => (
             <Link
               key={id}
               href={`/?photoId=${id}`}
@@ -79,7 +79,7 @@ const Home: NextPage = ({images}: { images: ImageProps[] }) => {
               <Image
                 alt="Next.js Conf photo"
                 className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
-                style={{transform: "translate3d(0, 0, 0)"}}
+                style={{ transform: "translate3d(0, 0, 0)" }}
                 placeholder="blur"
                 blurDataURL={blurDataUrl}
                 src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_720/${public_id}.${format}`}

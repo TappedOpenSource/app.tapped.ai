@@ -7,3 +7,15 @@
     clip-path: inset(0.6px);
   }
 }
+
+.google_btn {
+  @apply text-white w-full bg-black hover:bg-[#FFF]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2;
+}
+
+.tapped_btn {
+  @apply text-black bg-[#42A5F5] hover:bg-[#42A5F5]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-2 mb-2;
+}
+
+.tapped_signup_btn {
+  @apply text-[#42A5F5] hover:text-[#42A5F5]/90 bg-transparent whitespace-nowrap focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-2 mb-2;
+}
