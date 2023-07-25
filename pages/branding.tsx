@@ -2,7 +2,9 @@ import React from "react";
 import ModelCard from "../components/modelCard";
 import Link from "next/link";
 
-const branding = () => {
+const Branding = () => {
+  let modelIds = ["Model A", "Model B", "Model C"];
+
   return (
     <div className="grid h-screen grid-cols-1 gap-2 rounded-lg bg-[#FFF] p-8 shadow-lg">
       <div>
@@ -16,20 +18,16 @@ const branding = () => {
             </button>
           </Link>
         </div>
-        <Link href="/model">
-          <ModelCard modelName={"Model Name 1"} />
-        </Link>
-        <br></br>
-        <Link href="/model">
-          <ModelCard modelName={"Model Name 2"} />
-        </Link>
-        <br></br>
-        <Link href="/model">
-          <ModelCard modelName={"Model Name 3"} />
-        </Link>
+        {modelIds.map((modelId) => (
+          <div key={modelId} className="py-4">
+            <Link href={`/model/${modelId}`}>
+              <ModelCard modelName={modelId} />
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
-export default branding;
+export default Branding;

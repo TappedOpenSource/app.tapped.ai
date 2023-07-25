@@ -1,14 +1,18 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const Model = () => {
+  const router = useRouter();
+  const { modelId } = router.query;
+
   return (
     <div className="grid h-full grid-cols-1 gap-2 rounded-lg bg-[#FFF] p-8 shadow-lg">
       <div className="grid grid-rows-6 gap-2">
         <div className="pb-8">
           <p className="max-h-10 text-4xl font-bold text-[#42A5F5]">
-            MODEL NAME
+            {modelId}
           </p>
           <div className="flex h-full items-center justify-center text-center font-bold">
             <p>Credits Left: 100</p>
@@ -41,7 +45,7 @@ const Model = () => {
           <p className="py-4">
             Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
             Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
-            Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum
           </p>
         </div>
         <div className="pt-24">
