@@ -39,11 +39,11 @@ export const pollHuggingFaceAvatarModel = onCall(
     }
 
     // Checking that the user is authenticated.
-    // if (!request.auth) {
-    //   // Throwing an HttpsError so that the client gets the error details.
-    //   throw new HttpsError("failed-precondition", "The function must be " +
-    //       "called while authenticated.");
-    // }
+    if (!request.auth) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError("failed-precondition", "The function must be " +
+          "called while authenticated.");
+    }
 
     const imageBlob = await pollHuggingFace({
       model: MODEL_NAME,
@@ -133,6 +133,13 @@ export const gpt3MarketingPlan = onCall(
       // Throwing an HttpsError so that the client gets the error details.
       throw new HttpsError("invalid-argument", "The function must be called " +
         "with argument \"igFollowerCount\".");
+    }
+
+    // Checking that the user is authenticated.
+    if (!request.auth) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError("failed-precondition", "The function must be " +
+              "called while authenticated.");
     }
 
     const res = await generateMarketingPlan({
