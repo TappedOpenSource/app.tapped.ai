@@ -10,6 +10,7 @@ import {defineSecret} from "firebase-functions/params";
 import * as logger from "firebase-functions/logger";
 import {getStorage} from "firebase-admin/storage";
 
+import {Leap, ModelSubjectTypesEnum} from "@leap-ai/sdk";
 
 import {pollHuggingFace, completeAvatarGeneration} from "./utils/huggingface";
 import {generateMarketingPlan} from "./utils/openai";
@@ -20,9 +21,11 @@ const bucket = getStorage(app).bucket();
 const db = getFirestore(app);
 
 const avatarsRef = db.collection("avatars");
+const generatorsRef = db.collection("generators");
 
 const HF_AUTH_KEY = defineSecret("HUGGINGFACE_API_KEY");
 const OPEN_AI_KEY = defineSecret("OPEN_AI_KEY");
+const LEAP_API_KEY = defineSecret("LEAP_API_KEY");
 
 const MODEL_NAME = "jonaylor89/sd-johannes";
 
@@ -42,7 +45,7 @@ export const pollHuggingFaceAvatarModel = onCall(
     if (!request.auth) {
       // Throwing an HttpsError so that the client gets the error details.
       throw new HttpsError("failed-precondition", "The function must be " +
-          "called while authenticated.");
+        "called while authenticated.");
     }
 
     const imageBlob = await pollHuggingFace({
@@ -139,7 +142,7 @@ export const gpt3MarketingPlan = onCall(
     if (!request.auth) {
       // Throwing an HttpsError so that the client gets the error details.
       throw new HttpsError("failed-precondition", "The function must be " +
-              "called while authenticated.");
+        "called while authenticated.");
     }
 
     const res = await generateMarketingPlan({
@@ -150,4 +153,69 @@ export const gpt3MarketingPlan = onCall(
     });
 
     return res;
+  });
+
+export const onGeneratorCreated = onDocumentCreated(
+  {
+    document: "/generators/{userId}/userGenerators/{generatorId}",
+    secrets: [LEAP_API_KEY],
+  },
+  async (event) => {
+    const {userId, generatorId} = event.params;
+
+    // create LeapAI job
+    const leapApiKey = LEAP_API_KEY.value();
+    const leap = new Leap(leapApiKey);
+    const {data: modelSchema, error: error1} = await leap
+      .fineTune
+      .createModel({
+        title: "My Avatars",
+        subjectKeyword: "@subject",
+        subjectType: ModelSubjectTypesEnum.PERSON,
+      });
+    if (modelSchema == null) {
+      logger.error(error1);
+      // TODO: mark generator as errored
+      return;
+    }
+    const model = await modelSchema;
+    const modelId = model.id;
+
+    const {data: sampleSchema, error: error2} = await leap
+      .fineTune
+      .uploadImageSamples({
+        modelId,
+        images: [
+          "https://my-image-bucket.com/image1.jpg",
+          "https://my-image-bucket.com/image2.jpg",
+          "https://my-image-bucket.com/image3.jpg",
+        ],
+      });
+    if (sampleSchema == null) {
+      logger.error(error2);
+      // TODO: mark generator as errored
+      return;
+    }
+
+    const sample = await sampleSchema;
+
+    const {data: versionSchema, error: error3} = await leap
+      .fineTune
+      .queueTrainingJob({
+        modelId,
+        webhookUrl: "https://my-webhook-url.com", // optional
+      });
+    if (versionSchema == null) {
+      logger.error(error3);
+      // TODO: mark generator as errored
+      return;
+    }
+    const version = await versionSchema;
+
+    // change generator sfModel to "training"
+    await generatorsRef
+      .doc(userId)
+      .collection("userGenerators")
+      .doc(generatorId)
+      .update({sfModel: "training"});
   });

@@ -16,6 +16,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "@huggingface/inference": "^1.5.1",
+    "@leap-ai/sdk": "^0.0.127",
     "firebase-admin": "^11.10.1",
     "firebase-functions": "^4.3.1",
     "langchain": "^0.0.114"

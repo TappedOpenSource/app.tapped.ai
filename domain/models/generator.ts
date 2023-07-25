@@ -10,6 +10,7 @@ export type Generator = {
     createdAt: Date;
 
     // Generator Input
+    artistName: string;
     referenceImages: ImageAttachment[];
 
     // Generator Output
