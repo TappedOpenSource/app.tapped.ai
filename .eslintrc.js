@@ -33,5 +33,6 @@ module.exports = {
     "require-jsdoc": 0,
     "max-len": [0, {"code": 120}],
     "no-case-declarations": 0,
+    "linebreak-style": 0,
   },
 };

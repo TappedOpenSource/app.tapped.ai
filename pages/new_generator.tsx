@@ -1,19 +1,29 @@
 import Link from "next/link";
 import React, { useState } from "react";
+import { createNewGenerator } from "../domain/usecases/create_generator";
 
-const New_Model = () => {
-  const [data, setData] = useState({
-    artistName: "",
-    genres: "",
-    socialFollowing: "",
-    postFreq: "",
-    sellingPoint: "",
-    theme: "",
-    planLength: "",
-  });
+const NewGenerator = () => {
+  const [name, setName] = useState("");
+  const [artistName, setArtistName] = useState("");
+  const [genres, setGenres] = useState("");
+  const [socialFollowing, setSocialFollowing] = useState("");
+  const [postFreq, setPostFreq] = useState("");
+  const [sellingPoint, setSellingPoint] = useState("");
+  const [theme, setTheme] = useState("");
+  const [planLength, setPlanLength] = useState("");
 
-  const handleLogin = () => {
-    console.log("hi");
+  const onNewGeneratorClick = async () => {
+    await createNewGenerator({
+      name: name,
+      artistName: artistName,
+      genres: genres,
+      socialFollowing: socialFollowing,
+      postFreq: postFreq,
+      sellingPoint: sellingPoint,
+      theme: theme,
+      planLength: planLength,
+      referenceImages: referenceImages,
+    });
   };
 
   return (
@@ -25,7 +35,7 @@ const New_Model = () => {
           </p>
         </div>
 
-        <form className="w-full max-w-sm" onSubmit={handleLogin}>
+        <form className="w-full max-w-sm" onSubmit={onNewGeneratorClick}>
           <div className="mb-6 md:flex md:items-center">
             <div className="md:w-1/3">
               <label
@@ -41,13 +51,8 @@ const New_Model = () => {
                 id="inline-artistName"
                 type="text"
                 placeholder=""
-                onChange={(e: any) =>
-                  setData({
-                    ...data,
-                    artistName: e.target.value,
-                  })
-                }
-                value={data.artistName || ""}
+                value={artistName}
+                onChange={(e: any) => setArtistName(e.target.value)}
               ></input>
             </div>
           </div>
@@ -67,13 +72,8 @@ const New_Model = () => {
                 id="inline-genres"
                 type="text"
                 placeholder=""
-                onChange={(e: any) =>
-                  setData({
-                    ...data,
-                    genres: e.target.value,
-                  })
-                }
-                value={data.genres || ""}
+                onChange={(e: any) => setGenres(e.target.value)}
+                value={genres}
               ></input>
             </div>
           </div>
@@ -94,13 +94,8 @@ const New_Model = () => {
                 id="inline-socialFollowing"
                 type="text"
                 placeholder=""
-                onChange={(e: any) =>
-                  setData({
-                    ...data,
-                    socialFollowing: e.target.value,
-                  })
-                }
-                value={data.socialFollowing || ""}
+                onChange={(e: any) => setSocialFollowing(e.target.value)}
+                value={socialFollowing}
               ></input>
             </div>
           </div>
@@ -120,13 +115,8 @@ const New_Model = () => {
                 id="inline-sellingPoint"
                 type="text"
                 placeholder=""
-                onChange={(e: any) =>
-                  setData({
-                    ...data,
-                    sellingPoint: e.target.value,
-                  })
-                }
-                value={data.sellingPoint || ""}
+                onChange={(e: any) => setSellingPoint(e.target.value)}
+                value={sellingPoint}
               ></input>
             </div>
           </div>
@@ -146,13 +136,8 @@ const New_Model = () => {
                 id="inline-theme"
                 type="text"
                 placeholder=""
-                onChange={(e: any) =>
-                  setData({
-                    ...data,
-                    theme: e.target.value,
-                  })
-                }
-                value={data.theme || ""}
+                onChange={(e: any) => setTheme(e.target.value)}
+                value={theme}
               ></input>
             </div>
           </div>
@@ -172,13 +157,8 @@ const New_Model = () => {
                 id="inline-planLength"
                 type="text"
                 placeholder=""
-                onChange={(e: any) =>
-                  setData({
-                    ...data,
-                    planLength: e.target.value,
-                  })
-                }
-                value={data.planLength || ""}
+                onChange={(e: any) => setPlanLength(e.target.value)}
+                value={planLength}
               ></input>
             </div>
           </div>
@@ -198,13 +178,8 @@ const New_Model = () => {
                 id="inline-postFreq"
                 type="text"
                 placeholder=""
-                onChange={(e: any) =>
-                  setData({
-                    ...data,
-                    postFreq: e.target.value,
-                  })
-                }
-                value={data.postFreq || ""}
+                onChange={(e: any) => setPostFreq(e.target.value)}
+                value={postFreq}
               ></input>
             </div>
           </div>
@@ -224,7 +199,11 @@ const New_Model = () => {
 
           <div className="pt-10">
             <Link href="/creating_model">
-              <button className="tapped_btn max-h-10 w-full" type="submit">
+              <button
+                className="tapped_btn max-h-10 w-full"
+                type="submit"
+                onClick={onNewGeneratorClick}
+              >
                 Create New Model
               </button>
             </Link>
@@ -235,4 +214,4 @@ const New_Model = () => {
   );
 };
 
-export default New_Model;
+export default NewGenerator;

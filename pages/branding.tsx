@@ -3,7 +3,7 @@ import ModelCard from "../components/modelCard";
 import Link from "next/link";
 
 const Branding = () => {
-  let modelIds = ["Model A", "Model B", "Model C"];
+  const modelIds = ["Model A", "Model B", "Model C"];
 
   return (
     <div className="grid h-screen grid-cols-1 gap-2 rounded-lg bg-[#FFF] p-8 shadow-lg">
@@ -12,7 +12,7 @@ const Branding = () => {
           <p className="max-h-10 text-4xl font-bold text-[#42A5F5]">BRANDING</p>
         </div>
         <div className="pb-10">
-          <Link href="/new_model">
+          <Link href="/new_generator">
             <button className="tapped_btn max-h-10 w-full">
               Create New Model
             </button>

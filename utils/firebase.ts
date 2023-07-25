@@ -23,7 +23,7 @@ const functions = getFunctions(app);
 const db = getFirestore(app);
 // const analytics = getAnalytics(app);
 
-const JOHANNES_USERID = "8yYVxpQ7cURSzNfBsaBGF7A7kkv2"
+const JOHANNES_USERID = "8yYVxpQ7cURSzNfBsaBGF7A7kkv2";
 
 
 export default {

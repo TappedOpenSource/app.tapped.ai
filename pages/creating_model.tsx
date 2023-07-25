@@ -14,7 +14,7 @@ const CreatingModel = () => {
         <div className="text-center text-[#42A5F5]">
           <p>Model is being generated!</p>
           <p>***insert loading icon once generator installed***</p>
-          {/*start generator setLoading(true) and wait for generator to return
+          {/* start generator setLoading(true) and wait for generator to return
              once generator returns setLoading(false) and end loading icon*/}
         </div>
         <div className="pt-44">

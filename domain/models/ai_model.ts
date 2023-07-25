@@ -17,5 +17,5 @@ export type AiModelStatus = "initial"
 export type LlmModel = AiModel & { type: "llm" };
 
 // Stable Diffusion Model
-export type SfModel = AiModel & { type: "sf" }
+export type SdModel = AiModel & { type: "sd" }
 
