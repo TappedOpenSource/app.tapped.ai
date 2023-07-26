@@ -1,7 +1,7 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Option, None, Some } from "@sniptt/monads";
 import { Avatar, avatarConverter } from "../domain/models/avatar";
-import { BrandGenerator, generatorConverter } from "../domain/models/generator";
+import { BrandGenerator, generatorConverter } from "../domain/models/brand_generator";
 import firebase from "../utils/firebase";
 
 export type Database = {

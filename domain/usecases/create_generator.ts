@@ -1,7 +1,7 @@
 
 import { v4 as uuidv4 } from "uuid";
 import { ImageAttachment } from "../models/image_attachment";
-import { BrandGenerator } from "../models/generator";
+import { BrandGenerator } from "../models/brand_generator";
 import database from "../../data/database";
 import firebase from "../../utils/firebase";
 
@@ -27,14 +27,21 @@ export const createNewGenerator = async (formInputs: {
     quota: 100,
     updatedAt: new Date(),
     createdAt: new Date(),
-    // Add other user inputs
+    // inputs
     artistName: formInputs.artistName,
     referenceImages: formInputs.referenceImages,
     genres: formInputs.genres,
     socialFollowing: formInputs.socialFollowing,
     sellingPoint: formInputs.sellingPoint,
     theme: formInputs.theme,
+    planLength: formInputs.planLength,
     postFreq: formInputs.postFreq,
+
+    // outputs
+    stageImages: [],
+    avatarImages: [],
+    marketingPlans: [],
+
     llmModel: {
       id: llmModelId,
       generatorId: uuid,

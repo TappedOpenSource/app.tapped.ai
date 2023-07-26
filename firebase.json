@@ -1,7 +1,7 @@
 {
   "functions": [
     {
-      "source": "functions",
+      "source": "gcloud_functions",
       "codebase": "bob",
       "ignore": [
         "node_modules",
