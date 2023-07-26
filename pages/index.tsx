@@ -56,15 +56,9 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
             </p>
             <Link
               className="pointer z-10 mt-6 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-4"
-              href="/branding"
+              href="https://4sji4izg3we.typeform.com/to/sMv1CTIl"
             >
               Get Started
-            </Link>
-            <Link
-              className="pointer z-10 mt-6 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-4"
-              href="/login"
-            >
-              Login
             </Link>
           </div>
           {images.map(({ id, publicId, format, blurDataUrl }) => (
