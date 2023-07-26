@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { createNewGenerator } from "../domain/usecases/create_generator";
+import { submitCreateGeneratorForm } from "../domain/usecases/create_generator";
 
 const NewGenerator = () => {
   const [name, setName] = useState("");
@@ -13,7 +13,7 @@ const NewGenerator = () => {
   const [planLength, setPlanLength] = useState("");
 
   const onNewGeneratorClick = async () => {
-    await createNewGenerator({
+    await submitCreateGeneratorForm({
       name: name,
       artistName: artistName,
       genres: genres,
@@ -42,6 +42,28 @@ const NewGenerator = () => {
                 className="mb-1 block pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
                 htmlFor="inline-artistName"
               >
+                What do you want to call this model?
+              </label>
+            </div>
+            <div className="md:w-2/3">
+              <input
+                className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
+                id="inline-artistName"
+                type="text"
+                placeholder=""
+                onChange={(e: any) => setName(e.target.value)}
+                value={name}
+                required
+              ></input>
+            </div>
+          </div>
+
+          <div className="mb-6 md:flex md:items-center">
+            <div className="md:w-1/3">
+              <label
+                className="mb-1 block pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
+                htmlFor="inline-artistName"
+              >
                 What is your artist name?
               </label>
             </div>
@@ -51,8 +73,9 @@ const NewGenerator = () => {
                 id="inline-artistName"
                 type="text"
                 placeholder=""
-                value={artistName}
                 onChange={(e: any) => setArtistName(e.target.value)}
+                value={artistName}
+                required
               ></input>
             </div>
           </div>
@@ -74,6 +97,7 @@ const NewGenerator = () => {
                 placeholder=""
                 onChange={(e: any) => setGenres(e.target.value)}
                 value={genres}
+                required
               ></input>
             </div>
           </div>
@@ -96,6 +120,7 @@ const NewGenerator = () => {
                 placeholder=""
                 onChange={(e: any) => setSocialFollowing(e.target.value)}
                 value={socialFollowing}
+                required
               ></input>
             </div>
           </div>
@@ -117,6 +142,7 @@ const NewGenerator = () => {
                 placeholder=""
                 onChange={(e: any) => setSellingPoint(e.target.value)}
                 value={sellingPoint}
+                required
               ></input>
             </div>
           </div>
@@ -138,6 +164,7 @@ const NewGenerator = () => {
                 placeholder=""
                 onChange={(e: any) => setTheme(e.target.value)}
                 value={theme}
+                required
               ></input>
             </div>
           </div>
@@ -159,6 +186,7 @@ const NewGenerator = () => {
                 placeholder=""
                 onChange={(e: any) => setPlanLength(e.target.value)}
                 value={planLength}
+                required
               ></input>
             </div>
           </div>
@@ -180,6 +208,7 @@ const NewGenerator = () => {
                 placeholder=""
                 onChange={(e: any) => setPostFreq(e.target.value)}
                 value={postFreq}
+                required
               ></input>
             </div>
           </div>
@@ -200,6 +229,7 @@ const NewGenerator = () => {
           <div className="pt-10">
             <Link href="/creating_model">
               <button
+                disabled={!name || !artistName || !genres || !socialFollowing || !postFreq || !sellingPoint || !theme || !planLength}
                 className="tapped_btn max-h-10 w-full"
                 type="submit"
                 onClick={onNewGeneratorClick}

@@ -1,3 +1,39 @@
+
+# TODO 
+
+### Cloud functions
+
+- [_] onGeneratorCreated
+- [_] pingLlmModel
+- [_] pingSdModel
+
+### Data Layer
+
+- [x] uploading input image
+- [_] call `pingLlmModel()`
+- [_] call `pingSdModel()`
+
+### Domain Layer
+
+- [_] `submitForm()`
+- [_] `generateMarketingPlan()`
+- [_] `generateBrandingGuidance()`
+- [_] `generateSocialMediaBio()`
+- [_] `generateAlbumName`
+- [_] `generateStagePhotos()`
+- [_] `generateAvatarPhotos()`
+- [_] `generateAlbumArt()`
+
+### UI Layer
+
+- [x] create_generator_form
+- [x] generator_page
+- [_] input image uploader
+
+
+
+
+
 # Next.js & Cloudinary example app
 
 This example shows how to create an image gallery site using Next.js, [Cloudinary](https://cloudinary.com), and [Tailwind](https://tailwindcss.com).

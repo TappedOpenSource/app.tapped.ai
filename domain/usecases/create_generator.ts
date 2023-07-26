@@ -1,14 +1,13 @@
 
 import { v4 as uuidv4 } from "uuid";
-import { ImageAttachment } from "../models/image_attachment";
 import { BrandGenerator } from "../models/brand_generator";
 import database from "../../data/database";
 import firebase from "../../utils/firebase";
 
-export const createNewGenerator = async (formInputs: {
+export const submitCreateGeneratorForm = async (formInputs: {
     name: string;
     artistName: string;
-    referenceImages: ImageAttachment[];
+    referenceImages: string[];
     genres: string;
     socialFollowing: string;
     sellingPoint: string;
@@ -16,6 +15,8 @@ export const createNewGenerator = async (formInputs: {
     planLength: string;
     postFreq: string;
 }) => {
+  // TODO: upload images to cloudinary
+
   // Create new generator object
   const uuid = uuidv4();
   const llmModelId = uuidv4();

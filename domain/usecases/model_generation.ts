@@ -1,8 +1,8 @@
+import { None } from "@sniptt/monads";
 import { v4 as uuidv4 } from "uuid";
 import api from "../../data/api";
 import database from "../../data/database";
 import { Avatar, AvatarStatus } from "../models/avatar";
-import { None } from "@sniptt/monads";
 import firebase from "../../utils/firebase";
 
 export const generateAvatar = async ({ prompt }: {
@@ -80,3 +80,4 @@ export const generateMarketingPlan = async ({
 
   return res.text;
 };
+

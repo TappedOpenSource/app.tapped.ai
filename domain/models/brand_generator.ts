@@ -1,6 +1,5 @@
 import { DocumentSnapshot, Timestamp } from "firebase/firestore";
 import { LlmModel, SdModel } from "./ai_model";
-import { ImageAttachment } from "./image_attachment";
 
 export type BrandGenerator = {
     id: string;
@@ -12,7 +11,7 @@ export type BrandGenerator = {
 
     // Generator Input
     artistName: string;
-    referenceImages: ImageAttachment[];
+    referenceImages: string[];
     genres: string;
     socialFollowing: string;
     sellingPoint: string;
@@ -20,10 +19,10 @@ export type BrandGenerator = {
     planLength: string;
     postFreq: string;
 
-    // Generator Output
-    avatarImages: string[]; // image URLs
-    stageImages: string[] // image URLs
-    marketingPlans: string[];
+    // // Generator Output
+    // avatarImages: string[]; // image URLs
+    // stageImages: string[] // image URLs
+    // marketingPlans: string[];
 
     llmModel: LlmModel;
     sdModel: SdModel;
