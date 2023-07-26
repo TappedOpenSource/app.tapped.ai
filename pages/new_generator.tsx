@@ -11,6 +11,15 @@ const NewGenerator = () => {
   const [sellingPoint, setSellingPoint] = useState("");
   const [theme, setTheme] = useState("");
   const [planLength, setPlanLength] = useState("");
+  const [referenceImages, setReferenceImages] = useState("");
+
+  const handleFileChange = (e) => {
+    if (e.target.files.length < 3 || e.target.files.length > 5) {
+      alert("Please select 3 to 5 images");
+      return;
+    }
+    setSelectedFiles(Array.from(e.target.files));
+  }
 
   const onNewGeneratorClick = async () => {
     await submitCreateGeneratorForm({
@@ -220,9 +229,10 @@ const NewGenerator = () => {
               </label>
             </div>
             <div className="md:w-2/3">
-              <button className="tapped_btn" type="button">
+              <input type="file" accept="image/*" multiple onChange={handleFileChange} />
+              {/* <button className="tapped_btn" type="button">
                 Upload Images
-              </button>
+              </button> */}
             </div>
           </div>
 

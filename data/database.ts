@@ -16,7 +16,7 @@ export type Database = {
 const db = firebase.db;
 const FirestoreDB: Database = {
   createAvatar: async (avatar: Avatar): Promise<string> => {
-    const docRef = doc(db, `avatars/${avatar.userId}/userAvatars/${avatar.id}`);
+    const docRef = doc(db, `avatars/${avatar.generatorId}/userAvatars/${avatar.id}`);
     await setDoc(docRef, avatarConverter.toFirestore(avatar));
 
     return docRef.id;

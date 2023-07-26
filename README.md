@@ -4,14 +4,14 @@
 ### Cloud functions
 
 - [_] onGeneratorCreated
-- [_] pingLlmModel
-- [_] pingSdModel
+// - [_] pingLlmModel
+// - [_] pingSdModel
 
 ### Data Layer
 
 - [x] uploading input image
-- [_] call `pingLlmModel()`
-- [_] call `pingSdModel()`
+// - [_] call `pingLlmModel()`
+// - [_] call `pingSdModel()`
 
 ### Domain Layer
 

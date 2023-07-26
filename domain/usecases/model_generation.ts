@@ -4,20 +4,24 @@ import api from "../../data/api";
 import database from "../../data/database";
 import { Avatar, AvatarStatus } from "../models/avatar";
 import firebase from "../../utils/firebase";
+import { BrandGenerator } from "../models/brand_generator";
 
-export const generateAvatar = async ({ prompt }: {
-    prompt: string,
+export const generateAvatar = async ({ generator }: {
+    generator: BrandGenerator,
 }): Promise<Avatar> => {
   const uuid = uuidv4();
+
+  const prompt = "This is a test prompt"; // TODO get from form
+
   const avatar: Avatar = {
     id: uuid,
-    userId: firebase.JOHANNES_USERID, // TODO: get from auth
+    userId: generator.userId,
+    generatorId: generator.id,
     prompt,
     status: "initial",
     url: None,
     errorMsg: None,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    timestamp: new Date(),
   };
 
   const avatarId = await database.createAvatar(avatar);
@@ -26,12 +30,13 @@ export const generateAvatar = async ({ prompt }: {
   return avatar;
 };
 
-export const pollAvatarStatus = async (
-  avatarId: string,
-): Promise<AvatarStatus> => {
+export const pollAvatarStatus = async ({ avatarId, generatorId }: {
+    avatarId: string;
+    generatorId: string;
+}): Promise<AvatarStatus> => {
   const avatar = await database.getAvatar({
     id: avatarId,
-    userId: firebase.JOHANNES_USERID, // TODO: get from auth
+    userId: generatorId,
   });
 
   return await avatar.match({

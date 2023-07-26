@@ -4,12 +4,12 @@ import { Option, Some, None } from "@sniptt/monads";
 export type Avatar = {
     id: string;
     userId: string;
+    generatorId: string;
     prompt: string;
     status: AvatarStatus;
     url: Option<string>;
     errorMsg: Option<string>;
-    createdAt: Date;
-    updatedAt: Date;
+    timestamp: Date;
 };
 
 export type AvatarStatus = "initial" | "generating" | "complete" | "error"
@@ -20,8 +20,7 @@ export const avatarConverter = {
       ...avatar,
       url: avatar.url.isSome() ? avatar.url.unwrap() : null,
       errorMsg: avatar.errorMsg.isSome() ? avatar.errorMsg.unwrap() : null,
-      createdAt: Timestamp.fromDate(avatar.createdAt),
-      updatedAt: Timestamp.fromDate(avatar.updatedAt),
+      timestamp: Timestamp.fromDate(avatar.timestamp),
     };
   },
   fromFirestore: (snapshot: DocumentSnapshot, options): Avatar => {
@@ -29,12 +28,12 @@ export const avatarConverter = {
     return {
       id: data.id,
       userId: data.userId,
+      generatorId: data.generatorId,
       prompt: data.prompt,
       status: data.status,
       url: data.url ? Some(data.url) : None,
       errorMsg: data.errorMsg ? Some(data.errorMsg) : None,
-      createdAt: data.createdAt.toDate(),
-      updatedAt: data.updatedAt.toDate(),
+      timestamp: data.timestamp.toDate(),
     };
   },
 };
