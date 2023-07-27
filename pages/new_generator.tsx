@@ -19,7 +19,7 @@ const NewGenerator = () => {
       return;
     }
     setSelectedFiles(Array.from(e.target.files));
-  }
+  };
 
   const onNewGeneratorClick = async () => {
     await submitCreateGeneratorForm({
