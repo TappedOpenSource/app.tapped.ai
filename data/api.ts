@@ -1,4 +1,4 @@
-import { getFunctions, httpsCallable } from "firebase/functions";
+import { getFunctions, httpsCallable } from 'firebase/functions';
 
 type PollHuggingFaceAvatarModelInput = {
     prompt: string,
@@ -22,9 +22,14 @@ type Gpt3MarketingPlanOutput = {
     text: string;
 }
 
+type LlmModelInput = {
+  prompt: string,
+};
+
 export type Api = {
     pollHuggingFaceAvatarModel: (input: PollHuggingFaceAvatarModelInput) => Promise<PollHuggingFaceAvatarModelOutput>;
     gpt3MarketingPlan: (input: Gpt3MarketingPlanInput) => Promise<Gpt3MarketingPlanOutput>;
+    // callLlmModel: ()
 };
 
 
@@ -38,7 +43,7 @@ const FirebaseFuncs: Api = {
     const func = httpsCallable<
             PollHuggingFaceAvatarModelInput,
             PollHuggingFaceAvatarModelOutput
-        >(functions, "pollHuggingFaceAvatarModel");
+        >(functions, 'pollHuggingFaceAvatarModel');
     const resp = await func({ prompt, userId, avatarId });
     const { status, url, updatedAt } = resp.data;
     console.log(`status: ${status} url: ${url} updatedAt: ${updatedAt}`);
@@ -55,7 +60,7 @@ const FirebaseFuncs: Api = {
     const func = httpsCallable<
             Gpt3MarketingPlanInput,
             Gpt3MarketingPlanOutput
-        >(functions, "gpt3MarketingPlan");
+        >(functions, 'gpt3MarketingPlan');
     const resp = await func({
       artistName,
       artistGenres,
