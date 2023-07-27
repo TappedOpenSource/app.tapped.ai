@@ -11,14 +11,16 @@ const NewGenerator = () => {
   const [sellingPoint, setSellingPoint] = useState("");
   const [theme, setTheme] = useState("");
   const [planLength, setPlanLength] = useState("");
-  const [referenceImages, setReferenceImages] = useState("");
+  const [referenceImages, setReferenceImages] = useState([]);
 
   const handleFileChange = (e) => {
-    if (e.target.files.length < 3 || e.target.files.length > 5) {
-      alert("Please select 3 to 5 images");
-      return;
-    }
-    setSelectedFiles(Array.from(e.target.files));
+    setReferenceImages([...referenceImages, ...Array.from(e.target.files)]);
+  };
+
+  const handleRemoveImage = (indexToRemove) => {
+    setReferenceImages(
+      referenceImages.filter((_, index) => index !== indexToRemove)
+    );
   };
 
   const onNewGeneratorClick = async () => {
@@ -223,23 +225,55 @@ const NewGenerator = () => {
           </div>
 
           <div className="mb-6 md:flex md:items-center">
-            <div className="md:w-1/3">
-              <label className="mb-1 block pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right">
-                Model Image Source
+            <label className="mb-1 block pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right">
+              Choose images for Model Creation:
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleFileChange}
+                id="fileInput"
+                className="hidden"
+              />
+              <label
+                htmlFor="fileInput"
+                className="mt-1 block w-full cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-center shadow-sm hover:bg-gray-100 sm:text-sm"
+              >
+                Select Images
               </label>
-            </div>
-            <div className="md:w-2/3">
-              <input type="file" accept="image/*" multiple onChange={handleFileChange} />
-              {/* <button className="tapped_btn" type="button">
-                Upload Images
-              </button> */}
+            </label>
+            <div className="flex space-x-4">
+              {referenceImages.map((file, index) => (
+                <div key={index} className="relative">
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={`Selected Preview ${index + 1}`}
+                    className="h-16 w-16 rounded-lg object-cover"
+                  />
+                  <button
+                    onClick={() => handleRemoveImage(index)}
+                    className="absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-gray-900 text-xs font-bold text-white opacity-50 hover:opacity-75"
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
 
           <div className="pt-10">
             <Link href="/creating_model">
               <button
-                disabled={!name || !artistName || !genres || !socialFollowing || !postFreq || !sellingPoint || !theme || !planLength}
+                disabled={
+                  !name ||
+                  !artistName ||
+                  !genres ||
+                  !socialFollowing ||
+                  !postFreq ||
+                  !sellingPoint ||
+                  !theme ||
+                  !planLength
+                }
                 className="tapped_btn max-h-10 w-full"
                 type="submit"
                 onClick={onNewGeneratorClick}
