@@ -28,7 +28,7 @@
 
 - [x] create_generator_form
 - [x] generator_page
-- [_] input image uploader
+- [x] input image uploader
 
 
 
