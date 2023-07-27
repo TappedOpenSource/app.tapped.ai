@@ -1,9 +1,9 @@
-import React from "react";
-import ModelCard from "../components/modelCard";
-import Link from "next/link";
+import React from 'react';
+import ModelCard from '../components/modelCard';
+import Link from 'next/link';
 
 const Branding = () => {
-  const modelIds = ["Model A", "Model B", "Model C"];
+  const modelIds = ['Model A', 'Model B', 'Model C'];
 
   return (
     <div className="grid h-screen grid-cols-1 gap-2 rounded-lg bg-[#FFF] p-8 shadow-lg">

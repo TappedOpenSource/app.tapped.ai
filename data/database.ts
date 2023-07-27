@@ -1,14 +1,14 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { Option, None, Some } from "@sniptt/monads";
-import { Avatar, avatarConverter } from "../domain/models/avatar";
-import { BrandGenerator, generatorConverter } from "../domain/models/brand_generator";
-import firebase from "../utils/firebase";
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { Option, None, Some } from '@sniptt/monads';
+import { Avatar, avatarConverter } from '../domain/models/avatar';
+import { BrandGenerator, generatorConverter } from '../domain/models/brand_generator';
+import firebase from '../utils/firebase';
 
 export type Database = {
     createAvatar: (avatar: Avatar) => Promise<string>;
-    getAvatar: ({ userId, id }: {
-        userId: string;
+    getAvatar: ({ generatorId, id }: {
         id: string;
+        generatorId: string;
     }) => Promise<Option<Avatar>>;
     createGenerator: (generator: BrandGenerator) => Promise<string>;
 }
@@ -21,11 +21,11 @@ const FirestoreDB: Database = {
 
     return docRef.id;
   },
-  getAvatar: async ({ userId, id }: {
-        userId: string,
+  getAvatar: async ({ generatorId, id }: {
+        generatorId: string,
         id: string,
     }): Promise<Option<Avatar>> => {
-    const docRef = doc(db, `avatars/${userId}/userAvatars/${id}`).withConverter(avatarConverter);
+    const docRef = doc(db, `avatars/${generatorId}/userAvatars/${id}`).withConverter(avatarConverter);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
       return None;

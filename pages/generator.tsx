@@ -1,4 +1,4 @@
-import type { NextPage } from "next/types";
+import type { NextPage } from 'next/types';
 
 const Generator: NextPage = () => {
   return (

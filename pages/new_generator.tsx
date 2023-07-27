@@ -1,18 +1,18 @@
-import Link from "next/link";
-import React, { useState } from "react";
-import { submitCreateGeneratorForm } from "../domain/usecases/create_generator";
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { submitCreateGeneratorForm } from '../domain/usecases/create_generator';
 
 const NewGenerator = () => {
-  const [name, setName] = useState("");
-  const [artistName, setArtistName] = useState("");
+  const [name, setName] = useState('');
+  const [artistName, setArtistName] = useState('');
   const [genres, setGenres] = useState([]);
-  const [socialFollowing, setSocialFollowing] = useState("");
-  const [postFreq, setPostFreq] = useState("");
-  const [sellingPoint, setSellingPoint] = useState("");
-  const [theme, setTheme] = useState("");
-  const [planLength, setPlanLength] = useState("");
+  const [socialFollowing, setSocialFollowing] = useState('');
+  const [postFreq, setPostFreq] = useState('');
+  const [sellingPoint, setSellingPoint] = useState('');
+  const [theme, setTheme] = useState('');
+  const [planLength, setPlanLength] = useState('');
   const [referenceImages, setReferenceImages] = useState([]);
-  const options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
+  const options = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'];
 
   const handleFileChange = (e) => {
     setReferenceImages([...referenceImages, ...Array.from(e.target.files)]);
@@ -26,9 +26,9 @@ const NewGenerator = () => {
 
   const handleSelectChange = (option) => {
     setGenres((prevOptions) =>
-      prevOptions.includes(option)
-        ? prevOptions.filter((prevOption) => prevOption !== option)
-        : [...prevOptions, option]
+      prevOptions.includes(option) ?
+        prevOptions.filter((prevOption) => prevOption !== option) :
+        [...prevOptions, option]
     );
   };
 

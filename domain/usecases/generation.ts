@@ -1,24 +1,30 @@
-import { None } from "@sniptt/monads";
-import { v4 as uuidv4 } from "uuid";
-import api from "../../data/api";
-import database from "../../data/database";
-import { Avatar, AvatarStatus } from "../models/avatar";
-import firebase from "../../utils/firebase";
-import { BrandGenerator } from "../models/brand_generator";
+import { None } from '@sniptt/monads';
+import { v4 as uuidv4 } from 'uuid';
+import api from '../../data/api';
+import database from '../../data/database';
+import { Avatar, AvatarStatus } from '../models/avatar';
+import { BrandGenerator } from '../models/brand_generator';
+
+const AVATAR_PROMPT = '';
+const MARKETING_PLAN_PROMPT = '';
+const BRANDING_GUIDANCE_PROMPT = '';
+const SOCIAL_BIO_PROMPT = '';
+const ALBUM_ART_PROMPT = '';
+const STAGE_PHOTOS_PROMPT = '';
 
 export const generateAvatar = async ({ generator }: {
     generator: BrandGenerator,
 }): Promise<Avatar> => {
   const uuid = uuidv4();
 
-  const prompt = "This is a test prompt"; // TODO get from form
+  const prompt = 'This is a test prompt'; // TODO get from form
 
   const avatar: Avatar = {
     id: uuid,
     userId: generator.userId,
     generatorId: generator.id,
     prompt,
-    status: "initial",
+    status: 'initial',
     url: None,
     errorMsg: None,
     timestamp: new Date(),
@@ -36,7 +42,7 @@ export const pollAvatarStatus = async ({ avatarId, generatorId }: {
 }): Promise<AvatarStatus> => {
   const avatar = await database.getAvatar({
     id: avatarId,
-    userId: generatorId,
+    generatorId,
   });
 
   return await avatar.match({
@@ -45,7 +51,7 @@ export const pollAvatarStatus = async ({ avatarId, generatorId }: {
 
       console.log(`avatar status: ${status}`);
 
-      if (status !== "generating") {
+      if (status !== 'generating') {
         return status;
       }
 
@@ -60,8 +66,8 @@ export const pollAvatarStatus = async ({ avatarId, generatorId }: {
       return status;
     },
     none: async (): Promise<AvatarStatus> => {
-      console.log("No avatar found");
-      return "error";
+      console.log('No avatar found');
+      return 'error';
     },
   });
 };
@@ -86,3 +92,18 @@ export const generateMarketingPlan = async ({
   return res.text;
 };
 
+export const generateBrandingGuidance = async () =>{
+  // whoa
+};
+
+export const generateSocialBio = async () => {
+  // whoa
+};
+
+export const generateAlbumArt = async () => {
+  // whoa
+};
+
+export const generateStagePhotos = async () => {
+  // whoa
+};

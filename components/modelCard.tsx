@@ -1,5 +1,5 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
 const ModelCard = (props) => {
   return (
@@ -11,7 +11,7 @@ const ModelCard = (props) => {
         </div>
         <div className="pr-4 pt-2">
           <Image
-            src={"/images/icon_1024.png"}
+            src={'/images/icon_1024.png'}
             width={65.5}
             height={65.5}
             className="mx-auto rounded-full border-2 border-[#42A5F5] shadow"

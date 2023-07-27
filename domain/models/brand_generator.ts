@@ -1,5 +1,5 @@
-import { DocumentSnapshot, Timestamp } from "firebase/firestore";
-import { LlmModel, SdModel } from "./ai_model";
+import { DocumentSnapshot, Timestamp } from 'firebase/firestore';
+import { LlmModel, SdModel } from './ai_model';
 
 export type BrandGenerator = {
     id: string;
@@ -18,11 +18,6 @@ export type BrandGenerator = {
     theme: string;
     planLength: string;
     postFreq: string;
-
-    // // Generator Output
-    // avatarImages: string[]; // image URLs
-    // stageImages: string[] // image URLs
-    // marketingPlans: string[];
 
     llmModel: LlmModel;
     sdModel: SdModel;

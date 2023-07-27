@@ -1,9 +1,9 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import useKeypress from "react-use-keypress";
-import type { ImageProps } from "../utils/types";
-import { useLastViewedPhoto } from "../utils/useLastViewedPhoto";
-import SharedModal from "./SharedModal";
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import useKeypress from 'react-use-keypress';
+import type { ImageProps } from '../utils/types';
+import { useLastViewedPhoto } from '../utils/useLastViewedPhoto';
+import SharedModal from './SharedModal';
 
 export default function Carousel({
   index,
@@ -17,14 +17,14 @@ export default function Carousel({
 
   function closeModal() {
     setLastViewedPhoto(currentPhoto.id);
-    router.push("/", undefined, { shallow: true });
+    router.push('/', undefined, { shallow: true });
   }
 
   function changePhotoId(newVal: number) {
     return newVal;
   }
 
-  useKeypress("Escape", () => {
+  useKeypress('Escape', () => {
     closeModal();
   });
 

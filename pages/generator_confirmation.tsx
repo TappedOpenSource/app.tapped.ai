@@ -1,7 +1,7 @@
-import Link from "next/link";
-import React, { useState } from "react";
+import Link from 'next/link';
+import React, { useState } from 'react';
 
-const CreatingModel = () => {
+const GeneratorConfirmation = () => {
   const [loading, setLoading] = useState(false);
   return (
     <div className="grid h-screen grid-cols-1 gap-2 rounded-lg bg-[#FFF] p-8 shadow-lg">
@@ -31,4 +31,4 @@ const CreatingModel = () => {
   );
 };
 
-export default CreatingModel;
+export default GeneratorConfirmation;

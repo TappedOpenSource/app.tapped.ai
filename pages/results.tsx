@@ -1,4 +1,4 @@
-import { NextPage } from "next/types";
+import { NextPage } from 'next/types';
 
 const Results: NextPage = () => {
   return (

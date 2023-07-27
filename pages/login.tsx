@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import firebase from "../utils/firebase";
+import React, { useState } from 'react';
+import firebase from '../utils/firebase';
 import {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
-} from "firebase/auth";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
+} from 'firebase/auth';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const auth = firebase.auth;
 
@@ -18,8 +18,8 @@ const Login = () => {
   const googleAuth = new GoogleAuthProvider();
 
   const [data, setData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const googleLogin = async () => {
@@ -35,7 +35,7 @@ const Login = () => {
 
     try {
       await login(data.email, data.password);
-      router.push("/dashboard");
+      router.push('/dashboard');
     } catch (err) {
       console.log(err);
     }
@@ -46,7 +46,7 @@ const Login = () => {
 
     try {
       await googleLogin();
-      router.push("/dashboard");
+      router.push('/dashboard');
     } catch (err) {
       console.log(err);
     }
@@ -85,7 +85,7 @@ const Login = () => {
                   email: e.target.value,
                 })
               }
-              value={data.email || ""}
+              value={data.email || ''}
             ></input>
           </div>
         </div>
@@ -110,7 +110,7 @@ const Login = () => {
                   password: e.target.value,
                 })
               }
-              value={data.password || ""}
+              value={data.password || ''}
             ></input>
           </div>
         </div>

@@ -1,24 +1,24 @@
-import type { NextPage } from "next/types";
-import Head from "next/head";
-import Image from "next/image";
+import type { NextPage } from 'next/types';
+import Head from 'next/head';
+import Image from 'next/image';
 // import {useRouter} from "next/router";
-import { Button, CircularProgress } from "@mui/material";
-import { useState, useEffect } from "react";
+import { Button, CircularProgress } from '@mui/material';
+import { useState, useEffect } from 'react';
 
-import { Option, None, Some } from "@sniptt/monads";
-import { generateAvatar, generateMarketingPlan, pollAvatarStatus } from "../domain/usecases/avatar_generator";
-import database from "../data/database";
-import firebase from "../utils/firebase";
-import { Avatar } from "../domain/models/avatar";
-import GeneratorCard from "../components/GeneratorCard";
-import CreateGeneratorButton from "../components/CreateGeneratorButton";
+import { Option, None, Some } from '@sniptt/monads';
+import { generateAvatar, generateMarketingPlan, pollAvatarStatus } from '../domain/usecases/avatar_generator';
+import database from '../data/database';
+import firebase from '../utils/firebase';
+import { Avatar } from '../domain/models/avatar';
+import GeneratorCard from '../components/GeneratorCard';
+import CreateGeneratorButton from '../components/CreateGeneratorButton';
 
 const Profile: NextPage = () => {
   //   const {push} = useRouter();
 
   const maxRetries = 20;
-  const [fiveWords, setFiveWords] = useState<string>("");
-  const [vibe, setVibe] = useState<string>("");
+  const [fiveWords, setFiveWords] = useState<string>('');
+  const [vibe, setVibe] = useState<string>('');
   // const [userPhotos, setUserPhotos] = useState<string>("");
   const [generating, isGenerating] = useState<boolean>(false);
   const [retry, setRetry] = useState(0);
@@ -29,13 +29,13 @@ const Profile: NextPage = () => {
 
   const [marketingPlan, setMarketingPlan] = useState<Option<string>>(None);
 
-  const FAKE_PROMPT = "johannes playing the piano at a fancy opera house";
+  const FAKE_PROMPT = 'johannes playing the piano at a fancy opera house';
 
   useEffect(() => {
     const runRetry = async () => {
       if (retryCount === 0) {
         console.log(`Model still loading after ${maxRetries} retries`);
-        console.log("Try again in 5 minutes");
+        console.log('Try again in 5 minutes');
         setRetryCount(maxRetries);
         return;
       }
@@ -58,15 +58,15 @@ const Profile: NextPage = () => {
     const uuid = a.id;
     const status = await pollAvatarStatus(uuid);
     switch (status) {
-    case "initial":
+    case 'initial':
       setRetry(5);
       break;
-    case "generating":
+    case 'generating':
       // const { estimatedTime } = imageResp.data as { estimatedTime: number };
       // setRetry(estimatedTime);
       setRetry(20);
       break;
-    case "complete":
+    case 'complete':
       const avatar = await database.getAvatar({
         id: uuid,
         userId: firebase.JOHANNES_USERID,
@@ -76,9 +76,9 @@ const Profile: NextPage = () => {
       setAvatarUrl(image);
       isGenerating(false);
       break;
-    case "error":
+    case 'error':
       isGenerating(false);
-      console.log("error");
+      console.log('error');
       break;
     }
   };
@@ -91,8 +91,8 @@ const Profile: NextPage = () => {
         prompt: FAKE_PROMPT,
       }),
       generateMarketingPlan({
-        artistName: "Johannes",
-        artistGenres: "classical, piano, jazz",
+        artistName: 'Johannes',
+        artistGenres: 'classical, piano, jazz',
         igFollowerCount: 0,
       }),
     ]);
@@ -136,7 +136,7 @@ const Profile: NextPage = () => {
               src={avatarUrl.unwrap()}
               width={512}
               height={512}
-              alt={"johannes input"}
+              alt={'johannes input'}
             />
             {/* <p>{finalPrompt}</p> */}
           </div>
