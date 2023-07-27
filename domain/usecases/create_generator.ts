@@ -8,7 +8,7 @@ export const submitCreateGeneratorForm = async (formInputs: {
     name: string;
     artistName: string;
     referenceImages: string[];
-    genres: string;
+    genres: string[];
     socialFollowing: string;
     sellingPoint: string;
     theme: string;

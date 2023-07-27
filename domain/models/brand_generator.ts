@@ -12,7 +12,7 @@ export type BrandGenerator = {
     // Generator Input
     artistName: string;
     referenceImages: string[];
-    genres: string;
+    genres: string[];
     socialFollowing: string;
     sellingPoint: string;
     theme: string;
