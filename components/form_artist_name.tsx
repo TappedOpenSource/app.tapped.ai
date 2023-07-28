@@ -8,14 +8,14 @@ const Page1 = ({ formData, updateFormData }) => {
   };
 
   return (
-    <div className="page flex flex-col items-center justify-center min-h-screen bg-black">
-      <h1 className="text-3xl font-bold mb-4">Page 1</h1>
+    <div className="page flex min-h-full flex-col items-center justify-center bg-white">
+      <h1 className="mb-4 text-3xl font-bold">Page 1</h1>
       <input
         type="text"
         name="field1"
         value={formData.page1?.field1 || ''}
         onChange={handleInputChange}
-        className="w-60 appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
+        className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
       />
     </div>
   );
