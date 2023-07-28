@@ -1,4 +1,4 @@
-import cloudinary from './cloudinary'
+mport cloudinary from './cloudinary'
 
 let cachedResults
 

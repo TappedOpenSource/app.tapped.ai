@@ -17,8 +17,14 @@ export type Database = {
 
 const db = firebase.db;
 const FirestoreDB: Database = {
+  createGenerator: async (generator: BrandGenerator): Promise<string> => {
+    const docRef = doc(db, `generators/${generator.id}]`);
+    await setDoc(docRef, generatorConverter.toFirestore(generator));
+
+    return docRef.id;
+  },
   createGeneratedAvatar: async (avatar: Avatar): Promise<string> => {
-    const docRef = doc(db, `avatars/${avatar.generatorId}/generatedAvatars/${avatar.id}`);
+    const docRef = doc(db, `generators/${avatar.generatorId}/avatars/${avatar.id}`);
     await setDoc(docRef, avatarConverter.toFirestore(avatar));
 
     return docRef.id;
@@ -27,7 +33,7 @@ const FirestoreDB: Database = {
         generatorId: string,
         id: string,
     }): Promise<Option<Avatar>> => {
-    const docRef = doc(db, `avatars/${generatorId}/generatedAvatars/${id}`).withConverter(avatarConverter);
+    const docRef = doc(db, `generators/${generatorId}/avatars/${id}`).withConverter(avatarConverter);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
       return None;
@@ -38,10 +44,9 @@ const FirestoreDB: Database = {
 
     return Some(avatar);
   },
-
-  createGenerator: async (generator: BrandGenerator): Promise<string> => {
-    const docRef = doc(db, `generators/${generator.userId}/userGenerators/${generator.id}]`);
-    await setDoc(docRef, generatorConverter.toFirestore(generator));
+  createGeneratedAlbumName: async (albumName: AlbumName): Promise<string> => {
+    const docRef = doc(db, `generators/${albumName.generatorId}/albumNames/${albumName.id}`);
+    await setDoc(docRef, albumName);
 
     return docRef.id;
   },

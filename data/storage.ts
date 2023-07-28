@@ -34,6 +34,26 @@ const CloudinaryStorage: Storage = {
   deleteInputImage: async ({ public_id }: { public_id: string }): Promise<void> => {
     await cloudinary.v2.uploader.destroy(public_id);
   },
+
+  saveGeneratedAvatarImage: async ({
+    generatorId,
+    avatarId,
+    imageUrl,
+  }: {
+    generatorId: string,
+    avatarId: string,
+    imageUrl: string,
+  }): Promise<{ url: string }> => {
+    const { public_id } = await cloudinary.v2.uploader.upload(imageUrl, {
+      folder: `generated_avatars/${generatorId}/${avatarId}`,
+      upload_preset: 'generated_avatars',
+    });
+
+    const uploadedImage = cloudinary.cld.image(public_id);
+    const url = uploadedImage.toURL();
+
+    return { url };
+  },
 };
 
 export default CloudinaryStorage;

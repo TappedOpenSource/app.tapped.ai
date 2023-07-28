@@ -7,13 +7,13 @@ export type Api = {
     modelId: string;
     avatarStyle: AvatarStyle;
   }) => Promise<{
-    id: string,
+    inferenceId: string,
     prompt: string,
   }>;
-  getAvatarInferenceJob: (id: string) => Promise<{
+  getAvatarInferenceJob: (inferenceId: string) => Promise<{
     imageUrls: string[],
   }>;
-  deleteInferenceJob: (id: string) => Promise<void>;
+  deleteInferenceJob: (inferenceId: string) => Promise<void>;
   generateAlbumName: (input: {
     artistName: string;
     artistGenres: string[];
@@ -23,42 +23,55 @@ export type Api = {
 
 
 const FirebaseFuncs: Api = {
-  pollHuggingFaceAvatarModel: async ({
-    prompt,
-    userId,
-    avatarId,
-  }: PollHuggingFaceAvatarModelInput): Promise<PollHuggingFaceAvatarModelOutput> => {
+  createAvatarInferenceJob: async ({ modelId, avatarStyle }: {
+    modelId: string;
+    avatarStyle: AvatarStyle;
+  }): Promise<{
+    inferenceId: string,
+    prompt: string,
+  }> => {
     const functions = getFunctions();
     const func = httpsCallable<
-      PollHuggingFaceAvatarModelInput,
-      PollHuggingFaceAvatarModelOutput
-    >(functions, 'pollHuggingFaceAvatarModel');
-    const resp = await func({ prompt, userId, avatarId });
-    const { status, url, updatedAt } = resp.data;
-    console.log(`status: ${status} url: ${url} updatedAt: ${updatedAt}`);
+      { modelId: string, avatarStyle: AvatarStyle },
+      { inferenceId: string, prompt: string }
+    >(functions, 'createAvatarInferenceJob');
+    const resp = await func({ modelId, avatarStyle });
+    const { inferenceId, prompt } = resp.data;
+    console.log(`res: ${JSON.stringify(inferenceId)}`);
 
-    return resp.data;
+    return { inferenceId, prompt };
   },
+  getAvatarInferenceJob: async (inferenceId: string): Promise<{
+    imageUrls: string[],
+  }> => {
+    const functions = getFunctions();
+    const func = httpsCallable<{ inferenceId: string }, { imageUrls: string[] }>(functions, 'getAvatarInferenceJob');
+    const resp = await func({ inferenceId });
+    const { imageUrls } = resp.data;
+    console.log(`res: ${JSON.stringify(imageUrls)}`);
 
-  gpt3MarketingPlan: async ({
-    artistName,
-    artistGenres,
-    igFollowerCount,
-  }: Gpt3MarketingPlanInput): Promise<{ text: string }> => {
+    return { imageUrls };
+  },
+  deleteInferenceJob: async (id: string): Promise<void> => {
+    const functions = getFunctions();
+    const func = httpsCallable<{ id: string }, void>(functions, 'deleteInferenceJob');
+    await func({ id });
+  },
+  generateAlbumName: async ({ artistName, artistGenres, igFollowerCount }: {
+    artistName: string;
+    artistGenres: string[];
+    igFollowerCount: number;
+  }): Promise<{ text: string, prompt: string }> => {
     const functions = getFunctions();
     const func = httpsCallable<
-      Gpt3MarketingPlanInput,
-      { text: string }
-    >(functions, 'gpt3MarketingPlan');
-    const resp = await func({
-      artistName,
-      artistGenres,
-      igFollowerCount,
-    });
-    const { text } = resp.data;
+      { artistName: string, artistGenres: string[], igFollowerCount: number },
+      { text: string, prompt: string }
+    >(functions, 'generateAlbumName');
+    const resp = await func({ artistName, artistGenres, igFollowerCount });
+    const { text, prompt } = resp.data;
     console.log(`res: ${JSON.stringify(text)}`);
 
-    return resp.data;
+    return { text, prompt };
   },
 };
 

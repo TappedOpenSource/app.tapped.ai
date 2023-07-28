@@ -68,6 +68,7 @@ export const generateAlbumName = async ({ generator }: {
   const generatedAlbumName: AlbumName = {
     id: uuid,
     userId: generator.userId,
+    generatorId: generator.id,
     text: text,
     prompt: prompt,
     timestamp: new Date(),

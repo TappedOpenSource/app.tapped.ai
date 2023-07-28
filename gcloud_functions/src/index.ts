@@ -12,6 +12,7 @@ import * as logger from 'firebase-functions/logger';
 import { Leap, ModelSubjectTypesEnum } from '@leap-ai/sdk';
 
 import llm from './utils/openai';
+import sd from './utils/leapai';
 
 
 const app = initializeApp();
@@ -19,6 +20,8 @@ const db = getFirestore(app);
 
 // const avatarsRef = db.collection('avatars');
 const generatorsRef = db.collection('generators');
+
+const WEBHOOK_URL = 'https://us-central1-in-the-loop-306520.cloudfunctions.net/onTrainingJobCompletedWebhook';
 
 const OPEN_AI_KEY = defineSecret('OPEN_AI_KEY');
 const LEAP_API_KEY = defineSecret('LEAP_API_KEY');
@@ -49,66 +52,19 @@ const LEAP_API_KEY = defineSecret('LEAP_API_KEY');
 // const SOCIAL_BIO_TEMPLATE = '';
 const ALBUM_NAME_TEMPLATE = '';
 
-export const generateAlbumName = onCall(
-  { secrets: [OPEN_AI_KEY] },
-  async (request) => {
-    const oak = OPEN_AI_KEY.value();
-    const {
-      artistName,
-      artistGenres,
-      igFollowerCount,
-    } = request.data;
-
-    if (!(typeof artistName === 'string') || artistName.length === 0) {
-      // Throwing an HttpsError so that the client gets the error details.
-      throw new HttpsError('invalid-argument', 'The function must be called ' +
-        'with argument "artistName".');
-    }
-
-    if (!(typeof artistGenres === 'string') || artistGenres.length === 0) {
-      // Throwing an HttpsError so that the client gets the error details.
-      throw new HttpsError('invalid-argument', 'The function must be called ' +
-        'with argument "artistGenres".');
-    }
-
-    if (!(typeof igFollowerCount === 'number') || artistName.length <= 0) {
-      // Throwing an HttpsError so that the client gets the error details.
-      throw new HttpsError('invalid-argument', 'The function must be called ' +
-        'with argument "igFollowerCount".');
-    }
-
-    // Checking that the user is authenticated.
-    if (!request.auth) {
-      // Throwing an HttpsError so that the client gets the error details.
-      throw new HttpsError('failed-precondition', 'The function must be ' +
-        'called while authenticated.');
-    }
-
-    const res = await llm.generateAlbumName({
-      artistName,
-      artistGenres,
-      igFollowerCount,
-      apiKey: oak,
-      template: ALBUM_NAME_TEMPLATE,
-    });
-
-    return res;
-  });
-
-
 export const onGeneratorCreated = onDocumentCreated(
   {
-    document: '/generators/{userId}/userGenerators/{generatorId}',
+    document: '/generators/{generatorId}',
     secrets: [LEAP_API_KEY],
   },
   async (event) => {
-    const { userId, generatorId } = event.params;
+    const { generatorId } = event.params;
     const data = event.data?.data();
     if (data == null) {
       return;
     }
 
-    const { referenceImages } = data;
+    const { userId, referenceImages } = data;
 
     // create LeapAI job
     const leapApiKey = LEAP_API_KEY.value();
@@ -157,7 +113,7 @@ export const onGeneratorCreated = onDocumentCreated(
       .fineTune
       .queueTrainingJob({
         modelId,
-        webhookUrl: 'https://my-webhook-url.com', // optional
+        webhookUrl: WEBHOOK_URL,
       });
     if (versionSchema == null) {
       logger.error(error3);
@@ -196,4 +152,134 @@ export const onTrainingJobCompletedWebhook = onRequest(
 
     const generator = generatorSnapshot.docs[0];
     await generator.ref.update({ sdModelStatus: 'ready' });
+  });
+
+export const generateAlbumName = onCall(
+  { secrets: [OPEN_AI_KEY] },
+  async (request) => {
+    const oak = OPEN_AI_KEY.value();
+    const {
+      artistName,
+      artistGenres,
+      igFollowerCount,
+    } = request.data;
+
+    if (!(typeof artistName === 'string') || artistName.length === 0) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError('invalid-argument', 'The function must be called ' +
+        'with argument "artistName".');
+    }
+
+    if (!Array.isArray(artistGenres) || artistGenres.length === 0) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError('invalid-argument', 'The function must be called ' +
+        'with argument "artistGenres".');
+    }
+
+    if (!(typeof igFollowerCount === 'number') || artistName.length <= 0) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError('invalid-argument', 'The function must be called ' +
+        'with argument "igFollowerCount".');
+    }
+
+    // Checking that the user is authenticated.
+    if (!request.auth) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError('failed-precondition', 'The function must be ' +
+        'called while authenticated.');
+    }
+
+    const genres = artistGenres.join(', ');
+
+    const res = await llm.generateAlbumName({
+      artistName,
+      artistGenres: genres,
+      igFollowerCount,
+      apiKey: oak,
+      template: ALBUM_NAME_TEMPLATE,
+    });
+
+    return res;
+  });
+
+export const createAvatarInferenceJob = onCall(
+  { secrets: [LEAP_API_KEY] },
+  async (request) => {
+    // Checking that the user is authenticated.
+    if (!request.auth) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError('failed-precondition', 'The function must be ' +
+        'called while authenticated.');
+    }
+
+    const leapApiKey = LEAP_API_KEY.value();
+    const { modelId, avatarStyle } = request.data;
+
+    if (!(typeof modelId === 'string') || modelId.length === 0) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError('invalid-argument', 'The function must be called ' +
+        'with argument "modelId".');
+    }
+
+    if (!(typeof avatarStyle === 'string') || avatarStyle.length === 0) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError('invalid-argument', 'The function must be called ' +
+        'with argument "avatarStyle".');
+    }
+
+    const prompt = `@subject is a ${avatarStyle} avatar.`;
+
+    const { inferenceId } = await sd.createInferenceJob({
+      leapApiKey,
+      modelId,
+      prompt,
+    });
+
+    return { inferenceId, prompt };
+  });
+
+export const getAvatarInferenceJob = onCall(
+  { secrets: [LEAP_API_KEY] },
+  async (request) => {
+    // Checking that the user is authenticated.
+    if (!request.auth) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError('failed-precondition', 'The function must be ' +
+        'called while authenticated.');
+    }
+
+    const leapApiKey = LEAP_API_KEY.value();
+    const { inferenceId } = request.data;
+
+    if (!(typeof inferenceId === 'string') || inferenceId.length === 0) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError('invalid-argument', 'The function must be called ' +
+        'with argument "inferenceId".');
+    }
+
+    const { imageUrls } = await sd.getInferenceJob({
+      leapApiKey,
+      inferenceId,
+    });
+
+    return { imageUrls };
+  });
+
+export const deleteInferenceJob = onCall(
+  { secrets: [LEAP_API_KEY] },
+  async (request) => {
+    // Checking that the user is authenticated.
+    if (!request.auth) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new HttpsError('failed-precondition', 'The function must be ' +
+        'called while authenticated.');
+    }
+
+    const leapApiKey = LEAP_API_KEY.value();
+    const { inferenceId } = request.data;
+
+    await sd.deleteInferenceJob({
+      leapApiKey,
+      inferenceId,
+    });
   });
