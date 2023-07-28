@@ -26,9 +26,9 @@ const NewGenerator = () => {
 
   const handleSelectChange = (option) => {
     setGenres((prevOptions) =>
-      prevOptions.includes(option) ?
-        prevOptions.filter((prevOption) => prevOption !== option) :
-        [...prevOptions, option]
+      prevOptions.includes(option)
+        ? prevOptions.filter((prevOption) => prevOption !== option)
+        : [...prevOptions, option]
     );
   };
 
@@ -234,43 +234,6 @@ const NewGenerator = () => {
                 value={postFreq}
                 required
               ></input>
-            </div>
-          </div>
-
-          <div className="mb-6 md:flex md:items-center">
-            <label className="mb-1 block pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right">
-              Choose images for Model Creation:
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleFileChange}
-                id="fileInput"
-                className="hidden"
-              />
-              <label
-                htmlFor="fileInput"
-                className="mt-1 block w-full cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-center shadow-sm hover:bg-gray-100 sm:text-sm"
-              >
-                Select Images
-              </label>
-            </label>
-            <div className="flex space-x-4">
-              {referenceImages.map((file, index) => (
-                <div key={index} className="relative">
-                  <img
-                    src={URL.createObjectURL(file)}
-                    alt={`Selected Preview ${index + 1}`}
-                    className="h-16 w-16 rounded-lg object-cover"
-                  />
-                  <button
-                    onClick={() => handleRemoveImage(index)}
-                    className="absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-gray-900 text-xs font-bold text-white opacity-50 hover:opacity-75"
-                  >
-                    X
-                  </button>
-                </div>
-              ))}
             </div>
           </div>
 
