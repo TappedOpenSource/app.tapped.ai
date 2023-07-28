@@ -1,14 +1,15 @@
 
-const AVATAR_PROMPT = '';
-const STAGE_PHOTOS_PROMPT = '';
-const ALBUM_ART_PROMPT = '';
+import * as logger from 'firebase-functions/logger';
 
-export
+// const AVATAR_PROMPT = '';
+// const STAGE_PHOTOS_PROMPT = '';
+// const ALBUM_ART_PROMPT = '';
 
-const callSdModel = async ({
+export const callSdModel = async ({
   prompt,
 }: {
     prompt: string;
 }): Promise<{ text: string }> => {
+  logger.log(`Generating text ${prompt}`);
   return { text: '' };
 };

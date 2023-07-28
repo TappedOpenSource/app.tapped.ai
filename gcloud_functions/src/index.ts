@@ -1,7 +1,7 @@
 
 import { initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
-import { HttpsError, onCall } from 'firebase-functions/v2/https';
+import { HttpsError, onCall, onRequest } from 'firebase-functions/v2/https';
 import {
   onDocumentCreated,
 } from 'firebase-functions/v2/firestore';
@@ -17,7 +17,7 @@ import llm from './utils/openai';
 const app = initializeApp();
 const db = getFirestore(app);
 
-const avatarsRef = db.collection('avatars');
+// const avatarsRef = db.collection('avatars');
 const generatorsRef = db.collection('generators');
 
 const OPEN_AI_KEY = defineSecret('OPEN_AI_KEY');
@@ -76,6 +76,12 @@ export const onGeneratorCreated = onDocumentCreated(
   },
   async (event) => {
     const { userId, generatorId } = event.params;
+    const data = event.data?.data();
+    if (data == null) {
+      return;
+    }
+
+    const { referenceImages } = data;
 
     // create LeapAI job
     const leapApiKey = LEAP_API_KEY.value();
@@ -83,36 +89,43 @@ export const onGeneratorCreated = onDocumentCreated(
     const { data: modelSchema, error: error1 } = await leap
       .fineTune
       .createModel({
-        title: 'My Avatars',
+        title: `sd/${userId}/${generatorId}`,
         subjectKeyword: '@subject',
         subjectType: ModelSubjectTypesEnum.PERSON,
       });
     if (modelSchema == null) {
       logger.error(error1);
-      // TODO: mark generator as errored
+      await generatorsRef
+        .doc(generatorId)
+        .update({ sdModelStatus: 'errored' });
       return;
     }
+
+    // Save model id to firestore
     const model = await modelSchema;
     const modelId = model.id;
+    await generatorsRef
+      .doc(generatorId)
+      .update({ sdModelId: modelId });
 
+    // upload images to leapai
     const { data: sampleSchema, error: error2 } = await leap
       .fineTune
       .uploadImageSamples({
         modelId,
-        images: [
-          'https://my-image-bucket.com/image1.jpg',
-          'https://my-image-bucket.com/image2.jpg',
-          'https://my-image-bucket.com/image3.jpg',
-        ],
+        images: referenceImages,
       });
     if (sampleSchema == null) {
       logger.error(error2);
-      // TODO: mark generator as errored
+      await generatorsRef
+        .doc(generatorId)
+        .update({ sdModelStatus: 'errored' });
       return;
     }
 
-    const sample = await sampleSchema;
-
+    // queue training job
+    const samples = await sampleSchema;
+    logger.debug(`samples: ${JSON.stringify(samples)}`);
     const { data: versionSchema, error: error3 } = await leap
       .fineTune
       .queueTrainingJob({
@@ -121,15 +134,39 @@ export const onGeneratorCreated = onDocumentCreated(
       });
     if (versionSchema == null) {
       logger.error(error3);
-      // TODO: mark generator as errored
+      await generatorsRef
+        .doc(generatorId)
+        .update({ sdModelStatus: 'errored' });
       return;
     }
     const version = await versionSchema;
+    logger.debug(`version: ${JSON.stringify(version)}`);
 
     // change generator sfModel to "training"
     await generatorsRef
-      .doc(userId)
-      .collection('userGenerators')
       .doc(generatorId)
-      .update({ sfModel: 'training' });
+      .update({ sdModelStatus: 'training' });
+  });
+
+export const onTrainingJobCompletedWebhook = onRequest(
+  async (req) => {
+    // get model id from request
+    const { id, state } = req.body;
+
+    // update firestore if error
+    if (state !== 'finished') {
+      logger.error(`training job ${id} failed with state ${state}`);
+      return;
+    }
+
+    // update firestore if success
+    logger.debug(`training job ${id} finished with state ${state}`);
+    const generatorSnapshot = await generatorsRef.where('sdModelId', '==', id).get();
+    if (generatorSnapshot.docs.length <= 0) {
+      logger.error(`no generator found with sdModelId ${id}`);
+      return;
+    }
+
+    const generator = generatorSnapshot.docs[0];
+    await generator.ref.update({ sdModelStatus: 'ready' });
   });

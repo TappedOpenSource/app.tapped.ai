@@ -1,60 +1,78 @@
+import { None } from '@sniptt/monads';
 import api from '../../data/api';
 import database from '../../data/database';
 import storage from '../../data/storage';
+import { Avatar } from '../models/avatar';
 import { BrandGenerator } from '../models/brand_generator';
-import { uuid as uuidv4 } from 'uuidv4';
+import { uuid as uuidv4 } from 'uuid';
+import { AlbumName } from '../models/album_name';
 
 
 export const generateAvatars = async ({ generator }: {
   generator: BrandGenerator,
-}): Promise<void> => {
-  // TODO : create inference job
-  const inf = await api.createAvatarInferenceJob();
-
-  // TODO : poll leapai for results
-  const { imageUrls, prompt } = await api.getAvatarInferenceJob(inf.id);
-
-  // TODO save images to firebase storage
-  const urls = await storage.saveAvatarImages({
-    generatorId: generator.id,
-    imageUrls,
+}): Promise<{ urls: string[] }> => {
+  // create inference job
+  const { id, prompt } = await api.createAvatarInferenceJob({
+    modelId: generator.sdModelId,
+    avatarStyle: generator.avatarStyle,
   });
 
-  // TODO : save result to firestore for all avatars
-  for (const url of urls) {
-    const uuid = uuidv4();
-    const generateAvatar = {
-      id: uuid,
-      generatorId: generator.id,
-      prompt,
-      url,
-    };
-    await database.createGeneratedAvatar(generatedAvatar);
-  }
+  // poll leapai for results
+  const { imageUrls } = await api.getAvatarInferenceJob(id);
 
-  // TODO : delete images from leapai
-  await api.deleteInferenceJob(inf.id);
+  // ave images to firebase storage
+  const urls = await Promise.all(
+    imageUrls.map(async (imageUrl) => {
+      const uuid = uuidv4();
+      const { url } = await storage.saveGeneratedAvatarImage({
+        generatorId: generator.id,
+        avatarId: uuid,
+        imageUrl,
+      });
+
+      // save result to firestore for all avatars
+      const generatedAvatar: Avatar = {
+        id: uuid,
+        userId: generator.userId,
+        generatorId: generator.id,
+        prompt,
+        url,
+        errorMsg: None,
+        timestamp: new Date(),
+      };
+      await database.createGeneratedAvatar(generatedAvatar);
+
+      return url;
+    })
+  );
+
+  // delete images from leapai
+  await api.deleteInferenceJob(id);
+
+  return { urls };
 };
 
-export const generateAlbumName = async ({ artistName, artistGenres, igFollowerCount }: {
-  artistName: string;
-  artistGenres: string;
-  igFollowerCount: number;
-}) => {
-  // TODO : call openai
-  const res = await api.generateAlbumName({
-    artistName,
-    artistGenres,
-    igFollowerCount,
+export const generateAlbumName = async ({ generator }: {
+  generator: BrandGenerator,
+}): Promise<{ text: string }> => {
+  const { text, prompt } = await api.generateAlbumName({
+    artistName: generator.artistName,
+    artistGenres: generator.genres,
+    igFollowerCount: generator.socialFollowing,
   });
 
-  console.log(`generated AlbumName: ${JSON.stringify(res)}`);
+  console.log(`generated AlbumName: ${text}`);
 
-  // TODO : save result to firestore
-  await database.createGeneratedAlbumName({
-    text: res.text,
-    prompt: res.prompt,
-  });
+  // save result to firestore
+  const uuid = uuidv4();
+  const generatedAlbumName: AlbumName = {
+    id: uuid,
+    userId: generator.userId,
+    text: text,
+    prompt: prompt,
+    timestamp: new Date(),
+  };
+  await database.createGeneratedAlbumName(generatedAlbumName);
 
-  return res.text;
+  return { text };
 };

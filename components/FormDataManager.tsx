@@ -1,15 +1,16 @@
-// FormDataManager.js
 import { useState } from 'react';
 
 const FormDataManager = ({ children }) => {
   const [formData, setFormData] = useState({});
 
-  const updateFormData = (page, data) => {
+  const updateFormData = (data) => {
     setFormData((prevData) => ({
       ...prevData,
-      [page]: data,
+      ...data,
     }));
   };
+
+  console.log(formData);
 
   return children({ formData, updateFormData });
 };

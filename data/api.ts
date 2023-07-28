@@ -1,15 +1,24 @@
 import { getFunctions, httpsCallable } from 'firebase/functions';
+import { AvatarStyle } from '../domain/models/avatar';
 
 
 export type Api = {
-    createAvatarInferenceJob: () => Promise<{ id: string }>;
-    getAvatarInferenceJob: (id: string) => Promise<{ id: string }>;
-    deleteInferenceJob: (id: string) => Promise<void>;
-    generateAlbumName: (input: {
-      artistName: string;
-      artistGenres: string;
-      igFollowerCount: number;
-    }) => Promise<{ text: string, prompt: string }>;
+  createAvatarInferenceJob: (input: {
+    modelId: string;
+    avatarStyle: AvatarStyle;
+  }) => Promise<{
+    id: string,
+    prompt: string,
+  }>;
+  getAvatarInferenceJob: (id: string) => Promise<{
+    imageUrls: string[],
+  }>;
+  deleteInferenceJob: (id: string) => Promise<void>;
+  generateAlbumName: (input: {
+    artistName: string;
+    artistGenres: string[];
+    igFollowerCount: number;
+  }) => Promise<{ text: string, prompt: string }>;
 };
 
 
@@ -21,9 +30,9 @@ const FirebaseFuncs: Api = {
   }: PollHuggingFaceAvatarModelInput): Promise<PollHuggingFaceAvatarModelOutput> => {
     const functions = getFunctions();
     const func = httpsCallable<
-            PollHuggingFaceAvatarModelInput,
-            PollHuggingFaceAvatarModelOutput
-        >(functions, 'pollHuggingFaceAvatarModel');
+      PollHuggingFaceAvatarModelInput,
+      PollHuggingFaceAvatarModelOutput
+    >(functions, 'pollHuggingFaceAvatarModel');
     const resp = await func({ prompt, userId, avatarId });
     const { status, url, updatedAt } = resp.data;
     console.log(`status: ${status} url: ${url} updatedAt: ${updatedAt}`);
@@ -38,9 +47,9 @@ const FirebaseFuncs: Api = {
   }: Gpt3MarketingPlanInput): Promise<{ text: string }> => {
     const functions = getFunctions();
     const func = httpsCallable<
-            Gpt3MarketingPlanInput,
-            { text: string }
-        >(functions, 'gpt3MarketingPlan');
+      Gpt3MarketingPlanInput,
+      { text: string }
+    >(functions, 'gpt3MarketingPlan');
     const resp = await func({
       artistName,
       artistGenres,

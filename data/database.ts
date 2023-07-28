@@ -3,6 +3,7 @@ import { Option, None, Some } from '@sniptt/monads';
 import { Avatar, avatarConverter } from '../domain/models/avatar';
 import { BrandGenerator, generatorConverter } from '../domain/models/brand_generator';
 import firebase from '../utils/firebase';
+import { AlbumName } from '../domain/models/album_name';
 
 export type Database = {
     createGenerator: (generator: BrandGenerator) => Promise<string>;
@@ -11,7 +12,7 @@ export type Database = {
       id: string;
       generatorId: string;
     }) => Promise<Option<Avatar>>;
-    createdGeneratedAlbumName: (bio: GeneratedAlbumName) => Promise<string>;
+    createGeneratedAlbumName: (albumName: AlbumName) => Promise<string>;
 }
 
 const db = firebase.db;

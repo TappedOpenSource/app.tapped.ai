@@ -1,8 +1,8 @@
 // pages/form.js
 import React from 'react';
-import Page1 from '../components/form_artist_name';
-import Page2 from '../components/form_gender';
-import Page3 from '../components/form_ref_images'; // Assuming you have Page3.js
+import Page1 from '../components/form_model_name';
+import Page2 from '../components/form_artist_name';
+import Page3 from '../components/form_gender';
 
 import FormDataManager from '../components/FormDataManager';
 
@@ -14,12 +14,12 @@ const Form = () => {
   const handlePreviousPage = () => setCurrentPage((prevPage) => prevPage - 1);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-white">
-      <div className="w-3/4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white">
+      <div className="w-full">
         <FormDataManager>
           {({ formData, updateFormData }) => {
             return (
-              <div className="opacity-100 transition-opacity duration-500 ease-in-out">
+              <div className="transition-opacity duration-500 ease-in-out opacity-100">
                 {currentPage === 1 && (
                   <Page1 formData={formData} updateFormData={updateFormData} />
                 )}
@@ -30,19 +30,28 @@ const Form = () => {
                   <Page3 formData={formData} updateFormData={updateFormData} />
                 )}
 
-                <div className="mt-5 flex justify-between">
+                <div className="mt-5 flex justify-between px-6">
                   {currentPage !== 1 && (
                     <button
-                      className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                      className="tapped_btn"
                       onClick={handlePreviousPage}
                     >
                       Previous
                     </button>
                   )}
 
-                  {currentPage !== totalPages && (
+                  {currentPage !== totalPages && currentPage !== 1 && (
                     <button
-                      className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                      className="tapped_btn"
+                      onClick={handleNextPage}
+                    >
+                      Next
+                    </button>
+                  )}
+
+                  {currentPage === 1 && (
+                    <button
+                      className="tapped_btn"
                       onClick={handleNextPage}
                     >
                       Next

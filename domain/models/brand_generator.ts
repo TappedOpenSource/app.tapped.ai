@@ -1,5 +1,5 @@
 import { DocumentSnapshot, Timestamp } from 'firebase/firestore';
-import { LlmModel, SdModel } from './ai_model';
+import { AvatarStyle } from './avatar';
 
 export type BrandGenerator = {
     id: string;
@@ -13,14 +13,19 @@ export type BrandGenerator = {
     artistName: string;
     referenceImages: string[];
     genres: string[];
-    socialFollowing: string;
+    socialFollowing: number;
     sellingPoint: string;
     theme: string;
     planLength: string;
     postFreq: string;
+    avatarStyle: AvatarStyle;
 
-    llmModel: LlmModel;
-    sdModel: SdModel;
+    sdModelId: string;
+    sdModelStatus: 'initial'
+      | 'training'
+      | 'ready'
+      | 'inferring'
+      | 'errored';
 };
 
 export const generatorConverter = {
@@ -39,8 +44,6 @@ export const generatorConverter = {
       ...data,
       updatedAt: data.updatedAt.toDate(),
       createdAt: data.createdAt.toDate(),
-      // Convert AI Models to something from firestore
-      // Convert Images to something from firestore
     };
   },
 };

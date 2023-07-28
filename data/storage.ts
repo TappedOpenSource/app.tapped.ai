@@ -9,11 +9,11 @@ export type Storage = {
     uploadInputImage: (input: { imagePath: string }) => Promise<{ url: string }>;
     deleteInputImage: (input: { public_id: string }) => Promise<void>;
 
-    saveGeneratedAvatarImages: (input: {
+    saveGeneratedAvatarImage: (input: {
       generatorId: string,
       avatarId: string,
-      imageUrls: string[],
-    }) => Promise<string[]>;
+      imageUrl: string,
+    }) => Promise<{ url: string }>;
 };
 
 const CloudinaryStorage: Storage = {
