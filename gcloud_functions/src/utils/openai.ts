@@ -1,8 +1,8 @@
 
-import * as logger from "firebase-functions/logger";
-import {OpenAI} from "langchain/llms/openai";
-import {PromptTemplate} from "langchain/prompts";
-import {LLMChain} from "langchain/chains";
+import * as logger from 'firebase-functions/logger';
+import { OpenAI } from 'langchain/llms/openai';
+import { PromptTemplate } from 'langchain/prompts';
+import { LLMChain } from 'langchain/chains';
 
 const MARKETING_PLAN_TEMPLATE = `
 You will now assume the role of a manager at a 
@@ -22,42 +22,48 @@ Create a detailed report that will essentially
 be a blue print for her career.
 `;
 
-export const generateMarketingPlan = async ({
-  artistName,
-  artistGenres,
-  igFollowerCount,
-  apiKey,
-}: {
+const BRANDING_GUIDANCE_TEMPLATE = '';
+const SOCIAL_BIO_TEMPLATE = '';
+const ALBUM_NAME_TEMPLATE = '';
+
+const llm = {
+  generateAlbumName: async ({
+    artistName,
+    artistGenres,
+    igFollowerCount,
+    apiKey,
+  }: {
     artistName: string;
     artistGenres: string;
     igFollowerCount: number;
     apiKey: string;
 }) => {
-  process.env.OPENAI_API_KEY = apiKey;
+    process.env.OPENAI_API_KEY = apiKey;
 
-  const model = new OpenAI({temperature: 0});
-  const prompt = new PromptTemplate({
-    inputVariables: [
-      "ARTIST_NAME",
-      "ARTIST_GENRES",
-      "IG_FOLLOWER_COUNT",
-    ],
-    template: MARKETING_PLAN_TEMPLATE,
-  });
+    const model = new OpenAI({ temperature: 0 });
+    const prompt = new PromptTemplate({
+      inputVariables: [
+        'ARTIST_NAME',
+        'ARTIST_GENRES',
+        'IG_FOLLOWER_COUNT',
+      ],
+      template: ALBUM_NAME_TEMPLATE,
+    });
 
-  const chain = new LLMChain({
-    llm: model,
-    prompt: prompt,
-  });
+    const chain = new LLMChain({
+      llm: model,
+      prompt: prompt,
+    });
 
-  const res = await chain.call({
-    ARTIST_NAME: artistName,
-    ARTIST_GENRES: artistGenres,
-    IG_FOLLOWER_COUNT: igFollowerCount,
-  });
-  logger.log({res});
+    const res = await chain.call({
+      ARTIST_NAME: artistName,
+      ARTIST_GENRES: artistGenres,
+      IG_FOLLOWER_COUNT: igFollowerCount,
+    });
+    logger.log({ res });
 
-  // TODO : save response to firestore
-
-  return res;
+    return res;
+  },
 };
+
+export default llm;

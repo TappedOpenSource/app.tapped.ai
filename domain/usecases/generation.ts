@@ -1,109 +1,60 @@
-import { None } from '@sniptt/monads';
-import { v4 as uuidv4 } from 'uuid';
 import api from '../../data/api';
 import database from '../../data/database';
-import { Avatar, AvatarStatus } from '../models/avatar';
+import storage from '../../data/storage';
 import { BrandGenerator } from '../models/brand_generator';
+import { uuid as uuidv4 } from 'uuidv4';
 
-const AVATAR_PROMPT = '';
-const MARKETING_PLAN_PROMPT = '';
-const BRANDING_GUIDANCE_PROMPT = '';
-const SOCIAL_BIO_PROMPT = '';
-const ALBUM_ART_PROMPT = '';
-const STAGE_PHOTOS_PROMPT = '';
 
-export const generateAvatar = async ({ generator }: {
-    generator: BrandGenerator,
-}): Promise<Avatar> => {
-  const uuid = uuidv4();
+export const generateAvatars = async ({ generator }: {
+  generator: BrandGenerator,
+}): Promise<void> => {
+  // TODO : create inference job
+  const inf = await api.createAvatarInferenceJob();
 
-  const prompt = 'This is a test prompt'; // TODO get from form
+  // TODO : poll leapai for results
+  const { imageUrls, prompt } = await api.getAvatarInferenceJob(inf.id);
 
-  const avatar: Avatar = {
-    id: uuid,
-    userId: generator.userId,
+  // TODO save images to firebase storage
+  const urls = await storage.saveAvatarImages({
     generatorId: generator.id,
-    prompt,
-    status: 'initial',
-    url: None,
-    errorMsg: None,
-    timestamp: new Date(),
-  };
-
-  const avatarId = await database.createAvatar(avatar);
-  console.log(`created avatar with id ${avatarId}`);
-
-  return avatar;
-};
-
-export const pollAvatarStatus = async ({ avatarId, generatorId }: {
-    avatarId: string;
-    generatorId: string;
-}): Promise<AvatarStatus> => {
-  const avatar = await database.getAvatar({
-    id: avatarId,
-    generatorId,
+    imageUrls,
   });
 
-  return await avatar.match({
-    some: async (avatar: Avatar): Promise<AvatarStatus> => {
-      const status = avatar.status;
+  // TODO : save result to firestore for all avatars
+  for (const url of urls) {
+    const uuid = uuidv4();
+    const generateAvatar = {
+      id: uuid,
+      generatorId: generator.id,
+      prompt,
+      url,
+    };
+    await database.createGeneratedAvatar(generatedAvatar);
+  }
 
-      console.log(`avatar status: ${status}`);
-
-      if (status !== 'generating') {
-        return status;
-      }
-
-      const prompt = avatar.prompt;
-      const result = await api.pollHuggingFaceAvatarModel({
-        prompt,
-        userId: avatar.userId,
-        avatarId: avatar.id,
-      });
-      console.log(JSON.stringify(result));
-
-      return status;
-    },
-    none: async (): Promise<AvatarStatus> => {
-      console.log('No avatar found');
-      return 'error';
-    },
-  });
+  // TODO : delete images from leapai
+  await api.deleteInferenceJob(inf.id);
 };
 
-export const generateMarketingPlan = async ({
-  artistName,
-  artistGenres,
-  igFollowerCount,
-}: {
-    artistName: string;
-    artistGenres: string;
-    igFollowerCount: number;
-}): Promise<string> => {
-  const res = await api.gpt3MarketingPlan({
+export const generateAlbumName = async ({ artistName, artistGenres, igFollowerCount }: {
+  artistName: string;
+  artistGenres: string;
+  igFollowerCount: number;
+}) => {
+  // TODO : call openai
+  const res = await api.generateAlbumName({
     artistName,
     artistGenres,
     igFollowerCount,
   });
 
-  console.log(`generated marketing plan: ${JSON.stringify(res)}`);
+  console.log(`generated AlbumName: ${JSON.stringify(res)}`);
+
+  // TODO : save result to firestore
+  await database.createGeneratedAlbumName({
+    text: res.text,
+    prompt: res.prompt,
+  });
 
   return res.text;
-};
-
-export const generateBrandingGuidance = async () =>{
-  // whoa
-};
-
-export const generateSocialBio = async () => {
-  // whoa
-};
-
-export const generateAlbumArt = async () => {
-  // whoa
-};
-
-export const generateStagePhotos = async () => {
-  // whoa
 };

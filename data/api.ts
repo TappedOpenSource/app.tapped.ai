@@ -1,35 +1,15 @@
 import { getFunctions, httpsCallable } from 'firebase/functions';
 
-type PollHuggingFaceAvatarModelInput = {
-    prompt: string,
-    userId: string,
-    avatarId: string,
-}
-
-type PollHuggingFaceAvatarModelOutput = {
-    url: string;
-    status: string;
-    updatedAt: Date;
-}
-
-type Gpt3MarketingPlanInput = {
-    artistName: string,
-    artistGenres: string,
-    igFollowerCount: number,
-}
-
-type Gpt3MarketingPlanOutput = {
-    text: string;
-}
-
-type LlmModelInput = {
-  prompt: string,
-};
 
 export type Api = {
-    pollHuggingFaceAvatarModel: (input: PollHuggingFaceAvatarModelInput) => Promise<PollHuggingFaceAvatarModelOutput>;
-    gpt3MarketingPlan: (input: Gpt3MarketingPlanInput) => Promise<Gpt3MarketingPlanOutput>;
-    // callLlmModel: ()
+    createAvatarInferenceJob: () => Promise<{ id: string }>;
+    getAvatarInferenceJob: (id: string) => Promise<{ id: string }>;
+    deleteInferenceJob: (id: string) => Promise<void>;
+    generateAlbumName: (input: {
+      artistName: string;
+      artistGenres: string;
+      igFollowerCount: number;
+    }) => Promise<{ text: string, prompt: string }>;
 };
 
 
@@ -55,11 +35,11 @@ const FirebaseFuncs: Api = {
     artistName,
     artistGenres,
     igFollowerCount,
-  }: Gpt3MarketingPlanInput): Promise<Gpt3MarketingPlanOutput> => {
+  }: Gpt3MarketingPlanInput): Promise<{ text: string }> => {
     const functions = getFunctions();
     const func = httpsCallable<
             Gpt3MarketingPlanInput,
-            Gpt3MarketingPlanOutput
+            { text: string }
         >(functions, 'gpt3MarketingPlan');
     const resp = await func({
       artistName,
