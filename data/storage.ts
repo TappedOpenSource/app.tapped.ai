@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { Resize } from "@cloudinary/url-gen/actions";
-import cloudinary from "../utils/cloudinary";
+import { Resize } from '@cloudinary/url-gen/actions';
+import cloudinary from '../utils/cloudinary';
 
 const INPUT_IMAGE_WIDTH = 512;
 const INPUT_IMAGE_HEIGHT = 512;
@@ -8,12 +8,18 @@ const INPUT_IMAGE_HEIGHT = 512;
 export type Storage = {
     uploadInputImage: (input: { imagePath: string }) => Promise<{ url: string }>;
     deleteInputImage: (input: { public_id: string }) => Promise<void>;
+
+    saveGeneratedAvatarImages: (input: {
+      generatorId: string,
+      avatarId: string,
+      imageUrls: string[],
+    }) => Promise<string[]>;
 };
 
 const CloudinaryStorage: Storage = {
   uploadInputImage: async ({ imagePath }: { imagePath: string }): Promise<{ url: string }> => {
     const { public_id } = await cloudinary.v2.uploader.upload(imagePath, {
-      upload_preset: "input_images",
+      upload_preset: 'input_images',
     });
 
     const uploadedImage = cloudinary.cld.image(public_id);
