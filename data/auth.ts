@@ -2,6 +2,7 @@
 import { onAuthStateChanged } from '@firebase/auth';
 import firebase from '../utils/firebase';
 import { None, Option, Some } from '@sniptt/monads';
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 
 export type Auth = {
     currentUser: Option<{ uid: string }>;
@@ -42,15 +43,22 @@ const FirebaseAuth: Auth = {
     onAuthStateChanged(firebase.auth, callback);
   },
   loginWithCredentials: async (credentials: Credentials) => {
+    console.debug('loginWithCredentials', credentials.email);
+    await signInWithEmailAndPassword(firebase.auth, credentials.email, credentials.password);
     return { uid: '123', token: '123' };
   },
   loginWithGoogle: async () => {
+    console.debug('loginWithGoogle');
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(firebase.auth, provider);
     return { uid: '123', token: '123' };
   },
   loginWithApple: async () => {
+    console.debug('loginWithApple');
     return { uid: '123', token: '123' };
   },
   logout: async () => {
+    console.debug('logout');
     await firebase.auth.signOut();
   },
 };

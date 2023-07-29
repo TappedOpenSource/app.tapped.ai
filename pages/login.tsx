@@ -14,7 +14,6 @@ const Login = () => {
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
-
     try {
       await loginWithCredentials({ email: data.email, password: data.password });
     } catch (err) {
