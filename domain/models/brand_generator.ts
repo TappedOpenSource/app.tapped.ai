@@ -1,5 +1,6 @@
 import { DocumentSnapshot, Timestamp } from 'firebase/firestore';
 import { AvatarStyle } from './avatar';
+import { Option, Some, None } from '@sniptt/monads';
 
 export type BrandGenerator = {
     id: string;
@@ -9,11 +10,15 @@ export type BrandGenerator = {
     createdAt: Date;
 
     // Generator Input
-    artistDescription: string[];
+
+    // generator name
+    name: string;
+
+    // form data
+    artistDescription: string;
     artistName: string;
     artistProfession: string;
     gender: string;
-    modelName: string;
     postFreq: string;
     refImages: string[];
     sellingPoint: string;
@@ -21,7 +26,7 @@ export type BrandGenerator = {
     theme: string;
     avatarStyle: AvatarStyle;
 
-    sdModelId: string;
+    sdModelId: Option<string>;
     sdModelStatus: 'initial'
       | 'training'
       | 'ready'
@@ -35,8 +40,7 @@ export const generatorConverter = {
       ...generator,
       updatedAt: Timestamp.fromDate(generator.updatedAt),
       createdAt: Timestamp.fromDate(generator.createdAt),
-      // Convert AI Models to something for firestore
-      // Convert Images to something for firestore
+      sdModelId: generator.sdModelId.unwrapOr(null),
     };
   },
   fromFirestore: (snapshot: DocumentSnapshot, options) => {
@@ -45,6 +49,7 @@ export const generatorConverter = {
       ...data,
       updatedAt: data.updatedAt.toDate(),
       createdAt: data.createdAt.toDate(),
+      sdModelId: data.sdModelId ? Some(data.sdModelId) : None,
     };
   },
 };

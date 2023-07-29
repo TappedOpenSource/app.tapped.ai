@@ -13,7 +13,6 @@ const clientCredentials = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || '',
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID || '',
 };
-console.debug(JSON.stringify(clientCredentials, null, 2));
 
 const app = getApps().length <= 0 ?
   initializeApp(clientCredentials) :

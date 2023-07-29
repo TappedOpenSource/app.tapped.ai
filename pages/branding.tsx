@@ -2,9 +2,36 @@ import React from 'react';
 import ModelCard from '../components/modelCard';
 import Link from 'next/link';
 import withAuth from '../domain/auth/withAuth';
+import { BrandGenerator } from '../domain/models/brand_generator';
 
 const Branding = () => {
-  const modelIds = ['Model A', 'Model B', 'Model C'];
+  const generators: BrandGenerator[] = [
+    {
+      id: '123',
+      userId: 'someone',
+      name: 'Funky Model',
+      quota: 100,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+
+      artistDescription: 'something',
+      artistName: 'Seelife',
+      artistProfession: 'idk',
+      gender: 'what',
+      postFreq: 'often',
+      refImages: [],
+      sellingPoint: 'idk',
+      socialFollowing: 123,
+      theme: 'something',
+      avatarStyle: 'Vintage',
+      sdModelId: 'whoa',
+      sdModelStatus: 'initial',
+    },
+  ];
+
+  // TODO pull avatars
+
+  // TODO pull album names
 
   return (
     <div className="grid h-screen grid-cols-1 gap-2 rounded-lg bg-[#FFF] p-8 shadow-lg">
@@ -19,10 +46,10 @@ const Branding = () => {
             </button>
           </Link>
         </div>
-        {modelIds.map((modelId) => (
-          <div key={modelId} className="py-4">
-            <Link href={`/model/${modelId}`}>
-              <ModelCard modelName={modelId} />
+        {generators.map((generator) => (
+          <div key={generator.id} className="py-4">
+            <Link href={`/model/${generator.id}`}>
+              <ModelCard generator={generator} />
             </Link>
           </div>
         ))}
