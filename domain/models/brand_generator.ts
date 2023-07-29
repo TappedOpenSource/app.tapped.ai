@@ -4,20 +4,21 @@ import { AvatarStyle } from './avatar';
 export type BrandGenerator = {
     id: string;
     userId: string;
-    name: string;
     quota: number;
     updatedAt: Date;
     createdAt: Date;
 
     // Generator Input
+    artistDescription: string[];
     artistName: string;
-    referenceImages: string[];
-    genres: string[];
-    socialFollowing: number;
-    sellingPoint: string;
-    theme: string;
-    planLength: string;
+    artistProfession: string;
+    gender: string;
+    modelName: string;
     postFreq: string;
+    refImages: string[];
+    sellingPoint: string;
+    socialFollowing: number;
+    theme: string;
     avatarStyle: AvatarStyle;
 
     sdModelId: string;

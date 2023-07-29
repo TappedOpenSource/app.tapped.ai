@@ -2,6 +2,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { BrandGenerator } from '../models/brand_generator';
 import database from '../../data/database';
+<<<<<<< HEAD
 import auth from '../../data/auth';
 
 export const submitCreateGeneratorForm = async (formInputs: {
@@ -14,6 +15,21 @@ export const submitCreateGeneratorForm = async (formInputs: {
     theme: string;
     planLength: string;
     postFreq: string;
+=======
+import firebase from '../../utils/firebase';
+
+export const submitCreateGeneratorForm = async (formInputs: {
+  artistDescription: string[];
+  artistName: string;
+  artistProfession: string;
+  gender: string;
+  modelName: string;
+  postFreq: string;
+  refImages: string[];
+  sellingPoint: string;
+  socialFollowing: number;
+  theme: string;
+>>>>>>> 89f82bdde67d0e86f8cd91e35ace0795f26a953b
 }) => {
   if (auth.currentUser.isNone()) {
     throw new Error('User is not logged in');
@@ -27,20 +43,27 @@ export const submitCreateGeneratorForm = async (formInputs: {
   const sfModelId = uuidv4();
   const generator: BrandGenerator = {
     id: uuid,
+<<<<<<< HEAD
     userId: auth.currentUser.unwrap().uid,
     name: formInputs.name,
+=======
+    userId: firebase.JOHANNES_USERID, // TODO Change later
+>>>>>>> 89f82bdde67d0e86f8cd91e35ace0795f26a953b
     quota: 100,
     updatedAt: new Date(),
     createdAt: new Date(),
+
     // inputs
+    artistDescription: formInputs.artistDescription,
     artistName: formInputs.artistName,
-    referenceImages: formInputs.referenceImages,
-    genres: formInputs.genres,
-    socialFollowing: formInputs.socialFollowing,
-    sellingPoint: formInputs.sellingPoint,
-    theme: formInputs.theme,
-    planLength: formInputs.planLength,
+    artistProfession: formInputs.artistProfession,
+    gender: formInputs.gender,
+    modelName: formInputs.modelName,
     postFreq: formInputs.postFreq,
+    refImages: formInputs.refImages,
+    sellingPoint: formInputs.sellingPoint,
+    socialFollowing: formInputs.socialFollowing,
+    theme: formInputs.theme,
 
     // outputs
     stageImages: [],

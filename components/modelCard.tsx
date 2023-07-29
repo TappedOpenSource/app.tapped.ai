@@ -6,7 +6,7 @@ const ModelCard = (props) => {
     <div className="h-full h-full max-h-20 rounded-full bg-[#DEDEDE]">
       <div className="grid h-full grid-cols-[75%_25%] gap-2">
         <div className="flex grid grid-rows-2 items-center py-4 pl-5">
-          <p className="font-bold">{props.modelName}</p>
+          <p className="font-bold">{props.modelId}</p>
           <p>100 credits left</p>
         </div>
         <div className="pr-4 pt-2">
