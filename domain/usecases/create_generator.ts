@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { None } from '@sniptt/monads';
 import { BrandGenerator } from '../models/brand_generator';
 import database from '../../data/database';
+import storage from '../../data/storage';
 import auth from '../../data/auth';
 
 export const submitCreateGeneratorForm = async (formInputs: {
@@ -22,10 +23,19 @@ export const submitCreateGeneratorForm = async (formInputs: {
     throw new Error('User is not logged in');
   }
 
+  const uuid = uuidv4();
+
   // TODO: upload images to cloudinary
+  const uploadedImages = await Promise.all(
+    formInputs.refImages.map(async (image) => {
+      const { url } = await storage.uploadInputImage({
+        imagePath: image,
+      });
+      return url;
+    }),
+  );
 
   // Create new generator object
-  const uuid = uuidv4();
   const generator: BrandGenerator = {
     id: uuid,
     userId: auth.currentUser.unwrap().uid,
@@ -40,7 +50,7 @@ export const submitCreateGeneratorForm = async (formInputs: {
     artistProfession: formInputs.artistProfession,
     gender: formInputs.gender,
     postFreq: formInputs.postFreq,
-    refImages: formInputs.refImages,
+    refImages: uploadedImages,
     sellingPoint: formInputs.sellingPoint,
     socialFollowing: formInputs.socialFollowing,
     theme: formInputs.theme,
