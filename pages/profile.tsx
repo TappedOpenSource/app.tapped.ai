@@ -6,7 +6,11 @@ import { Button, CircularProgress } from '@mui/material';
 import { useState, useEffect } from 'react';
 
 import { Option, None, Some } from '@sniptt/monads';
-import { generateAvatar, generateMarketingPlan, pollAvatarStatus } from '../domain/usecases/avatar_generator';
+import { 
+  generateAvatar,
+  generateMarketingPlan,
+  pollAvatarStatus,
+} from '../domain/usecases/generation';
 import database from '../data/database';
 import firebase from '../utils/firebase';
 import { Avatar } from '../domain/models/avatar';

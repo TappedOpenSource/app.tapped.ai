@@ -7,7 +7,7 @@ import {
   removeUserCookie,
   setUserCookie,
   getUserFromCookie,
-} from './userCookie';
+} from '../../utils/userCookie';
 
 export const mapUserData = async (user) => {
   const { uid, email } = user;
