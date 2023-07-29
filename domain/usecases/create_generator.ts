@@ -1,20 +1,24 @@
 
-import { v4 as uuidv4 } from "uuid";
-import { BrandGenerator } from "../models/brand_generator";
-import database from "../../data/database";
-import firebase from "../../utils/firebase";
+import { v4 as uuidv4 } from 'uuid';
+import { BrandGenerator } from '../models/brand_generator';
+import database from '../../data/database';
+import auth from '../../data/auth';
 
 export const submitCreateGeneratorForm = async (formInputs: {
     name: string;
     artistName: string;
     referenceImages: string[];
     genres: string[];
-    socialFollowing: string;
+    socialFollowing: number;
     sellingPoint: string;
     theme: string;
     planLength: string;
     postFreq: string;
 }) => {
+  if (auth.currentUser.isNone()) {
+    throw new Error('User is not logged in');
+  }
+
   // TODO: upload images to cloudinary
 
   // Create new generator object
@@ -23,7 +27,7 @@ export const submitCreateGeneratorForm = async (formInputs: {
   const sfModelId = uuidv4();
   const generator: BrandGenerator = {
     id: uuid,
-    userId: firebase.JOHANNES_USERID, // TODO Change later
+    userId: auth.currentUser.unwrap().uid,
     name: formInputs.name,
     quota: 100,
     updatedAt: new Date(),
@@ -46,14 +50,14 @@ export const submitCreateGeneratorForm = async (formInputs: {
     llmModel: {
       id: llmModelId,
       generatorId: uuid,
-      type: "llm",
-      status: "initial",
+      type: 'llm',
+      status: 'initial',
     },
     sdModel: {
       id: sfModelId,
       generatorId: uuid,
-      type: "sd",
-      status: "initial",
+      type: 'sd',
+      status: 'initial',
     },
   };
 

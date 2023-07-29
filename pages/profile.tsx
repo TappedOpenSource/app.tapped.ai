@@ -12,11 +12,11 @@ import {
   pollAvatarStatus,
 } from '../domain/usecases/generation';
 import database from '../data/database';
-import firebase from '../utils/firebase';
 import { Avatar } from '../domain/models/avatar';
 import GeneratorCard from '../components/GeneratorCard';
 import CreateGeneratorButton from '../components/CreateGeneratorButton';
 import withAuth from '../domain/auth/withAuth';
+import { useUser } from '../domain/auth/useUser';
 
 const Profile: NextPage = () => {
   //   const {push} = useRouter();
@@ -28,11 +28,11 @@ const Profile: NextPage = () => {
   const [generating, isGenerating] = useState<boolean>(false);
   const [retry, setRetry] = useState(0);
   const [retryCount, setRetryCount] = useState(maxRetries);
-
   const [avatar, setAvatar] = useState<Option<Avatar>>(None);
   const [avatarUrl, setAvatarUrl] = useState<Option<string>>(None);
-
   const [marketingPlan, setMarketingPlan] = useState<Option<string>>(None);
+
+  const { user } = useUser();
 
   const FAKE_PROMPT = 'johannes playing the piano at a fancy opera house';
 
@@ -74,7 +74,7 @@ const Profile: NextPage = () => {
     case 'complete':
       const avatar = await database.getAvatar({
         id: uuid,
-        userId: firebase.JOHANNES_USERID,
+        userId: user.id,
       });
       const imageUrl = avatar.unwrap().url;
       const image = imageUrl;

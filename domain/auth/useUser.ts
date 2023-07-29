@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Option, Some, None } from '@sniptt/monads';
 import { onIdTokenChanged } from 'firebase/auth';
 import firebase from '../../utils/firebase';
 import {
@@ -21,11 +20,11 @@ export const mapUserData = async (user) => {
 
 
 const useUser = () => {
-  const [user, setUser] = useState<Option<{
+  const [user, setUser] = useState<{
     id: string;
     email: string;
     token: string;
-  }>>(None);
+  } | null>(null);
   const router = useRouter();
 
   const logout = async () => {
@@ -45,10 +44,10 @@ const useUser = () => {
       if (userToken) {
         const userData = await mapUserData(userToken);
         setUserCookie(userData);
-        setUser(Some(userData));
+        setUser(userData);
       } else {
         removeUserCookie();
-        setUser(None);
+        setUser(null);
       }
     });
 
