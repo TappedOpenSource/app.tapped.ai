@@ -1,19 +1,20 @@
 
-import { v4 as uuidv4 } from "uuid";
-import { BrandGenerator } from "../models/brand_generator";
-import database from "../../data/database";
-import firebase from "../../utils/firebase";
+import { v4 as uuidv4 } from 'uuid';
+import { BrandGenerator } from '../models/brand_generator';
+import database from '../../data/database';
+import firebase from '../../utils/firebase';
 
 export const submitCreateGeneratorForm = async (formInputs: {
-    name: string;
-    artistName: string;
-    referenceImages: string[];
-    genres: string[];
-    socialFollowing: string;
-    sellingPoint: string;
-    theme: string;
-    planLength: string;
-    postFreq: string;
+  artistDescription: string[];
+  artistName: string;
+  artistProfession: string;
+  gender: string;
+  modelName: string;
+  postFreq: string;
+  refImages: string[];
+  sellingPoint: string;
+  socialFollowing: number;
+  theme: string;
 }) => {
   // TODO: upload images to cloudinary
 
@@ -24,19 +25,21 @@ export const submitCreateGeneratorForm = async (formInputs: {
   const generator: BrandGenerator = {
     id: uuid,
     userId: firebase.JOHANNES_USERID, // TODO Change later
-    name: formInputs.name,
     quota: 100,
     updatedAt: new Date(),
     createdAt: new Date(),
+
     // inputs
+    artistDescription: formInputs.artistDescription,
     artistName: formInputs.artistName,
-    referenceImages: formInputs.referenceImages,
-    genres: formInputs.genres,
-    socialFollowing: formInputs.socialFollowing,
-    sellingPoint: formInputs.sellingPoint,
-    theme: formInputs.theme,
-    planLength: formInputs.planLength,
+    artistProfession: formInputs.artistProfession,
+    gender: formInputs.gender,
+    modelName: formInputs.modelName,
     postFreq: formInputs.postFreq,
+    refImages: formInputs.refImages,
+    sellingPoint: formInputs.sellingPoint,
+    socialFollowing: formInputs.socialFollowing,
+    theme: formInputs.theme,
 
     // outputs
     stageImages: [],
@@ -46,14 +49,14 @@ export const submitCreateGeneratorForm = async (formInputs: {
     llmModel: {
       id: llmModelId,
       generatorId: uuid,
-      type: "llm",
-      status: "initial",
+      type: 'llm',
+      status: 'initial',
     },
     sdModel: {
       id: sfModelId,
       generatorId: uuid,
-      type: "sd",
-      status: "initial",
+      type: 'sd',
+      status: 'initial',
     },
   };
 
