@@ -1,41 +1,22 @@
 'use client';
 
 import React, { useState } from 'react';
-import firebase from '../utils/firebase';
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-
-const auth = firebase.auth;
+import { loginWithCredentials, loginWithGoogle } from '../domain/usecases/login';
 
 const Login = () => {
-  const router = useRouter();
-  const googleAuth = new GoogleAuthProvider();
-
   const [data, setData] = useState({
     email: '',
     password: '',
   });
 
-  const googleLogin = async () => {
-    const result = await signInWithPopup(auth, googleAuth);
-  };
-
-  const login = (email: string, password: string) => {
-    return signInWithEmailAndPassword(auth, email, password);
-  };
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
 
     try {
-      await login(data.email, data.password);
-      router.push('/dashboard');
+      await loginWithCredentials({ email: data.email, password: data.password });
     } catch (err) {
       console.log(err);
     }
@@ -45,8 +26,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await googleLogin();
-      router.push('/dashboard');
+      await loginWithGoogle();
     } catch (err) {
       console.log(err);
     }

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
+import withAuth from '../domain/auth/withAuth';
 
 const GeneratorConfirmation = () => {
   const [loading, setLoading] = useState(false);
@@ -31,4 +32,4 @@ const GeneratorConfirmation = () => {
   );
 };
 
-export default GeneratorConfirmation;
+export default withAuth(GeneratorConfirmation);

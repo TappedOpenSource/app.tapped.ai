@@ -5,6 +5,7 @@ import Page2 from '../components/form_artist_name';
 import Page3 from '../components/form_gender';
 
 import FormDataManager from '../components/FormDataManager';
+import withAuth from '../domain/auth/withAuth';
 
 const Form = () => {
   const totalPages = 3; // Update this to the total number of pages
@@ -67,4 +68,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default withAuth(Form);

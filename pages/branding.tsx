@@ -1,6 +1,7 @@
 import React from 'react';
 import ModelCard from '../components/modelCard';
 import Link from 'next/link';
+import withAuth from '../domain/auth/withAuth';
 
 const Branding = () => {
   const modelIds = ['Model A', 'Model B', 'Model C'];
@@ -30,4 +31,4 @@ const Branding = () => {
   );
 };
 
-export default Branding;
+export default withAuth(Branding);

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { submitCreateGeneratorForm } from '../domain/usecases/create_generator';
+import withAuth from '../domain/auth/withAuth';
 
 const NewGenerator = () => {
   const [name, setName] = useState('');
@@ -301,4 +302,4 @@ const NewGenerator = () => {
   );
 };
 
-export default NewGenerator;
+export default withAuth(NewGenerator);

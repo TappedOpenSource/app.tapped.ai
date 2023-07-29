@@ -12,6 +12,7 @@ import firebase from '../utils/firebase';
 import { Avatar } from '../domain/models/avatar';
 import GeneratorCard from '../components/GeneratorCard';
 import CreateGeneratorButton from '../components/CreateGeneratorButton';
+import withAuth from '../domain/auth/withAuth';
 
 const Profile: NextPage = () => {
   //   const {push} = useRouter();
@@ -154,4 +155,4 @@ const Profile: NextPage = () => {
   );
 };
 
-export default Profile;
+export default withAuth(Profile);

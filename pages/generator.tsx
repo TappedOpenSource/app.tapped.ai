@@ -1,4 +1,5 @@
 import type { NextPage } from 'next/types';
+import withAuth from '../domain/auth/withAuth';
 
 const Generator: NextPage = () => {
   return (
@@ -8,4 +9,4 @@ const Generator: NextPage = () => {
   );
 };
 
-export default Generator;
+export default withAuth(Generator);
