@@ -27,9 +27,9 @@ const NewGenerator = () => {
 
   const handleSelectChange = (option) => {
     setGenres((prevOptions) =>
-      prevOptions.includes(option)
-        ? prevOptions.filter((prevOption) => prevOption !== option)
-        : [...prevOptions, option]
+      prevOptions.includes(option) ?
+        prevOptions.filter((prevOption) => prevOption !== option) :
+        [...prevOptions, option]
     );
   };
 

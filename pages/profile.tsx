@@ -6,7 +6,7 @@ import { Button, CircularProgress } from '@mui/material';
 import { useState, useEffect } from 'react';
 
 import { Option, None, Some } from '@sniptt/monads';
-import { 
+import {
   generateAvatar,
   generateMarketingPlan,
   pollAvatarStatus,
