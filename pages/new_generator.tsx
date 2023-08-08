@@ -35,15 +35,20 @@ const NewGenerator = () => {
 
   const onNewGeneratorClick = async () => {
     await submitCreateGeneratorForm({
-      name: name,
+      // name: name,
       artistName: artistName,
-      genres: genres,
-      socialFollowing: socialFollowing,
+      artistProfession: '',
+      artistDescription: '',
+      gender: '',
+      modelName: '',
+      // genres: genres,
+      socialFollowing: parseInt(socialFollowing),
       postFreq: postFreq,
       sellingPoint: sellingPoint,
       theme: theme,
-      planLength: planLength,
-      referenceImages: referenceImages,
+      refImages: [],
+      // planLength: planLength,
+      // referenceImages: referenceImages,
     });
   };
 

@@ -21,6 +21,7 @@ const Branding = () => {
       gender: 'what',
       postFreq: 'often',
       refImages: [],
+      genres: [],
       sellingPoint: 'idk',
       socialFollowing: 123,
       theme: 'something',

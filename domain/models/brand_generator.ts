@@ -21,6 +21,7 @@ export type BrandGenerator = {
     gender: string;
     postFreq: string;
     refImages: string[];
+    genres: string[];
     sellingPoint: string;
     socialFollowing: number;
     theme: string;
