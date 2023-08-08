@@ -23,8 +23,6 @@ const ProductCard = ({ product, prices }: { product: any; prices: any[] }) => {
     setLoading(false);
   };
 
-  console.log(JSON.stringify(product));
-  console.log(JSON.stringify(prices));
   return (
     <div className="flex h-60 items-center justify-center rounded-lg bg-[#2d2d2d] shadow">
       <div className="h-full w-full">
