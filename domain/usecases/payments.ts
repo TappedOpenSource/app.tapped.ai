@@ -4,7 +4,7 @@ import auth from '@/data/auth';
 
 export const subscribe = async ({ priceId }: { priceId: string; }): Promise<void> => {
   await database.createCheckoutSession({
-    userId: auth.currentUser.unwrap().uid,
+    userId: auth.getCurrentUserId().unwrap().uid,
     priceId: priceId,
   });
 };

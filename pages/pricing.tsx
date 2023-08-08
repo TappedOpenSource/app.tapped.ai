@@ -1,4 +1,5 @@
 import ProductCard from '@/components/ProductCard';
+import withAuth from '@/domain/auth/withAuth';
 import { getProductAndPriceData } from '@/domain/usecases/payments';
 import { NextPage } from 'next';
 
@@ -24,10 +25,10 @@ const Pricing: NextPage = ({ products }: { products: any[] }) => {
         Select a plan and lets get you introduced to your team from the first
         ever AI Label.
       </p>
-      {products.map((product) => {
+      {products.map(({ product, prices }) => {
         return (
           <div className="px-5 py-2">
-            <ProductCard product={product} key={product.id} />
+            <ProductCard product={product} prices={prices} key={product.name} />
           </div>
         );
       })}
@@ -35,4 +36,4 @@ const Pricing: NextPage = ({ products }: { products: any[] }) => {
   );
 };
 
-export default Pricing;
+export default withAuth(Pricing);

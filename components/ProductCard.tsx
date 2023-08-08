@@ -52,7 +52,9 @@ const ProductCard = ({ product }: { product: any }) => {
           width={200}
           height={200}
         />
-        <Button>Pricing</Button>
+        <div>
+          <Button>Pricing</Button>
+        </div>
       </div>
     </div>
   );
