@@ -18,7 +18,10 @@ export async function getStaticProps() {
   };
 }
 
-const Pricing: NextPage = ({ products, claim }: { products: any[], claim: string }) => {
+const Pricing: NextPage = ({ products, claim }: {
+  products: any[],
+  claim: string,
+ }) => {
   return (
     <>
       <h1 className="px-5 pt-10 text-left text-5xl font-bold text-white">
