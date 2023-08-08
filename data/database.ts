@@ -82,7 +82,7 @@ const FirestoreDB: Database = {
     const sessionsRef = collection(db, `customers/${userId}/checkout_sessions`);
     const docRef = await addDoc(sessionsRef, {
       price: priceId,
-      success_url: window.location.origin,
+      success_url: `${window.location.origin}/branding`,
       cancel_url: window.location.origin,
     });
 

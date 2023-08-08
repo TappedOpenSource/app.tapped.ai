@@ -2,7 +2,7 @@ import Rive from '@rive-app/react-canvas';
 
 const LoadingIcon = () => {
   return (
-    <Rive src="/loading_logo.riv" />
+    <Rive src="./loading_logo.riv" />
   );
 };
 
