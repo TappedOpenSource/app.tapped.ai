@@ -1,4 +1,5 @@
 
+import { Button } from '@mui/material';
 import Image from 'next/image';
 
 const ProductCard = ({ product }: { product: any }) => {
@@ -50,6 +51,7 @@ const ProductCard = ({ product }: { product: any }) => {
         {product?.role ?? 'UNKNOWN'}
       </p>
       <Image src={product?.images[0]} alt={product?.name} width={200} height={200} />
+      <Button></Button>
     </>
   );
 };
