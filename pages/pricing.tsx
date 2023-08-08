@@ -1,4 +1,5 @@
 import ProductCard from '@/components/ProductCard';
+import withAuth from '@/domain/auth/withAuth';
 import { getProductAndPriceData } from '@/domain/usecases/payments';
 import { NextPage } from 'next';
 
@@ -20,13 +21,13 @@ const Pricing: NextPage = ({ products }: { products: any[] }) => {
       <h1>
             pricing
       </h1>
-      {products.map((product) => {
+      {products.map(({ product, prices }) => {
         return (
-          <ProductCard product={product} key={product.id} />
+          <ProductCard product={product} prices={prices} key={product.name} />
         );
       })}
     </>
   );
 };
 
-export default Pricing;
+export default withAuth(Pricing);

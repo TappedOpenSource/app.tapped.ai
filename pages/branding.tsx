@@ -1,8 +1,9 @@
 import React from 'react';
 import ModelCard from '../components/modelCard';
 import Link from 'next/link';
-import withAuth from '../domain/auth/withAuth';
+import withSubscription from '../domain/auth/withSubscription';
 import { BrandGenerator } from '../domain/models/brand_generator';
+import { Some } from '@sniptt/monads';
 
 const Branding = () => {
   const generators: BrandGenerator[] = [
@@ -24,7 +25,7 @@ const Branding = () => {
       socialFollowing: 123,
       theme: 'something',
       avatarStyle: 'Vintage',
-      sdModelId: 'whoa',
+      sdModelId: Some('whoa'),
       sdModelStatus: 'initial',
     },
   ];
@@ -58,4 +59,4 @@ const Branding = () => {
   );
 };
 
-export default withAuth(Branding);
+export default withSubscription(Branding);

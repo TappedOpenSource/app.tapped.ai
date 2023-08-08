@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import router from 'next/router';
-import firebase from '../../utils/firebase';
-import database from '../../data/database';
+import firebase from '@/utils/firebase';
+import database from '@/data/database';
 
 const withAuth = (Component) => (props) => {
   useEffect(() => {
     const currentUser = firebase.auth.currentUser;
-    if (currentUser === null) {
+    if (currentUser === undefined || currentUser === null) {
       router.push('/login');
+      return;
     }
 
     database.addCustomerSubscriptionListener(currentUser.uid, (snapshot) => {

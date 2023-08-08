@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { loginWithCredentials, loginWithGoogle } from '../domain/usecases/login';
+import { useRouter } from 'next/router';
 
 const Login = () => {
+  const router = useRouter();
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -16,6 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await loginWithCredentials({ email: data.email, password: data.password });
+      router.push('/branding');
     } catch (err) {
       console.log(err);
     }
@@ -26,6 +29,7 @@ const Login = () => {
 
     try {
       await loginWithGoogle();
+      router.push('/branding');
     } catch (err) {
       console.log(err);
     }
