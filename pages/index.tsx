@@ -4,12 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
-import Logo from '../components/Icons/Logo';
-import Modal from '../components/Modal';
-import cloudinary from '../utils/cloudinary';
-import getBase64ImageUrl from '../utils/generateBlurPlaceholder';
-import type { ImageProps } from '../utils/types';
-import { useLastViewedPhoto } from '../utils/useLastViewedPhoto';
+import Logo from '@/components/Icons/Logo';
+import Modal from '@/components/Modal';
+import cloudinary from '@/utils/cloudinary';
+import getBase64ImageUrl from '@/utils/generateBlurPlaceholder';
+import type { ImageProps } from '@/utils/types';
+import { useLastViewedPhoto } from '@/utils/useLastViewedPhoto';
 
 const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   const router = useRouter();
@@ -31,9 +31,9 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   return (
     <>
       <Head>
-        <title>Bob from Tapped App</title>
-        <meta property="og:image" content="https://bob.tapped.ai/og.png" />
-        <meta name="twitter:image" content="https://bob.tapped.ai/og.png" />
+        <title>Tapped AI</title>
+        <meta property="og:image" content="https://branding.tapped.ai/og.png" />
+        <meta name="twitter:image" content="https://branding.tapped.ai/og.png" />
       </Head>
       <main className="mx-auto max-w-[1960px] p-4">
         {photoId && (
@@ -48,7 +48,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           <div className="after:content relative mb-5 flex h-[629px] flex-col items-center justify-end gap-4 overflow-hidden rounded-lg bg-white/10 px-6 pb-16 pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0">
             <Logo />
             <h1 className="mb-4 mt-8 text-base font-bold uppercase tracking-widest">
-              Create Your Brand with AI
+              the first ai record label
             </h1>
             <p className="max-w-[40ch] text-white/75 sm:max-w-[32ch]">
               Join the professionals and get a one of a kind branding package
@@ -56,7 +56,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
             </p>
             <Link
               className="pointer z-10 mt-6 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-4"
-              href="https://4sji4izg3we.typeform.com/to/sMv1CTIl"
+              href="/pricing"
             >
               Get Started
             </Link>
@@ -71,7 +71,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
               className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
             >
               <Image
-                alt="Next.js Conf photo"
+                alt="Tapped AI"
                 className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
                 style={{ transform: 'translate3d(0, 0, 0)' }}
                 placeholder="blur"

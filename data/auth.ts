@@ -13,6 +13,7 @@ export type Auth = {
     loginWithGoogle: () => Promise<LoginResult>;
     loginWithApple: () => Promise<LoginResult>;
     logout: () => Promise<void>;
+    getCustomClaimRole: () => Promise<string | null>;
 };
 
 export type Credentials = { email: string; password: string };
@@ -60,6 +61,11 @@ const FirebaseAuth: Auth = {
   logout: async () => {
     console.debug('logout');
     await firebase.auth.signOut();
+  },
+  getCustomClaimRole: async () => {
+    await firebase.auth.currentUser.getIdToken(true);
+    const decodedToken = await firebase.auth.currentUser.getIdTokenResult();
+    return decodedToken.claims['stripeRole'] as string | null;
   },
 };
 

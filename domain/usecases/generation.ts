@@ -1,11 +1,11 @@
 import { None } from '@sniptt/monads';
-import api from '../../data/api';
-import database from '../../data/database';
-import storage from '../../data/storage';
-import { Avatar } from '../models/avatar';
-import { BrandGenerator } from '../models/brand_generator';
+import api from '@/data/api';
+import database from '@/data/database';
+import storage from '@/data/storage';
+import { Avatar } from '@/domain/models/avatar';
+import { BrandGenerator } from '@/domain/models/brand_generator';
 import { uuid as uuidv4 } from 'uuid';
-import { AlbumName } from '../models/album_name';
+import { AlbumName } from '@/domain/models/album_name';
 
 
 export const generateAvatars = async ({ generator }: {

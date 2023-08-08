@@ -19,6 +19,7 @@ export type Api = {
     artistGenres: string[];
     igFollowerCount: number;
   }) => Promise<{ text: string, prompt: string }>;
+  createPortalLink: ({ returnUrl }: { returnUrl: string; }) => Promise<{ url: string; }>;
 };
 
 
@@ -72,6 +73,12 @@ const FirebaseFuncs: Api = {
     console.log(`res: ${JSON.stringify(text)}`);
 
     return { text, prompt };
+  },
+  createPortalLink: async ({ returnUrl }) => {
+    const functions = getFunctions();
+    const func = httpsCallable<{ returnUrl: string }, { url: string; }>(functions, 'ext-firestore-stripe-subscriptions-createPortalLink');
+    const { data } = await func({ returnUrl });
+    return { url: data.url };
   },
 };
 

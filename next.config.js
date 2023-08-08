@@ -5,6 +5,7 @@ module.exports = {
     domains: [
       'res.cloudinary.com', 
       'firebasestorage.googleapis.com',
+      'files.stripe.com',
     ],
   },
 }

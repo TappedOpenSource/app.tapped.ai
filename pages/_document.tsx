@@ -15,15 +15,15 @@ class MyDocument extends Document {
             content="Join the professionals and get a one of a kind branding
             package personalized just for you."
           />
-          <meta property="og:site_name" content="bob.tapped.ai" />
+          <meta property="og:site_name" content="branding.tapped.ai" />
           <meta
             property="og:description"
             content="Join the professionals and get a one of a kind branding
             package personalized just for you."
           />
-          <meta property="og:title" content="Create Your Brand with AI" />
+          <meta property="og:title" content="Tapped AI : world's first AI label" />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Create Your Brand with AI" />
+          <meta name="twitter:title" content="Tapped AI : world's first AI label" />
           <meta
             name="twitter:description"
             content="Join the professionals and get a one of a kind branding

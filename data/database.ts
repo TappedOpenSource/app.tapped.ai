@@ -1,4 +1,17 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  query,
+  getDoc,
+  getDocs,
+  setDoc,
+  where,
+  orderBy,
+  onSnapshot,
+  Unsubscribe,
+  QuerySnapshot,
+} from 'firebase/firestore';
 import { Option, None, Some } from '@sniptt/monads';
 import { Avatar, avatarConverter } from '../domain/models/avatar';
 import { BrandGenerator, generatorConverter } from '../domain/models/brand_generator';
@@ -6,13 +19,22 @@ import firebase from '../utils/firebase';
 import { AlbumName } from '../domain/models/album_name';
 
 export type Database = {
-    createGenerator: (generator: BrandGenerator) => Promise<string>;
-    createGeneratedAvatar: (avatar: Avatar) => Promise<string>
-    getGeneratedAvatar: ({ generatorId, id }: {
-      id: string;
-      generatorId: string;
-    }) => Promise<Option<Avatar>>;
-    createGeneratedAlbumName: (albumName: AlbumName) => Promise<string>;
+  createGenerator: (generator: BrandGenerator) => Promise<string>;
+  createGeneratedAvatar: (avatar: Avatar) => Promise<string>
+  getGeneratedAvatar: ({ generatorId, id }: {
+    id: string;
+    generatorId: string;
+  }) => Promise<Option<Avatar>>;
+  createGeneratedAlbumName: (albumName: AlbumName) => Promise<string>;
+  createCheckoutSession: ({ userId, priceId }: {
+    userId: string;
+    priceId: string;
+  }) => Promise<void>;
+  getActiveProducts: () => Promise<any[]>;
+  addCustomerSubscriptionListener: (
+    userId: string,
+    listener: (snapshot: QuerySnapshot,
+    ) => void) => Promise<Unsubscribe>;
 }
 
 const db = firebase.db;
@@ -30,9 +52,9 @@ const FirestoreDB: Database = {
     return docRef.id;
   },
   getGeneratedAvatar: async ({ generatorId, id }: {
-        generatorId: string,
-        id: string,
-    }): Promise<Option<Avatar>> => {
+    generatorId: string,
+    id: string,
+  }): Promise<Option<Avatar>> => {
     const docRef = doc(db, `generators/${generatorId}/avatars/${id}`).withConverter(avatarConverter);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
@@ -49,6 +71,40 @@ const FirestoreDB: Database = {
     await setDoc(docRef, albumName);
 
     return docRef.id;
+  },
+  createCheckoutSession: async ({
+    userId,
+    priceId,
+  }: {
+    userId: string;
+    priceId: string;
+  }): Promise<void> => {
+    const sessionsRef = collection(db, `customers/${userId}/checkout_sessions`);
+    const docRef = await addDoc(sessionsRef, { price: priceId });
+
+    // Wait for the CheckoutSession to get attached by the extension
+    onSnapshot(docRef, (snap) => {
+      const { error, url } = snap.data();
+      if (error) {
+      // Show an error to your customer and then inspect your function logs.
+        alert(`An error occured: ${error.message}`);
+        document.querySelectorAll('button').forEach((b) => (b.disabled = false));
+      }
+      if (url) {
+        window.location.assign(url);
+      }
+    });
+  },
+  getActiveProducts: async (): Promise<any[]> => {
+    const productsQuery = query(collection(db, 'products'), where('active', '==', true));
+    const products = await getDocs(productsQuery);
+
+    return products.docs.map((product) => product.data());
+  },
+  addCustomerSubscriptionListener: async (userId, callback) => {
+    const subscriptionsRef = collection(db, `customers/${userId}/subscriptions`);
+    const queryRef = query(subscriptionsRef, where('status', 'in', ['trialing', 'active']));
+    return onSnapshot(queryRef, callback);
   },
 };
 

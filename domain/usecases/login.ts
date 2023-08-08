@@ -1,5 +1,5 @@
 
-import auth, { Credentials, LoginResult } from '../../data/auth';
+import auth, { Credentials, LoginResult } from '@/data/auth';
 
 export const loginWithCredentials = async (credentials: Credentials): Promise<void> => {
   await auth.loginWithCredentials(credentials);
