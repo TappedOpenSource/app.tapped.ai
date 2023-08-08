@@ -25,7 +25,7 @@ const ProductCard = ({ product, prices }: { product: any; prices: any[] }) => {
       await subscribe({ priceId: priceData.id });
       setIsSubscribed(true);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     setLoading(false);
   };

@@ -1,16 +1,16 @@
 // pages/form.js
 import React from 'react';
-import Page1 from '../components/form/form_model_name';
-import Page2 from '../components/form/form_artist_name';
-import Page3 from '../components/form/form_gender';
-import Page4 from '../components/form/form_ref_images';
-import Page5 from '../components/form/form_artist_description';
-import Page6 from '../components/form/form_artist_label';
-import Page7 from '../components/form/form_artist_profession';
-import Page8 from '../components/form/form_theme';
-import Page9 from '../components/form/form_social_following';
-import Page10 from '../components/form/form_post_freq';
-import Page11 from '../components/form/form_selling_point';
+import Page1 from '@/components/form/form_model_name';
+import Page2 from '@/components/form/form_artist_name';
+import Page3 from '@/components/form/form_gender';
+import Page4 from '@/components/form/form_ref_images';
+import Page5 from '@/components/form/form_artist_description';
+import Page6 from '@/components/form/form_artist_label';
+import Page7 from '@/components/form/form_artist_profession';
+import Page8 from '@/components/form/form_theme';
+import Page9 from '@/components/form/form_social_following';
+import Page10 from '@/components/form/form_post_freq';
+import Page11 from '@/components/form/form_selling_point';
 import FormDataManager from '../components/form/FormDataManager';
 import { submitCreateGeneratorForm } from '../domain/usecases/create_generator';
 import withAuth from '../domain/auth/withAuth';

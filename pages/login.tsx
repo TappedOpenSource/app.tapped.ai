@@ -20,7 +20,7 @@ const Login = () => {
       await loginWithCredentials({ email: data.email, password: data.password });
       router.push('/branding');
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -31,7 +31,7 @@ const Login = () => {
       await loginWithGoogle();
       router.push('/branding');
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
