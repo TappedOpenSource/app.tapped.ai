@@ -84,6 +84,8 @@ const FirestoreDB: Database = {
       price: priceId,
       success_url: `${window.location.origin}/branding`,
       cancel_url: window.location.origin,
+      allow_promotion_codes: true,
+      mode: 'subscription',
     });
 
     // Wait for the CheckoutSession to get attached by the extension
