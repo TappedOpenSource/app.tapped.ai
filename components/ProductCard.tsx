@@ -1,3 +1,4 @@
+import { subscribe } from '@/domain/usecases/payments';
 import { Button } from '@mui/material';
 import Image from 'next/image';
 
