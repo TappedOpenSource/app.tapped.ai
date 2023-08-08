@@ -7,7 +7,6 @@ import storage from '../../data/storage';
 import auth from '../../data/auth';
 
 export const submitCreateGeneratorForm = async (formInputs: {
-  name: string;
   artistDescription: string;
   artistName: string;
   artistProfession: string;
@@ -39,7 +38,7 @@ export const submitCreateGeneratorForm = async (formInputs: {
   const generator: BrandGenerator = {
     id: uuid,
     userId: auth.currentUser.unwrap().uid,
-    name: formInputs.name,
+    name: formInputs.modelName,
     quota: 100,
     updatedAt: new Date(),
     createdAt: new Date(),

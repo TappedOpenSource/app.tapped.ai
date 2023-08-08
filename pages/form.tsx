@@ -1,13 +1,5 @@
 // pages/form.js
 import React from 'react';
-<<<<<<< HEAD
-import Page1 from '../components/form_model_name';
-import Page2 from '../components/form_artist_name';
-import Page3 from '../components/form_gender';
-
-import FormDataManager from '../components/FormDataManager';
-import withAuth from '../domain/auth/withAuth';
-=======
 import Page1 from '../components/form/form_model_name';
 import Page2 from '../components/form/form_artist_name';
 import Page3 from '../components/form/form_gender';
@@ -21,7 +13,7 @@ import Page10 from '../components/form/form_post_freq';
 import Page11 from '../components/form/form_selling_point';
 import FormDataManager from '../components/form/FormDataManager';
 import { submitCreateGeneratorForm } from '../domain/usecases/create_generator';
->>>>>>> 89f82bdde67d0e86f8cd91e35ace0795f26a953b
+import withAuth from '../domain/auth/withAuth';
 
 const Form = () => {
   const totalPages = 11; // Update this to the total number of pages

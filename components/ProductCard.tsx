@@ -1,4 +1,3 @@
-
 import { Button } from '@mui/material';
 import Image from 'next/image';
 
@@ -43,16 +42,19 @@ const ProductCard = ({ product }: { product: any }) => {
 
   console.log(JSON.stringify(product));
   return (
-    <>
-      <p className="text-white">
-        {product?.name ?? 'UNKNOWN'}
-      </p>
-      <p className="text-white">
-        {product?.role ?? 'UNKNOWN'}
-      </p>
-      <Image src={product?.images[0]} alt={product?.name} width={200} height={200} />
-      <Button></Button>
-    </>
+    <div className="allign-center flex justify-center rounded-lg bg-white shadow">
+      <div>
+        <p className="text-black">{product?.name ?? 'UNKNOWN'}</p>
+        <p className="text-black">{product?.role ?? 'UNKNOWN'}</p>
+        <Image
+          src={product?.images[0]}
+          alt={product?.name}
+          width={200}
+          height={200}
+        />
+        <Button>Pricing</Button>
+      </div>
+    </div>
   );
 };
 
