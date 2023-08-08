@@ -53,7 +53,7 @@ const ProductCard = ({ product, prices }: {
         {priceText}
       </p>
       <Image src={product?.images[0]} alt={product?.name} width={200} height={200} />
-      <Button onClick={() => subscribe({ priceId: prices[0].id })}>subscribe</Button>
+      <Button onClick={() => subscribe({ priceId: priceData.id })}>subscribe</Button>
     </>
   );
 };

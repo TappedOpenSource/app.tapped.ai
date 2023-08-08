@@ -80,7 +80,11 @@ const FirestoreDB: Database = {
     priceId: string;
   }): Promise<void> => {
     const sessionsRef = collection(db, `customers/${userId}/checkout_sessions`);
-    const docRef = await addDoc(sessionsRef, { price: priceId });
+    const docRef = await addDoc(sessionsRef, {
+      price: priceId,
+      success_url: window.location.origin,
+      cancel_url: window.location.origin,
+    });
 
     // Wait for the CheckoutSession to get attached by the extension
     onSnapshot(docRef, (snap) => {
@@ -105,8 +109,16 @@ const FirestoreDB: Database = {
       const prices = await getDocs(pricesQuery);
 
       return {
-        product: product.data(),
-        prices: prices.docs.map((price) => price.data()),
+        product: {
+          id: product.id,
+          ...(product.data()),
+        },
+        prices: prices.docs.map((price) => {
+          return {
+            id: price.id,
+            ...(price.data()),
+          };
+        }),
       };
     })
     );
