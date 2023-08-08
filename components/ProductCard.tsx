@@ -42,7 +42,7 @@ const ProductCard = ({ product, prices }: { product: any; prices: any[] }) => {
         <div className="px-5 pt-10">
           <Button
             onClick={handleSubscribe}
-            disabled={loading || isSubscribed} // Disable button if loading or already subscribed
+            disabled={loading || isSubscribed}
             className="focus:shadow-outline-blue w-full rounded-sm bg-[#42A5F5] px-4 py-2 text-white hover:bg-gray-700 focus:border-gray-700 focus:outline-none active:bg-gray-800"
           >
             {loading ? (
