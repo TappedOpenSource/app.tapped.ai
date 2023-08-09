@@ -5,7 +5,7 @@ import Page2 from '@/components/form/form_artist_name';
 import Page3 from '@/components/form/form_gender';
 import Page4 from '@/components/form/form_ref_images';
 import Page5 from '@/components/form/form_artist_description';
-import Page6 from '@/components/form/form_artist_label';
+import Page6 from '@/components/application/are_you_signed';
 import Page7 from '@/components/form/form_artist_profession';
 import Page8 from '@/components/form/form_theme';
 import Page9 from '@/components/form/form_social_following';

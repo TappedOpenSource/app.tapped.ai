@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FormArtistLabel = ({ formData, updateFormData }) => {
+const AreYouSigned = ({ formData, updateFormData }) => {
   const handleInputChange = (e) => {
     const { value } = e.target;
     updateFormData({ ...formData, ['artistLabel']: value });
@@ -36,4 +36,4 @@ const FormArtistLabel = ({ formData, updateFormData }) => {
   );
 };
 
-export default FormArtistLabel;
+export default AreYouSigned;
