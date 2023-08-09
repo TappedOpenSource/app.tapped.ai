@@ -19,8 +19,14 @@ const Form = () => {
   const totalPages = 11; // Update this to the total number of pages
   const [currentPage, setCurrentPage] = React.useState(1);
 
-  const handleNextPage = () => setCurrentPage((prevPage) => prevPage + 1);
-  const handlePreviousPage = () => setCurrentPage((prevPage) => prevPage - 1);
+  const handleNextPage = () => {
+    console.log(`${currentPage}: next page`);
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+  const handlePreviousPage = () => {
+    console.log(`${currentPage}: previous page`);
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
   const createModel = (formData) => {
     console.log(formData);
   };

@@ -2,6 +2,7 @@ import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFunctions } from 'firebase/functions';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 // import {getAnalytics} from "firebase/analytics";
 
 const clientCredentials = {
@@ -21,6 +22,7 @@ const app = getApps().length <= 0 ?
 const auth = getAuth(app);
 const functions = getFunctions(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
 // const analytics = getAnalytics(app);
 
 export default {
@@ -28,5 +30,6 @@ export default {
   auth,
   functions,
   db,
+  storage,
   // analytics,
 };

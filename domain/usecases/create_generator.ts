@@ -2,9 +2,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import { None } from '@sniptt/monads';
 import { BrandGenerator } from '../models/brand_generator';
-import database from '../../data/database';
-import storage from '../../data/storage';
-import auth from '../../data/auth';
+import database from '@/data/database';
+import storage from '@/data/storage';
+import auth from '@/data/auth';
 
 export const submitCreateGeneratorForm = async (formInputs: {
   artistDescription: string;

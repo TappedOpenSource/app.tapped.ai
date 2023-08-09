@@ -20,7 +20,7 @@
     "@sniptt/monads": "^0.5.10",
     "@stripe/stripe-js": "^2.0.0",
     "@vercel/analytics": "^1.0.1",
-    "cloudinary": "^1.32.0",
+    "cloudinary": "^1.40.0",
     "eslint-config-next": "^13.0.1",
     "firebase": "^10.1.0",
     "framer-motion": "^7.6.4",
