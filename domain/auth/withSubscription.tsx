@@ -11,25 +11,19 @@ const withSubscription = (Component) => (props) => {
       if (!authUser) {
         router.push('/login');
       }
-    });
-    const currentUser = firebase.auth.currentUser;
-    if (currentUser === undefined || currentUser === null) {
-      router.push('/login');
-      return;
-    }
+      auth.getCustomClaimRole().then((claim) => {
+        console.log('Tapped Subscription', claim);
+        if (claim === null) {
+          router.push('/pricing');
+          return;
+        }
+      });
 
-    auth.getCustomClaimRole().then((claim) => {
-      console.log('Tapped Subscription', claim);
-      if (claim === null) {
-        router.push('/pricing');
-        return;
-      }
-    });
-
-    database.addCustomerSubscriptionListener(currentUser.uid, (snapshot) => {
-      if (snapshot.empty) {
-        router.push('/pricing');
-      }
+      database.addCustomerSubscriptionListener(authUser.uid, (snapshot) => {
+        if (snapshot.empty) {
+          router.push('/pricing');
+        }
+      });
     });
   }, []);
 
