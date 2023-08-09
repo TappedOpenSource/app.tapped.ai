@@ -30,9 +30,9 @@ const ProductCard = ({ product, prices }: { product: any; prices: any[] }) => {
 
   const buttonText = isSubscribed ? 'Redirecting...' : 'Subscribe';
   return (
-    <div className="flex h-60 items-center justify-center rounded-lg bg-[#2d2d2d] shadow">
-      <div className="h-full w-full">
-        <div className="w-full">
+    <div className="flex items-center justify-center rounded-lg bg-[#2d2d2d] shadow">
+      <div>
+        <div>
           <p className="px-4 pt-4 text-left text-lg font-bold text-[#42A5F5]">
             {product?.name.toUpperCase() ?? 'UNKNOWN'}
           </p>
@@ -43,7 +43,7 @@ const ProductCard = ({ product, prices }: { product: any; prices: any[] }) => {
           <button
             onClick={handleSubscribe}
             disabled={loading || isSubscribed}
-            className={`focus:shadow-outline-blue w-full rounded-sm bg-[#42A5F5] px-4 py-2 text-white hover:bg-gray-700 focus:border-gray-700 focus:outline-none active:bg-gray-800 ${
+            className={`focus:shadow-outline-blue w-full rounded-sm bg-[#42A5F5] px-4 py-2 my-6 text-white hover:bg-gray-700 focus:border-gray-700 focus:outline-none active:bg-gray-800 ${
               loading || isSubscribed ? 'cursor-not-allowed' : ''
             }`}
           >

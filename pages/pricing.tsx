@@ -53,13 +53,15 @@ const Pricing: NextPage = ({ products }: {
         Select a plan and lets get you introduced to your team from the first
         ever AI Label.
       </p>
-      {products.map(({ product, prices }) => {
-        return (
-          <div className="px-5 py-2" key={product.name}>
-            <ProductCard product={product} prices={prices} key={product.name} />
-          </div>
-        );
-      })}
+      <div className=" flex flex-col md:flex-row">
+        {products.map(({ product, prices }) => {
+          return (
+            <div className="px-5 py-2" key={product.name}>
+              <ProductCard product={product} prices={prices} key={product.name} />
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };
