@@ -9,12 +9,10 @@ const ProductCard = ({ product, prices }: { product: any; prices: any[] }) => {
   const formatedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: priceData.currency,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
   }).format(priceWithCents);
-  const priceText = `${formatedPrice}/${
-    priceData.interval ?? 'once'
-  }`;
+  const priceText = `${formatedPrice}/${priceData.interval ?? 'once'}`;
 
   const [loading, setLoading] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -42,17 +40,19 @@ const ProductCard = ({ product, prices }: { product: any; prices: any[] }) => {
         <p className="px-4 pt-2 text-white">{product?.role ?? 'UNKNOWN'}</p>
         <p className="px-4 pt-8 text-3xl font-bold text-white">{priceText}</p>
         <div className="px-5 pt-10">
-          <Button
+          <button
             onClick={handleSubscribe}
             disabled={loading || isSubscribed}
-            className="focus:shadow-outline-blue w-full rounded-sm bg-[#42A5F5] px-4 py-2 text-white hover:bg-gray-700 focus:border-gray-700 focus:outline-none active:bg-gray-800"
+            className={`focus:shadow-outline-blue w-full rounded-sm bg-[#42A5F5] px-4 py-2 text-white hover:bg-gray-700 focus:border-gray-700 focus:outline-none active:bg-gray-800 ${
+              loading || isSubscribed ? 'cursor-not-allowed' : ''
+            }`}
           >
             {loading ? (
-              <CircularProgress size={24} style={{ color: '#42A5F5' }} />
+              <CircularProgress size={16} style={{ color: 'inherit' }} />
             ) : (
               buttonText
             )}
-          </Button>
+          </button>
         </div>
       </div>
     </div>
