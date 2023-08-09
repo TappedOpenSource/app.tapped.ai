@@ -3,11 +3,15 @@ import { NextPage } from 'next';
 import FormDataManager from '@/components/form/FormDataManager';
 import AreYouSigned from '@/components/application/are_you_signed';
 import Intro from '@/components/application/intro';
+import NameField from '@/components/application/name_field';
+import EmailField from '@/components/application/email_field';
 
 const Application: NextPage = () => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const pages = [
     Intro,
+    NameField,
+    EmailField,
     AreYouSigned,
   ];
   const totalPages = pages.length;

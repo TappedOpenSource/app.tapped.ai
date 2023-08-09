@@ -1,7 +1,7 @@
 // pages/form.js
 import React from 'react';
 import Page1 from '@/components/form/form_model_name';
-import Page2 from '@/components/form/form_artist_name';
+import Page2 from '@/components/application/name_field';
 import Page3 from '@/components/form/form_gender';
 import Page4 from '@/components/form/form_ref_images';
 import Page5 from '@/components/form/form_artist_description';
