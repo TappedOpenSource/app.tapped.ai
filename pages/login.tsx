@@ -3,7 +3,10 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { loginWithCredentials, loginWithGoogle } from '../domain/usecases/login';
+import {
+  loginWithCredentials,
+  loginWithGoogle,
+} from '../domain/usecases/login';
 import { useRouter } from 'next/router';
 
 const Login = () => {
@@ -13,11 +16,13 @@ const Login = () => {
     password: '',
   });
 
-
   const handleLogin = async (e: any) => {
     e.preventDefault();
     try {
-      await loginWithCredentials({ email: data.email, password: data.password });
+      await loginWithCredentials({
+        email: data.email,
+        password: data.password,
+      });
       router.push('/branding');
     } catch (err) {
       console.error(err);
@@ -100,7 +105,7 @@ const Login = () => {
 
         <div className="md:flex md:items-center">
           <div className="md:w-1/3">
-            <Link href="/sign-up">
+            <Link href="/signup">
               <button className="tapped_signup_btn">Sign Up</button>
             </Link>
           </div>

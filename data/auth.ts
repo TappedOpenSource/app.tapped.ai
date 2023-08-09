@@ -2,7 +2,7 @@
 import { onAuthStateChanged } from '@firebase/auth';
 import firebase from '../utils/firebase';
 import { None, Option, Some } from '@sniptt/monads';
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, createUserWithEmailAndPassword } from 'firebase/auth';
 
 export type Auth = {
     currentUser: Option<{ uid: string }>;
@@ -10,6 +10,7 @@ export type Auth = {
     startAuthObserver: () => void;
     authStateObserver: (callback: (user: any) => void) => void;
     loginWithCredentials: (credentials: Credentials) => Promise<LoginResult>;
+    signupWithCredentials: (credentials: Credentials) => Promise<SignupResult>;
     loginWithGoogle: () => Promise<LoginResult>;
     loginWithApple: () => Promise<LoginResult>;
     logout: () => Promise<void>;
@@ -19,6 +20,8 @@ export type Auth = {
 export type Credentials = { email: string; password: string };
 
 export type LoginResult = { uid: string; token: string };
+
+export type SignupResult = {uid: string; token: string };
 
 const FirebaseAuth: Auth = {
   currentUser: None,
@@ -47,6 +50,11 @@ const FirebaseAuth: Auth = {
     console.debug('loginWithCredentials', credentials.email);
     await signInWithEmailAndPassword(firebase.auth, credentials.email, credentials.password);
     return { uid: '123', token: '123' };
+  },
+  signupWithCredentials: async (email, password) => {
+    console.debug('signup');
+    await createUserWithEmailAndPassword(firebase.auth, email, password);
+    return {uid: '123', token: '123'};
   },
   loginWithGoogle: async () => {
     console.debug('loginWithGoogle');
