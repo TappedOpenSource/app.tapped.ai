@@ -2,18 +2,20 @@ import React from 'react';
 
 const EmailField = ({ formData, updateFormData }) => {
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { email, value } = e.target;
     updateFormData({
-      [name]: value,
       ...formData,
+      ['email']: value,
     });
   };
 
   return (
-    <div className="page flex flex-col items-center justify-center h-full bg-white">
-      <div className="flex flex-col items-start w-full px-6">
-        <h1 className="text-2xl font-bold mb-4 text-[#42A5F5]">What is your name/artist name?</h1>
-        <div className="flex items-center justify-center w-full h-full">
+    <div className="page flex h-full flex-col items-center justify-center bg-white">
+      <div className="flex w-full flex-col items-start px-6">
+        <h1 className="mb-4 text-2xl font-bold text-[#42A5F5]">
+          What is your email?
+        </h1>
+        <div className="flex h-full w-full items-center justify-center">
           <input
             type="text"
             name="email"

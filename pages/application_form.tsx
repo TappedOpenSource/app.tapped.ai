@@ -1,16 +1,24 @@
 import React from 'react';
 import { NextPage } from 'next';
 import FormDataManager from '@/components/form/FormDataManager';
-import AreYouSigned from '@/components/application/are_you_signed';
+import DescribeField from '@/components/application/describe_field';
 import NameField from '@/components/application/name_field';
 import EmailField from '@/components/application/email_field';
+import AreYouSigned from '@/components/application/label_field';
+import ArtistProfessionField from '@/components/application/profession_field';
+import FollowingField from '@/components/application/following_field';
+import IgField from '@/components/application/ig_field';
 
 const Application: NextPage = () => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const pages = [
     NameField,
     EmailField,
+    DescribeField,
     AreYouSigned,
+    ArtistProfessionField,
+    FollowingField,
+    IgField,
   ];
   const totalPages = pages.length;
 
@@ -44,26 +52,38 @@ const Application: NextPage = () => {
             {({ formData, updateFormData }) => {
               return (
                 <>
-                  <CurrentPage formData={formData} updateFormData={updateFormData} />
-                  <div className={`${currentIndex === 0 ? 'flex justify-center' : 'flex justify-between'}`}>
+                  <CurrentPage
+                    formData={formData}
+                    updateFormData={updateFormData}
+                  />
+                  <div
+                    className={`${
+                      currentIndex === 0
+                        ? 'flex justify-center'
+                        : 'flex justify-between'
+                    }`}
+                  >
                     {currentIndex !== 0 && (
-                      <button className="tapped_btn" onClick={handlePreviousPage}>
-                      Previous
+                      <button
+                        className="tapped_btn"
+                        onClick={handlePreviousPage}
+                      >
+                        Previous
                       </button>
                     )}
 
-                    {currentIndex !== (totalPages - 1) && (
+                    {currentIndex !== totalPages - 1 && (
                       <button className="tapped_btn" onClick={handleNextPage}>
-                      Next
+                        Next
                       </button>
                     )}
 
-                    {currentIndex === (totalPages - 1) && (
+                    {currentIndex === totalPages - 1 && (
                       <button
                         className="tapped_btn"
                         onClick={() => onSubmit(formData)}
                       >
-                    Apply
+                        Apply
                       </button>
                     )}
                   </div>
