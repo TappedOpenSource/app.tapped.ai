@@ -10,7 +10,7 @@ const FormRefImages = ({ formData, updateFormData }) => {
   }[]>([]);
 
   useEffect(() => {
-    setRefImages(formData.refImages);
+    setRefImages(formData.refImages ?? []);
   }, []);
 
   const handleRemoveImage = (index) => {
@@ -53,7 +53,7 @@ const FormRefImages = ({ formData, updateFormData }) => {
               }
               return (
                 <button
-                  className="px-4 py-4 rounded-full bg-gray-900 font-bold text-white opacity-50 hover:opacity-75"
+                  className="px-4 py-4 rounded-lg bg-gray-900 font-bold text-white opacity-50 hover:opacity-75"
                   onClick={handleOnClick}>
                   Upload an Images
                 </button>
