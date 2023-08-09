@@ -23,6 +23,14 @@ const Application: NextPage = () => {
     console.log(formData);
   };
 
+  if (totalPages <= 0) {
+    return (
+      <>
+        <h1>Form is empty</h1>
+      </>
+    );
+  }
+
   const CurrentPage = pages[currentIndex];
   return (
     <>
