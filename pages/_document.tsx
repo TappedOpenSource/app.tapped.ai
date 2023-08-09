@@ -21,9 +21,15 @@ class MyDocument extends Document {
             content="Join the professionals and get a one of a kind branding
             package personalized just for you."
           />
-          <meta property="og:title" content="Tapped AI : world's first AI label" />
+          <meta
+            property="og:title"
+            content="Tapped AI : world's first AI label"
+          />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Tapped AI : world's first AI label" />
+          <meta
+            name="twitter:title"
+            content="Tapped AI : world's first AI label"
+          />
           <meta
             name="twitter:description"
             content="Join the professionals and get a one of a kind branding

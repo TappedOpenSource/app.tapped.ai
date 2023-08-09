@@ -1,134 +1,48 @@
-import type { NextPage } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
-import Logo from '@/components/Icons/Logo';
-import Modal from '@/components/Modal';
-import cloudinary from '@/utils/cloudinary';
-import getBase64ImageUrl from '@/utils/generateBlurPlaceholder';
-import type { ImageProps } from '@/utils/types';
-import { useLastViewedPhoto } from '@/utils/useLastViewedPhoto';
 
-const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
-  const router = useRouter();
-  const { photoId } = router.query;
-  const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto();
-
-  const lastViewedPhotoRef = useRef<HTMLAnchorElement>(null);
-
-  useEffect(() => {
-    // This effect keeps track of the
-    // last viewed photo in the modal to
-    // keep the index page in sync when the user navigates back
-    if (lastViewedPhoto && !photoId) {
-      lastViewedPhotoRef.current.scrollIntoView({ block: 'center' });
-      setLastViewedPhoto(null);
-    }
-  }, [photoId, lastViewedPhoto, setLastViewedPhoto]);
-
+export default function Home() {
   return (
-    <>
-      <Head>
-        <title>Tapped AI</title>
-        <meta property="og:image" content="https://branding.tapped.ai/og.png" />
-        <meta name="twitter:image" content="https://branding.tapped.ai/og.png" />
-      </Head>
-      <main className="mx-auto max-w-[1960px] p-4">
-        {photoId && (
-          <Modal
-            images={images}
-            onClose={() => {
-              setLastViewedPhoto(photoId);
-            }}
-          />
-        )}
-        <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4">
-          <div className="after:content relative mb-5 flex h-[629px] flex-col items-center justify-end gap-4 overflow-hidden rounded-lg bg-white/10 px-6 pb-16 pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0">
-            <Logo />
-            <h1 className="mb-4 mt-8 text-base font-bold uppercase tracking-widest">
-              the first ai record label
-            </h1>
-            <p className="max-w-[40ch] text-white/75 sm:max-w-[32ch]">
-              Join the professionals and get a one of a kind branding package
-              personalized just for you.
-            </p>
-            <Link
-              className="pointer z-10 mt-6 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-4"
-              href="/branding"
-            >
-              Get Started
-            </Link>
-          </div>
-          {images.map(({ id, publicId, format, blurDataUrl }) => (
-            <Link
-              key={id}
-              href={`/?photoId=${id}`}
-              as={`/p/${id}`}
-              ref={id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null}
-              shallow
-              className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
-            >
-              <Image
-                alt="Tapped AI"
-                className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
-                style={{ transform: 'translate3d(0, 0, 0)' }}
-                placeholder="blur"
-                blurDataURL={blurDataUrl}
-                src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_720/${publicId}.${format}`}
-                width={720}
-                height={480}
-                sizes="(max-width: 640px) 100vw,
-                  (max-width: 1280px) 50vw,
-                  (max-width: 1536px) 33vw,
-                  25vw"
-              />
-            </Link>
-          ))}
+    <div className="min-w-screen flex min-h-screen flex-col items-center justify-start bg-[#42A5F5] p-12">
+      <div className="w-full max-w-5xl items-center justify-between text-sm lg:flex">
+        <div
+          id="by-tapped"
+          className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center rounded-lg bg-white lg:static lg:h-auto lg:w-auto"
+        >
+          <a
+            className="text-md pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
+            href="https://app.tapped.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            By{' '}
+            <Image
+              src="/images/tapped_logo.png"
+              alt="Tapped AI Logo"
+              width={65}
+              height={14}
+              priority
+            />
+          </a>
         </div>
-      </main>
-      <footer className="p-6 text-center text-white/80 sm:p-12">
-        Copyright Tapped App Inc. {new Date().getFullYear()}
-      </footer>
-    </>
+      </div>
+
+      <div className="before:bg-gradient-radial after:bg-gradient-conic flex flex-col place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:h-[180px] after:w-[240px] after:translate-x-1/3 after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 md:pl-24 md:pr-24 md:pt-24 before:lg:h-[360px]">
+        <h1 className="text-center text-5xl font-bold text-white lg:text-8xl">
+          Welcome to the first ever{' '}
+          <span className="md:underline">AI Record Label</span>.
+        </h1>
+        <div className="pb-2 pt-2"></div>
+        <h2 className="text-center text-2xl font-thin text-white lg:text-4xl">
+          let&apos;s destroy traditional record labels together....
+        </h2>
+        <Link
+          className="pointer z-10 mt-6 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-4"
+          href="/branding"
+        >
+          Get Started
+        </Link>
+      </div>
+    </div>
   );
-};
-
-export default Home;
-
-export async function getStaticProps() {
-  const results = await cloudinary.v2.search
-    .expression(`folder:${process.env.CLOUDINARY_FOLDER}/*`)
-    .sort_by('public_id', 'desc')
-    .max_results(400)
-    .execute();
-  const reducedResults: ImageProps[] = [];
-
-  let i = 0;
-  for (const result of results.resources) {
-    reducedResults.push({
-      id: i,
-      height: result.height,
-      width: result.width,
-      publicId: result.public_id,
-      format: result.format,
-    });
-    i++;
-  }
-
-  const blurImagePromises = results.resources.map((image: ImageProps) => {
-    return getBase64ImageUrl(image);
-  });
-  const imagesWithBlurDataUrls = await Promise.all(blurImagePromises);
-
-  for (let i = 0; i < reducedResults.length; i++) {
-    reducedResults[i].blurDataUrl = imagesWithBlurDataUrls[i];
-  }
-
-  return {
-    props: {
-      images: reducedResults,
-    },
-  };
 }
