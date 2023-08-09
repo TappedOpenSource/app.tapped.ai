@@ -4,10 +4,15 @@ import { subscribe } from '@/domain/usecases/payments';
 
 const ProductCard = ({ product, prices }: { product: any; prices: any[] }) => {
   const priceData = prices[0];
-  const priceText = `${new Intl.NumberFormat('en-US', {
+  const priceWithCents = (priceData.unit_amount / 100).toFixed(2);
+
+  const formatedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: priceData.currency,
-  }).format(((priceData.unit_amount as number) / 100).toFixed(2))}/${
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  }).format(priceWithCents);
+  const priceText = `${formatedPrice}/${
     priceData.interval ?? 'once'
   }`;
 
@@ -20,7 +25,7 @@ const ProductCard = ({ product, prices }: { product: any; prices: any[] }) => {
       await subscribe({ priceId: priceData.id });
       setIsSubscribed(true);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     setLoading(false);
   };

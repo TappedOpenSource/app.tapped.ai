@@ -54,6 +54,7 @@ export const submitCreateGeneratorForm = async (formInputs: {
     socialFollowing: formInputs.socialFollowing,
     theme: formInputs.theme,
     avatarStyle: 'Vintage',
+    genres: [],
 
     sdModelId: None,
     sdModelStatus: 'initial',

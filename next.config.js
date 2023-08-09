@@ -1,4 +1,10 @@
 module.exports = {
+  webpack5: true,
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false };
+
+    return config;
+  },
   reactStrictMode: true,
   images: {
     // formats: ['image/avif', 'image/webp', 'image/png', 'image/jpeg'],

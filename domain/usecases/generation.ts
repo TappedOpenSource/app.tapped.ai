@@ -12,13 +12,13 @@ export const generateAvatars = async ({ generator }: {
   generator: BrandGenerator,
 }): Promise<{ urls: string[] }> => {
   // create inference job
-  const { id, prompt } = await api.createAvatarInferenceJob({
-    modelId: generator.sdModelId,
+  const { inferenceId, prompt } = await api.createAvatarInferenceJob({
+    modelId: generator.sdModelId.unwrap(),
     avatarStyle: generator.avatarStyle,
   });
 
   // poll leapai for results
-  const { imageUrls } = await api.getAvatarInferenceJob(id);
+  const { imageUrls } = await api.getAvatarInferenceJob(inferenceId);
 
   // ave images to firebase storage
   const urls = await Promise.all(
@@ -47,7 +47,7 @@ export const generateAvatars = async ({ generator }: {
   );
 
   // delete images from leapai
-  await api.deleteInferenceJob(id);
+  await api.deleteInferenceJob(inferenceId);
 
   return { urls };
 };
