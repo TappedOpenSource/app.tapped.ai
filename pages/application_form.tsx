@@ -2,10 +2,12 @@ import React from 'react';
 import { NextPage } from 'next';
 import FormDataManager from '@/components/form/FormDataManager';
 import AreYouSigned from '@/components/application/are_you_signed';
+import Intro from '@/components/application/intro';
 
 const Application: NextPage = () => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const pages = [
+    Intro,
     AreYouSigned,
   ];
   const totalPages = pages.length;
@@ -41,20 +43,20 @@ const Application: NextPage = () => {
               return (
                 <>
                   <CurrentPage formData={formData} updateFormData={updateFormData} />
-                  <div className="mt-5 flex justify-between px-6">
-                    {currentIndex !== 1 && (
+                  <div className={`${currentIndex === 0 ? 'flex justify-center' : 'flex justify-between'}`}>
+                    {currentIndex !== 0 && (
                       <button className="tapped_btn" onClick={handlePreviousPage}>
                       Previous
                       </button>
                     )}
 
-                    {currentIndex !== totalPages && (
+                    {currentIndex !== (totalPages - 1) && (
                       <button className="tapped_btn" onClick={handleNextPage}>
                       Next
                       </button>
                     )}
 
-                    {currentIndex === 11 && (
+                    {currentIndex === (totalPages - 1) && (
                       <button
                         className="tapped_btn"
                         onClick={() => onSubmit(formData)}
