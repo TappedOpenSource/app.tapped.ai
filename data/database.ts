@@ -141,7 +141,8 @@ const FirestoreDB: Database = {
     userId: string;
     labelApplication: LabelApplication;
   }) => {
-    const docRef = await addDoc(collection(db, 'label_applications'), {
+    const docRef = doc(db, `label_applications/${labelApplication.id}`);
+    await setDoc(docRef, {
       userId,
       ...labelApplication,
     });
