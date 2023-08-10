@@ -13,10 +13,10 @@ import {
   orderBy,
 } from 'firebase/firestore';
 import { Option, None, Some } from '@sniptt/monads';
-import { Avatar, avatarConverter } from '../domain/models/avatar';
-import { BrandGenerator, generatorConverter } from '../domain/models/brand_generator';
-import firebase from '../utils/firebase';
-import { AlbumName } from '../domain/models/album_name';
+import { Avatar, avatarConverter } from '@/domain/models/avatar';
+import { BrandGenerator, generatorConverter } from '@/domain/models/brand_generator';
+import firebase from '@/utils/firebase';
+import { AlbumName } from '@/domain/models/album_name';
 
 export type Database = {
   createGenerator: (generator: BrandGenerator) => Promise<string>;
@@ -35,6 +35,7 @@ export type Database = {
     userId: string,
     listener: (snapshot: QuerySnapshot,
     ) => void) => Promise<Unsubscribe>;
+  createNewApplicationResponse: (applicationResponse: any) => Promise<string>;
 }
 
 const db = firebase.db;
@@ -131,6 +132,11 @@ const FirestoreDB: Database = {
     const subscriptionsRef = collection(db, `customers/${userId}/subscriptions`);
     const queryRef = query(subscriptionsRef, where('status', 'in', ['trialing', 'active']));
     return onSnapshot(queryRef, callback);
+  },
+  createNewApplicationResponse: async (applicationResponse: any) => {
+    const docRef = await addDoc(collection(db, 'label_applications'), applicationResponse);
+
+    return docRef.id;
   },
 };
 

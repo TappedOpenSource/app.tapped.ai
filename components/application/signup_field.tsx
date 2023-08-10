@@ -1,10 +1,11 @@
 import SignInWithGoogleButton from '@/components/signin_with_google_button';
 import { useRouter } from 'next/router';
 
-const SignUpField = () => {
+const SignUpField = ({ formData, updateFormData }) => {
   const router = useRouter();
 
   const handleLogin = () => {
+    console.log(formData);
     router.push('/branding');
   };
 

@@ -3,7 +3,11 @@ import React from 'react';
 const AreYouSigned = ({ formData, updateFormData }) => {
   const handleInputChange = (e) => {
     const { value } = e.target;
-    updateFormData({ ...formData, ['artistLabel']: value });
+    console.log(value);
+    updateFormData({
+      ...formData,
+      artistLabel: value === 'yes' ? true : false,
+    });
   };
 
   return (
@@ -13,23 +17,36 @@ const AreYouSigned = ({ formData, updateFormData }) => {
           Are you currently signed to a record label?
         </h1>
         <div className="flex h-full w-full flex-wrap items-center justify-center">
-          {['Yes', 'No'].map((option, index) => (
-            <div
-              key={index}
-              className="mb-2 block flex items-center pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
-            >
-              <input
-                type="radio"
-                id={option}
-                name="artistLabel"
-                value={option}
-                checked={(formData['artistLabel'] || '') === option}
-                onChange={handleInputChange}
-                className="mr-2"
-              />
-              <label htmlFor={option}>{option}</label>
-            </div>
-          ))}
+          <div
+            key='yes'
+            className="mb-2 block flex items-center pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
+          >
+            <input
+              type="radio"
+              id='yes'
+              name="artistLabel"
+              value='yes'
+              checked={(formData['artistLabel'] ?? false)}
+              onChange={handleInputChange}
+              className="mr-2"
+            />
+            <label htmlFor='yes'>Yes</label>
+          </div>
+          <div
+            key='no'
+            className="mb-2 block flex items-center pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
+          >
+            <input
+              type="radio"
+              id='no'
+              name="artistLabel"
+              value='no'
+              checked={!(formData['artistLabel'] ?? true)}
+              onChange={handleInputChange}
+              className="mr-2"
+            />
+            <label htmlFor='no'>No</label>
+          </div>
         </div>
       </div>
     </div>
