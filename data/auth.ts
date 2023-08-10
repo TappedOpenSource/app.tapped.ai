@@ -48,22 +48,30 @@ const FirebaseAuth: Auth = {
   },
   loginWithCredentials: async (credentials: Credentials) => {
     console.debug('loginWithCredentials', credentials.email);
-    await signInWithEmailAndPassword(firebase.auth, credentials.email, credentials.password);
-    return { uid: '123', token: '123' };
+    const loginResult = await signInWithEmailAndPassword(
+      firebase.auth,
+      credentials.email,
+      credentials.password,
+    );
+    return { uid: loginResult.user.uid, token: '123' };
   },
   signupWithCredentials: async ({ email, password }: {
     email: string;
     password: string;
   }) => {
     console.debug('signup');
-    await createUserWithEmailAndPassword(firebase.auth, email, password);
-    return {uid: '123', token: '123'};
+    const loginResult = await createUserWithEmailAndPassword(
+      firebase.auth,
+      email,
+      password,
+    );
+    return { uid: loginResult.user.uid, token: '123' };
   },
   loginWithGoogle: async () => {
     console.debug('loginWithGoogle');
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(firebase.auth, provider);
-    return { uid: '123', token: '123' };
+    const loginResult = await signInWithPopup(firebase.auth, provider);
+    return { uid: loginResult.user.uid, token: '123' };
   },
   loginWithApple: async () => {
     console.debug('loginWithApple');

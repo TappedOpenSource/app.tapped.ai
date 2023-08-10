@@ -1,16 +1,18 @@
+import { LoginResult } from '@/data/auth';
 import { loginWithGoogle } from '@/domain/usecases/login';
 
-const SignInWithGoogleButton = ({ onClick }) => {
+const SignInWithGoogleButton = ({ onClick }: {
+  onClick: (loginResult: LoginResult) => void,
+}) => {
   const handleLogin = async (e: any) => {
     e.preventDefault();
 
     try {
-      await loginWithGoogle();
+      const response = await loginWithGoogle();
+      onClick(response);
     } catch (err) {
       console.error(err);
     }
-
-    onClick();
   };
 
   return (

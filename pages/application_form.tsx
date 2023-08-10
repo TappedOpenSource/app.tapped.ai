@@ -33,10 +33,6 @@ const Application: NextPage = () => {
     setCurrentIndex((prev) => prev - 1);
   };
 
-  const onSubmit = async (formData) => {
-    console.log(formData);
-  };
-
   if (totalPages <= 0) {
     return (
       <>

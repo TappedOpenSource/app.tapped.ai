@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
   loginWithCredentials,
-  loginWithGoogle,
 } from '../domain/usecases/login';
 import { useRouter } from 'next/router';
 import SignInWithGoogleButton from '@/components/signin_with_google_button';

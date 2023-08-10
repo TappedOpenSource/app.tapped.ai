@@ -17,6 +17,7 @@ import { Avatar, avatarConverter } from '@/domain/models/avatar';
 import { BrandGenerator, generatorConverter } from '@/domain/models/brand_generator';
 import firebase from '@/utils/firebase';
 import { AlbumName } from '@/domain/models/album_name';
+import { LabelApplication } from '@/domain/models/label_application';
 
 export type Database = {
   createGenerator: (generator: BrandGenerator) => Promise<string>;
@@ -35,7 +36,10 @@ export type Database = {
     userId: string,
     listener: (snapshot: QuerySnapshot,
     ) => void) => Promise<Unsubscribe>;
-  createNewApplicationResponse: (applicationResponse: any) => Promise<string>;
+  createNewApplicationResponse: ({ userId, labelApplication }: {
+    userId: string;
+    labelApplication: LabelApplication;
+  }) => Promise<string>;
 }
 
 const db = firebase.db;
@@ -133,8 +137,14 @@ const FirestoreDB: Database = {
     const queryRef = query(subscriptionsRef, where('status', 'in', ['trialing', 'active']));
     return onSnapshot(queryRef, callback);
   },
-  createNewApplicationResponse: async (applicationResponse: any) => {
-    const docRef = await addDoc(collection(db, 'label_applications'), applicationResponse);
+  createNewApplicationResponse: async ({ userId, labelApplication }: {
+    userId: string;
+    labelApplication: LabelApplication;
+  }) => {
+    const docRef = await addDoc(collection(db, 'label_applications'), {
+      userId,
+      ...labelApplication,
+    });
 
     return docRef.id;
   },
