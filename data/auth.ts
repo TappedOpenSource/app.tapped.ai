@@ -51,7 +51,10 @@ const FirebaseAuth: Auth = {
     await signInWithEmailAndPassword(firebase.auth, credentials.email, credentials.password);
     return { uid: '123', token: '123' };
   },
-  signupWithCredentials: async (email, password) => {
+  signupWithCredentials: async ({ email, password }: {
+    email: string;
+    password: string;
+  }) => {
     console.debug('signup');
     await createUserWithEmailAndPassword(firebase.auth, email, password);
     return {uid: '123', token: '123'};

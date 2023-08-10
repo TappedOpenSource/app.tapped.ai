@@ -25,14 +25,14 @@ export const submitCreateGeneratorForm = async (formInputs: {
   const uuid = uuidv4();
 
   // TODO: upload images to cloudinary
-  const uploadedImages = await Promise.all(
-    formInputs.refImages.map(async (image) => {
-      const { url } = await storage.uploadInputImage({
-        imagePath: image,
-      });
-      return url;
-    }),
-  );
+  // const uploadedImages = await Promise.all(
+  //   formInputs.refImages.map(async (image) => {
+  //     const { url } = await storage.uploadInputImage({
+  //       imagePath: image,
+  //     });
+  //     return url;
+  //   }),
+  // );
 
   // Create new generator object
   const generator: BrandGenerator = {
@@ -49,7 +49,8 @@ export const submitCreateGeneratorForm = async (formInputs: {
     artistProfession: formInputs.artistProfession,
     gender: formInputs.gender,
     postFreq: formInputs.postFreq,
-    refImages: uploadedImages,
+    // refImages: uploadedImages,
+    refImages: [],
     sellingPoint: formInputs.sellingPoint,
     socialFollowing: formInputs.socialFollowing,
     theme: formInputs.theme,
