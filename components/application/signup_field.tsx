@@ -12,7 +12,7 @@ const SignUpField = ({ formData, updateFormData }) => {
       userId: loginResult.uid,
       labelApplication: formData,
     });
-    router.push('/branding');
+    router.push('/application_complete');
   };
 
   return (
