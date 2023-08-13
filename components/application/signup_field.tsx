@@ -18,7 +18,7 @@ const SignUpField = ({ formData, updateFormData }) => {
   return (
     <>
       <p className='text-black font-bold text-xl'>
-        Sign up and we'll email you our decision
+        Sign up and we&apos;ll email you our decision
       </p>
       <SignInWithGoogleButton onClick={handleLogin} />
       {/* <SignInWithAppleButton /> */}
