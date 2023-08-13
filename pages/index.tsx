@@ -7,7 +7,7 @@ export default function Home() {
       <div className="w-full max-w-5xl items-center justify-between text-sm lg:flex">
         <div id="by-tapped" className="fixed bottom-0 left-0 flex h-24 w-full items-end justify-center bg-white rounded-lg lg:static lg:h-auto lg:w-auto">
           <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
+            className="flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
             href="https://app.tapped.ai"
             target="_blank"
             rel="noopener noreferrer"
@@ -16,10 +16,18 @@ export default function Home() {
             <Image
               src="/images/tapped_logo.png"
               alt="Tapped AI Logo"
-              width={65}
+              width={48}
               height={14}
               priority
             />
+          </a>
+          <a
+            className="md:hidden underline flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
+            href="https://app.tapped.ai/download"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Download the app
           </a>
         </div>
         <Link href="/branding" className="hidden lg:block">already a member?</Link>

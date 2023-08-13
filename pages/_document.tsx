@@ -36,7 +36,7 @@ class MyDocument extends Document {
             package personalized just for you."
           />
         </Head>
-        <body className="bg-black antialiased">
+        <body className="antialiased">
           <Main />
           <NextScript />
         </body>
