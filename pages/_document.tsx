@@ -26,6 +26,7 @@ class MyDocument extends Document {
             content="Tapped AI : world's first AI label"
           />
           <meta property="og:image" content="https://tapped.ai/og.png"></meta>
+          <meta property="og:url" content="https://tapped.ai"></meta>
           <meta name="twitter:card" content="summary_large_image" />
           <meta
             name="twitter:title"
