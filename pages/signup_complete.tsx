@@ -1,14 +1,23 @@
 // import AppStoreButton from '@/components/appstorebuttons/AppStoreButton';
 // import GooglePlayButton from '@/components/appstorebuttons/GooglePlayButton';
+import { useEffect, useState } from 'react';
 import withAuth from '@/domain/auth/withAuth';
 import { logout } from '@/domain/usecases/login';
 import { Button } from '@mui/material';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import RiveComponent from '@rive-app/react-canvas';
 
 const SignupComplete: NextPage = () => {
   // const appleUrl = 'https://apps.apple.com/us/app/tapped-app/id1574937614';
   // const googleUrl = 'https://play.google.com/store/apps/details?id=com.intheloopstudio';
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  });
 
   const router = useRouter();
 
@@ -17,10 +26,33 @@ const SignupComplete: NextPage = () => {
     router.push('/');
   };
 
+  if (loading) {
+    return (
+      <>
+        <div className='h-screen w-screen flex justify-center items-center bg-white pr-4 pl-4'>
+          <div>
+            <div className="flex flex-row justify-center">
+              <RiveComponent
+                src="/loading_logo.riv"
+                className="base-canvas-size h-48 w-48" />
+            </div>
+            <h1 className="text-black text-2xl md:text-6xl text-center font-bold">reviewing your profile</h1>
+            <p className="text-black text-center">
+              hang tight to see if you&apos;re accepted
+            </p>
+            <p className="text-black text-center">
+              (don&apos;t close this window)
+            </p>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <div className="h-screen flex flex-col justify-center items-center">
-        <h1 className="text-2xl text-6xl text-center font-bold">application complete</h1>
+        <h1 className="text-2xl md:text-6xl text-center font-bold">application complete</h1>
         <p className="text-center">
           you have been approved.
         </p>
