@@ -10,9 +10,12 @@ const PhoneField = ({ formData, updateFormData, onValidation }) => {
   const validate = (value) => {
     if (!touched) return;
 
+    console.log(value);
+
     if (value === undefined || value === null) {
       setError('Phone cannot be empty');
       onValidation(false);
+      return;
     }
 
     if (value.trim() === '') {
