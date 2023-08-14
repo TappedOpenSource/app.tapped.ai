@@ -2,9 +2,14 @@ import { useState } from 'react';
 import { Button, CircularProgress } from '@mui/material';
 import { subscribe } from '@/domain/usecases/payments';
 
-const ProductCard = ({ product, prices }: { product: any; prices: any[] }) => {
+const ProductCard = ({ product, prices }: {
+  product: any;
+  prices: any[];
+ }) => {
   const priceData = prices[0];
   const priceWithCents = (priceData.unit_amount / 100).toFixed(2);
+
+  console.log(JSON.stringify(product, null, 2));
 
   const formatedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -12,7 +17,7 @@ const ProductCard = ({ product, prices }: { product: any; prices: any[] }) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
   }).format(priceWithCents);
-  const priceText = `${formatedPrice}/${priceData.interval ?? 'once'}`;
+  const priceText = `${formatedPrice} / ${priceData.interval ?? 'once'}`;
 
   const [loading, setLoading] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -34,10 +39,10 @@ const ProductCard = ({ product, prices }: { product: any; prices: any[] }) => {
       <div>
         <div>
           <p className="px-4 pt-4 text-left text-lg font-bold text-[#42A5F5]">
-            {product?.name.toUpperCase() ?? 'UNKNOWN'}
+            {product?.name.toUpperCase() ?? ''}
           </p>
         </div>
-        <p className="px-4 pt-2 text-white">{product?.role ?? 'UNKNOWN'}</p>
+        <p className="px-4 pt-2 text-white">{product?.description ?? ''}</p>
         <p className="px-4 pt-8 text-3xl font-bold text-white">{priceText}</p>
         <div className="px-5 pt-10">
           <button
