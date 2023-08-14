@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const FollowingField = ({ formData, updateFormData }) => {
+const FollowingField = ({ formData, updateFormData, onValidation }) => {
+  const [error, setError] = useState(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
   const handleInputChange = (e) => {
+    setHasInteracted(true);
     const { value } = e.target;
     updateFormData({ ...formData, ['following_field']: value });
   };
+
+  useEffect(() => {
+    if (hasInteracted) {
+      if (!formData['following_field']) {
+        setError('Please select your social media following range.');
+        onValidation(false);
+      } else {
+        setError(null);
+        onValidation(true);
+      }
+    } else {
+      setError(null);
+      onValidation(false);
+    }
+  }, [formData['following_field'], hasInteracted]);
 
   return (
     <div className="page flex h-full flex-col items-center justify-center bg-white">
@@ -33,6 +52,7 @@ const FollowingField = ({ formData, updateFormData }) => {
             )
           )}
         </div>
+        {error && <p className="text-red-500">{error}</p>}
       </div>
     </div>
   );

@@ -12,6 +12,8 @@ import SignUpField from '@/components/application/signup_field';
 
 const Application: NextPage = () => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [isValid, setIsValid] = React.useState(false);
+
   const pages = [
     NameField,
     EmailField,
@@ -24,9 +26,15 @@ const Application: NextPage = () => {
   ];
   const totalPages = pages.length;
 
+  React.useEffect(() => {
+    setIsValid(false);
+  }, [currentIndex]);
+
   const handleNextPage = () => {
-    console.log(`${currentIndex}: next page`);
-    setCurrentIndex((prev) => prev + 1);
+    if (isValid) {
+      console.log(`${currentIndex}: next page`);
+      setCurrentIndex((prev) => prev + 1);
+    }
   };
   const handlePreviousPage = () => {
     console.log(`${currentIndex}: previous page`);
@@ -53,12 +61,13 @@ const Application: NextPage = () => {
                   <CurrentPage
                     formData={formData}
                     updateFormData={updateFormData}
+                    onValidation={setIsValid}
                   />
                   <div
                     className={`${
-                      (currentIndex === 0 || currentIndex === (totalPages - 1)) ?
-                        'flex justify-center' :
-                        'flex justify-between'
+                      currentIndex === 0 || currentIndex === totalPages - 1
+                        ? 'flex justify-center'
+                        : 'flex justify-between'
                     }`}
                   >
                     {currentIndex !== 0 && (
@@ -66,12 +75,16 @@ const Application: NextPage = () => {
                         className="tapped_btn"
                         onClick={handlePreviousPage}
                       >
-                       go back
+                        go back
                       </button>
                     )}
 
                     {currentIndex !== totalPages - 1 && (
-                      <button className="tapped_btn" onClick={handleNextPage}>
+                      <button
+                        className="tapped_btn"
+                        onClick={handleNextPage}
+                        disabled={!isValid}
+                      >
                         ok
                       </button>
                     )}

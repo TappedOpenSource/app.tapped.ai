@@ -1,14 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const AreYouSigned = ({ formData, updateFormData }) => {
+const AreYouSigned = ({ formData, updateFormData, onValidation }) => {
+  const [error, setError] = useState(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
   const handleInputChange = (e) => {
+    setHasInteracted(true);
     const { value } = e.target;
-    console.log(value);
     updateFormData({
       ...formData,
       artistLabel: value === 'yes' ? true : false,
     });
   };
+
+  useEffect(() => {
+    if (hasInteracted) {
+      if (formData.artistLabel === undefined) {
+        setError('Please select an option.');
+        onValidation(false);
+      } else {
+        setError(null);
+        onValidation(true);
+      }
+    } else {
+      setError(null);
+      onValidation(false);
+    }
+  }, [formData.artistLabel, hasInteracted]);
 
   return (
     <div className="page flex h-full flex-col items-center justify-center bg-white">
@@ -18,34 +36,34 @@ const AreYouSigned = ({ formData, updateFormData }) => {
         </h1>
         <div className="flex h-full w-full flex-wrap items-center justify-center">
           <div
-            key='yes'
+            key="yes"
             className="mb-2 block flex items-center pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
           >
             <input
               type="radio"
-              id='yes'
+              id="yes"
               name="artistLabel"
-              value='yes'
-              checked={(formData['artistLabel'] ?? false)}
+              value="yes"
+              checked={formData['artistLabel'] ?? false}
               onChange={handleInputChange}
               className="mr-2"
             />
-            <label htmlFor='yes'>Yes</label>
+            <label htmlFor="yes">Yes</label>
           </div>
           <div
-            key='no'
+            key="no"
             className="mb-2 block flex items-center pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
           >
             <input
               type="radio"
-              id='no'
+              id="no"
               name="artistLabel"
-              value='no'
+              value="no"
               checked={!(formData['artistLabel'] ?? true)}
               onChange={handleInputChange}
               className="mr-2"
             />
-            <label htmlFor='no'>No</label>
+            <label htmlFor="no">No</label>
           </div>
         </div>
       </div>

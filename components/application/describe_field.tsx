@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const FormArtistDescription = ({ formData, updateFormData }) => {
+const FormArtistDescription = ({ formData, updateFormData, onValidation }) => {
+  const [error, setError] = useState(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
   const handleInputChange = (e) => {
+    setHasInteracted(true);
+
     const { value } = e.target;
     const updatedValues = formData['description'] || [];
 
@@ -13,7 +18,27 @@ const FormArtistDescription = ({ formData, updateFormData }) => {
     }
 
     updateFormData({ ...formData, ['description']: updatedValues });
+    validate(updatedValues);
   };
+
+  const validate = (values) => {
+    if (hasInteracted) {
+      if (!values || values.length === 0) {
+        setError('You must choose at least one option.');
+        onValidation(false);
+      } else {
+        setError(null);
+        onValidation(true);
+      }
+    } else {
+      setError(null);
+      onValidation(false);
+    }
+  };
+
+  useEffect(() => {
+    validate(formData['description'] || []);
+  }, [formData['description']]);
 
   const options = [
     'mysterious',
@@ -56,6 +81,7 @@ const FormArtistDescription = ({ formData, updateFormData }) => {
             </div>
           ))}
         </div>
+        {error && <p className="text-red-500">{error}</p>}
       </div>
     </div>
   );

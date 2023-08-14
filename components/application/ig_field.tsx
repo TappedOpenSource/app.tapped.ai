@@ -1,13 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const IgField = ({ formData, updateFormData }) => {
+const IgField = ({ formData, updateFormData, onValidation }) => {
+  const [error, setError] = useState(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
   const handleInputChange = (e) => {
+    setHasInteracted(true);
     const { name, value } = e.target;
     updateFormData({
       ...formData,
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    if (hasInteracted) {
+      if (
+        !formData['instagramHandle'] ||
+        formData['instagramHandle'].trim() === ''
+      ) {
+        setError('Please enter your Instagram handle.');
+        onValidation(false);
+      } else {
+        setError(null);
+        onValidation(true);
+      }
+    } else {
+      setError(null);
+      onValidation(false);
+    }
+  }, [formData['instagramHandle'], hasInteracted]);
+
   return (
     <div className="page flex h-full flex-col items-center justify-center bg-white">
       <div className="flex w-full flex-col items-start px-6">
@@ -23,6 +46,7 @@ const IgField = ({ formData, updateFormData }) => {
             className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
           />
         </div>
+        {error && <p className="text-red-500">{error}</p>}
       </div>
     </div>
   );
