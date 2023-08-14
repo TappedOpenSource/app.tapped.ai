@@ -10,7 +10,7 @@ const SignupComplete: NextPage = () => {
   return (
     <>
       <div className="h-screen flex flex-col justify-center items-center">
-        <h1 className="text-6xl text-center font-bold">Application Complete</h1>
+        <h1 className="text-2xl text-6xl text-center font-bold">Application Complete</h1>
         <p className="text-center">
         thank you for your application.
         </p>
