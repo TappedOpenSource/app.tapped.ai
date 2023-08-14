@@ -65,9 +65,9 @@ const Application: NextPage = () => {
                   />
                   <div
                     className={`${
-                      currentIndex === 0 || currentIndex === totalPages - 1
-                        ? 'flex justify-center'
-                        : 'flex justify-between'
+                      currentIndex === 0 || currentIndex === totalPages - 1 ?
+                        'flex justify-center' :
+                        'flex justify-between'
                     }`}
                   >
                     {currentIndex !== 0 && (

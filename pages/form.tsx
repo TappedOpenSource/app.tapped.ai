@@ -56,7 +56,7 @@ const Form = () => {
                   <Page1 formData={formData} updateFormData={updateFormData} />
                 )}
                 {currentPage === 2 && (
-                  <Page2 formData={formData} updateFormData={updateFormData} />
+                  <Page2 formData={formData} updateFormData={updateFormData} onValidation={undefined} />
                 )}
                 {currentPage === 3 && (
                   <Page3 formData={formData} updateFormData={updateFormData} />
@@ -68,7 +68,7 @@ const Form = () => {
                   <Page5 formData={formData} updateFormData={updateFormData} />
                 )}
                 {currentPage === 6 && (
-                  <Page6 formData={formData} updateFormData={updateFormData} />
+                  <Page6 formData={formData} updateFormData={updateFormData} onValidation={undefined} />
                 )}
                 {currentPage === 7 && (
                   <Page7 formData={formData} updateFormData={updateFormData} />
