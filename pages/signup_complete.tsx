@@ -4,10 +4,18 @@ import withSubscription from '@/domain/auth/withSubscription';
 import { logout } from '@/domain/usecases/login';
 import { Button } from '@mui/material';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 
 const SignupComplete: NextPage = () => {
   const appleUrl = 'https://apps.apple.com/us/app/tapped-app/id1574937614';
   const googleUrl = 'https://play.google.com/store/apps/details?id=com.intheloopstudio';
+
+  const router = useRouter();
+
+  const signout = async () => {
+    await logout();
+    router.push('/');
+  };
 
   return (
     <>
@@ -31,7 +39,7 @@ const SignupComplete: NextPage = () => {
           />
         </div>
         <div className="pb-16"></div>
-        <Button onClick={logout} className="text-white">
+        <Button onClick={signout} className="text-white">
           sign out
         </Button>
       </div>
