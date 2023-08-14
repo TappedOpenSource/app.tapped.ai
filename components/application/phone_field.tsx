@@ -1,6 +1,6 @@
 import 'react-phone-number-input/style.css';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const PhoneField = ({ formData, updateFormData, onValidation }) => {
   const [error, setError] = useState(null);
@@ -39,6 +39,10 @@ const PhoneField = ({ formData, updateFormData, onValidation }) => {
     });
   };
 
+  useEffect(() => {
+    validate(formData.phone);
+  }, [formData.phone]);
+
   return (
     <div className="page flex h-full flex-col items-center justify-center bg-white">
       <div className="flex w-full flex-col items-start px-6">
@@ -52,6 +56,7 @@ const PhoneField = ({ formData, updateFormData, onValidation }) => {
             placeholder="Enter phone number"
             value={formData.phone}
             onChange={handleInputChange}
+            onBlur={() => validate(formData.phone)}
           />
         </div>
         {error && <p className="mt-2 text-red-500">{error}</p>}
