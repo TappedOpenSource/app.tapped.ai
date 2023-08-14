@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-
 import classNames from 'classnames';
+import Image from 'next/image';
 import { Outfit } from 'next/font/google';
 
 type ButtonProps = {
@@ -78,7 +78,7 @@ const Button: FC<ButtonProps> = ({
           className
         )}
       >
-        <img src={logo} alt={storeName} />
+        <Image src={logo} alt={storeName} height={36} width={36} />
         <div className="button-text-container">
           <span className="button-title">{title}</span>
           <span className="button-store-name">{storeName}</span>
