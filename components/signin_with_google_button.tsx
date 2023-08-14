@@ -4,9 +4,8 @@ import { loginWithGoogle } from '@/domain/usecases/login';
 const SignInWithGoogleButton = ({ onClick }: {
   onClick: (loginResult: LoginResult) => void,
 }) => {
-  const handleLogin = async (e: any) => {
-    e.preventDefault();
-
+  const handleLogin = async () => {
+    // e.preventDefault();
     try {
       const response = await loginWithGoogle();
       onClick(response);
