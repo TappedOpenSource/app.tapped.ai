@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const ArtistProfessionField = ({ formData, updateFormData }) => {
+const ArtistProfessionField = ({ formData, updateFormData, onValidation }) => {
+  const [error, setError] = useState(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
   const handleInputChange = (e) => {
+    setHasInteracted(true);
     const { value } = e.target;
     updateFormData({ ...formData, ['profession_field']: value });
   };
+
+  useEffect(() => {
+    if (hasInteracted) {
+      if (!formData['profession_field']) {
+        setError('Please select your profession.');
+        onValidation(false);
+      } else {
+        setError(null);
+        onValidation(true);
+      }
+    } else {
+      setError(null);
+      onValidation(false);
+    }
+  }, [formData['profession_field'], hasInteracted]);
 
   return (
     <div className="page flex h-full flex-col items-center justify-center bg-white">
@@ -41,6 +60,7 @@ const ArtistProfessionField = ({ formData, updateFormData }) => {
             </div>
           ))}
         </div>
+        {error && <p className="text-red-500">{error}</p>}
       </div>
     </div>
   );
