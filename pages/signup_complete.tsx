@@ -1,6 +1,8 @@
 import AppStoreButton from '@/components/appstorebuttons/AppStoreButton';
 import GooglePlayButton from '@/components/appstorebuttons/GooglePlayButton';
 import withSubscription from '@/domain/auth/withSubscription';
+import { logout } from '@/domain/usecases/login';
+import { Button } from '@mui/material';
 import type { NextPage } from 'next';
 
 const SignupComplete: NextPage = () => {
@@ -28,6 +30,10 @@ const SignupComplete: NextPage = () => {
             theme={'dark'}
           />
         </div>
+        <div className="pb-16"></div>
+        <Button onClick={logout} className="text-white">
+          sign out
+        </Button>
       </div>
     </>
   );
