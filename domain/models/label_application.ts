@@ -1,7 +1,7 @@
 
 export type LabelApplication = {
     id: string;
-    email: string;
+    phone: string;
     name: string;
     artistLabel: boolean;
     description: string[];
