@@ -3,9 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  loginWithCredentials,
-} from '../domain/usecases/login';
+import { loginWithCredentials } from '../domain/usecases/login';
 import { useRouter } from 'next/router';
 import SignInWithGoogleButton from '@/components/signin_with_google_button';
 
@@ -29,9 +27,7 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = async (e: any) => {
-    e.preventDefault();
-
+  const handleGoogleLogin = async () => {
     try {
       router.push('/branding');
     } catch (err) {
