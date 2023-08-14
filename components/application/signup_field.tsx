@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import database from '@/data/database';
 import { LoginResult } from '@/data/auth';
 
-const SignUpField = ({ formData, updateFormData }) => {
+const SignUpField = ({ formData, updateFormData, onValidation }) => {
   const router = useRouter();
 
   const handleLogin = (loginResult: LoginResult) => {
