@@ -42,7 +42,10 @@ export default function Home() {
         <div className="pt-2 pb-2"></div>
         <h2
           className="text-2xl font-thin text-center text-white lg:text-4xl"
-        >let&apos;s destroy traditional record labels together....</h2>
+        >
+          {/* let&apos;s destroy traditional record labels together.... */}
+          we are the anti-360 deal.
+        </h2>
         <Link
           href="/application_form"
           // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
