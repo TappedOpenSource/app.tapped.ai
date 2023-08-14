@@ -4,13 +4,13 @@ import withSubscription from '@/domain/auth/withSubscription';
 import type { NextPage } from 'next';
 
 const SignupComplete: NextPage = () => {
-  const appleUrl = 'https://apps.apple.com/us/app/tapped-network/id1574937614';
+  const appleUrl = 'https://apps.apple.com/us/app/tapped-app/id1574937614';
   const googleUrl = 'https://play.google.com/store/apps/details?id=com.intheloopstudio';
 
   return (
     <>
       <div className="h-screen flex flex-col justify-center items-center">
-        <h1 className="text-2xl text-6xl text-center font-bold">Application Complete</h1>
+        <h1 className="text-2xl text-6xl text-center font-bold">application complete</h1>
         <p className="text-center">
         thank you for your application.
         </p>

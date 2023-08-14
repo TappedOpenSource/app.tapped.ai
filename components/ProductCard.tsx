@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress, Icon } from '@mui/material';
 import { subscribe } from '@/domain/usecases/payments';
 
 const ProductCard = ({ product, prices }: {
@@ -42,7 +42,18 @@ const ProductCard = ({ product, prices }: {
             {product?.name.toUpperCase() ?? ''}
           </p>
         </div>
-        <p className="px-4 pt-2 text-white">{product?.description ?? ''}</p>
+        {/* <p className="px-4 pt-2 text-white">{product?.description ?? ''}</p> */}
+        <div className="p-4 flex flex-col gap-4">
+          {product?.description?.split('#').map((feature: string, key: string) => {
+            return (
+              <div key={key} className='flex flex-row'>
+                <Icon className='text-[#42A5F5]'>check_circle</Icon>
+                <div className='pr-4'></div>
+                <p>{feature}</p>
+              </div>
+            );
+          })}
+        </div>
         <p className="px-4 pt-8 text-3xl font-bold text-white">{priceText}</p>
         <div className="px-5 pt-10">
           <button

@@ -20,16 +20,16 @@ const Pricing: NextPage = ({ products }: {
  }) => {
   const [billingPortal, setBillingPortal] = useState<string | null>(null);
 
-  useEffect(() => {
-    auth.getCustomClaimRole().then((claim) => {
-      console.log(claim);
-      if (claim !== undefined && claim !== null) {
-        api.createPortalLink({ returnUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/` }).then(({ url }) => {
-          setBillingPortal(url);
-        });
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   auth.getCustomClaimRole().then((claim) => {
+  //     console.log(claim);
+  //     if (claim !== undefined && claim !== null) {
+  //       api.createPortalLink({ returnUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/` }).then(({ url }) => {
+  //         setBillingPortal(url);
+  //       });
+  //     }
+  //   });
+  // }, []);
 
   if (billingPortal) {
     return (
@@ -49,7 +49,7 @@ const Pricing: NextPage = ({ products }: {
       <h1 className="px-5 pt-10 text-left text-5xl font-bold text-white">
         Pricing Plans
       </h1>
-      <p className="px-5 pb-10 pt-6 text-left text-lg text-white">
+      <p className="px-5 pb-10 pt-6 text-left text-lg text-white text-center">
         Select a plan and lets get you introduced to your team from the first
         ever AI Label.
       </p>
