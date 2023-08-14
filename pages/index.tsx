@@ -44,8 +44,8 @@ export default function Home() {
           className="text-2xl font-thin text-center text-white lg:text-4xl"
         >let&apos;s destroy traditional record labels together....</h2>
         <Link
-          // href="/application_form"
-          href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
+          href="/application_form"
+          // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
           id="apply-here"
           className="px-4 py-2 mt-8 mb-4 text-lg font-bold rounded-lg hover:scale-105 transform transition-all duration-200 ease-in-out shadow-lg"
         >apply here</Link>
