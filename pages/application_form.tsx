@@ -87,7 +87,7 @@ const Application: NextPage = () => {
                         onClick={handleNextPage}
                         disabled={!isValid}
                       >
-                        ok
+                        next
                       </button>
                     )}
                   </div>
