@@ -15,7 +15,7 @@ class MyDocument extends Document {
             content="Join the professionals and get a one of a kind branding
             package personalized just for you."
           />
-          <meta property="og:site_name" content="branding.tapped.ai" />
+          <meta property="og:site_name" content="tapped.ai" />
           <meta
             property="og:description"
             content="Join the professionals and get a one of a kind branding
