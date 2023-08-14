@@ -1,5 +1,6 @@
 import AppStoreButton from '@/components/appstorebuttons/AppStoreButton';
 import GooglePlayButton from '@/components/appstorebuttons/GooglePlayButton';
+import withAuth from '@/domain/auth/withAuth';
 import withSubscription from '@/domain/auth/withSubscription';
 import { logout } from '@/domain/usecases/login';
 import { Button } from '@mui/material';
@@ -47,4 +48,4 @@ const SignupComplete: NextPage = () => {
   );
 };
 
-export default withSubscription(SignupComplete);
+export default withAuth(SignupComplete);
