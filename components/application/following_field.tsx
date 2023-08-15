@@ -8,11 +8,12 @@ const FollowingField = ({ formData, updateFormData, onValidation }) => {
     setHasInteracted(true);
     const { value } = e.target;
     updateFormData({ ...formData, ['following_field']: value });
+    validateForUI(value);
   };
 
-  useEffect(() => {
+  const validateForUI = (value) => {
     if (hasInteracted) {
-      if (!formData['following_field']) {
+      if (!value) {
         setError('Please select your social media following range.');
         onValidation(false);
       } else {
@@ -23,7 +24,19 @@ const FollowingField = ({ formData, updateFormData, onValidation }) => {
       setError(null);
       onValidation(false);
     }
-  }, [formData['following_field'], hasInteracted]);
+  };
+
+  const justValidate = (value) => {
+    if (!value) {
+      onValidation(false);
+    } else {
+      onValidation(true);
+    }
+  };
+
+  useEffect(() => {
+    justValidate(formData['following_field']);
+  }, [formData['following_field']]);
 
   return (
     <div className="page flex h-full flex-col items-center justify-center bg-white">

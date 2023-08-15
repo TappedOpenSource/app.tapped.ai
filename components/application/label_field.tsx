@@ -11,11 +11,12 @@ const AreYouSigned = ({ formData, updateFormData, onValidation }) => {
       ...formData,
       artistLabel: value === 'yes' ? true : false,
     });
+    validateForUI(formData.artistLabel);
   };
 
-  useEffect(() => {
+  const validateForUI = (value) => {
     if (hasInteracted) {
-      if (formData.artistLabel === undefined) {
+      if (value === undefined) {
         setError('Please select an option.');
         onValidation(false);
       } else {
@@ -26,7 +27,19 @@ const AreYouSigned = ({ formData, updateFormData, onValidation }) => {
       setError(null);
       onValidation(false);
     }
-  }, [formData.artistLabel, hasInteracted]);
+  };
+
+  const justValidate = (value) => {
+    if (value === undefined) {
+      onValidation(false);
+    } else {
+      onValidation(true);
+    }
+  };
+
+  useEffect(() => {
+    justValidate(formData.artistLabel);
+  }, [formData.artistLabel]);
 
   return (
     <div className="page flex h-full flex-col items-center justify-center bg-white">
@@ -65,6 +78,7 @@ const AreYouSigned = ({ formData, updateFormData, onValidation }) => {
             />
             <label htmlFor="no">No</label>
           </div>
+          {error && <p className="text-red-500">{error}</p>}
         </div>
       </div>
     </div>

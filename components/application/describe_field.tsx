@@ -18,10 +18,10 @@ const FormArtistDescription = ({ formData, updateFormData, onValidation }) => {
     }
 
     updateFormData({ ...formData, ['description']: updatedValues });
-    validate(updatedValues);
+    validateForUI(updatedValues);
   };
 
-  const validate = (values) => {
+  const validateForUI = (values) => {
     if (hasInteracted) {
       if (!values || values.length === 0) {
         setError('You must choose at least one option.');
@@ -36,8 +36,16 @@ const FormArtistDescription = ({ formData, updateFormData, onValidation }) => {
     }
   };
 
+  const justValidate = (values) => {
+    if (!values || values.length === 0) {
+      onValidation(false);
+    } else {
+      onValidation(true);
+    }
+  };
+
   useEffect(() => {
-    validate(formData['description'] || []);
+    justValidate(formData['description'] || []);
   }, [formData['description']]);
 
   const options = [

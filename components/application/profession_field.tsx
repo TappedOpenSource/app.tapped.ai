@@ -8,11 +8,12 @@ const ArtistProfessionField = ({ formData, updateFormData, onValidation }) => {
     setHasInteracted(true);
     const { value } = e.target;
     updateFormData({ ...formData, ['profession_field']: value });
+    validateForUI(value);
   };
 
-  useEffect(() => {
+  const validateForUI = (value) => {
     if (hasInteracted) {
-      if (!formData['profession_field']) {
+      if (!value) {
         setError('Please select your profession.');
         onValidation(false);
       } else {
@@ -23,7 +24,19 @@ const ArtistProfessionField = ({ formData, updateFormData, onValidation }) => {
       setError(null);
       onValidation(false);
     }
-  }, [formData['profession_field'], hasInteracted]);
+  };
+
+  const justValidate = (value) => {
+    if (!value) {
+      onValidation(false);
+    } else {
+      onValidation(true);
+    }
+  };
+
+  useEffect(() => {
+    justValidate(formData['profession_field']);
+  }, [formData['profession_field']]);
 
   return (
     <div className="page flex h-full flex-col items-center justify-center bg-white">

@@ -1,23 +1,15 @@
 import 'react-phone-number-input/style.css';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const PhoneField = ({ formData, updateFormData, onValidation }) => {
   const [error, setError] = useState(null);
   const [touched, setTouched] = useState(false);
 
-  const validate = (value) => {
+  const validateForUI = (value) => {
     if (!touched) return;
 
-    console.log(value);
-
-    if (value === undefined || value === null) {
-      setError('Phone cannot be empty');
-      onValidation(false);
-      return;
-    }
-
-    if (value.trim() === '') {
+    if (value === undefined || value === null || value.trim() === '') {
       setError('Phone cannot be empty');
       onValidation(false);
     } else if (!isValidPhoneNumber(value)) {
@@ -29,15 +21,28 @@ const PhoneField = ({ formData, updateFormData, onValidation }) => {
     }
   };
 
+  const justValidate = (value) => {
+    if (value === undefined || value === null || value.trim() === '') {
+      onValidation(false);
+    } else if (!isValidPhoneNumber(value)) {
+      onValidation(false);
+    } else {
+      onValidation(true);
+    }
+  };
+
   const handleInputChange = (value: string) => {
     setTouched(true);
-    validate(value);
-
     updateFormData({
       ...formData,
       ['phone']: value,
     });
+    validateForUI(value);
   };
+
+  useEffect(() => {
+    justValidate(formData.phone);
+  }, [formData.phone]);
 
   return (
     <div className="page flex h-full flex-col items-center justify-center bg-white">
@@ -52,6 +57,7 @@ const PhoneField = ({ formData, updateFormData, onValidation }) => {
             placeholder="Enter phone number"
             value={formData.phone}
             onChange={handleInputChange}
+            onBlur={() => validateForUI(formData.phone)}
           />
         </div>
         {error && <p className="mt-2 text-red-500">{error}</p>}
