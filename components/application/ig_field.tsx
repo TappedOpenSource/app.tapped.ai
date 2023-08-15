@@ -11,14 +11,12 @@ const IgField = ({ formData, updateFormData, onValidation }) => {
       ...formData,
       [name]: value,
     });
+    validateForUI(value);
   };
 
-  useEffect(() => {
+  const validateForUI = (value) => {
     if (hasInteracted) {
-      if (
-        !formData['instagramHandle'] ||
-        formData['instagramHandle'].trim() === ''
-      ) {
+      if (!value || value.trim() === '') {
         setError('Please enter your Instagram handle.');
         onValidation(false);
       } else {
@@ -29,7 +27,19 @@ const IgField = ({ formData, updateFormData, onValidation }) => {
       setError(null);
       onValidation(false);
     }
-  }, [formData['instagramHandle'], hasInteracted]);
+  };
+
+  const justValidate = (value) => {
+    if (!value || value.trim() === '') {
+      onValidation(false);
+    } else {
+      onValidation(true);
+    }
+  };
+
+  useEffect(() => {
+    justValidate(formData['instagramHandle']);
+  }, [formData['instagramHandle']]);
 
   return (
     <div className="page flex h-full flex-col items-center justify-center bg-white">

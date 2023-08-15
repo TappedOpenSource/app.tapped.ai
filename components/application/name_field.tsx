@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const NameField = ({ formData, updateFormData, onValidation }) => {
   const [error, setError] = useState(null);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
+  const validateForUI = (value) => {
     if (value.trim() === '') {
       setError('Name cannot be empty');
       onValidation(false);
@@ -13,11 +11,27 @@ const NameField = ({ formData, updateFormData, onValidation }) => {
       setError(null);
       onValidation(true);
     }
+  };
 
+  const justValidate = (value) => {
+    if (value.trim() === '') {
+      onValidation(false);
+    } else {
+      onValidation(true);
+    }
+  };
+
+  useEffect(() => {
+    justValidate(formData['name'] || '');
+  }, [formData['name']]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
     updateFormData({
       ...formData,
       [name]: value,
     });
+    validateForUI(value);
   };
 
   return (
