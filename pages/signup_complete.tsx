@@ -42,7 +42,7 @@ const SignupComplete: NextPage = () => {
               hang tight to see if you&apos;re accepted.
             </p>
             <p className="text-black text-center">
-              (don&apos;t close this window)
+              (don&apos;t close this window.)
             </p>
           </div>
         </div>
