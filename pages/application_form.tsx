@@ -3,7 +3,6 @@ import { NextPage } from 'next';
 import FormDataManager from '@/components/form/FormDataManager';
 import DescribeField from '@/components/application/describe_field';
 import NameField from '@/components/application/name_field';
-// import EmailField from '@/components/application/email_field';
 import LabelField from '@/components/application/label_field';
 import ArtistProfessionField from '@/components/application/profession_field';
 import FollowingField from '@/components/application/following_field';

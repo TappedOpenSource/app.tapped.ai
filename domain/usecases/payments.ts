@@ -17,7 +17,7 @@ export const getProductAndPriceData = async (): Promise<any[]> => {
 
 export const handleBillingPortal = async (): Promise<string> => {
   // Call billing portal function
-  const { url } = await api.createPortalLink({ returnUrl: window.location.origin });
+  const { url } = await api.createPortalLink({ returnUrl: 'https://tapped.ai/signup_complete' });
 
   // window.location.assign(data.url);
   return url;

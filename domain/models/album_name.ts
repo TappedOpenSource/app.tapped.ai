@@ -3,7 +3,7 @@ import { DocumentSnapshot, Timestamp } from 'firebase/firestore';
 export type AlbumName = {
     id: string;
     userId: string;
-    generatorId: string;
+    teamId: string;
     prompt: string;
     text: string;
     timestamp: Date;
@@ -21,7 +21,7 @@ export const albumNameConverter = {
     return {
       id: data.id,
       userId: data.userId,
-      generatorId: data.generatorId,
+      teamId: data.teamId,
       prompt: data.prompt,
       text: data.text,
       timestamp: data.timestamp.toDate(),

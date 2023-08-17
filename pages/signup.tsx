@@ -2,8 +2,8 @@ import type { NextPage } from 'next/types';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { signupWithCredentials } from '../domain/usecases/signup';
 import { useRouter } from 'next/router';
+import { signupWithCredentials } from '@/domain/usecases/signup';
 
 const Signup: NextPage = () => {
   const router = useRouter();
@@ -19,7 +19,7 @@ const Signup: NextPage = () => {
         email: data.email,
         password: data.password,
       });
-      router.push('/branding');
+      router.push('/tmp_home');
     } catch (err) {
       console.error(err);
     }

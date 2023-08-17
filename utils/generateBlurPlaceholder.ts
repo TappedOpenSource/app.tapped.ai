@@ -1,6 +1,6 @@
 import imagemin from 'imagemin';
 import imageminJpegtran from 'imagemin-jpegtran';
-import type { ImageProps } from './types';
+import type { ImageProps } from '@/utils/types';
 
 const cache = new Map<ImageProps, string>();
 

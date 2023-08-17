@@ -3,7 +3,7 @@
 
 ### Cloud functions
 
-- [_] onGeneratorCreated
+- [_] onTeamCreated
 // - [_] pingLlmModel
 // - [_] pingSdModel
 
@@ -26,8 +26,8 @@
 
 ### UI Layer
 
-- [x] create_generator_form
-- [x] generator_page
+- [x] create_team_form
+- [x] team_page
 - [x] input image uploader
 
 

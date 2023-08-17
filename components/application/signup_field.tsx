@@ -10,7 +10,10 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
     console.log({ userId: loginResult.uid, ...formData });
     database.createNewApplicationResponse({
       userId: loginResult.uid,
-      labelApplication: formData,
+      labelApplication: {
+        timestamp: new Date(),
+        ...formData,
+      },
     });
     router.push('/signup_complete');
   };

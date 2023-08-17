@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { onIdTokenChanged } from 'firebase/auth';
-import firebase from '../../utils/firebase';
+import firebase from '@/utils/firebase';
 import {
   removeUserCookie,
   setUserCookie,
   getUserFromCookie,
-} from '../../utils/userCookie';
+} from '@/utils/userCookie';
 
 export const mapUserData = async (user) => {
   const { uid, email } = user;

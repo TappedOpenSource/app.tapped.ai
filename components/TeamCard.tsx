@@ -1,16 +1,16 @@
 import React from 'react';
 import Image from 'next/image';
-import { BrandGenerator } from '../domain/models/brand_generator';
+import { Team } from '@/domain/models/team';
 
-const ModelCard = ({ generator }: {
-  generator: BrandGenerator
+const TeamCard = ({ team }: {
+  team: Team
 }) => {
   return (
     <div className="h-full h-full max-h-20 rounded-full bg-[#DEDEDE]">
       <div className="grid h-full grid-cols-[75%_25%] gap-2">
         <div className="flex grid grid-rows-2 items-center py-4 pl-5">
-          <p className="font-bold">{generator.name}</p>
-          <p>{ generator.quota } credits left</p>
+          <p className="font-bold">{team.name}</p>
+          <p>{ team.quota } credits left</p>
         </div>
         <div className="pr-4 pt-2">
           <Image
@@ -26,4 +26,4 @@ const ModelCard = ({ generator }: {
   );
 };
 
-export default ModelCard;
+export default TeamCard;

@@ -1,5 +1,5 @@
 import { NextPage } from 'next/types';
-import withAuth from '../domain/auth/withAuth';
+import withAuth from '@/domain/auth/withAuth';
 
 const Results: NextPage = () => {
   return (

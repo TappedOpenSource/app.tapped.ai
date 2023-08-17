@@ -1,5 +1,5 @@
 import { getFunctions, httpsCallable } from 'firebase/functions';
-import { AvatarStyle } from '../domain/models/avatar';
+import { AvatarStyle } from '@/domain/models/avatar';
 
 
 export type Api = {

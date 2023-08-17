@@ -1,6 +1,6 @@
 
 import { onAuthStateChanged } from '@firebase/auth';
-import firebase from '../utils/firebase';
+import firebase from '@/utils/firebase';
 import { None, Option, Some } from '@sniptt/monads';
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, createUserWithEmailAndPassword } from 'firebase/auth';
 

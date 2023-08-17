@@ -14,24 +14,30 @@ import {
 } from 'firebase/firestore';
 import { Option, None, Some } from '@sniptt/monads';
 import { Avatar, avatarConverter } from '@/domain/models/avatar';
-import { BrandGenerator, generatorConverter } from '@/domain/models/brand_generator';
+import { Team, teamConverter } from '@/domain/models/team';
 import firebase from '@/utils/firebase';
 import { AlbumName } from '@/domain/models/album_name';
-import { LabelApplication } from '@/domain/models/label_application';
+import { LabelApplication, labelApplicationConverter } from '@/domain/models/label_application';
 
 export type Database = {
-  createGenerator: (generator: BrandGenerator) => Promise<string>;
-  createGeneratedAvatar: (avatar: Avatar) => Promise<string>
-  getGeneratedAvatar: ({ generatorId, id }: {
+  createTeam: (team: Team) => Promise<string>;
+  createAvatar: (avatar: Avatar) => Promise<string>
+  getAvatar: ({ teamId, id }: {
     id: string;
-    generatorId: string;
+    teamId: string;
   }) => Promise<Option<Avatar>>;
+  getAvatarsByTeam: ({ teamId }: {
+    teamId: string;
+  }) => Promise<Avatar[]>;
   createGeneratedAlbumName: (albumName: AlbumName) => Promise<string>;
   createCheckoutSession: ({ userId, priceId }: {
     userId: string;
     priceId: string;
   }) => Promise<void>;
-  getActiveProducts: () => Promise<{ product: any, prices: any }[]>;
+  getActiveProducts: () => Promise<{
+    product: any,
+    prices: any,
+  }[]>;
   addCustomerSubscriptionListener: (
     userId: string,
     listener: (snapshot: QuerySnapshot,
@@ -44,23 +50,23 @@ export type Database = {
 
 const db = firebase.db;
 const FirestoreDB: Database = {
-  createGenerator: async (generator: BrandGenerator): Promise<string> => {
-    const docRef = doc(db, `generators/${generator.id}]`);
-    await setDoc(docRef, generatorConverter.toFirestore(generator));
+  createTeam: async (team: Team): Promise<string> => {
+    const docRef = doc(db, `teams/${team.id}]`);
+    await setDoc(docRef, teamConverter.toFirestore(team));
 
     return docRef.id;
   },
-  createGeneratedAvatar: async (avatar: Avatar): Promise<string> => {
-    const docRef = doc(db, `generators/${avatar.generatorId}/avatars/${avatar.id}`);
+  createAvatar: async (avatar: Avatar): Promise<string> => {
+    const docRef = doc(db, `teams/${avatar.teamId}/avatars/${avatar.id}`);
     await setDoc(docRef, avatarConverter.toFirestore(avatar));
 
     return docRef.id;
   },
-  getGeneratedAvatar: async ({ generatorId, id }: {
-    generatorId: string,
+  getAvatar: async ({ teamId, id }: {
+    teamId: string,
     id: string,
   }): Promise<Option<Avatar>> => {
-    const docRef = doc(db, `generators/${generatorId}/avatars/${id}`).withConverter(avatarConverter);
+    const docRef = doc(db, `teams/${teamId}/avatars/${id}`).withConverter(avatarConverter);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
       return None;
@@ -71,8 +77,19 @@ const FirestoreDB: Database = {
 
     return Some(avatar);
   },
+  getAvatarsByTeam: async ({ teamId }: {
+    teamId: string,
+  }): Promise<Avatar[]> => {
+    const avatarsCollection = collection(db, `teams/${teamId}/avatars`);
+    const avatarDocs = await getDocs(avatarsCollection);
+    const avatars = avatarDocs.docs.map((doc) => {
+      return avatarConverter.fromFirestore(doc, {});
+    });
+
+    return avatars;
+  },
   createGeneratedAlbumName: async (albumName: AlbumName): Promise<string> => {
-    const docRef = doc(db, `generators/${albumName.generatorId}/albumNames/${albumName.id}`);
+    const docRef = doc(db, `teams/${albumName.teamId}/albumNames/${albumName.id}`);
     await setDoc(docRef, albumName);
 
     return docRef.id;
@@ -142,10 +159,12 @@ const FirestoreDB: Database = {
     labelApplication: LabelApplication;
   }) => {
     const docRef = doc(db, `label_applications/${labelApplication.id}`);
-    await setDoc(docRef, {
-      userId,
-      ...labelApplication,
-    });
+    await setDoc(docRef,
+      {
+        userId,
+        ...labelApplicationConverter.toFirestore(labelApplication),
+      },
+    );
 
     return docRef.id;
   },

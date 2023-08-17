@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { submitCreateGeneratorForm } from '../domain/usecases/create_generator';
-import withAuth from '../domain/auth/withAuth';
+import { submitCreateTeamForm } from '@/domain/usecases/create_team';
+import withSubscription from '@/domain/auth/withSubscription';
 
-const NewGenerator = () => {
+const NewTeam = () => {
   const [name, setName] = useState('');
   const [artistName, setArtistName] = useState('');
   const [genres, setGenres] = useState([]);
@@ -33,14 +33,14 @@ const NewGenerator = () => {
     );
   };
 
-  const onNewGeneratorClick = async () => {
-    await submitCreateGeneratorForm({
+  const onNewTeamClick = async () => {
+    await submitCreateTeamForm({
       // name: name,
       artistName: artistName,
       artistProfession: '',
       artistDescription: '',
       gender: '',
-      modelName: '',
+      teamName: '',
       // genres: genres,
       socialFollowing: parseInt(socialFollowing),
       postFreq: postFreq,
@@ -61,7 +61,7 @@ const NewGenerator = () => {
           </p>
         </div>
 
-        <form className="w-full max-w-sm" onSubmit={onNewGeneratorClick}>
+        <form className="w-full max-w-sm" onSubmit={onNewTeamClick}>
           <div className="mb-6 md:flex md:items-center">
             <div className="md:w-1/3">
               <label
@@ -258,9 +258,9 @@ const NewGenerator = () => {
                 }
                 className="tapped_btn max-h-10 w-full"
                 type="submit"
-                onClick={onNewGeneratorClick}
+                onClick={onNewTeamClick}
               >
-                Create New Model
+                Create New Team
               </button>
             </Link>
           </div>
@@ -270,4 +270,4 @@ const NewGenerator = () => {
   );
 };
 
-export default withAuth(NewGenerator);
+export default withSubscription(NewTeam);

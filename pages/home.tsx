@@ -1,13 +1,13 @@
 import React from 'react';
-import ModelCard from '../components/modelCard';
+import TeamCard from '@/components/TeamCard';
 import Link from 'next/link';
-import withSubscription from '../domain/auth/withSubscription';
-import { BrandGenerator } from '../domain/models/brand_generator';
+import withSubscription from '@/domain/auth/withSubscription';
+import { Team } from '@/domain/models/team';
 import { Some } from '@sniptt/monads';
 import auth from '@/data/auth';
 
-const Branding = () => {
-  const generators: BrandGenerator[] = [
+const Home = () => {
+  const teams: Team[] = [
     {
       id: '123',
       userId: 'someone',
@@ -43,23 +43,26 @@ const Branding = () => {
           <p className="max-h-10 text-4xl font-bold text-[#42A5F5]">BRANDING</p>
           <button className="text-blue" onClick={auth.logout}>sign out</button>
         </div>
-        <div className="pb-10">
-          <Link href="/new_generator">
+
+        <div>
+          {teams.map((team) => (
+            <div key={team.id} className="py-4">
+              <Link href={`/team/${team.id}`}>
+                <TeamCard team={team} />
+              </Link>
+            </div>
+          ))}
+        </div>
+        <div className="pt-10">
+          <Link href="/new_team">
             <button className="tapped_btn max-h-10 w-full">
-              Create New Model
+              Create New Team
             </button>
           </Link>
         </div>
-        {generators.map((generator) => (
-          <div key={generator.id} className="py-4">
-            <Link href={`/model/${generator.id}`}>
-              <ModelCard generator={generator} />
-            </Link>
-          </div>
-        ))}
       </div>
     </div>
   );
 };
 
-export default withSubscription(Branding);
+export default withSubscription(Home);

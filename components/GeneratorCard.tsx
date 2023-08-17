@@ -1,6 +1,6 @@
 import { Card } from '@mui/material';
 
-const GeneratorCard = () => {
+const TeamCard = () => {
   return (
     <Card>
             Model
@@ -8,4 +8,4 @@ const GeneratorCard = () => {
   );
 };
 
-export default GeneratorCard;
+export default TeamCard;

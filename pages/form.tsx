@@ -11,9 +11,9 @@ import Page8 from '@/components/form/form_theme';
 import Page9 from '@/components/form/form_social_following';
 import Page10 from '@/components/form/form_post_freq';
 import Page11 from '@/components/form/form_selling_point';
-import FormDataManager from '../components/form/FormDataManager';
-import { submitCreateGeneratorForm } from '../domain/usecases/create_generator';
-import withAuth from '../domain/auth/withAuth';
+import FormDataManager from '@/components/form/FormDataManager';
+import { submitCreateTeamForm } from '@/domain/usecases/create_team';
+import withAuth from '@/domain/auth/withAuth';
 
 const Form = () => {
   const totalPages = 11; // Update this to the total number of pages
@@ -30,13 +30,13 @@ const Form = () => {
   const createModel = (formData) => {
     console.log(formData);
   };
-  const onNewGeneratorClick = async (formData) => {
-    await submitCreateGeneratorForm({
+  const onNewTeamClick = async (formData) => {
+    await submitCreateTeamForm({
       artistDescription: formData.artistDescription,
       artistName: formData.artistName,
       artistProfession: formData.artistProfession,
       gender: formData.gender,
-      modelName: formData.modelName,
+      teamName: formData.teamTeam,
       postFreq: formData.postFreq,
       refImages: formData.refImages,
       sellingPoint: formData.sellingPoint,
@@ -108,7 +108,7 @@ const Form = () => {
                   {currentPage === 11 && (
                     <button
                       className="tapped_btn"
-                      onClick={() => onNewGeneratorClick(formData)}
+                      onClick={() => onNewTeamClick(formData)}
                     >
                       Create Model
                     </button>

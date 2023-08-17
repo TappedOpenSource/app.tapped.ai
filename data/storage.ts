@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { Resize } from '@cloudinary/url-gen/actions';
-import cloudinary from '../utils/cloudinary';
+import cloudinary from '@/utils/cloudinary';
 import { source } from '@cloudinary/url-gen/actions/overlay';
 import { Transformation } from '@cloudinary/url-gen';
 // import { opacity } from '@cloudinary/url-gen/actions/adjust';
@@ -20,7 +20,7 @@ export type Storage = {
     // deleteInputImage: (input: { public_id: string }) => Promise<void>;
 
     saveGeneratedAvatarImage: (input: {
-      generatorId: string,
+      teamId: string,
       avatarId: string,
       imageUrl: string,
     }) => Promise<{ url: string }>;
@@ -46,16 +46,16 @@ const FirebaseCloudinaryStorage: Storage = {
   // await cloudinary.v2.uploader.destroy(public_id);
   // },
   saveGeneratedAvatarImage: async ({
-    generatorId,
+    teamId,
     avatarId,
     imageUrl,
   }: {
-    generatorId: string,
+    teamId: string,
     avatarId: string,
     imageUrl: string,
   }): Promise<{ url: string }> => {
     // const { public_id } = await cloudinary.v2.uploader.upload(imageUrl, {
-    //   folder: `generated_avatars/${generatorId}/${avatarId}`,
+    //   folder: `generated_avatars/${teamId}/${avatarId}`,
     //   upload_preset: 'generated_avatars',
     // });
 

@@ -51,7 +51,7 @@ export default function Home() {
           id="apply-here"
           className="px-4 py-2 mt-8 mb-4 text-lg font-bold rounded-lg hover:scale-105 transform transition-all duration-200 ease-in-out shadow-lg"
         >apply here</Link>
-        <Link href="/signup_complete" className="block lg:hidden text-black">already a member?</Link>
+        <Link href="/tmp_home" className="block lg:hidden text-black">already a member?</Link>
       </div>
     </main>
   );
