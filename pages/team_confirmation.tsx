@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
-import withAuth from '../domain/auth/withAuth';
+import withAuth from '@/domain/auth/withAuth';
 
 const TeamConfirmation = () => {
   const [loading, setLoading] = useState(false);

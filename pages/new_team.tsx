@@ -260,7 +260,7 @@ const NewTeam = () => {
                 type="submit"
                 onClick={onNewTeamClick}
               >
-                Create New Model
+                Create New Team
               </button>
             </Link>
           </div>

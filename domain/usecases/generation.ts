@@ -1,4 +1,4 @@
-import { None } from '@sniptt/monads';
+import { None, Some } from '@sniptt/monads';
 import api from '@/data/api';
 import database from '@/data/database';
 import storage from '@/data/storage';
@@ -20,7 +20,7 @@ export const generateAvatars = async ({ team }: {
   // poll leapai for results
   const { imageUrls } = await api.getAvatarInferenceJob(inferenceId);
 
-  // ave images to firebase storage
+  // save images to firebase storage
   const urls = await Promise.all(
     imageUrls.map(async (imageUrl) => {
       const uuid = uuidv4();
@@ -36,11 +36,11 @@ export const generateAvatars = async ({ team }: {
         userId: team.userId,
         teamId: team.id,
         prompt,
-        url,
+        url: Some(url),
         errorMsg: None,
         timestamp: new Date(),
       };
-      await database.createGeneratedAvatar(generatedAvatar);
+      await database.createAvatar(generatedAvatar);
 
       return url;
     })

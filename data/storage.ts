@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { Resize } from '@cloudinary/url-gen/actions';
-import cloudinary from '../utils/cloudinary';
+import cloudinary from '@/utils/cloudinary';
 import { source } from '@cloudinary/url-gen/actions/overlay';
 import { Transformation } from '@cloudinary/url-gen';
 // import { opacity } from '@cloudinary/url-gen/actions/adjust';

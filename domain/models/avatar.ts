@@ -6,7 +6,7 @@ export type Avatar = {
     userId: string;
     teamId: string;
     prompt: string;
-    url: string;
+    url: Option<string>;
     errorMsg: Option<string>;
     timestamp: Date;
 };

@@ -11,9 +11,9 @@ import Page8 from '@/components/form/form_theme';
 import Page9 from '@/components/form/form_social_following';
 import Page10 from '@/components/form/form_post_freq';
 import Page11 from '@/components/form/form_selling_point';
-import FormDataManager from '../components/form/FormDataManager';
+import FormDataManager from '@/components/form/FormDataManager';
 import { submitCreateTeamForm } from '@/domain/usecases/create_team';
-import withAuth from '../domain/auth/withAuth';
+import withAuth from '@/domain/auth/withAuth';
 
 const Form = () => {
   const totalPages = 11; // Update this to the total number of pages

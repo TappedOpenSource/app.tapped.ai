@@ -1,5 +1,5 @@
 import { DocumentSnapshot, Timestamp } from 'firebase/firestore';
-import { AvatarStyle } from './avatar';
+import { AvatarStyle } from '@/domain/models/avatar';
 import { Option, Some, None } from '@sniptt/monads';
 
 export type Team = {
@@ -9,12 +9,10 @@ export type Team = {
     updatedAt: Date;
     createdAt: Date;
 
-    // Team Input
-
     // Team Name
     name: string;
 
-    // form data
+    // Team Input
     artistDescription: string;
     artistName: string;
     artistProfession: string;

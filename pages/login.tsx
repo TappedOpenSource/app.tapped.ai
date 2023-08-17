@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { loginWithCredentials } from '../domain/usecases/login';
 import { useRouter } from 'next/router';
+import { loginWithCredentials } from '@/domain/usecases/login';
 import SignInWithGoogleButton from '@/components/signin_with_google_button';
 
 const Login = () => {
