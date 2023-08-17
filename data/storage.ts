@@ -20,7 +20,7 @@ export type Storage = {
     // deleteInputImage: (input: { public_id: string }) => Promise<void>;
 
     saveGeneratedAvatarImage: (input: {
-      generatorId: string,
+      teamId: string,
       avatarId: string,
       imageUrl: string,
     }) => Promise<{ url: string }>;
@@ -46,16 +46,16 @@ const FirebaseCloudinaryStorage: Storage = {
   // await cloudinary.v2.uploader.destroy(public_id);
   // },
   saveGeneratedAvatarImage: async ({
-    generatorId,
+    teamId,
     avatarId,
     imageUrl,
   }: {
-    generatorId: string,
+    teamId: string,
     avatarId: string,
     imageUrl: string,
   }): Promise<{ url: string }> => {
     // const { public_id } = await cloudinary.v2.uploader.upload(imageUrl, {
-    //   folder: `generated_avatars/${generatorId}/${avatarId}`,
+    //   folder: `generated_avatars/${teamId}/${avatarId}`,
     //   upload_preset: 'generated_avatars',
     // });
 

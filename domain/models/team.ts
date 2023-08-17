@@ -2,16 +2,16 @@ import { DocumentSnapshot, Timestamp } from 'firebase/firestore';
 import { AvatarStyle } from './avatar';
 import { Option, Some, None } from '@sniptt/monads';
 
-export type BrandGenerator = {
+export type Team = {
     id: string;
     userId: string;
     quota: number;
     updatedAt: Date;
     createdAt: Date;
 
-    // Generator Input
+    // Team Input
 
-    // generator name
+    // Team Name
     name: string;
 
     // form data
@@ -35,13 +35,13 @@ export type BrandGenerator = {
       | 'errored';
 };
 
-export const generatorConverter = {
-  toFirestore: (generator: BrandGenerator) => {
+export const teamConverter = {
+  toFirestore: (team: Team) => {
     return {
-      ...generator,
-      updatedAt: Timestamp.fromDate(generator.updatedAt),
-      createdAt: Timestamp.fromDate(generator.createdAt),
-      sdModelId: generator.sdModelId.unwrapOr(null),
+      ...team,
+      updatedAt: Timestamp.fromDate(team.updatedAt),
+      createdAt: Timestamp.fromDate(team.createdAt),
+      sdModelId: team.sdModelId.unwrapOr(null),
     };
   },
   fromFirestore: (snapshot: DocumentSnapshot, options) => {

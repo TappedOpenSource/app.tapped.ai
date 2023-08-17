@@ -1,17 +1,16 @@
 
 import { v4 as uuidv4 } from 'uuid';
 import { None } from '@sniptt/monads';
-import { BrandGenerator } from '../models/brand_generator';
+import { Team } from '@/domain/models/team';
 import database from '@/data/database';
-import storage from '@/data/storage';
 import auth from '@/data/auth';
 
-export const submitCreateGeneratorForm = async (formInputs: {
+export const submitCreateTeamForm = async (formInputs: {
   artistDescription: string;
   artistName: string;
   artistProfession: string;
   gender: string;
-  modelName: string;
+  teamName: string;
   postFreq: string;
   refImages: string[];
   sellingPoint: string;
@@ -34,11 +33,11 @@ export const submitCreateGeneratorForm = async (formInputs: {
   //   }),
   // );
 
-  // Create new generator object
-  const generator: BrandGenerator = {
+  // Create new team object
+  const team: Team = {
     id: uuid,
     userId: auth.currentUser.unwrap().uid,
-    name: formInputs.modelName,
+    name: formInputs.teamName,
     quota: 100,
     updatedAt: new Date(),
     createdAt: new Date(),
@@ -62,5 +61,5 @@ export const submitCreateGeneratorForm = async (formInputs: {
   };
 
   // Add to DB
-  database.createGenerator(generator);
+  database.createTeam(team);
 };

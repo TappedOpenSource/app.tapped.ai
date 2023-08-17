@@ -1,12 +1,12 @@
 
 import { Button } from '@mui/material';
 
-const CreateGeneratorButton = () => {
+const CreateTeamButton = () => {
   return (
-    <Button className="create-generator-button">
-        Create Generator
+    <Button className="create-team-button">
+        Create Team
     </Button>
   );
 };
 
-export default CreateGeneratorButton;
+export default CreateTeamButton;
