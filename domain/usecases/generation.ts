@@ -7,7 +7,6 @@ import { Team } from '@/domain/models/team';
 import { uuid as uuidv4 } from 'uuid';
 import { AlbumName } from '@/domain/models/album_name';
 
-
 export const generateAvatars = async ({ team }: {
   team: Team,
 }): Promise<{ urls: string[] }> => {

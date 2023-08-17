@@ -20,7 +20,7 @@ const TeamConfirmation = () => {
         </div>
         <div className="pt-44">
           <div>
-            <Link href="/branding">
+            <Link href="/home">
               <button className="tapped_btn max-h-10 w-full">
                 Return Home
               </button>

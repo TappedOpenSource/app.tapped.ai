@@ -19,7 +19,7 @@ const Signup: NextPage = () => {
         email: data.email,
         password: data.password,
       });
-      router.push('/branding');
+      router.push('/tmp_home');
     } catch (err) {
       console.error(err);
     }

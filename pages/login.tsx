@@ -21,7 +21,7 @@ const Login = () => {
         email: data.email,
         password: data.password,
       });
-      router.push('/branding');
+      router.push('/tmp_home');
     } catch (err) {
       console.error(err);
     }
@@ -29,7 +29,7 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      router.push('/branding');
+      router.push('/tmp_home');
     } catch (err) {
       console.error(err);
     }

@@ -50,7 +50,7 @@ const Model = () => {
         </div>
         <div className="pt-24">
           <div>
-            <Link href="/branding">
+            <Link href="/home">
               <button className="tapped_btn max-h-10 w-full">
                 Return Home
               </button>
