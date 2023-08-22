@@ -12,7 +12,8 @@ export const generateAvatars = async ({ team }: {
 }): Promise<{ urls: string[] }> => {
   // create inference job
   const { inferenceId, prompt } = await api.createAvatarInferenceJob({
-    modelId: team.sdModelId.unwrap(),
+    // modelId: team.sdModelId.unwrap(),
+    modelId: '',
     avatarStyle: team.avatarStyle,
   });
 
@@ -33,7 +34,6 @@ export const generateAvatars = async ({ team }: {
       const generatedAvatar: Avatar = {
         id: uuid,
         userId: team.userId,
-        teamId: team.id,
         prompt,
         url: Some(url),
         errorMsg: None,
@@ -67,7 +67,6 @@ export const generateAlbumName = async ({ team }: {
   const generatedAlbumName: AlbumName = {
     id: uuid,
     userId: team.userId,
-    teamId: team.id,
     text: text,
     prompt: prompt,
     timestamp: new Date(),
