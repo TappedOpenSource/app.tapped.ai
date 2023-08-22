@@ -24,13 +24,6 @@ export type Team = {
     socialFollowing: number;
     theme: string;
     avatarStyle: AvatarStyle;
-
-    sdModelId: Option<string>;
-    sdModelStatus: 'initial'
-      | 'training'
-      | 'ready'
-      | 'inferring'
-      | 'errored';
 };
 
 export const teamConverter = {
@@ -39,7 +32,6 @@ export const teamConverter = {
       ...team,
       updatedAt: Timestamp.fromDate(team.updatedAt),
       createdAt: Timestamp.fromDate(team.createdAt),
-      sdModelId: team.sdModelId.unwrapOr(null),
     };
   },
   fromFirestore: (snapshot: DocumentSnapshot, options) => {
@@ -48,7 +40,6 @@ export const teamConverter = {
       ...data,
       updatedAt: data.updatedAt.toDate(),
       createdAt: data.createdAt.toDate(),
-      sdModelId: data.sdModelId ? Some(data.sdModelId) : None,
     };
   },
 };
