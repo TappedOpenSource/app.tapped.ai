@@ -76,7 +76,9 @@ const FirebaseFuncs: Api = {
   },
   createPortalLink: async ({ returnUrl }) => {
     const functions = getFunctions();
-    const func = httpsCallable<{ returnUrl: string }, { url: string; }>(functions, 'ext-firestore-stripe-payments-createPortalLink');
+    const func = httpsCallable<{
+      returnUrl: string;
+     }, { url: string; }>(functions, 'ext-firestore-stripe-payments-createPortalLink');
     const { data } = await func({ returnUrl });
     return { url: data.url };
   },
