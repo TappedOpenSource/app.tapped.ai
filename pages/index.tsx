@@ -54,7 +54,7 @@ const signedArtists: {
     photo: yungsmilezImage,
   },
   {
-    name: 'Davy',
+    name: 'Davy HBF',
     photo: davyImage,
   },
   {
