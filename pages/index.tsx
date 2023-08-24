@@ -1,48 +1,61 @@
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
-const signedArtists = [
+import mariaImage from '../public/images/maria.png';
+import jayduhhhImage from '../public/images/jayduhhh.png';
+import maniImage from '../public/images/mani.png';
+import infamousgImage from '../public/images/infamousg.png';
+import seelifeImage from '../public/images/seelife.png';
+import rysovalidImage from '../public/images/rysovalid.png';
+import niralImage from '../public/images/niral.png';
+import filieImage from '../public/images/fi_lie.png';
+import yungsmilezImage from '../public/images/yungsmilez.png';
+
+const signedArtists: {
+  name: string;
+  photo: StaticImageData;
+}[] = [
   {
     name: 'Maria Alexa',
-    photo: '/images/maria.png',
+    photo: mariaImage,
   },
   {
     name: 'Jay?duhhh',
-    photo: '/images/jayduhhh.png',
+    photo: jayduhhhImage,
   },
   {
     name: 'ManiDaBrat',
-    photo: '/images/mani.png',
+    photo: maniImage,
   },
   {
     name: 'Infamou$G',
-    photo: '/images/infamousg.png',
+    photo: infamousgImage,
   },
   {
     name: 'Seelife',
-    photo: '/images/seelife.png',
+    photo: seelifeImage,
   },
   {
     name: 'rysovalid',
-    photo: '/images/rysovalid.png',
+    photo: rysovalidImage,
   },
   {
     name: 'niral',
-    photo: '/images/niral.png',
+    photo: niralImage,
   },
   {
-    name: 'fi_lie',
-    photo: '/images/fi_lie.png',
+    name: 'fe_lie',
+    photo: filieImage,
   },
   {
     name: 'Yung Smilez',
-    photo: '/images/yungsmilez.png',
+    photo: yungsmilezImage,
   },
 ];
 
 const SignedArtist = ({ name, photo }: {
   name: string;
-  photo: string;
+  photo: StaticImageData;
 }) => {
   return (
     <>
