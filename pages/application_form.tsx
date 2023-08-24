@@ -9,6 +9,7 @@ import FollowingField from '@/components/application/following_field';
 import IgField from '@/components/application/ig_field';
 import SignUpField from '@/components/application/signup_field';
 import PhoneField from '@/components/application/phone_field';
+import EmailField from '@/components/application/email_field';
 
 const Application: NextPage = () => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -16,7 +17,7 @@ const Application: NextPage = () => {
 
   const pages = [
     NameField,
-    // EmailField,
+    EmailField,
     PhoneField,
     DescribeField,
     LabelField,
