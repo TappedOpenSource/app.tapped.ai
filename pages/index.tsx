@@ -40,11 +40,11 @@ const signedArtists: {
     photo: rysovalidImage,
   },
   {
-    name: 'niral',
+    name: 'Niral Desai',
     photo: niralImage,
   },
   {
-    name: 'fe_lie',
+    name: 'Fe_lie the God',
     photo: filieImage,
   },
   {
