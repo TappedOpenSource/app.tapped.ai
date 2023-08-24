@@ -4,7 +4,6 @@ import { Option, Some, None } from '@sniptt/monads';
 export type Avatar = {
     id: string;
     userId: string;
-    teamId: string;
     prompt: string;
     url: Option<string>;
     errorMsg: Option<string>;
@@ -26,7 +25,6 @@ export const avatarConverter = {
     return {
       id: data.id,
       userId: data.userId,
-      teamId: data.teamId,
       prompt: data.prompt,
       url: data.url,
       errorMsg: data.errorMsg ? Some(data.errorMsg) : None,

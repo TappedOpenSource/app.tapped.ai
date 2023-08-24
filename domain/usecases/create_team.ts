@@ -55,11 +55,8 @@ export const submitCreateTeamForm = async (formInputs: {
     theme: formInputs.theme,
     avatarStyle: 'Vintage',
     genres: [],
-
-    sdModelId: None,
-    sdModelStatus: 'initial',
   };
 
   // Add to DB
-  database.createTeam(team);
+  // database.createTeam(team);
 };

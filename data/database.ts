@@ -16,18 +16,17 @@ import { Option, None, Some } from '@sniptt/monads';
 import { Avatar, avatarConverter } from '@/domain/models/avatar';
 import { Team, teamConverter } from '@/domain/models/team';
 import firebase from '@/utils/firebase';
-import { AlbumName } from '@/domain/models/album_name';
+import { AlbumName, albumNameConverter } from '@/domain/models/album_name';
 import { LabelApplication, labelApplicationConverter } from '@/domain/models/label_application';
 
 export type Database = {
-  createTeam: (team: Team) => Promise<string>;
   createAvatar: (avatar: Avatar) => Promise<string>
-  getAvatar: ({ teamId, id }: {
+  getAvatar: ({ userId, id }: {
     id: string;
-    teamId: string;
+    userId: string;
   }) => Promise<Option<Avatar>>;
-  getAvatarsByTeam: ({ teamId }: {
-    teamId: string;
+  getAvatarsByUser: ({ userId }: {
+    userId: string;
   }) => Promise<Avatar[]>;
   createGeneratedAlbumName: (albumName: AlbumName) => Promise<string>;
   createCheckoutSession: ({ userId, priceId }: {
@@ -50,23 +49,20 @@ export type Database = {
 
 const db = firebase.db;
 const FirestoreDB: Database = {
-  createTeam: async (team: Team): Promise<string> => {
-    const docRef = doc(db, `teams/${team.id}]`);
-    await setDoc(docRef, teamConverter.toFirestore(team));
-
-    return docRef.id;
-  },
   createAvatar: async (avatar: Avatar): Promise<string> => {
-    const docRef = doc(db, `teams/${avatar.teamId}/avatars/${avatar.id}`);
-    await setDoc(docRef, avatarConverter.toFirestore(avatar));
+    const docRef = doc(
+      db,
+      `/avatars/${avatar.userId}/userAvatars/${avatar.id}`,
+    ).withConverter(avatarConverter);
+    await setDoc(docRef, avatar);
 
     return docRef.id;
   },
-  getAvatar: async ({ teamId, id }: {
-    teamId: string,
+  getAvatar: async ({ userId, id }: {
+    userId: string,
     id: string,
   }): Promise<Option<Avatar>> => {
-    const docRef = doc(db, `teams/${teamId}/avatars/${id}`).withConverter(avatarConverter);
+    const docRef = doc(db, `/avatars/${userId}/userAvatars/${id}`).withConverter(avatarConverter);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
       return None;
@@ -77,19 +73,20 @@ const FirestoreDB: Database = {
 
     return Some(avatar);
   },
-  getAvatarsByTeam: async ({ teamId }: {
-    teamId: string,
+  getAvatarsByUser: async ({ userId }: {
+    userId: string,
   }): Promise<Avatar[]> => {
-    const avatarsCollection = collection(db, `teams/${teamId}/avatars`);
+    const avatarsCollection = collection(db, `/avatars/${userId}/userAvatars`).withConverter(avatarConverter);
     const avatarDocs = await getDocs(avatarsCollection);
-    const avatars = avatarDocs.docs.map((doc) => {
-      return avatarConverter.fromFirestore(doc, {});
-    });
+    const avatars = avatarDocs.docs.map((doc) => doc.data());
 
     return avatars;
   },
   createGeneratedAlbumName: async (albumName: AlbumName): Promise<string> => {
-    const docRef = doc(db, `teams/${albumName.teamId}/albumNames/${albumName.id}`);
+    const docRef = doc(
+      db,
+      `/albumNames/${albumName.userId}/userAlbumNames/${albumName.id}`,
+    ).withConverter(albumNameConverter);
     await setDoc(docRef, albumName);
 
     return docRef.id;

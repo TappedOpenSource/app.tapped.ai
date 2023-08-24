@@ -27,8 +27,6 @@ const Home = () => {
       socialFollowing: 123,
       theme: 'something',
       avatarStyle: 'Vintage',
-      sdModelId: Some('whoa'),
-      sdModelStatus: 'initial',
     },
   ];
 
