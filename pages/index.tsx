@@ -123,7 +123,7 @@ export default function Home() {
               href="/application_form"
               // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
               id="apply-here"
-              className="text-lg font-bold rounded-lg hover:scale-105 transform transition-all duration-200 ease-in-out shadow-lg"
+              className="text-lg font-bold rounded-lg hover:scale-105 transform transition-all duration-200 ease-in-out"
             >apply here</Link>
             <Link
               href="/about"
