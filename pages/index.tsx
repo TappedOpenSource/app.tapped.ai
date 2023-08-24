@@ -10,6 +10,8 @@ import rysovalidImage from '../public/images/rysovalid.png';
 import niralImage from '../public/images/niral.png';
 import filieImage from '../public/images/fi_lie.png';
 import yungsmilezImage from '../public/images/yungsmilez.png';
+import davyImage from '../public/images/davy.png';
+import andrewImage from '../public/images/andrew.png';
 
 const signedArtists: {
   name: string;
@@ -50,6 +52,14 @@ const signedArtists: {
   {
     name: 'Yung Smilez',
     photo: yungsmilezImage,
+  },
+  {
+    name: 'Davy',
+    photo: davyImage,
+  },
+  {
+    name: 'Andrew Rohlk',
+    photo: andrewImage,
   },
 ];
 
