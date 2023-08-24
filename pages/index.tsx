@@ -129,7 +129,7 @@ export default function Home() {
               href="/about"
               // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
               id="learn-more"
-              className="text-lg font-bold rounded-lg hover:scale-105 transform transition-all duration-200 ease-in-out shadow-lg"
+              className="text-lg font-bold rounded-lg hover:scale-105 transform transition-all duration-200 ease-in-out"
             >learn more</Link>
           </div>
           <Link href="/tmp_home" className="block lg:hidden text-black">already a member?</Link>
