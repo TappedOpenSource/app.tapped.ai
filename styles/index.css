@@ -71,3 +71,10 @@ span {
   color: #fff;
   background-color: #000;
 }
+
+#learn-more {
+  font-family: 'Nunito', sans-serif;
+  padding: 0.7rem;
+  color: #fff;
+  background-color: #4c4c4c00;
+}

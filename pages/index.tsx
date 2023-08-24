@@ -11,7 +11,7 @@ const signedArtists = [
     photo: '/images/jayduhhh.png',
   },
   {
-    name: 'Mani',
+    name: 'ManiDaBrat',
     photo: '/images/mani.png',
   },
   {
@@ -25,6 +25,18 @@ const signedArtists = [
   {
     name: 'rysovalid',
     photo: '/images/rysovalid.png',
+  },
+  {
+    name: 'niral',
+    photo: '/images/niral.png',
+  },
+  {
+    name: 'fi_lie',
+    photo: '/images/fi_lie.png',
+  },
+  {
+    name: 'Yung Smilez',
+    photo: '/images/yungsmilez.png',
   },
 ];
 
@@ -93,12 +105,20 @@ export default function Home() {
           >
             we are the anti-360 deal.
           </h2>
-          <Link
-            href="/application_form"
-            // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
-            id="apply-here"
-            className="px-4 py-2 mt-8 mb-4 text-lg font-bold rounded-lg hover:scale-105 transform transition-all duration-200 ease-in-out shadow-lg"
-          >apply here</Link>
+          <div className="flex flex-row gap-6 mt-8 mb-4 py-2 px-4">
+            <Link
+              href="/application_form"
+              // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
+              id="apply-here"
+              className="text-lg font-bold rounded-lg hover:scale-105 transform transition-all duration-200 ease-in-out shadow-lg"
+            >apply here</Link>
+            <Link
+              href="/about"
+              // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
+              id="learn-more"
+              className="text-lg font-bold rounded-lg hover:scale-105 transform transition-all duration-200 ease-in-out shadow-lg"
+            >learn more</Link>
+          </div>
           <Link href="/tmp_home" className="block lg:hidden text-black">already a member?</Link>
           <div className="pb-12 lg:pb-2"></div>
           <div className="overflow-hidden w-screen">
