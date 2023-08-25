@@ -1,17 +1,17 @@
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
-import mariaImage from '../public/images/maria.png';
-import jayduhhhImage from '../public/images/jayduhhh.png';
-import maniImage from '../public/images/mani.png';
-import infamousgImage from '../public/images/infamousg.png';
-import seelifeImage from '../public/images/seelife.png';
-import rysovalidImage from '../public/images/rysovalid.png';
-import niralImage from '../public/images/niral.png';
-import filieImage from '../public/images/fi_lie.png';
-import yungsmilezImage from '../public/images/yungsmilez.png';
-import davyImage from '../public/images/davy.png';
-import andrewImage from '../public/images/andrew.png';
+import mariaImage from '@/public/images/512x512/maria.512x512.png';
+import jayduhhhImage from '@/public/images/512x512/jayduhhh.512x512.png';
+import maniImage from '@/public/images/512x512/mani.512x512.png';
+import infamousgImage from '@/public/images/512x512/infamousg.512x512.png';
+import seelifeImage from '@/public/images/512x512/seelife.512x512.png';
+import rysovalidImage from '@/public/images/512x512/rysovalid.512x512.png';
+import niralImage from '@/public/images/512x512/niral.512x512.png';
+import filieImage from '@/public/images/512x512/fi_lie.512x512.png';
+import yungsmilezImage from '@/public/images/512x512/yungsmilez.512x512.png';
+import davyImage from '@/public/images/512x512/davy.512x512.png';
+import andrewImage from '@/public/images/512x512/andrew.512x512.png';
 
 const signedArtists: {
   name: string;
