@@ -8,7 +8,7 @@ import infamousgImage from '@/public/images/512x512/infamousg.512x512.png';
 import seelifeImage from '@/public/images/512x512/seelife.512x512.png';
 import rysovalidImage from '@/public/images/512x512/rysovalid.512x512.png';
 import niralImage from '@/public/images/512x512/niral.512x512.png';
-import filieImage from '@/public/images/512x512/fi_lie.512x512.png';
+import felieImage from '@/public/images/512x512/felie.512x512.png';
 import yungsmilezImage from '@/public/images/512x512/yungsmilez.512x512.png';
 import davyImage from '@/public/images/512x512/davy.512x512.png';
 import andrewImage from '@/public/images/512x512/andrew.512x512.png';
@@ -47,7 +47,7 @@ const signedArtists: {
   },
   {
     name: 'Fe_lie the God',
-    photo: filieImage,
+    photo: felieImage,
   },
   {
     name: 'Yung Smilez',
