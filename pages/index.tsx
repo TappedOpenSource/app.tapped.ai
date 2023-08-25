@@ -74,6 +74,7 @@ const SignedArtist = ({ name, photo }: {
         <Image
           fill
           unoptimized
+          priority
           className='rounded-2xl'
           src={photo}
           alt={name}
