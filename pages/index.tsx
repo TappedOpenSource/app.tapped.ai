@@ -73,7 +73,6 @@ const SignedArtist = ({ name, photo }: {
         className="w-48 h-48 relative flex-shrink-0 m-2">
         <Image
           fill
-          unoptimized
           priority
           className='rounded-2xl'
           src={photo}
