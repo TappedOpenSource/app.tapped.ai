@@ -45,9 +45,9 @@ const PhoneField = ({ formData, updateFormData, onValidation }) => {
   }, [formData.phone]);
 
   return (
-    <div className="page flex h-full flex-col items-center justify-center bg-white">
+    <div className="page flex h-full flex-col items-center justify-center">
       <div className="flex w-full flex-col items-start px-6">
-        <h1 className="mb-4 text-xl text-[#42A5F5]">
+        <h1 className="mb-4 text-2xl text-white font-bold">
           what is your phone number?
         </h1>
         <div className="flex h-full w-full items-center justify-center">
