@@ -12,6 +12,7 @@ import felieImage from '@/public/images/512x512/felie.512x512.png';
 import yungsmilezImage from '@/public/images/512x512/yungsmilez.512x512.png';
 import davyImage from '@/public/images/512x512/davy.512x512.png';
 import andrewImage from '@/public/images/512x512/andrew.512x512.png';
+import reinImage from '@/public/images/512x512/rein.512x512.png';
 
 const signedArtists: {
   name: string;
@@ -60,6 +61,10 @@ const signedArtists: {
   {
     name: 'Andrew Rohlk',
     photo: andrewImage,
+  },
+  {
+    name: 'Rein',
+    photo: reinImage,
   },
 ];
 
