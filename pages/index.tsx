@@ -14,60 +14,8 @@ import davyImage from '@/public/images/512x512/davy.512x512.png';
 import andrewImage from '@/public/images/512x512/andrew.512x512.png';
 import reinImage from '@/public/images/512x512/rein.512x512.png';
 import Footer from '@/components/Footer';
-
-const signedArtists: {
-  name: string;
-  photo: StaticImageData;
-}[] = [
-  {
-    name: 'Maria Alexa',
-    photo: mariaImage,
-  },
-  {
-    name: 'Jay?duhhh',
-    photo: jayduhhhImage,
-  },
-  {
-    name: 'ManiDaBrat',
-    photo: maniImage,
-  },
-  {
-    name: 'Infamou$G',
-    photo: infamousgImage,
-  },
-  {
-    name: 'Seelife',
-    photo: seelifeImage,
-  },
-  {
-    name: 'rysovalid',
-    photo: rysovalidImage,
-  },
-  {
-    name: 'Niral Desai',
-    photo: niralImage,
-  },
-  {
-    name: 'Fe_lie the God',
-    photo: felieImage,
-  },
-  {
-    name: 'Yung Smilez',
-    photo: yungsmilezImage,
-  },
-  {
-    name: 'Davy HBF',
-    photo: davyImage,
-  },
-  {
-    name: 'Andrew Rohlk',
-    photo: andrewImage,
-  },
-  {
-    name: 'Rein',
-    photo: reinImage,
-  },
-];
+import { shuffle } from '@/utils/shuffle';
+import { useEffect, useState } from 'react';
 
 const SignedArtist = ({ name, photo }: {
   name: string;
@@ -91,6 +39,63 @@ const SignedArtist = ({ name, photo }: {
 };
 
 export default function Home() {
+  const [signedArtists, setSignedArtists] = useState([]);
+
+
+  useEffect(() => {
+    setSignedArtists(shuffle([
+      {
+        name: 'Maria Alexa',
+        photo: mariaImage,
+      },
+      {
+        name: 'Jay?duhhh',
+        photo: jayduhhhImage,
+      },
+      {
+        name: 'ManiDaBrat',
+        photo: maniImage,
+      },
+      {
+        name: 'Infamou$G',
+        photo: infamousgImage,
+      },
+      {
+        name: 'Seelife',
+        photo: seelifeImage,
+      },
+      {
+        name: 'rysovalid',
+        photo: rysovalidImage,
+      },
+      {
+        name: 'Niral Desai',
+        photo: niralImage,
+      },
+      {
+        name: 'Fe_lie the God',
+        photo: felieImage,
+      },
+      {
+        name: 'Yung Smilez',
+        photo: yungsmilezImage,
+      },
+      {
+        name: 'Davy HBF',
+        photo: davyImage,
+      },
+      {
+        name: 'Andrew Rohlk',
+        photo: andrewImage,
+      },
+      {
+        name: 'Rein',
+        photo: reinImage,
+      },
+    ]
+    ));
+  }, []);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-start pt-12 px-12 bg-[#38B6FF]">
       <div className="h-screen">
