@@ -15,7 +15,6 @@ import andrewImage from '@/public/images/512x512/andrew.512x512.png';
 import reinImage from '@/public/images/512x512/rein.512x512.png';
 import Footer from '@/components/Footer';
 import { shuffle } from '@/utils/shuffle';
-import { useEffect, useState } from 'react';
 
 const SignedArtist = ({ name, photo }: {
   name: string;
@@ -38,64 +37,67 @@ const SignedArtist = ({ name, photo }: {
   );
 };
 
-export default function Home() {
-  const [signedArtists, setSignedArtists] = useState([]);
+export const getServerSideProps = async () => {
+  const signedArtists = [
+    {
+      name: 'Maria Alexa',
+      photo: mariaImage,
+    },
+    {
+      name: 'Jay?duhhh',
+      photo: jayduhhhImage,
+    },
+    {
+      name: 'ManiDaBrat',
+      photo: maniImage,
+    },
+    {
+      name: 'Infamou$G',
+      photo: infamousgImage,
+    },
+    {
+      name: 'Seelife',
+      photo: seelifeImage,
+    },
+    {
+      name: 'rysovalid',
+      photo: rysovalidImage,
+    },
+    {
+      name: 'Niral Desai',
+      photo: niralImage,
+    },
+    {
+      name: 'Fe_lie the God',
+      photo: felieImage,
+    },
+    {
+      name: 'Yung Smilez',
+      photo: yungsmilezImage,
+    },
+    {
+      name: 'Davy HBF',
+      photo: davyImage,
+    },
+    {
+      name: 'Andrew Rohlk',
+      photo: andrewImage,
+    },
+    {
+      name: 'Rein',
+      photo: reinImage,
+    },
+  ];
+  const shuffledArtists = shuffle(signedArtists);
+  return { props: { shuffledArtists } };
+};
 
-
-  useEffect(() => {
-    setSignedArtists(shuffle([
-      {
-        name: 'Maria Alexa',
-        photo: mariaImage,
-      },
-      {
-        name: 'Jay?duhhh',
-        photo: jayduhhhImage,
-      },
-      {
-        name: 'ManiDaBrat',
-        photo: maniImage,
-      },
-      {
-        name: 'Infamou$G',
-        photo: infamousgImage,
-      },
-      {
-        name: 'Seelife',
-        photo: seelifeImage,
-      },
-      {
-        name: 'rysovalid',
-        photo: rysovalidImage,
-      },
-      {
-        name: 'Niral Desai',
-        photo: niralImage,
-      },
-      {
-        name: 'Fe_lie the God',
-        photo: felieImage,
-      },
-      {
-        name: 'Yung Smilez',
-        photo: yungsmilezImage,
-      },
-      {
-        name: 'Davy HBF',
-        photo: davyImage,
-      },
-      {
-        name: 'Andrew Rohlk',
-        photo: andrewImage,
-      },
-      {
-        name: 'Rein',
-        photo: reinImage,
-      },
-    ]
-    ));
-  }, []);
-
+export default function Home({ shuffledArtists }: {
+  shuffledArtists: {
+    name: string;
+    photo: StaticImageData;
+  }[]
+}) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-start pt-12 px-12 bg-[#38B6FF]">
       <div className="h-screen">
@@ -159,14 +161,14 @@ export default function Home() {
           <div className="overflow-hidden w-screen">
             <div className="relative flex flex-row">
               <div className="flex flex-row animate-marquee whitespace-nowrap">
-                {signedArtists.map(({ name, photo }, i) => <SignedArtist
+                {shuffledArtists.map(({ name, photo }, i) => <SignedArtist
                   key={i}
                   name={name}
                   photo={photo}
                 />)}
               </div>
               <div className="absolute flex flex-row animate-marquee2 whitespace-nowrap">
-                {signedArtists.map(({ name, photo }, i) => <SignedArtist
+                {shuffledArtists.map(({ name, photo }, i) => <SignedArtist
                   key={i}
                   name={name}
                   photo={photo}
