@@ -40,7 +40,7 @@ const Footer = () => {
           </a>
         </div>
         <div className="flex justify-center mt-2">
-          <Link className="font-bold px-1 text-blue-500" href="/privacy">
+          <Link className="font-bold px-1 text-blue-500" href="https://app.tapped.ai/privacy">
                         Privacy Policy
           </Link>
         </div>
