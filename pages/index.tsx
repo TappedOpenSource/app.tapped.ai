@@ -1,6 +1,8 @@
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
+import { shuffle } from '@/utils/shuffle';
+import Footer from '@/components/Footer';
 import mariaImage from '@/public/images/512x512/maria.512x512.png';
 import jayduhhhImage from '@/public/images/512x512/jayduhhh.512x512.png';
 import maniImage from '@/public/images/512x512/mani.512x512.png';
@@ -13,8 +15,7 @@ import yungsmilezImage from '@/public/images/512x512/yungsmilez.512x512.png';
 import davyImage from '@/public/images/512x512/davy.512x512.png';
 import andrewImage from '@/public/images/512x512/andrew.512x512.png';
 import reinImage from '@/public/images/512x512/rein.512x512.png';
-import Footer from '@/components/Footer';
-import { shuffle } from '@/utils/shuffle';
+import frankieImage from '@/public/images/512x512/frankie.512x512.png';
 
 const SignedArtist = ({ name, photo }: {
   name: string;
@@ -86,6 +87,10 @@ export const getServerSideProps = async () => {
     {
       name: 'Rein',
       photo: reinImage,
+    },
+    {
+      name: 'Frankie Biggz',
+      photo: frankieImage,
     },
   ];
   const shuffledArtists = shuffle(signedArtists);
