@@ -12,7 +12,7 @@
 }
 
 .google_btn {
-  @apply text-black w-full bg-white hover:bg-black/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2;
+  @apply text-black w-full bg-white hover:bg-black/90 hover:text-white focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2;
 }
 
 .tapped_btn {
