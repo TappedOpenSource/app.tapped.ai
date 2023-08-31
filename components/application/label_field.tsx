@@ -6,12 +6,13 @@ const AreYouSigned = ({ formData, updateFormData, onValidation }) => {
 
   const handleInputChange = (e) => {
     setHasInteracted(true);
+
     const { value } = e.target;
     updateFormData({
       ...formData,
       artistLabel: value === 'yes' ? true : false,
     });
-    validateForUI(formData.artistLabel);
+    validateForUI(value === 'yes' ? true : false);
   };
 
   const validateForUI = (value) => {
@@ -41,45 +42,37 @@ const AreYouSigned = ({ formData, updateFormData, onValidation }) => {
     justValidate(formData.artistLabel);
   }, [formData.artistLabel]);
 
+  const options = ['yes', 'no'];
+
   return (
-    <div className="page flex h-full flex-col items-center justify-center bg-white">
+    <div className="page flex h-full flex-col items-center justify-center">
       <div className="flex w-full flex-col items-start px-6">
-        <h1 className="mb-4 text-xl text-[#42A5F5]">
+        <h1 className="mb-2 text-2xl font-bold text-white">
           are you currently signed to a record label?
         </h1>
-        <div className="flex h-full w-full flex-wrap items-center justify-center">
-          <div
-            key="yes"
-            className="mb-2 block flex items-center pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
-          >
-            <input
-              type="radio"
-              id="yes"
-              name="artistLabel"
-              value="yes"
-              checked={formData['artistLabel'] ?? false}
-              onChange={handleInputChange}
-              className="mr-2"
-            />
-            <label htmlFor="yes">Yes</label>
-          </div>
-          <div
-            key="no"
-            className="mb-2 block flex items-center pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
-          >
-            <input
-              type="radio"
-              id="no"
-              name="artistLabel"
-              value="no"
-              checked={!(formData['artistLabel'] ?? true)}
-              onChange={handleInputChange}
-              className="mr-2"
-            />
-            <label htmlFor="no">No</label>
-          </div>
-          {error && <p className="text-red-500">{error}</p>}
+        <div className="flex flex-wrap w-full justify-between">
+          {options.map((option) => (
+            <div key={option} className="w-1/2 flex items-center justify-center mb-4 pr-2">
+              <input
+                type="radio"
+                id={option}
+                name="artistLabel"
+                value={option}
+                checked={formData['artistLabel'] === (option === 'yes')}
+                onChange={handleInputChange}
+                className="sr-only"
+              />
+              <label
+                htmlFor={option}
+                className={`w-full text-center px-4 py-2 rounded-xl cursor-pointer transition duration-200 ease-in-out 
+                ${formData['artistLabel'] === (option === 'yes') ? 'bg-white font-bold text-black' : 'bg-[#63b2fd] font-bold text-white'}`}
+              >
+                {option}
+              </label>
+            </div>
+          ))}
         </div>
+        {error && <p className="text-red-500">{error}</p>}
       </div>
     </div>
   );

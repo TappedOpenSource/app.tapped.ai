@@ -19,13 +19,19 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
   };
 
   return (
-    <>
-      <p className="text-xl font-bold text-black">
-        sign up and we&apos;ll email you our decision
-      </p>
-      <SignInWithGoogleButton onClick={handleLogin} />
-      {/* <SignInWithAppleButton /> */}
-    </>
+    <div style={{ backgroundColor: '#15242d', height: '100vh' }} className="flex items-center justify-center">
+      <div className="text-center">
+        <div>
+          <p className="text-lg font-bold text-white mb-4">
+            sign up and we&apos;ll email you our decision
+          </p>
+        </div>
+        <div className="flex items-center justify-center w-[60%] mx-auto">
+          <SignInWithGoogleButton onClick={handleLogin} />
+          {/* <SignInWithAppleButton /> */}
+        </div>
+      </div>
+    </div>
   );
 };
 

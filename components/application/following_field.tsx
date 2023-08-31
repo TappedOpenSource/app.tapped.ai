@@ -6,6 +6,7 @@ const FollowingField = ({ formData, updateFormData, onValidation }) => {
 
   const handleInputChange = (e) => {
     setHasInteracted(true);
+
     const { value } = e.target;
     updateFormData({ ...formData, ['following_field']: value });
     validateForUI(value);
@@ -38,32 +39,35 @@ const FollowingField = ({ formData, updateFormData, onValidation }) => {
     justValidate(formData['following_field']);
   }, [formData['following_field']]);
 
+  const options = ['0-100', '100-1K', '1-10K', '10-100K', '100K-1M', '1M+'];
+
   return (
-    <div className="page flex h-full flex-col items-center justify-center bg-white">
+    <div className="page flex h-full flex-col items-center justify-center">
       <div className="flex w-full flex-col items-start px-6">
-        <h1 className="mb-4 text-xl text-[#42A5F5]">
+        <h1 className="mb-2 text-2xl font-bold text-white">
           how big is your social media following?
         </h1>
-        <div className="flex h-full w-full flex-wrap items-center justify-center">
-          {['0-100', '100-1k', '1k-10k', '10k-100k', '100k-1m', '1m+'].map(
-            (option, index) => (
-              <div
-                key={index}
-                className="mb-2 block flex items-center pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
+        <div className="flex flex-wrap w-full justify-between">
+          {options.map((option) => (
+            <div key={option} className="w-1/2 flex items-center justify-center mb-4 pr-2">
+              <input
+                type="radio"
+                id={option}
+                name="following_field"
+                value={option}
+                checked={formData['following_field'] === option}
+                onChange={handleInputChange}
+                className="sr-only"
+              />
+              <label
+                htmlFor={option}
+                className={`w-full text-center px-4 py-2 rounded-xl cursor-pointer transition duration-200 ease-in-out 
+                ${formData['following_field'] === option ? 'bg-white font-bold text-black' : 'bg-[#63b2fd] font-bold text-white'}`}
               >
-                <input
-                  type="radio"
-                  id={option}
-                  name="following_field"
-                  value={option}
-                  checked={(formData['following_field'] || '') === option}
-                  onChange={handleInputChange}
-                  className="mr-2"
-                />
-                <label htmlFor={option}>{option}</label>
-              </div>
-            )
-          )}
+                {option}
+              </label>
+            </div>
+          ))}
         </div>
         {error && <p className="text-red-500">{error}</p>}
       </div>

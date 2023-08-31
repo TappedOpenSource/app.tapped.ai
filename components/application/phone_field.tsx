@@ -47,14 +47,14 @@ const PhoneField = ({ formData, updateFormData, onValidation }) => {
   return (
     <div className="page flex h-full flex-col items-center justify-center">
       <div className="flex w-full flex-col items-start px-6">
-        <h1 className="mb-4 text-2xl text-white font-bold">
+        <h1 className="mb-2 text-2xl text-white font-bold">
           what is your phone number?
         </h1>
         <div className="flex h-full w-full items-center justify-center">
           <PhoneInput
-            className="text-black"
+            className="text-black min-w-full"
             defaultCountry="US"
-            placeholder="Enter phone number"
+            placeholder="(000) 000-0000"
             value={formData.phone}
             onChange={handleInputChange}
             onBlur={() => validateForUI(formData.phone)}

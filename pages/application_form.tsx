@@ -80,10 +80,10 @@ const Application: NextPage = () => {
                     >
                       back
                     </button>
-  
+
                     {isValid && currentIndex !== totalPages - 1 && (
                       <button
-                        className="tapped_btn_rounded"
+                        className="tapped_btn_rounded_black"
                         onClick={handleNextPage}
                         disabled={!isValid}
                       >
