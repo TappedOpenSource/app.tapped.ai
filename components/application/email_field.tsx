@@ -5,7 +5,7 @@ const EmailField = ({ formData, updateFormData, onValidation }) => {
   const [touched, setTouched] = useState(false);
 
   const validate = (value) => {
-    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+$/i;
 
     if (!touched) return;
 
