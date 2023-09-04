@@ -62,17 +62,16 @@ const FormArtistDescription = ({ formData, updateFormData, onValidation }) => {
   ];
 
   return (
-    <div className="page flex h-full flex-col items-center justify-center bg-white">
+    <div className="page flex h-full flex-col items-center justify-center">
       <div className="flex w-full flex-col items-start px-6">
-        <h1 className="mb-4 text-xl text-[#42A5F5]">
+        <h1 className="mb-2 text-2xl font-bold text-white">
           how would you describe yourself?
         </h1>
-        <p className="pb-4 text-gray-400">Choose as many as you like</p>
-        <div className="flex h-full w-full flex-wrap items-center justify-center">
+        <div className="flex flex-wrap w-full justify-between">
           {options.map((option, index) => (
             <div
               key={index}
-              className="mb-2 block flex items-center pr-4 text-xs text-gray-500 md:mb-0 md:text-right"
+              className="w-1/2 flex items-center justify-center mb-4 pr-2"
             >
               <input
                 type="checkbox"
@@ -81,9 +80,15 @@ const FormArtistDescription = ({ formData, updateFormData, onValidation }) => {
                 value={option}
                 checked={(formData['description'] || []).includes(option)}
                 onChange={handleInputChange}
-                className="mr-2"
+                className="sr-only"
               />
-              <label htmlFor={option}>{option}</label>
+              <label
+                htmlFor={option}
+                className={`w-full text-center px-4 py-2 rounded-xl cursor-pointer transition duration-200 ease-in-out 
+                ${(formData['description'] || []).includes(option) ? 'bg-white font-bold text-black' : 'bg-[#63b2fd] font-bold text-white'}`}
+              >
+                {option}
+              </label>
             </div>
           ))}
         </div>
