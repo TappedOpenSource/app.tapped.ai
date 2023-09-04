@@ -11,6 +11,7 @@ import IgField from '@/components/application/ig_field';
 import SignUpField from '@/components/application/signup_field';
 import PhoneField from '@/components/application/phone_field';
 import EmailField from '@/components/application/email_field';
+import HearField from '@/components/application/hear_field';
 import SegmentedLine from '@/components/SegmentedLine';
 
 const Application: NextPage = () => {
@@ -27,6 +28,7 @@ const Application: NextPage = () => {
     ArtistProfessionField,
     FollowingField,
     IgField,
+    HearField,
     SignUpField,
   ];
   const totalPages = pages.length;
