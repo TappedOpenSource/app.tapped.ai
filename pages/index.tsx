@@ -42,7 +42,7 @@ export default function Home({ shuffledArtists }: {
     <div className={rubik.className}>
       <div className="flex flex-col items-center justify-start pt-12 px-12 bg-[#010F16]">
         <div className="w-full items-center justify-around text-sm lg:flex">
-          <div id="by-tapped" className="fixed bottom-0 left-0 flex h-24 w-full items-end justify-center bg-white rounded-lg lg:hidden lg:static lg:h-auto lg:w-auto">
+          <div id="by-tapped" className="fixed z-50 bottom-0 left-0 flex h-24 w-full items-end justify-center bg-white rounded-lg lg:hidden">
             <a
               className="flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
               href="https://app.tapped.ai"
