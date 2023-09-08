@@ -1,5 +1,6 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
+
 class MyDocument extends Document {
   render() {
     return (
@@ -12,14 +13,12 @@ class MyDocument extends Document {
           />
           <meta
             name="description"
-            content="Join the professionals and get a one of a kind branding
-            package personalized just for you."
+            content="we want to sign you to our label. apply for free"
           />
           <meta property="og:site_name" content="tapped.ai" />
           <meta
             property="og:description"
-            content="Join the professionals and get a one of a kind branding
-            package personalized just for you."
+            content="we want to sign you to our label. apply for free"
           />
           <meta
             property="og:title"
@@ -34,8 +33,7 @@ class MyDocument extends Document {
           />
           <meta
             name="twitter:description"
-            content="Join the professionals and get a one of a kind branding
-            package personalized just for you."
+            content="we want to sign you to our label. apply for free"
           />
           <meta property="twitter:image" content="https://tapped.ai/og.png"></meta>
         </Head>

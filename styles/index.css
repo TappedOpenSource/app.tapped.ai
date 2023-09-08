@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@800&family=Nunito&display=swap');
-
 @supports (font: -apple-system-body) and (-webkit-appearance: none) {
   img[loading='lazy'] {
     clip-path: inset(0.6px);
@@ -80,41 +77,25 @@ body {
     )
     rgb(var(--background-start-rgb)); */
   /* color: 'white'; */
-  background-color: #38B6FF;
-}
-
-h1 {
-  font-family: 'Manrope', sans-serif;
-  color: 'white';
-}
-
-h2 {
-  font-family: 'Manrope', sans-serif;
-  color: 'white';
-}
-
-span {
-  text-decoration-color: red;
-  /* text-decoration-color: #ec4899; */
-  text-decoration-style: wavy;
+  background-color: #010F16;
 }
 
 #by-tapped {
-  font-family: 'Nunito', sans-serif;
   padding: 0.7rem;
   color: #4A5E68;
   background-color: #fff;
 }
 
 #apply-here {
-  font-family: 'Nunito', sans-serif;
-  padding: 0.7rem;
-  color: #fff;
-  background-color: #000;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+  color: #000;
+  background-color: #fff;
 }
 
 #learn-more {
-  font-family: 'Nunito', sans-serif;
   padding: 0.7rem;
   color: #fff;
   background-color: #4c4c4c00;
