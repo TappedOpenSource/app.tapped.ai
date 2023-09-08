@@ -22,14 +22,14 @@ class MyDocument extends Document {
           />
           <meta
             property="og:title"
-            content="Tapped AI : world's first AI label"
+            content="Tapped Ai : world's first Ai label"
           />
           <meta property="og:image" content="https://tapped.ai/og.png"></meta>
           <meta property="og:url" content="https://tapped.ai"></meta>
           <meta name="twitter:card" content="summary_large_image" />
           <meta
             name="twitter:title"
-            content="Tapped AI : world's first AI label"
+            content="Tapped Ai : world's first Ai label"
           />
           <meta
             name="twitter:description"

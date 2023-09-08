@@ -13,7 +13,7 @@ const Benefits = () => {
           <div className="h-8 w-24"></div>
           <div className="mx-4 md:mx-0 md:w-1/3">
             <h3 className="text-center text-lg font-extrabold">Meet Your Virtual Team</h3>
-            <p className="text-center text-lg">With TappedAI, you&apos;re not alone. Our record label package comes with access to seven virtual team members ready to assist you. From marketing and branding to styling and cover art creation, we&apos;ve got you covered.</p>
+            <p className="text-center text-lg">With TappedAi, you&apos;re not alone. Our record label package comes with access to seven virtual team members ready to assist you. From marketing and branding to styling and cover art creation, we&apos;ve got you covered.</p>
           </div>
         </div>
         <div className="h-8"></div>

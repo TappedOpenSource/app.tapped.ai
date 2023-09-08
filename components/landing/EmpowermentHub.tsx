@@ -4,10 +4,10 @@ const EmpowermentHub = () => {
   return (
     <section id="empowerment-hub">
       <div className="flex flex-col md:flex-row justify-center">
-        <h2 className="text-center md:text-left mx-4 md:mx-0 md:w-1/4 text-4xl">welcome to tappedAI: your artist empowerment hub</h2>
+        <h2 className="text-center md:text-left mx-4 md:mx-0 md:w-1/4 text-4xl">welcome to tappedAi: your artist empowerment hub</h2>
         <div className="w-8"></div>
         <div className=" mx-4 md:mx-0 md:w-1/3">
-          <p className="text-center md:text-left text-lg">TappedAI is here to redefine what it means to be an artist in the digital age. Our cutting-edge approach puts the power back in your hands, allowing you to focus on your creativity while we handle the rest.</p>
+          <p className="text-center md:text-left text-lg">TappedAi is here to redefine what it means to be an artist in the digital age. Our cutting-edge approach puts the power back in your hands, allowing you to focus on your creativity while we handle the rest.</p>
           <div className='h-8'></div>
           <div className='flex justify-center md:justify-start'>
             <Link

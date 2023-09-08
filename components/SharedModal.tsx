@@ -80,7 +80,7 @@ export default function SharedModal({
                   width={navigation ? 1280 : 1920}
                   height={navigation ? 853 : 1280}
                   priority
-                  alt="AI Brand Image"
+                  alt="Ai Brand Image"
                   onLoadingComplete={() => setLoaded(true)}
                 />
               </motion.div>
