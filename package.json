@@ -23,7 +23,6 @@
     "classnames": "^2.3.2",
     "cloudinary": "^1.40.0",
     "eslint-config-next": "^13.0.1",
-    "face-api.js": "^0.22.2",
     "firebase": "^10.1.0",
     "framer-motion": "^7.6.4",
     "fs": "^0.0.1-security",
