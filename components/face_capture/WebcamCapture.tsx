@@ -1,5 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
+import firebase from '../../utils/firebase';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { doc, setDoc } from 'firebase/firestore';
 
 const WebcamCapture = () => {
   const videoRef = useRef(null);
@@ -25,8 +28,8 @@ const WebcamCapture = () => {
     setupWebcam();
   }, []);
 
-  const captureImage = () => {
-    if (capturedImages.length >= 5) return; // Prevent capturing more than 5 images
+  const captureImage = async () => {
+    if (capturedImages.length >= 5) return;
 
     const canvas = canvasRef.current;
     const video = videoRef.current;
@@ -37,16 +40,40 @@ const WebcamCapture = () => {
     canvas.width = size;
     canvas.height = size;
     const ctx = canvas.getContext('2d');
-
-    // Transform to flip the context
     ctx.translate(size, 0);
     ctx.scale(-1, 1);
-
     ctx.drawImage(video, xOffset, yOffset, size, size, 0, 0, size, size);
 
-    if (capturedImages.length < 5) {
-      setCapturedImages((prevImages) => [...prevImages, canvas.toDataURL('image/png')]);
+    const newImages = [...capturedImages, canvas.toDataURL('image/png')];
+    setCapturedImages(newImages);
+
+    if (newImages.length === 5) {
+      await processAllImages();
     }
+  };
+
+  const uploadImageToStorage = async (imageDataUrl, index) => {
+    const user = firebase.auth.currentUser;
+    if (!user) return;
+
+    const fileName = `${index}_${new Date().toISOString()}.png`;
+    const imageRef = ref(firebase.storage, `face_captures/${user.uid}/${fileName}`);
+
+    const data = imageDataUrl.split(',')[1];
+    const byteArray = Uint8Array.from(atob(data), (c) => c.charCodeAt(0));
+    await uploadBytes(imageRef, byteArray);
+
+    return await getDownloadURL(imageRef);
+  };
+
+  const storeImageLinksInFirestore = async (downloadLinks) => {
+    const userDoc = doc(firebase.db, 'face_captures', firebase.auth.currentUser.uid);
+    await setDoc(userDoc, { images: downloadLinks });
+  };
+
+  const processAllImages = async () => {
+    const downloadURLs = await Promise.all(capturedImages.map(uploadImageToStorage));
+    await storeImageLinksInFirestore(downloadURLs);
   };
 
   const getInstructionText = () => {
@@ -62,6 +89,7 @@ const WebcamCapture = () => {
         <video
           ref={videoRef}
           autoPlay
+          playsInline
           className="absolute inset-0 w-full h-full object-cover z-10 transform scale-x-[-1]"
         ></video>
         {capturedImages.length < overlayImages.length && (
@@ -80,7 +108,7 @@ const WebcamCapture = () => {
           <circle cx="50%" cy="50%" r="46%" stroke="#63b2fd" strokeWidth="2%" fill="none" />
         </svg>
       </div>
-      <p className="mt-20 font-semibold text-[#63b2fd] text-center">{getInstructionText()}</p>
+      <p className="mt-10 font-semibold text-[#63b2fd] text-center">{getInstructionText()}</p>
       <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
       <div className="fixed bottom-20 left-0 right-0 flex justify-between items-center px-2">
         {Array.from({ length: 5 }).map((_, index) => (
@@ -97,6 +125,7 @@ const WebcamCapture = () => {
           </div>
         ))}
       </div>
+
       <button onClick={captureImage} className="absolute bottom-16 bg-[#63b2fd] p-4 rounded-full shadow-lg w-16 h-16 flex items-center justify-center">
         <FaCamera color="white" size={24} />
       </button>
@@ -105,3 +134,5 @@ const WebcamCapture = () => {
 };
 
 export default WebcamCapture;
+
+
