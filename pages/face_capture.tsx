@@ -1,5 +1,6 @@
 import React from 'react';
 import WebcamCapture from '../components/face_capture/WebcamCapture';
+import withAuth from '@/domain/auth/withAuth';
 
 const FaceCapture = () => {
   return (
@@ -12,5 +13,5 @@ const FaceCapture = () => {
   );
 };
 
-export default FaceCapture;
+export default withAuth(FaceCapture);
 

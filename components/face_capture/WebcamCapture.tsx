@@ -1,9 +1,17 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { FaCamera } from 'react-icons/fa';
 
 const WebcamCapture = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [capturedImages, setCapturedImages] = useState([]);
+  const overlayImages = [
+    'look_forward.png',
+    'turn_up.png',
+    'turn_down.png',
+    'turn_left.png',
+    'turn_right.png',
+  ];
 
   useEffect(() => {
     const setupWebcam = async () => {
@@ -29,6 +37,11 @@ const WebcamCapture = () => {
     canvas.width = size;
     canvas.height = size;
     const ctx = canvas.getContext('2d');
+
+    // Transform to flip the context
+    ctx.translate(size, 0);
+    ctx.scale(-1, 1);
+
     ctx.drawImage(video, xOffset, yOffset, size, size, 0, 0, size, size);
 
     if (capturedImages.length < 5) {
@@ -36,6 +49,12 @@ const WebcamCapture = () => {
     }
   };
 
+  const getInstructionText = () => {
+    if (capturedImages.length >= 5) {
+      return 'Done!';
+    }
+    return 'Follow the instructions on the display and we\'ll get your model set up in no time';
+  };
 
   return (
     <div className="page flex h-full flex-col items-center justify-center bg-white">
@@ -43,8 +62,15 @@ const WebcamCapture = () => {
         <video
           ref={videoRef}
           autoPlay
-          className="absolute inset-0 w-full h-full object-cover z-10"
+          className="absolute inset-0 w-full h-full object-cover z-10 transform scale-x-[-1]"
         ></video>
+        {capturedImages.length < overlayImages.length && (
+          <img
+            src={`/images/${overlayImages[capturedImages.length]}`}
+            alt="Overlay"
+            className="absolute inset-0 w-full h-full object-cover z-10 opacity-40 transform scale-95"
+          />
+        )}
         <svg className="absolute inset-0 w-full h-full z-20 pointer-events-none scale-105 transform">
           <rect x="0" y="0" width="100%" height="100%" fill="white" mask="url(#mask)" />
           <mask id="mask">
@@ -54,19 +80,26 @@ const WebcamCapture = () => {
           <circle cx="50%" cy="50%" r="46%" stroke="#63b2fd" strokeWidth="2%" fill="none" />
         </svg>
       </div>
+      <p className="mt-20 font-semibold text-[#63b2fd] text-center">{getInstructionText()}</p>
       <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
       <div className="fixed bottom-20 left-0 right-0 flex justify-between items-center px-2">
         {Array.from({ length: 5 }).map((_, index) => (
-          <div key={index} className="w-1/5 animate-fade-in mx-2 mb-20">
+          <div key={index} className="w-1/5 mx-2 mb-16">
             {capturedImages[index] ? (
-              <img src={capturedImages[index]} alt={`Captured-${index}`} className="object-cover w-full h-16 rounded-full shadow border-2 border-[#63b2fd]" />
+              <img
+                src={capturedImages[index]}
+                alt={`Captured-${index}`}
+                className="object-cover w-full h-16 rounded-full shadow border-2 border-[#63b2fd] animate-fade-in"
+              />
             ) : (
               <div className="border-gray-300 w-full h-24 rounded-lg"></div>
             )}
           </div>
         ))}
       </div>
-      <button onClick={captureImage} className="absolute bottom-16 bg-[#63b2fd] p-4 rounded-full shadow-lg">Capture</button>
+      <button onClick={captureImage} className="absolute bottom-16 bg-[#63b2fd] p-4 rounded-full shadow-lg w-16 h-16 flex items-center justify-center">
+        <FaCamera color="white" size={24} />
+      </button>
     </div>
   );
 };
