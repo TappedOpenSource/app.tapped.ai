@@ -22,6 +22,8 @@ import FeaturedIn from '@/components/landing/FeaturedIn';
 import EmpowermentHub from '@/components/landing/EmpowermentHub';
 import SupportJourney from '@/components/landing/SupportJourney';
 import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
+import Benefits from '@/components/landing/Benefits';
+import YourJourney from '@/components/landing/YourJourney';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -121,8 +123,12 @@ export default function Home({ shuffledArtists }: {
       <EmpowermentHub />
       <div className="h-12 md:h-36"></div>
       <SupportJourney />
-      <div className="h-12"></div>
+      <div className="h-12 md:h-36"></div>
       <SubscriptionPlans />
+      <div className="h-12 md:h-36"></div>
+      <Benefits />
+      <div className="h-12 md:h-36"></div>
+      <YourJourney />
       <div className="h-12"></div>
       <div className="w-screen">
         <Footer />

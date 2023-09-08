@@ -1,0 +1,31 @@
+
+const Benefits = () => {
+  return (
+    <section>
+      <div className="flex flex-col justify-center">
+        <h2 className="text-center text-4xl">explore tapped&apos;s benefits</h2>
+        <div className="h-8"></div>
+        <div className="flex flex-col md:flex-row justify-center">
+          <div className="w-1/3">
+            <h3 className="text-center text-lg font-extrabold">Pay-As-You-Go Services</h3>
+            <p className="text-center text-lg">Flexibility is the name of the game. Pay only for the services you use, when you use them. We&apos;ve integrated our services seamlessly into our app, allowing you to pick and choose as you navigate your music journey.</p>
+          </div>
+          <div className="w-8"></div>
+          <div className="w-1/3">
+            <h3 className="text-center text-lg font-extrabold">Meet Your Virtual Team</h3>
+            <p className="text-center text-lg">With TappedAI, you&apos;re not alone. Our record label package comes with access to seven virtual team members ready to assist you. From marketing and branding to styling and cover art creation, we&apos;ve got you covered.</p>
+          </div>
+        </div>
+        <div className="h-8"></div>
+        <div className="flex flex-row justify-center">
+          <div className="w-1/3">
+            <h3 className="text-center text-lg font-extrabold">Unleash Your Creativity</h3>
+            <p className="text-center text-lg">We&apos;re not here to dictate your artistic direction. Our focus is on the business side of things, leaving you free to explore your creative genius and reach new heights in your music career.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Benefits;
