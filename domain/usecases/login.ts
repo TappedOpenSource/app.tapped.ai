@@ -6,13 +6,11 @@ export const loginWithCredentials = async (credentials: Credentials): Promise<vo
 };
 
 export const loginWithGoogle = async (): Promise<LoginResult> => {
-  const result = await auth.loginWithGoogle();
-  return result;
+  return await auth.loginWithGoogle();
 };
 
 export const loginWithApple = async (): Promise<LoginResult> => {
-  const result = await auth.loginWithApple();
-  return result;
+  return await auth.loginWithApple();
 };
 
 export const logout = async (): Promise<void> => {

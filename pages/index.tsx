@@ -4,19 +4,6 @@ import { Rubik } from 'next/font/google';
 
 import { shuffle } from '@/utils/shuffle';
 import Footer from '@/components/landing/Footer';
-import mariaImage from '@/public/images/512x512/maria.512x512.png';
-import jayduhhhImage from '@/public/images/512x512/jayduhhh.512x512.png';
-import maniImage from '@/public/images/512x512/mani.512x512.png';
-import infamousgImage from '@/public/images/512x512/infamousg.512x512.png';
-import seelifeImage from '@/public/images/512x512/seelife.512x512.png';
-import rysovalidImage from '@/public/images/512x512/rysovalid.512x512.png';
-import niralImage from '@/public/images/512x512/niral.512x512.png';
-import felieImage from '@/public/images/512x512/felie.512x512.png';
-import yungsmilezImage from '@/public/images/512x512/yungsmilez.512x512.png';
-import davyImage from '@/public/images/512x512/davy.512x512.png';
-import andrewImage from '@/public/images/512x512/andrew.512x512.png';
-import reinImage from '@/public/images/512x512/rein.512x512.png';
-import frankieImage from '@/public/images/512x512/frankie.512x512.png';
 import SignedArtistCard from '@/components/landing/SignedArtistCard';
 import FeaturedIn from '@/components/landing/FeaturedIn';
 import EmpowermentHub from '@/components/landing/EmpowermentHub';
@@ -40,7 +27,7 @@ export default function Home({ shuffledArtists }: {
 }) {
   return (
     <div className={rubik.className}>
-      <div className="flex flex-col items-center justify-start pt-12 px-12 bg-[#010F16]">
+      <div className="flex flex-col items-center justify-start pt-12 px-12 bg-[#63b2fd]">
         <div className="w-full items-center justify-around text-sm lg:flex">
           <div id="by-tapped" className="fixed z-50 bottom-0 left-0 flex h-24 w-full items-end justify-center bg-white rounded-lg lg:hidden">
             <a
@@ -147,55 +134,55 @@ export const getServerSideProps = async () => {
   const signedArtists = [
     {
       name: 'Maria Alexa',
-      photo: mariaImage,
+      photo: '/images/512x512/maria.512x512.png',
     },
     {
       name: 'Jay?duhhh',
-      photo: jayduhhhImage,
+      photo: '/images/512x512/jayduhhh.512x512.png',
     },
     {
       name: 'ManiDaBrat',
-      photo: maniImage,
+      photo: '/images/512x512/mani.512x512.png',
     },
     {
       name: 'Infamou$G',
-      photo: infamousgImage,
+      photo: '/images/512x512/infamousg.512x512.png',
     },
     {
       name: 'Seelife',
-      photo: seelifeImage,
+      photo: '/images/512x512/seelife.512x512.png',
     },
     {
       name: 'rysovalid',
-      photo: rysovalidImage,
+      photo: '/images/512x512/rysovalid.512x512.png',
     },
     {
       name: 'Niral Desai',
-      photo: niralImage,
+      photo: '/images/512x512/niral.512x512.png',
     },
     {
       name: 'Fe_lie the God',
-      photo: felieImage,
+      photo: '/images/512x512/felie.512x512.png',
     },
     {
       name: 'Yung Smilez',
-      photo: yungsmilezImage,
+      photo: '/images/512x512/yungsmilez.512x512.png',
     },
     {
       name: 'Davy HBF',
-      photo: davyImage,
+      photo: '/images/512x512/davy.512x512.png',
     },
     {
       name: 'Andrew Rohlk',
-      photo: andrewImage,
+      photo: '/images/512x512/andrew.512x512.png',
     },
     {
       name: 'Rein',
-      photo: reinImage,
+      photo: '/images/512x512/rein.512x512.png',
     },
     {
       name: 'Frankie Biggz',
-      photo: frankieImage,
+      photo: '/images/512x512/frankie.512x512.png',
     },
   ];
   const shuffledArtists = shuffle(signedArtists);

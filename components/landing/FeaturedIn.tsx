@@ -1,8 +1,5 @@
 
 import Image from 'next/image';
-import nyweekly from '../../public/images/ny-weekly.png';
-import calipost from '../../public/images/calipost.png';
-import vcunews from '../../public/images/vcu-news.png';
 import Link from 'next/link';
 
 const FeaturedIn = () => {
@@ -15,7 +12,7 @@ const FeaturedIn = () => {
             href="https://nyweekly.com/business/how-tapped-ai-and-ilias-anwar-are-making-record-labels-more-fair/"
           >
             <Image
-              src={nyweekly}
+              src="/images/ny-weekly.png"
               alt="new york weekly logo"
               width={124}
             />
@@ -26,7 +23,7 @@ const FeaturedIn = () => {
             href="https://calipost.com/empowering-artists-tappedai-and-johannes-naylor-welcome-first-10-artists-to-ai-powered-record-label/"
           >
             <Image
-              src={calipost}
+              src="/images/calipost.png"
               alt="calipost logo"
               width={124}
             />
@@ -37,7 +34,7 @@ const FeaturedIn = () => {
             href="https://news.vcu.edu/article/2023/07/starting-with-a-blog-during-freshman-year-vcu-alum-ilias-anwar-has-built-a-creative-agency"
           >
             <Image
-              src={vcunews}
+              src="/images/vcu-news.png"
               alt="vcu news logo"
               width={124}
             />

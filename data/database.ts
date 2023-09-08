@@ -78,9 +78,7 @@ const FirestoreDB: Database = {
   }): Promise<Avatar[]> => {
     const avatarsCollection = collection(db, `/avatars/${userId}/userAvatars`).withConverter(avatarConverter);
     const avatarDocs = await getDocs(avatarsCollection);
-    const avatars = avatarDocs.docs.map((doc) => doc.data());
-
-    return avatars;
+    return avatarDocs.docs.map((doc) => doc.data());
   },
   createGeneratedAlbumName: async (albumName: AlbumName): Promise<string> => {
     const docRef = doc(
@@ -124,7 +122,7 @@ const FirestoreDB: Database = {
     const productsQuery = query(collection(db, 'products'), where('active', '==', true));
     const products = await getDocs(productsQuery);
 
-    const productWithPrice = await Promise.all(products.docs.map(async (product) => {
+    return await Promise.all(products.docs.map(async (product) => {
       const priceRef = collection(db, `products/${product.id}/prices`);
       const pricesQuery = query(priceRef, where('active', '==', true), orderBy('unit_amount'));
       const prices = await getDocs(pricesQuery);
@@ -143,8 +141,6 @@ const FirestoreDB: Database = {
       };
     })
     );
-
-    return productWithPrice;
   },
   addCustomerSubscriptionListener: async (userId, callback) => {
     const subscriptionsRef = collection(db, `customers/${userId}/subscriptions`);

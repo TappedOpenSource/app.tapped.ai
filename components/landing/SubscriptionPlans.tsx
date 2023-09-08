@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import jayduuuh from '../../public/images/jayduuuh.png';
-
 const SubscriptionPlans = () => {
   return (
     <section>
@@ -22,7 +20,7 @@ const SubscriptionPlans = () => {
         </div>
         <div>
           <Image
-            src={jayduuuh}
+            src="/images/jayduuuh.png"
             alt="image of jayduhhh"
             width={400}
             height={400}

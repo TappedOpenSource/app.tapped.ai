@@ -10,9 +10,7 @@ export const subscribe = async ({ priceId }: { priceId: string; }): Promise<void
 };
 
 export const getProductAndPriceData = async (): Promise<any[]> => {
-  const activeProducts = await database.getActiveProducts();
-
-  return activeProducts;
+  return await database.getActiveProducts();
 };
 
 export const handleBillingPortal = async (): Promise<string> => {

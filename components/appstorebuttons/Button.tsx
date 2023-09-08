@@ -65,7 +65,7 @@ const Button: FC<ButtonProps> = ({
   font-size: 12px;
 }
 `}</style>
-      <div
+      <button
         onClick={() => url && window.open(url, '_blank')}
         style={{
           height: height,
@@ -83,7 +83,7 @@ const Button: FC<ButtonProps> = ({
           <span className="button-title">{title}</span>
           <span className="button-store-name">{storeName}</span>
         </div>
-      </div>
+      </button>
     </>
   );
 };
