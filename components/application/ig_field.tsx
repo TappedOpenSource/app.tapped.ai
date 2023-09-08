@@ -51,6 +51,7 @@ const IgField = ({ formData, updateFormData, onValidation }) => {
           <input
             type="text"
             name="instagramHandle"
+            placeholder='type here...'
             value={formData['instagramHandle'] || ''}
             onChange={handleInputChange}
             className={`white_placeholder w-full appearance-none rounded ${
