@@ -51,7 +51,7 @@ const Pricing: NextPage = ({ products }: {
       </h1>
       <p className="px-5 pb-10 pt-6 text-left text-lg text-white text-center">
         Select a plan and lets get you introduced to your team from the first
-        ever AI Label.
+        ever Ai Label.
       </p>
       <div className=" flex flex-col md:flex-row">
         {products.map(({ product, prices }) => {
