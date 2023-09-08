@@ -5,19 +5,19 @@ const About: NextPage = () => {
     <>
       <div className="pl-4 pr-4 pb-4 md:pl-24 md:pr-24 md:pb-24">
         <div className="flex justify-center text-center mb-10 mt-20 text-3xl md:text-6xl tracking-tighter md:justify-start">
-        Welcome to TappedAI: Your Artist Empowerment Hub
+        Welcome to TappedAi: Your Artist Empowerment Hub
         </div>
 
         <div className="text-center pt-6 font-bold md:text-start md:text-xl">
         🎵 Are you ready to revolutionize your music career?
         </div>
         <div className="text-center md:text-start md:text-xl">
-        TappedAI is here to redefine what it means to be an artist in the digital age.
+        TappedAi is here to redefine what it means to be an artist in the digital age.
         Our cutting-edge approach puts the power back in your hands, allowing you to focus on your creativity while we handle the rest.
         </div>
 
         <div className="text-center md:text-start text-3xl mt-10 mb-5">
-        🌟 Why TappedAI?
+        🌟 Why TappedAi?
         </div>
         <div className="text-center pt-6 font-bold md:text-start md:text-xl">
         🎤 No Equity, No Contracts:
@@ -41,7 +41,7 @@ const About: NextPage = () => {
             🤖 Meet Your Virtual Team:
         </div>
         <div className="text-center md:text-start md:text-xl">
-            With TappedAI, you&apos;re not alone. Our record label package comes with access to seven virtual team members ready to assist you. From marketing and branding to styling and cover art creation, we&apos;ve got you covered.
+            With TappedAi, you&apos;re not alone. Our record label package comes with access to seven virtual team members ready to assist you. From marketing and branding to styling and cover art creation, we&apos;ve got you covered.
         </div>
         <div className="text-center pt-6 font-bold md:text-start md:text-xl">
             🚀 Unleash Your Creativity:
@@ -50,7 +50,7 @@ const About: NextPage = () => {
             We&apos;re not here to dictate your artistic direction. Our focus is on the business side of things, leaving you free to explore your creative genius and reach new heights in your music career.
         </div>
         <div className="text-center pt-6 font-bold md:text-start md:text-xl">
-            🌐 Your Journey with TappedAI:
+            🌐 Your Journey with TappedAi:
         </div>
         <div className="text-center pt-6 font-bold md:text-start md:text-xl">
         1. Choose Your Plan:
@@ -80,7 +80,7 @@ const About: NextPage = () => {
             🎶 Unshackle Your Potential:
         </div>
         <div className="text-center md:text-start md:text-xl">
-            TappedAI&apos;s first-ever AI-powered record label is designed to equip you with the tools you need to thrive as an independent artist.
+            TappedAi&apos;s first-ever Ai-powered record label is designed to equip you with the tools you need to thrive as an independent artist.
             It&apos;s time to reclaim your music journey, and we&apos;re here to guide you every step of the way.
             Join the movement today and witness the power of art and innovation combined.
         </div>
