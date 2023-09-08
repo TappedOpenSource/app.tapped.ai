@@ -17,7 +17,7 @@ const YourJourney = () => {
   return (
     <section>
       <div className="flex flex-col justify-center">
-        <h2 className="text-center text-4xl">your journey with tapped</h2>
+        <h2 className="text-center text-4xl">your journey with tapped Ai</h2>
         <div className="h-6"></div>
         <div className="flex justify-center">
           <div className="md:w-3/4">
