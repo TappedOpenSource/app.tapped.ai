@@ -34,8 +34,6 @@ const Application: NextPage = () => {
 
   const backgroundColor = currentIndex === signUpFieldIndex ? '#15242d' : '#3ba0fc';
 
-
-
   React.useEffect(() => {
     setIsValid(false);
   }, [currentIndex]);
