@@ -24,6 +24,8 @@ import SupportJourney from '@/components/landing/SupportJourney';
 import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
 import Benefits from '@/components/landing/Benefits';
 import YourJourney from '@/components/landing/YourJourney';
+import Unshackle from '@/components/landing/Unshackle';
+import JoinTheMovement from '@/components/landing/JoinTheMovement';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -129,6 +131,10 @@ export default function Home({ shuffledArtists }: {
       <Benefits />
       <div className="h-12 md:h-36"></div>
       <YourJourney />
+      <div className="h-12 md:h-36"></div>
+      <Unshackle />
+      <div className="h-12 md:h-36"></div>
+      <JoinTheMovement />
       <div className="h-12"></div>
       <div className="w-screen">
         <Footer />
