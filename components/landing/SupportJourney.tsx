@@ -12,7 +12,7 @@ const SupportJourney = () => {
         </div>
         <div className="h-8"></div>
         <h2 className="text-center text-4xl mx-4 md:mx-0 md:w-1/2">
-        Giving artists the tools they need to succeed in the music industry
+        giving artists the tools they need to succeed in the music industry
         </h2>
         <div className="h-8"></div>
         <p className="text-center text-lg mx-4 md:mx-0 md:w-1/2">

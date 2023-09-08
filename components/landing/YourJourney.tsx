@@ -24,22 +24,22 @@ const YourJourney = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-center">
               <JourneyTile
                 number="1"
-                title="Choose Your Plan"
+                title="choose your plan"
                 description="Select the subscription plan that suits your needs, whether you're just starting out or ready to take your career to the next level."
               />
               <JourneyTile
                 number="2"
-                title="Access Your Services"
+                title="access your services"
                 description="Dive into our app and access a range of services tailored to your requirements. Get help with marketing strategies, brand development, styling, and more."
               />
               <JourneyTile
                 number="3"
-                title="Empower Your Brand"
+                title="empower your brand"
                 description="Collaborate with your virtual team members to enhance your branding, create captivating cover art, and present a professional image to the world."
               />
               <JourneyTile
                 number="4"
-                title="Pay As You Go"
+                title="pay as you go"
                 description="Only pay for the services you use, ensuring you have complete control over your budget."
               />
             </div>

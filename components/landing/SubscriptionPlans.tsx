@@ -9,7 +9,7 @@ const SubscriptionPlans = () => {
       <div className="flex flex-col md:flex-row gap-6 justify-center">
         <div className='mx-4 md:mx-0 md:w-1/4'>
           <h3 className="text-4xl text-center md:text-left">
-            Affordable Subscription Plans
+            affordable subscription plans
           </h3>
           <p className='text-lg text-center md:text-left'>Say goodbye to financial stress. Our monthly subscription plans start at just $50, making it accessible for artists of all backgrounds. Get the support you need without breaking the bank.</p>
           <div className='h-8'></div>
