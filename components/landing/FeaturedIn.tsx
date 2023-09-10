@@ -15,6 +15,7 @@ const FeaturedIn = () => {
               src="/images/ny-weekly.png"
               alt="new york weekly logo"
               width={124}
+              height={124}
             />
           </Link>
         </div>
@@ -26,6 +27,7 @@ const FeaturedIn = () => {
               src="/images/calipost.png"
               alt="calipost logo"
               width={124}
+              height={124}
             />
           </Link>
         </div>
@@ -37,6 +39,7 @@ const FeaturedIn = () => {
               src="/images/vcu-news.png"
               alt="vcu news logo"
               width={124}
+              height={124}
             />
           </Link>
         </div>
