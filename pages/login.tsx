@@ -13,6 +13,8 @@ const Login = () => {
     email: '',
     password: '',
   });
+  const query = router.query;
+  const returnTo = (query.returnUrl as string) || '/tmp_home';
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ const Login = () => {
         email: data.email,
         password: data.password,
       });
-      router.push('/tmp_home');
+      router.push(returnTo);
     } catch (err) {
       console.error(err);
     }
@@ -29,7 +31,7 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      router.push('/tmp_home');
+      router.push(returnTo);
     } catch (err) {
       console.error(err);
     }
@@ -100,7 +102,7 @@ const Login = () => {
 
         <div className="md:flex md:items-center">
           <div className="md:w-1/3">
-            <Link href="/signup">
+            <Link href={`/signup?returnUrl=${returnTo}`}>
               <button className="tapped_signup_btn">Sign Up</button>
             </Link>
           </div>

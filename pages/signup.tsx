@@ -11,6 +11,8 @@ const Signup: NextPage = () => {
     email: '',
     password: '',
   });
+  const query = router.query;
+  const returnTo = (query.returnUrl as string) || '/tmp_home';
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -19,7 +21,7 @@ const Signup: NextPage = () => {
         email: data.email,
         password: data.password,
       });
-      router.push('/tmp_home');
+      router.push(returnTo);
     } catch (err) {
       console.error(err);
     }
@@ -76,7 +78,7 @@ const Signup: NextPage = () => {
           </div>
           <div className="md:flex md:items-center">
             <div className="md:w-1/3">
-              <Link href="/login">
+              <Link href={`/login?returnUrl=${returnTo}`}>
                 <button className="tapped_signup_btn">Login</button>
               </Link>
             </div>
