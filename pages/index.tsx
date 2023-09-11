@@ -78,13 +78,14 @@ export default function Home({ shuffledArtists }: {
           >
             we are the anti-360 deal.
           </h2>
-          <div className="flex flex-row gap-6 mt-8 mb-4 py-2 px-4">
+          <div className="flex flex-col justify-center mt-8 mb-4 py-2 px-4">
             <Link
               href="/application_form"
               // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
               id="apply-here"
-              className="text-lg font-black rounded-full p-6 hover:scale-105 transform transition-all duration-200 ease-in-out"
+              className="text-lg font-black rounded-full px-6 pt-6 hover:scale-105 transform transition-all duration-200 ease-in-out"
             >apply here</Link>
+            <p className="text-xs text-center">(it&apos;s free and takes 2 min)</p>
           </div>
           {/* <Link href="/tmp_home" className="block lg:hidden text-black">already a member?</Link> */}
           <div className="pb-12 lg:pb-2"></div>
