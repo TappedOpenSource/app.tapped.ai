@@ -36,7 +36,7 @@ const CaptureComplete = () => {
     if (!user) return;
 
     const fileName = `${index}_${new Date().toISOString()}.png`;
-    const imageRef = ref(firebase.storage, `face_captures/${user.uid}/${fileName}`);
+    const imageRef = ref(firebase.storage, `aiModels/${user.uid}/${fileName}`);
 
     const data = imageDataUrl.split(',')[1];
     const byteArray = Uint8Array.from(atob(data), (c) => c.charCodeAt(0));
@@ -50,7 +50,7 @@ const CaptureComplete = () => {
     if (!user) return;
 
     const promises = downloadLinks.map((link, index) => {
-      const imageDoc = doc(firebase.db, 'face_capture', user.uid, 'trainImages', `${index}_${new Date().toISOString()}`);
+      const imageDoc = doc(firebase.db, 'aiModels', user.uid, 'trainImages', `${index}_${new Date().toISOString()}`);
       return setDoc(imageDoc, { imageUrl: link });
     });
 
