@@ -95,12 +95,8 @@ const WebcamCapture = () => {
   return (
     <div className="page flex h-full flex-col items-center justify-between bg-white p-8 space-y-8">
       <div className="relative w-[80vw] h-[80vw] max-w-[600px] max-h-[600px] overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover z-10 transform scale-x-[-1]"
-        ></video>
+        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+        <video ref={videoRef} autoPlay playsInline className="absolute inset-0 w-full h-full object-cover z-10 transform scale-x-[-1]"></video>
         {capturedImages.length < overlayImages.length && (
           <img
             src={`/images/${overlayImages[capturedImages.length]}`}
