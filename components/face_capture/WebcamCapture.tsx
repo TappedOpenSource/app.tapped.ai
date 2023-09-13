@@ -1,8 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { FaCamera } from 'react-icons/fa';
-import firebase from '../../utils/firebase';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { doc, setDoc } from 'firebase/firestore';
+import { FaCamera, FaArrowRight } from 'react-icons/fa';
+import { useRouter } from 'next/router';
 
 const WebcamCapture = () => {
   const videoRef = useRef(null);
@@ -16,16 +14,49 @@ const WebcamCapture = () => {
     'turn_right.png',
   ];
 
+  const router = useRouter();
+
+  const stopWebcam = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const tracks = videoRef.current.srcObject.getTracks();
+      tracks.forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
+    }
+  };
+
   useEffect(() => {
+    let stream;
+
     const setupWebcam = async () => {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      stream = await navigator.mediaDevices.getUserMedia({ video: true });
       videoRef.current.srcObject = stream;
       videoRef.current.onloadedmetadata = () => {
         videoRef.current.play();
       };
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopWebcam();
+      } else {
+        setupWebcam();
+      }
+    };
+
+    const handleBeforeUnload = () => {
+      stopWebcam();
+    };
+
     setupWebcam();
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      stopWebcam();
+    };
   }, []);
 
   const captureImage = async () => {
@@ -46,34 +77,12 @@ const WebcamCapture = () => {
 
     const newImages = [...capturedImages, canvas.toDataURL('image/png')];
     setCapturedImages(newImages);
-
-    if (newImages.length === 5) {
-      await processAllImages();
-    }
   };
 
-  const uploadImageToStorage = async (imageDataUrl, index) => {
-    const user = firebase.auth.currentUser;
-    if (!user) return;
-
-    const fileName = `${index}_${new Date().toISOString()}.png`;
-    const imageRef = ref(firebase.storage, `face_captures/${user.uid}/${fileName}`);
-
-    const data = imageDataUrl.split(',')[1];
-    const byteArray = Uint8Array.from(atob(data), (c) => c.charCodeAt(0));
-    await uploadBytes(imageRef, byteArray);
-
-    return await getDownloadURL(imageRef);
-  };
-
-  const storeImageLinksInFirestore = async (downloadLinks) => {
-    const userDoc = doc(firebase.db, 'face_captures', firebase.auth.currentUser.uid);
-    await setDoc(userDoc, { images: downloadLinks });
-  };
-
-  const processAllImages = async () => {
-    const downloadURLs = await Promise.all(capturedImages.map(uploadImageToStorage));
-    await storeImageLinksInFirestore(downloadURLs);
+  const navigateToCaptureComplete = () => {
+    stopWebcam();
+    sessionStorage.setItem('capturedImages', JSON.stringify(capturedImages));
+    router.push('/capture_complete');
   };
 
   const getInstructionText = () => {
@@ -84,7 +93,7 @@ const WebcamCapture = () => {
   };
 
   return (
-    <div className="page flex h-full flex-col items-center justify-center bg-white">
+    <div className="page flex h-full flex-col items-center justify-between bg-white p-8 space-y-8">
       <div className="relative w-[80vw] h-[80vw] max-w-[600px] max-h-[600px] overflow-hidden">
         <video
           ref={videoRef}
@@ -108,31 +117,22 @@ const WebcamCapture = () => {
           <circle cx="50%" cy="50%" r="46%" stroke="#63b2fd" strokeWidth="2%" fill="none" />
         </svg>
       </div>
-      <p className="mt-10 font-semibold text-[#63b2fd] text-center">{getInstructionText()}</p>
+      <p className="font-semibold text-[#63b2fd] text-center">{getInstructionText()}</p>
       <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
-      <div className="fixed bottom-20 left-0 right-0 flex justify-between items-center px-2">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <div key={index} className="w-1/5 mx-2 mb-16">
-            {capturedImages[index] ? (
-              <img
-                src={capturedImages[index]}
-                alt={`Captured-${index}`}
-                className="object-cover w-full h-16 rounded-full shadow border-2 border-[#63b2fd] animate-fade-in"
-              />
-            ) : (
-              <div className="border-gray-300 w-full h-24 rounded-lg"></div>
-            )}
-          </div>
-        ))}
-      </div>
 
-      <button onClick={captureImage} className="absolute bottom-16 bg-[#63b2fd] p-4 rounded-full shadow-lg w-16 h-16 flex items-center justify-center">
-        <FaCamera color="white" size={24} />
-      </button>
+      <div className="flex flex-col items-center space-y-8">
+        {capturedImages.length < 5 ? (
+          <button onClick={captureImage} className="absolute bottom-3 bg-[#63b2fd] p-4 rounded-full shadow-lg w-16 h-16 flex items-center justify-center">
+            <FaCamera color="white" size={24} />
+          </button>
+        ) : (
+          <button onClick={navigateToCaptureComplete} className="absolute bottom-3 bg-[#63b2fd] p-4 rounded-full shadow-lg w-16 h-16 flex items-center justify-center">
+            <FaArrowRight color="white" size={24} />
+          </button>
+        )}
+      </div>
     </div>
   );
 };
 
 export default WebcamCapture;
-
-
