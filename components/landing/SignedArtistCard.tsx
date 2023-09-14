@@ -1,8 +1,8 @@
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 
 const SignedArtistCard = ({ name, photo }: {
     name: string;
-    photo: StaticImageData;
+    photo: string;
   }) => {
   return (
     <>

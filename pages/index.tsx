@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Rubik } from 'next/font/google';
 
@@ -13,6 +13,7 @@ import Benefits from '@/components/landing/Benefits';
 import YourJourney from '@/components/landing/YourJourney';
 import Unshackle from '@/components/landing/Unshackle';
 import JoinTheMovement from '@/components/landing/JoinTheMovement';
+import AiTeam from '@/components/landing/AiTeam';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -22,7 +23,7 @@ const rubik = Rubik({
 export default function Home({ shuffledArtists }: {
   shuffledArtists: {
     name: string;
-    photo: StaticImageData;
+    photo: string;
   }[]
 }) {
   // bg-[#63b2fd]
@@ -118,6 +119,8 @@ export default function Home({ shuffledArtists }: {
       <SubscriptionPlans />
       <div className="h-12 md:h-36"></div>
       <Benefits />
+      <div className="h-12 md:h-12"></div>
+      <AiTeam />
       <div className="h-12 md:h-36"></div>
       <YourJourney />
       <div className="h-12 md:h-36"></div>
