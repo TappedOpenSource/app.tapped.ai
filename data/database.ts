@@ -14,7 +14,6 @@ import {
 } from 'firebase/firestore';
 import { Option, None, Some } from '@sniptt/monads';
 import { Avatar, avatarConverter } from '@/domain/models/avatar';
-import { Team, teamConverter } from '@/domain/models/team';
 import firebase from '@/utils/firebase';
 import { AlbumName, albumNameConverter } from '@/domain/models/album_name';
 import { LabelApplication, labelApplicationConverter } from '@/domain/models/label_application';
