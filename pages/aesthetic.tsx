@@ -3,13 +3,34 @@ import React, { useState } from 'react';
 import api from '../data/api';
 import { Prompt } from '@/domain/models/avatar';
 import { useRouter } from 'next/router';
+import firebase from '../utils/firebase';
+import FirebaseAuth from '@/data/auth';
+import { collection, doc, query, getDocs, orderBy, limit } from 'firebase/firestore';
+
 
 const AestheticPage: React.FC = () => {
   const [selectedStyle, setSelectedStyle] = useState<Prompt>('');
   const router = useRouter();
-
+  const userIdOption = FirebaseAuth.getCurrentUserId();
+  let currUid;
   const handleStyleSelection = (style: Prompt) => {
     setSelectedStyle(style);
+  };
+
+  const fetchLatestModelId = async (userId) => {
+    const aiModelsCollection = collection(firebase.db, 'aiModels');
+    const userDoc = doc(aiModelsCollection, userId);
+    const imageModelsSubCollection = collection(userDoc, 'imageModels');
+
+    const q = query(imageModelsSubCollection, orderBy('timestamp', 'desc'), limit(1));
+
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return querySnapshot.docs[0].data().id;
+    } else {
+      console.log('No modelId found for user!');
+      return null;
+    }
   };
 
   const getBorderStyle = (style: Prompt) => {
@@ -17,9 +38,17 @@ const AestheticPage: React.FC = () => {
   };
 
   const createAvatarWithStyle = async () => {
+    if (userIdOption.isSome()) {
+      currUid = userIdOption.unwrap().uid;
+    } else {
+      console.log('No user is currently signed in.');
+    }
+
+    const userModelId = await fetchLatestModelId(currUid);
+
     if (selectedStyle) {
       const result = await api.createAvatarInferenceJob({
-        modelId: 'cb6fa06d-bce8-45f7-b5e5-6961ecd943ca',
+        modelId: userModelId,
         prompt: selectedStyle,
       });
       router.push(`/results?inferenceId=${result.inferenceId}`);
