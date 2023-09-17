@@ -14,6 +14,9 @@ import EmailField from '@/components/application/email_field';
 import HearField from '@/components/application/hear_field';
 import SegmentedLine from '@/components/SegmentedLine';
 
+import { track } from '@vercel/analytics';
+
+
 const Application: NextPage = () => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isValid, setIsValid] = React.useState(false);
@@ -43,6 +46,10 @@ const Application: NextPage = () => {
   const handleNextPage = () => {
     if (isValid) {
       console.log(`${currentIndex}: next page`);
+      track('next-question', {
+        index: currentIndex,
+        question: pages[currentIndex].name,
+      });
       setCurrentIndex((prev) => prev + 1);
     }
   };
