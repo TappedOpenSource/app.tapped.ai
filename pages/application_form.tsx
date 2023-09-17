@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import FormDataManager from '@/components/form/FormDataManager';
@@ -18,8 +18,8 @@ import { track } from '@vercel/analytics';
 
 
 const Application: NextPage = () => {
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [isValid, setIsValid] = React.useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isValid, setIsValid] = useState(false);
   const router = useRouter();
 
   const pages = [
@@ -36,6 +36,7 @@ const Application: NextPage = () => {
   ];
   const totalPages = pages.length;
   const signUpFieldIndex = pages.indexOf(SignUpField); // Determine the index of SignUpField
+  const CurrentPage = pages[currentIndex];
 
   const backgroundColor = currentIndex === signUpFieldIndex ? '#15242d' : '#3ba0fc';
 
@@ -48,7 +49,7 @@ const Application: NextPage = () => {
       console.log(`${currentIndex}: next page`);
       track('next-question', {
         index: currentIndex,
-        question: pages[currentIndex].name,
+        question: CurrentPage.name,
       });
       setCurrentIndex((prev) => prev + 1);
     }
@@ -70,7 +71,6 @@ const Application: NextPage = () => {
     );
   }
 
-  const CurrentPage = pages[currentIndex];
   return (
     <>
       {/* Adjusted flex container styles */}
