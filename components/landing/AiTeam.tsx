@@ -65,7 +65,7 @@ const AiTeam = () => {
         </div>
         <div className='py-6 px-12 rounded-xl bg-white/10'>
           <div>
-            <h3 className='text-xl text-center font-extrabold text-white'>Brand Consultant</h3>
+            <h3 className='text-xl text-center font-extrabold text-white'>Publicist</h3>
             <div className='h-4'></div>
             <ul className='list-disc'>
               <li className='text-white'>
