@@ -14,6 +14,15 @@ export type Api = {
     job: InferenceJob,
   }>;
   deleteInferenceJob: (inferenceId: string) => Promise<void>;
+  trainUserModel: ({
+    imageUrls,
+    type,
+    name,
+  }: {
+    imageUrls: string[];
+    type: string;
+    name: string;
+  }) => Promise<void>;
   generateAlbumName: (input: {
     artistName: string;
     artistGenres: string[];
@@ -22,8 +31,18 @@ export type Api = {
   createPortalLink: ({ returnUrl }: { returnUrl: string; }) => Promise<{ url: string; }>;
 };
 
-
 const FirebaseFuncs: Api = {
+  trainUserModel: async ({ imageUrls, type, name }: {
+    imageUrls: string[];
+    type: string;
+    name: string;
+  }): Promise<void> => {
+    const functions = getFunctions();
+    const func = httpsCallable<
+      {imageUrls: string[], type: string, name: string}
+    >(functions, 'trainModel');
+    await func({ imageUrls, type, name });
+  },
   createAvatarInferenceJob: async ({ modelId, prompt }: {
     modelId: string;
     prompt: Prompt;
