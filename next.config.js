@@ -8,9 +8,9 @@ module.exports = {
   images: {
     // formats: ['image/avif', 'image/webp', 'image/png', 'image/jpeg'],
     domains: [
-      'res.cloudinary.com', 
+      'res.cloudinary.com',
       'firebasestorage.googleapis.com',
       'files.stripe.com',
     ],
   },
-}
+};
