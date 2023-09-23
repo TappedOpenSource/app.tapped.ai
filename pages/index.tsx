@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Rubik } from 'next/font/google';
 
@@ -13,6 +13,7 @@ import Benefits from '@/components/landing/Benefits';
 import YourJourney from '@/components/landing/YourJourney';
 import Unshackle from '@/components/landing/Unshackle';
 import JoinTheMovement from '@/components/landing/JoinTheMovement';
+import AiTeam from '@/components/landing/AiTeam';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -22,7 +23,8 @@ const rubik = Rubik({
 export default function Home({ shuffledArtists }: {
   shuffledArtists: {
     name: string;
-    photo: StaticImageData;
+    photo: string;
+    url: string;
   }[]
 }) {
   // bg-[#63b2fd]
@@ -92,17 +94,19 @@ export default function Home({ shuffledArtists }: {
           <div className="overflow-hidden w-screen">
             <div className="relative flex flex-row">
               <div className="flex flex-row animate-marquee whitespace-nowrap">
-                {shuffledArtists.map(({ name, photo }, i) => <SignedArtistCard
+                {shuffledArtists.map(({ name, photo, url }, i) => <SignedArtistCard
                   key={i}
                   name={name}
                   photo={photo}
+                  url={url}
                 />)}
               </div>
               <div className="absolute flex flex-row animate-marquee2 whitespace-nowrap">
-                {shuffledArtists.map(({ name, photo }, i) => <SignedArtistCard
+                {shuffledArtists.map(({ name, photo, url }, i) => <SignedArtistCard
                   key={i}
                   name={name}
                   photo={photo}
+                  url={url}
                 />)}
               </div>
             </div>
@@ -118,6 +122,8 @@ export default function Home({ shuffledArtists }: {
       <SubscriptionPlans />
       <div className="h-12 md:h-36"></div>
       <Benefits />
+      <div className="h-12 md:h-12"></div>
+      <AiTeam />
       <div className="h-12 md:h-36"></div>
       <YourJourney />
       <div className="h-12 md:h-36"></div>
@@ -133,58 +139,75 @@ export default function Home({ shuffledArtists }: {
 }
 
 export const getServerSideProps = async () => {
-  const signedArtists = [
+  const signedArtists: {
+    name: string;
+    photo: string;
+    url: string;
+  }[] = [
     {
       name: 'Maria Alexa',
       photo: '/images/512x512/maria.512x512.png',
+      url: 'https://music.apple.com/us/artist/maria-alexa/1526235494',
     },
     {
       name: 'Jay?duhhh',
       photo: '/images/512x512/jayduhhh.512x512.png',
+      url: 'https://music.apple.com/us/artist/jay-duhhh/1573379288',
     },
     {
       name: 'ManiDaBrat',
       photo: '/images/512x512/mani.512x512.png',
+      url: 'https://music.apple.com/us/artist/mani-da-brat/1509383758',
     },
     {
       name: 'Infamou$G',
       photo: '/images/512x512/infamousg.512x512.png',
+      url: 'https://music.apple.com/us/artist/infamou%24-g/1346957051',
     },
     {
       name: 'Seelife',
       photo: '/images/512x512/seelife.512x512.png',
+      url: 'https://music.apple.com/us/artist/seelife/1493214282',
     },
     {
       name: 'rysovalid',
       photo: '/images/512x512/rysovalid.512x512.png',
+      url: 'https://music.apple.com/us/artist/rysovalid/1140332949',
     },
     {
       name: 'Niral Desai',
       photo: '/images/512x512/niral.512x512.png',
+      url: 'https://music.apple.com/us/artist/niral-desai/1682714169',
     },
     {
       name: 'Fe_lie the God',
       photo: '/images/512x512/felie.512x512.png',
+      url: 'https://music.apple.com/us/artist/fe-lie-the-god/1090646827',
     },
     {
       name: 'Yung Smilez',
       photo: '/images/512x512/yungsmilez.512x512.png',
+      url: 'https://music.apple.com/us/artist/yung-smilez/1228940318',
     },
     {
       name: 'Davy HBF',
       photo: '/images/512x512/davy.512x512.png',
+      url: 'https://music.apple.com/us/artist/davy-hbf/1651803177',
     },
     {
       name: 'Andrew Rohlk',
       photo: '/images/512x512/andrew.512x512.png',
+      url: 'https://music.apple.com/us/artist/andrew-rohlk/592655140',
     },
     {
       name: 'Rein',
       photo: '/images/512x512/rein.512x512.png',
+      url: 'https://music.apple.com/us/artist/rein/1590397406',
     },
     {
       name: 'Frankie Biggz',
       photo: '/images/512x512/frankie.512x512.png',
+      url: 'https://music.apple.com/us/artist/frankie-biggz/191277376',
     },
   ];
   const shuffledArtists = shuffle(signedArtists);
