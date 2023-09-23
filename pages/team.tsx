@@ -9,7 +9,6 @@ import { collection, doc, query, getDocs, orderBy, limit } from 'firebase/firest
 import firebase from '../utils/firebase';
 import FirebaseAuth from '@/data/auth';
 
-
 const Team: NextPage = () => {
   const router = useRouter();
   const userIdOption = FirebaseAuth.getCurrentUserId();

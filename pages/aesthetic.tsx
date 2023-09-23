@@ -47,7 +47,6 @@ const AestheticPage: React.FC = () => {
     const userModelId = await fetchLatestModelId(currUid);
 
     console.log(userModelId);
-
     if (selectedStyle) {
       const result = await api.createAvatarInferenceJob({
         modelId: userModelId,
