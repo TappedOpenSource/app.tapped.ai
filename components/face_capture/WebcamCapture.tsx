@@ -14,6 +14,17 @@ const WebcamCapture = () => {
     'turn_right.png',
   ];
 
+  const instructions = [
+    'Look forward',
+    'Turn up',
+    'Turn down',
+    'Turn to your left',
+    'Turn to your right',
+    'Let\'s see a smile!',
+    'give us an angry face',
+    'how about a surprized face?',
+  ];
+
   const router = useRouter();
 
   const stopWebcam = () => {
@@ -60,7 +71,7 @@ const WebcamCapture = () => {
   }, []);
 
   const captureImage = async () => {
-    if (capturedImages.length >= 5) return;
+    if (capturedImages.length >= 8) return;
 
     const canvas = canvasRef.current;
     const video = videoRef.current;
@@ -86,10 +97,10 @@ const WebcamCapture = () => {
   };
 
   const getInstructionText = () => {
-    if (capturedImages.length >= 5) {
+    if (capturedImages.length >= 8) {
       return 'Done!';
     }
-    return 'Follow the instructions on the display and we\'ll get your model set up in no time';
+    return instructions[capturedImages.length];
   };
 
   return (
@@ -117,7 +128,7 @@ const WebcamCapture = () => {
       <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
 
       <div className="flex flex-col items-center space-y-8">
-        {capturedImages.length < 5 ? (
+        {capturedImages.length < 8 ? (
           <button onClick={captureImage} className="absolute bottom-3 bg-[#63b2fd] p-4 rounded-full shadow-lg w-16 h-16 flex items-center justify-center">
             <FaCamera color="white" size={24} />
           </button>

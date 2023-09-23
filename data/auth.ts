@@ -7,6 +7,7 @@ import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, create
 export type Auth = {
     currentUser: Option<{ uid: string }>;
     getCurrentUserId: () => Option<{ uid: string }>;
+    getCurrentUserEmail: () => Option<{email: string}>;
     startAuthObserver: () => void;
     authStateObserver: (callback: (user: any) => void) => void;
     loginWithCredentials: (credentials: Credentials) => Promise<LoginResult>;
@@ -28,6 +29,13 @@ const FirebaseAuth: Auth = {
   getCurrentUserId: (): Option<{ uid: string }> => {
     if (firebase.auth.currentUser) {
       return Some({ uid: firebase.auth.currentUser.uid });
+    } else {
+      return None;
+    }
+  },
+  getCurrentUserEmail: (): Option<{ email: string }> => {
+    if (firebase.auth.currentUser) {
+      return Some({ email: firebase.auth.currentUser.email });
     } else {
       return None;
     }

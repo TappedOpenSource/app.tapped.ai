@@ -12,6 +12,7 @@ import SignUpField from '@/components/application/signup_field';
 import PhoneField from '@/components/application/phone_field';
 import EmailField from '@/components/application/email_field';
 import HearField from '@/components/application/hear_field';
+import ReferralField from '@/components/application/referral_field';
 import SegmentedLine from '@/components/SegmentedLine';
 
 import { track } from '@vercel/analytics';
@@ -32,6 +33,7 @@ const Application: NextPage = () => {
     FollowingField,
     IgField,
     HearField,
+    ReferralField,
     SignUpField,
   ];
   const totalPages = pages.length;
@@ -73,9 +75,7 @@ const Application: NextPage = () => {
 
   return (
     <>
-      {/* Adjusted flex container styles */}
       <div className={'flex min-h-screen flex-col items-center justify-center px-4 md:px-8 lg:px-16'} style={{ backgroundColor }}>
-        {/* Set a max-width and center the container */}
         <div className="w-full max-w-screen-md mx-auto">
           <SegmentedLine totalPages={totalPages} currentIndex={currentIndex} />
           <FormDataManager>
@@ -87,7 +87,6 @@ const Application: NextPage = () => {
                     updateFormData={updateFormData}
                     onValidation={setIsValid}
                   />
-                  {/* Adjusted position and padding for buttons */}
                   <div className="flex justify-between mt-4 md:mt-8 lg:mt-16">
                     <button
                       className="tapped_btn_rounded"
