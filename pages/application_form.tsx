@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import FormDataManager from '@/components/form/FormDataManager';
@@ -15,9 +15,12 @@ import HearField from '@/components/application/hear_field';
 import ReferralField from '@/components/application/referral_field';
 import SegmentedLine from '@/components/SegmentedLine';
 
+import { track } from '@vercel/analytics';
+
+
 const Application: NextPage = () => {
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [isValid, setIsValid] = React.useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isValid, setIsValid] = useState(false);
   const router = useRouter();
 
   const pages = [
@@ -35,6 +38,7 @@ const Application: NextPage = () => {
   ];
   const totalPages = pages.length;
   const signUpFieldIndex = pages.indexOf(SignUpField); // Determine the index of SignUpField
+  const CurrentPage = pages[currentIndex];
 
   const backgroundColor = currentIndex === signUpFieldIndex ? '#15242d' : '#3ba0fc';
 
@@ -45,6 +49,10 @@ const Application: NextPage = () => {
   const handleNextPage = () => {
     if (isValid) {
       console.log(`${currentIndex}: next page`);
+      track('next-question', {
+        index: currentIndex,
+        question: CurrentPage.name,
+      });
       setCurrentIndex((prev) => prev + 1);
     }
   };
@@ -65,7 +73,6 @@ const Application: NextPage = () => {
     );
   }
 
-  const CurrentPage = pages[currentIndex];
   return (
     <>
       <div className={'flex min-h-screen flex-col items-center justify-center px-4 md:px-8 lg:px-16'} style={{ backgroundColor }}>

@@ -5,6 +5,7 @@ import { NextPage } from 'next';
 import auth from '@/data/auth';
 import api from '@/data/api';
 import { useEffect, useState } from 'react';
+import MarketplaceProductCard from '@/components/MarketplaceProductCard';
 
 export async function getStaticProps() {
   const products = await getProductAndPriceData();
@@ -53,12 +54,17 @@ const Pricing: NextPage = ({ products }: {
         Select a plan and lets get you introduced to your team from the first
         ever Ai Label.
       </p>
-      <div className="flex flex-wrap justify-center px-5">
-        {products.map(({ product, prices }) => (
-          <div className="p-2 w-80" key={product.name}>
-            <ProductCard product={product} prices={prices} />
-          </div>
-        ))}
+      <div className="flex flex-col md:flex-row justify-center">
+        {products.map(({ product, prices }) => {
+          return (
+            <div className="px-5 py-2" key={product.name}>
+              <ProductCard product={product} prices={prices} key={product.name} />
+            </div>
+          );
+        })}
+      </div>
+      <div className="px-5 py-2">
+        <MarketplaceProductCard />
       </div>
     </>
   );

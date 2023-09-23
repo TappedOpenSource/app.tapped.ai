@@ -7,10 +7,9 @@ export type AiModel = {
     timestamp: Date;
     type: ModelType;
     modelId: Option<string>;
-    modelStatus: 'initial'
+    status: 'initial'
       | 'training'
       | 'ready'
-      | 'inferring'
       | 'errored';
 }
 

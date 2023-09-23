@@ -35,7 +35,7 @@ const ProductCard = ({ product, prices }: {
 
   const buttonText = isSubscribed ? 'Redirecting...' : 'Subscribe';
   return (
-    <div className="flex items-center justify-center rounded-lg bg-[#2d2d2d] shadow">
+    <div className="h-full flex items-center justify-center rounded-lg bg-[#2d2d2d] shadow">
       <div>
         <div>
           <p className="px-4 pt-4 text-left text-lg font-bold text-[#42A5F5]">
