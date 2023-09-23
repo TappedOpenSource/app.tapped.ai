@@ -3,6 +3,7 @@ import withSubscription from '@/domain/auth/withSubscription';
 import { FaPaintBrush, FaBullhorn, FaNewspaper, FaBalanceScale, FaLock } from 'react-icons/fa';
 import { BsPeopleFill } from 'react-icons/bs';
 import { MdMessage } from 'react-icons/md';
+import { useRouter } from 'next/router';
 
 const Team: NextPage = () => {
   return (
@@ -22,6 +23,8 @@ const Team: NextPage = () => {
 };
 
 const Panel = ({ label, icon, clickable = false }: { label: string; icon: JSX.Element; clickable?: boolean }) => {
+  const router = useRouter();
+
   const content = (
     <div className={`bg-white p-3 rounded-lg shadow-lg flex flex-col items-center justify-center h-full ${clickable ? 'cursor-pointer' : ''}`}>
       {icon}
@@ -29,9 +32,12 @@ const Panel = ({ label, icon, clickable = false }: { label: string; icon: JSX.El
     </div>
   );
 
-  if (clickable) {
+  if (clickable && label === 'Designer') {
+    return <button onClick={() => router.push('/designer')}>{content}</button>;
+  } else if (clickable) {
     return <button onClick={() => console.log(`${label} clicked`)}>{content}</button>;
   }
+
   return content;
 };
 

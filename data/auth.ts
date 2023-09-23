@@ -26,7 +26,11 @@ export type SignupResult = {uid: string; token: string };
 const FirebaseAuth: Auth = {
   currentUser: None,
   getCurrentUserId: (): Option<{ uid: string }> => {
-    return Some({ uid: firebase.auth.currentUser.uid });
+    if (firebase.auth.currentUser) {
+      return Some({ uid: firebase.auth.currentUser.uid });
+    } else {
+      return None;
+    }
   },
   startAuthObserver: () => {
     onAuthStateChanged(firebase.auth, (user) => {
