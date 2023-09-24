@@ -11,12 +11,14 @@ import {
   Unsubscribe,
   QuerySnapshot,
   orderBy,
+  limit,
 } from 'firebase/firestore';
 import { Option, None, Some } from '@sniptt/monads';
 import { Avatar, avatarConverter } from '@/domain/models/avatar';
 import firebase from '@/utils/firebase';
 import { AlbumName, albumNameConverter } from '@/domain/models/album_name';
 import { LabelApplication, labelApplicationConverter } from '@/domain/models/label_application';
+import { AiModel } from '@/domain/models/ai_model';
 
 export type Database = {
   createAvatar: (avatar: Avatar) => Promise<string>
@@ -44,6 +46,7 @@ export type Database = {
     userId: string;
     labelApplication: LabelApplication;
   }) => Promise<string>;
+  getLatestImageModel: (userId: string) => Promise<Option<AiModel>>;
 }
 
 const db = firebase.db;
@@ -159,6 +162,22 @@ const FirestoreDB: Database = {
     );
 
     return docRef.id;
+  },
+  getLatestImageModel: async (userId: string): Promise<Option<AiModel>> => {
+    const aiModelsCollection = collection(db, 'aiModels');
+    const userDoc = doc(aiModelsCollection, userId);
+    const imageModelsSubCollection = collection(userDoc, 'imageModels');
+
+    const q = query(imageModelsSubCollection, orderBy('timestamp', 'desc'), limit(1));
+
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      console.log('No modelId found for user!');
+      return None;
+    }
+
+    const imageModel = querySnapshot.docs[0].data() as AiModel;
+    return Some(imageModel);
   },
 };
 
