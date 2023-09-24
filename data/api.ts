@@ -1,19 +1,28 @@
 import { getFunctions, httpsCallable } from 'firebase/functions';
-import { AvatarStyle } from '@/domain/models/avatar';
+import { Prompt } from '@/domain/models/avatar';
+import { InferenceJob } from '@/domain/models/inference_job';
 
 
 export type Api = {
   createAvatarInferenceJob: (input: {
     modelId: string;
-    avatarStyle: AvatarStyle;
+    prompt: Prompt;
   }) => Promise<{
     inferenceId: string,
-    prompt: string,
   }>;
   getAvatarInferenceJob: (inferenceId: string) => Promise<{
-    imageUrls: string[],
+    job: InferenceJob,
   }>;
   deleteInferenceJob: (inferenceId: string) => Promise<void>;
+  trainUserModel: ({
+    imageUrls,
+    type,
+    name,
+  }: {
+    imageUrls: string[];
+    type: string;
+    name: string;
+  }) => Promise<void>;
   generateAlbumName: (input: {
     artistName: string;
     artistGenres: string[];
@@ -22,36 +31,47 @@ export type Api = {
   createPortalLink: ({ returnUrl }: { returnUrl: string; }) => Promise<{ url: string; }>;
 };
 
-
 const FirebaseFuncs: Api = {
-  createAvatarInferenceJob: async ({ modelId, avatarStyle }: {
+  trainUserModel: async ({ imageUrls, type, name }: {
+    imageUrls: string[];
+    type: string;
+    name: string;
+  }): Promise<void> => {
+    const functions = getFunctions();
+    const func = httpsCallable<
+      {imageUrls: string[], type: string, name: string}
+    >(functions, 'trainModel');
+    await func({ imageUrls, type, name });
+  },
+  createAvatarInferenceJob: async ({ modelId, prompt }: {
     modelId: string;
-    avatarStyle: AvatarStyle;
+    prompt: Prompt;
   }): Promise<{
     inferenceId: string,
-    prompt: string,
   }> => {
     const functions = getFunctions();
     const func = httpsCallable<
-      { modelId: string, avatarStyle: AvatarStyle },
-      { inferenceId: string, prompt: string }
+      { modelId: string, prompt: Prompt },
+      { inferenceId: string}
     >(functions, 'createAvatarInferenceJob');
-    const resp = await func({ modelId, avatarStyle });
-    const { inferenceId, prompt } = resp.data;
+    const resp = await func({ modelId, prompt });
+    const { inferenceId } = resp.data;
     console.log(`res: ${JSON.stringify(inferenceId)}`);
 
-    return { inferenceId, prompt };
+    return { inferenceId };
   },
-  getAvatarInferenceJob: async (inferenceId: string): Promise<{
-    imageUrls: string[],
-  }> => {
+  getAvatarInferenceJob: async (inferenceId: string): Promise<{ job: InferenceJob }> => {
     const functions = getFunctions();
-    const func = httpsCallable<{ inferenceId: string }, { imageUrls: string[] }>(functions, 'getAvatarInferenceJob');
-    const resp = await func({ inferenceId });
-    const { imageUrls } = resp.data;
-    console.log(`res: ${JSON.stringify(imageUrls)}`);
+    const callable = httpsCallable<{ inferenceId: string }, any>(functions, 'getAvatarInferenceJob');
+    const results = await callable({ inferenceId });
 
-    return { imageUrls };
+    console.log(`getAvatarInferenceJob: ${JSON.stringify(results.data)}`);
+
+    const data = results.data;
+
+    const job = InferenceJob.fromResponse(data['inferenceJob'] || {});
+
+    return { job };
   },
   deleteInferenceJob: async (id: string): Promise<void> => {
     const functions = getFunctions();
