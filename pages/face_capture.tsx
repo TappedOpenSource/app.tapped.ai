@@ -1,8 +1,16 @@
-import React from 'react';
-import WebcamCapture from '../components/face_capture/WebcamCapture';
-import withAuth from '@/domain/auth/withAuth';
+import React, { useState } from 'react';
+import WebcamCapture from '@/components/face_capture/WebcamCapture';
+import withSubscription from '@/domain/auth/withSubscription';
+import database from '@/data/database';
 
 const FaceCapture = () => {
+  // const [modelExists, setModelExists] = useState(false);
+
+  // useEffect(() => {
+  //   const aiModel = database.getUserImageModel();
+
+  // }, []);
+
   return (
     <div className="min-h-screen bg-white">
       <div className="flex flex-col items-center justify-center h-full">
@@ -13,5 +21,5 @@ const FaceCapture = () => {
   );
 };
 
-export default withAuth(FaceCapture);
+export default withSubscription(FaceCapture);
 
