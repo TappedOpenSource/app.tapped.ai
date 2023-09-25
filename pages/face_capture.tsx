@@ -13,6 +13,7 @@ const FaceCapture = () => {
     const runner = async () => {
       const userId= await auth.getCurrentUserId();
       if (userId.isNone()) {
+        setModelExists(false);
         return;
       }
 
