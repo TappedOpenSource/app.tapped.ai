@@ -2,10 +2,15 @@ import ProductCard from '@/components/ProductCard';
 import withAuth from '@/domain/auth/withAuth';
 import { getProductAndPriceData } from '@/domain/usecases/payments';
 import { NextPage } from 'next';
-import auth from '@/data/auth';
-import api from '@/data/api';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import MarketplaceProductCard from '@/components/MarketplaceProductCard';
+
+const subscriptionPlans = [
+  'tapped ai (starter)',
+  'tapped ai (premium)',
+  'tapped ai (pro)',
+  'tapped ai (business)',
+];
 
 export async function getStaticProps() {
   const products = await getProductAndPriceData();
@@ -55,7 +60,10 @@ const Pricing: NextPage = ({ products }: {
         ever Ai Label.
       </p>
       <div className="flex flex-col md:flex-row justify-center">
-        {products.map(({ product, prices }) => {
+        {products.filter(({ product }) => {
+          console.log(product.name);
+          return subscriptionPlans.includes(product.name.toLowerCase());
+        }).map(({ product, prices }) => {
           return (
             <div className="px-5 py-2" key={product.name}>
               <ProductCard product={product} prices={prices} key={product.name} />
