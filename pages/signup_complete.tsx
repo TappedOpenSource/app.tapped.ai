@@ -61,6 +61,8 @@ const SignupComplete: NextPage = () => {
           if you want to guarantee your spot in our next batch of beta testers
           (<span className='font-bold text-red-500'>and get a discount</span>),
           you can pre-order the first month using the link below.
+          <br />
+          (use the code APPROVED for the discount)
         </p>
         <div className="py-1"></div>
         <Link
