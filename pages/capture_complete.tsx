@@ -44,7 +44,7 @@ const CaptureComplete = () => {
 
     const data = imageDataUrl.split(',')[1];
     const byteArray = Uint8Array.from(atob(data), (c) => c.charCodeAt(0));
-    await uploadBytes(imageRef, byteArray);
+    await uploadBytes(imageRef, byteArray, { contentType: 'image/png' });
 
     return await getDownloadURL(imageRef);
   };
