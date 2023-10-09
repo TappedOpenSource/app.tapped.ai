@@ -28,14 +28,6 @@ const AiTeam = () => {
             <div className='h-4'></div>
             <ul className='list-disc'>
               <li className='text-white'>
-                Provides e-styling services by recommending looks aligned with artist&apos;s brand
-              </li>
-              <div className='h-2'></div>
-              <li className='text-white'>
-                Connect artists with producers, songwriters, and collaborators.
-              </li>
-              <div className='h-2'></div>
-              <li className='text-white'>
                 Automate outreach messages to potential connections
               </li>
               <div className='h-2'></div>
