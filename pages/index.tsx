@@ -78,7 +78,7 @@ export default function Home({ shuffledArtists }: {
           <h2
             className="text-2xl font-thin text-center text-white lg:text-3xl"
           >
-             ai tools for musicians to build and distribute their brands
+             ai tools for musicians to build and distribute their brands.
           </h2>
           <div className="flex flex-col justify-center mt-8 mb-4 py-2 px-4">
             <Link
