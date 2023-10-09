@@ -7,14 +7,42 @@ const AiTeam = () => {
           <div>
             <h3 className='text-xl text-center font-extrabold text-white'>Social Media Manager</h3>
             <div className='h-4'></div>
-            <p className='text-center text-white'>For targeted social media ad campaigns and tracking your growth, engagement, and conversion metrics across platforms </p>
+            <ul className='list-disc'>
+              <li className='text-white'>
+                Offer inspiration and ideas for your social media posts.
+              </li>
+              <div className='h-2'></div>
+              <li className='text-white'>
+                Provide guidance on content creation and posting schedules.
+              </li>
+              <div className='h-2'></div>
+              <li className='text-white'>
+                Track growth, engagement, and conversion metrics across platforms.
+              </li>
+            </ul>
           </div>
         </div>
         <div className='p-6 rounded-xl bg-white/10'>
           <div>
             <h3 className='text-xl text-center font-extrabold text-white'>A&R Specialist</h3>
             <div className='h-4'></div>
-            <p className='text-center text-white'>Can introduce you to producers, songwriters, and other collaborators through the app while analyzing streaming data and fan feedback</p>
+            <ul className='list-disc'>
+              <li className='text-white'>
+                Provides e-styling services by recommending looks aligned with artist&apos;s brand
+              </li>
+              <div className='h-2'></div>
+              <li className='text-white'>
+                Connect artists with producers, songwriters, and collaborators.
+              </li>
+              <div className='h-2'></div>
+              <li className='text-white'>
+                Automate outreach messages to potential connections
+              </li>
+              <div className='h-2'></div>
+              <li className='text-white'>
+                Analyze streaming data and gather fan feedback.
+              </li>
+            </ul>
           </div>
         </div>
         <div className='py-6 px-12 rounded-xl bg-white/10'>
@@ -23,19 +51,15 @@ const AiTeam = () => {
             <div className='h-4'></div>
             <ul className='list-disc'>
               <li className='text-white'>
-                Provides e-styling services by recommending looks aligned with artist&apos;s brand
+                Recommend looks aligned with the artist&apos;s brand.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Curates mood boards and catalogs for performance outfits and merch
+                Curate mood boards and catalogs for outfits and merch.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Sources and facilitates bookings for hair, makeup, and wardrobe professionals
-              </li>
-              <div className='h-2'></div>
-              <li className='text-white'>
-                Ensures styling consistently reinforces the artist&apos;s image and aesthetics
+                Source and facilitate bookings for hair, makeup, and wardrobe professionals.
               </li>
             </ul>
           </div>
@@ -44,21 +68,22 @@ const AiTeam = () => {
           <div>
             <h3 className='text-xl text-center font-extrabold text-white'>Graphic Designer</h3>
             <div className='h-4'></div>
+
             <ul className='list-disc'>
               <li className='text-white'>
-                Creates visual assets for releases including cover art, merch, and social content
+                Create visuals for cover art, merch, and social content.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Maintains brand guide and assets to ensure consistent visual identity
+                Maintain a consistent visual identity through moldboard as reference.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Produces visuals optimized for different platforms like streaming, social, retail
+                Produce visuals optimized for various platforms.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Iterates on designs based on fan response and market trends
+                Adapt designs based on fan response and market trends.
               </li>
             </ul>
           </div>
@@ -69,19 +94,19 @@ const AiTeam = () => {
             <div className='h-4'></div>
             <ul className='list-disc'>
               <li className='text-white'>
-                Guides development of unique artist brand identity and key messaging
+                Develop a unique artist brand identity and key messaging.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Ensures all content, assets, and partnerships align with brand strategy
+                Ensure content, assets, and partnerships align with the brand strategy.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Identifies brand collaborations and sponsorship opportunities
+                Identify brand collaborations and sponsorship opportunities.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Regularly reviews brand perception and refines positioning as needed
+                Regularly submit to play listing.
               </li>
             </ul>
           </div>
@@ -92,19 +117,19 @@ const AiTeam = () => {
             <div className='h-4'></div>
             <ul className='list-disc'>
               <li className='text-white'>
-                Manages and schedules social media content creation and posting
+                Help schedule content creation and posting.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Executes targeted ad campaigns to grow fanbase and drive streams
+                Execute targeted ad campaigns.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Leverages influencer marketing opportunities relevant to the artist&apos;s audience
+                Leverage influencer marketing opportunities.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Tracks growth, engagement, and conversion metrics across platforms to optimize efforts
+                Detailed marketing reports generated for you.
               </li>
             </ul>
           </div>
