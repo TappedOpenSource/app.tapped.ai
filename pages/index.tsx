@@ -209,6 +209,11 @@ export const getServerSideProps = async () => {
       photo: '/images/512x512/frankie.512x512.png',
       url: 'https://music.apple.com/us/artist/frankie-biggz/191277376',
     },
+    {
+      name: 'Honey Cane',
+      photo: '/images/512x512/jerry.512x512.jpg',
+      url: 'https://spotify.link/VeKEG6cfLDb',
+    },
   ];
   const shuffledArtists = shuffle(signedArtists);
   return { props: { shuffledArtists } };
