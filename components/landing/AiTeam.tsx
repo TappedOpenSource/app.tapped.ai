@@ -13,11 +13,11 @@ const AiTeam = () => {
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Recommend venues you should perform at
+                Recommend venues you should perform at.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Plan your tour route and schedule
+                Plan your tour route and schedule.
               </li>
             </ul>
           </div>
@@ -28,7 +28,7 @@ const AiTeam = () => {
             <div className='h-4'></div>
             <ul className='list-disc'>
               <li className='text-white'>
-                Automate outreach messages to potential connections
+                Automate outreach messages to potential connections.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
