@@ -5,19 +5,19 @@ const AiTeam = () => {
       <div className='w-3/4 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
         <div className='p-6 rounded-xl bg-white/10'>
           <div>
-            <h3 className='text-xl text-center font-extrabold text-white'>Social Media Manager</h3>
+            <h3 className='text-xl text-center font-extrabold text-white'>Booking Agent</h3>
             <div className='h-4'></div>
             <ul className='list-disc'>
               <li className='text-white'>
-                Offer inspiration and ideas for your social media posts.
+                They&apos;ll organize artist tours and performances.
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Provide guidance on content creation and posting schedules.
+                Recommend venues you should perform at
               </li>
               <div className='h-2'></div>
               <li className='text-white'>
-                Track growth, engagement, and conversion metrics across platforms.
+                Plan your tour route and schedule
               </li>
             </ul>
           </div>
