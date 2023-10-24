@@ -2,7 +2,7 @@
 import { onAuthStateChanged } from '@firebase/auth';
 import firebase from '@/utils/firebase';
 import { None, Option, Some } from '@sniptt/monads';
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, createUserWithEmailAndPassword } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, createUserWithEmailAndPassword, ParsedToken } from 'firebase/auth';
 
 export type Auth = {
     currentUser: Option<{ uid: string }>;
@@ -15,7 +15,7 @@ export type Auth = {
     loginWithGoogle: () => Promise<LoginResult>;
     loginWithApple: () => Promise<LoginResult>;
     logout: () => Promise<void>;
-    getCustomClaimRole: () => Promise<string | null>;
+    getCustomClaims: () => Promise<ParsedToken | null>;
 };
 
 export type Credentials = { email: string; password: string };
@@ -93,10 +93,13 @@ const FirebaseAuth: Auth = {
     console.debug('logout');
     await firebase.auth.signOut();
   },
-  getCustomClaimRole: async () => {
-    await firebase.auth.currentUser?.getIdToken(true);
+  getCustomClaims: async () => {
+    console.log({ currentUser: firebase.auth.currentUser });
+    const token = await firebase.auth.currentUser?.getIdToken(true);
+    console.log({ token });
     const decodedToken = await firebase.auth.currentUser?.getIdTokenResult();
-    return decodedToken?.claims['stripeRole'] as string | null;
+    console.log({ claims: decodedToken?.claims });
+    return decodedToken?.claims;
   },
 };
 

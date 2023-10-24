@@ -15,6 +15,7 @@ const Login = () => {
   });
   const query = router.query;
   const returnTo = (query.returnUrl as string) || '/tmp_home';
+  console.log({ returnTo });
 
   const handleLogin = async (e: any) => {
     e.preventDefault();

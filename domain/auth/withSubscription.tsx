@@ -5,17 +5,27 @@ import database from '@/data/database';
 import auth from '@/data/auth';
 import { onAuthStateChanged } from '@firebase/auth';
 
-const withSubscription = (Component) => (props) => {
+// eslint-disable-next-line react/display-name, sonarjs/cognitive-complexity
+const withSubscription = (Component) => (props: JSX.IntrinsicAttributes) => {
   useEffect(() => {
     onAuthStateChanged(firebase.auth, (authUser) => {
       if (!authUser) {
         router.push('/login');
       }
-      auth.getCustomClaimRole().then((claim) => {
+      auth.getCustomClaims().then((claims) => {
+        if (claims === undefined || claims === null) {
+          router.push({
+            pathname: '/login',
+            query: { returnUrl: router.pathname },
+          });
+          return;
+        }
+
+        const claim = claims['stripeRole'] as string | null;
+
         console.log('Tapped Subscription', claim);
         if (claim === null) {
           router.push('/pricing');
-          return;
         }
       });
 

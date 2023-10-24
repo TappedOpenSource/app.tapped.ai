@@ -1,9 +1,12 @@
+import type { NextPage } from 'next';
 import ProductCard from '@/components/ProductCard';
-import withAuth from '@/domain/auth/withAuth';
+// import withAuth from '@/domain/auth/withAuth';
 import { getProductAndPriceData } from '@/domain/usecases/payments';
-import { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MarketplaceProductCard from '@/components/MarketplaceProductCard';
+import auth from '@/data/auth';
+import api from '@/data/api';
+import { useRouter } from 'next/router';
 
 const subscriptionPlans = [
   'tapped ai (starter)',
@@ -12,34 +15,45 @@ const subscriptionPlans = [
   'tapped ai (business)',
 ];
 
-export async function getStaticProps() {
-  const products = await getProductAndPriceData();
-  return {
-    props: {
-      products,
-    },
-  };
-}
-
-const Pricing: NextPage = ({ products }: {
-  products: any[],
- }) => {
+const Pricing: NextPage = () => {
+  const router = useRouter();
   const [billingPortal, setBillingPortal] = useState<string | null>(null);
+  const [products, setProducts] = useState<any[]>([]);
 
-  // useEffect(() => {
-  //   auth.getCustomClaimRole().then((claim) => {
-  //     console.log(claim);
-  //     if (claim !== undefined && claim !== null) {
-  //       api.createPortalLink({ returnUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/` }).then(({ url }) => {
-  //         setBillingPortal(url);
-  //       });
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const products = await getProductAndPriceData();
+      setProducts(products);
+    };
+    fetchProducts();
+  });
+
+  useEffect(() => {
+    auth.getCustomClaims().then((claims) => {
+      console.log({ claims });
+
+      if (claims === undefined || claims === null) {
+        router.push({
+          pathname: '/login',
+          query: { returnUrl: router.pathname },
+        });
+        return;
+      }
+
+      const claim = claims['stripeRole'] as string | null;
+
+      if (claim !== undefined && claim !== null) {
+        api.createPortalLink({ returnUrl: `${window.location.origin}/pricing` }).then(({ url }) => {
+          console.log({ url });
+          setBillingPortal(url);
+        });
+      }
+    });
+  }, [router]);
 
   if (billingPortal) {
     return (
-      <div className="flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <a
           href={billingPortal}
           className="px-5 py-2 text-white bg-[#42A5F5] rounded-md"
@@ -78,4 +92,4 @@ const Pricing: NextPage = ({ products }: {
   );
 };
 
-export default withAuth(Pricing);
+export default Pricing;
