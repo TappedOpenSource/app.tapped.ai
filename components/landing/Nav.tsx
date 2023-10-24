@@ -26,10 +26,6 @@ const Nav = () => {
             height={75}
             alt='tapped logo'
           />
-          <div className='w-6'></div>
-          <span className='text-xl text-white font-bold uppercase tracking-wide'>
-              TAPPED AI
-          </span>
         </Link>
         <button
           className='inline-flex p-3 hover:bg-blue-500 rounded lg:hidden text-white ml-auto hover:text-white outline-none'
