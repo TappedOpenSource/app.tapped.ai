@@ -124,8 +124,6 @@ export default function Home({ shuffledArtists }: {
       <SubscriptionPlans />
       <div className="h-12 md:h-36"></div>
       <Benefits />
-      <div className="h-12 md:h-12"></div>
-      <AiTeam />
       <div className="h-12 md:h-36"></div>
       <YourJourney />
       <div className="h-12 md:h-36"></div>

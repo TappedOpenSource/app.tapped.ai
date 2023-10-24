@@ -48,8 +48,9 @@ const Benefits = () => {
               />
             </div>
             <div className='my-3'></div>
-            <h3 className="text-center text-lg font-extrabold">Meet Your Virtual Team</h3>
-            <p className="text-center text-lg">With TappedAi, you&apos;re not alone. Our record label package comes with access to seven virtual team members ready to assist you. From marketing and branding to styling and cover art creation, we&apos;ve got you covered.</p>
+            <h3 className="text-center text-lg font-extrabold">Unleash Your Creativity</h3>
+            <p className="text-center text-lg">
+            We&apos;re not here to dictate your artistic direction. Our focus is on the business side of things, leaving you free to explore your creative genius and reach new heights in your music career.</p>
           </div>
         </div>
       </div>
