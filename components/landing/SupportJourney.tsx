@@ -20,14 +20,14 @@ const SupportJourney = () => {
         <p className="text-center text-lg mx-4 md:mx-0 md:w-1/2">
         Unlike traditional record labels, we&apos;re not interested in taking a slice of your hard-earned success. We believe your art should remain yours. That&apos;s why we don&apos;t ask for any equity, and there are no long-term contracts tying you down.
         </p>
-        <div className="h-8"></div>
+        {/* <div className="h-8"></div>
         <Image
           className='md:rounded-xl'
           src="/images/billboard1.png"
           alt="photo of the first tapped billboard"
           width={512}
           height={512}
-        />
+        /> */}
       </div>
     </section>
   );
