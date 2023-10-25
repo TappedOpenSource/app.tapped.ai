@@ -13,7 +13,6 @@ import Benefits from '@/components/landing/Benefits';
 import YourJourney from '@/components/landing/YourJourney';
 import Unshackle from '@/components/landing/Unshackle';
 import JoinTheMovement from '@/components/landing/JoinTheMovement';
-import AiTeam from '@/components/landing/AiTeam';
 import Nav from '@/components/landing/Nav';
 
 const rubik = Rubik({
@@ -213,6 +212,11 @@ export const getServerSideProps = async () => {
       name: 'Honey Cane',
       photo: '/images/512x512/jerry.512x512.jpg',
       url: 'https://spotify.link/VeKEG6cfLDb',
+    },
+    {
+      name: 'ffeel',
+      photo: '/images/masters/ffeel.png',
+      url: 'https://music.apple.com/artist/1681892422',
     },
   ];
   const shuffledArtists = shuffle(signedArtists);
