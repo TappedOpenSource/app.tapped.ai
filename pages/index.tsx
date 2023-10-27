@@ -66,7 +66,7 @@ export default function Home({ shuffledArtists }: {
             <p
               className="text-center text-white py-4 px-8"
             >
-                join the over 30 artists in our community
+                join the over 500+ artists in our community
             </p>
           </div>
           <div className="h-8"></div>
