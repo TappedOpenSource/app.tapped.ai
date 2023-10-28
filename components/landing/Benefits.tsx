@@ -31,7 +31,7 @@ const Benefits = () => {
               href="https://getmusicmarketing.com"
             >
               <Image
-                src="/images/marketing_report_sample.png"
+                src="/images/marketing_og.png"
                 alt="Marketing Report Sample"
                 width={500}
                 height={500}
