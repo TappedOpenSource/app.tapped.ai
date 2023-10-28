@@ -60,14 +60,18 @@ const Benefits = () => {
           <div className='mx-4 md:mx-0 md:w-1/3'>
             <h1 className='text-2xl font-extrabold'>expand your reach</h1>
             <p>
-              blah blah blah
-              blah blah blah
-              blah blah blah
-              blah blah blah
-              blah blah blah
-              blah blah blah
-              blah blah blah
-              blah blah blah
+            Expanding a musician&apos;s reach is crucial in today&apos;s
+            competitive music industry, and it offers a myriad of benefits.
+            A broader audience means increased visibility,
+            more fans,
+            and ultimately higher potential for success.
+            Tapped offers invaluable support in this endeavor by
+            providing cutting-edge marketing and promotional strategies.
+            With Tapped&apos;s expertise,
+            artists can harness the power of digital platforms,
+            social media, and data-driven insights to reach wider audiences,
+            connect with fans, and unlock new opportunities for
+            growth and recognition in the music world.
             </p>
             <div className='h-8'></div>
             <Link
@@ -81,14 +85,13 @@ const Benefits = () => {
           <div className='mx-4 md:mx-0 md:w-1/3'>
             <h1 className='text-2xl font-extrabold'>earn more</h1>
             <p>
-              blah blah blah
-              blah blah blah
-              blah blah blah
-              blah blah blah
-              blah blah blah
-              blah blah blah
-              blah blah blah
-              blah blah blah
+            Create a professional EPK in minutes with Tapped.
+            Get noticed by bookers and promoters,
+            reach new fans,
+            and book more gigs.
+            Tap into Tapped&apos;s community of industry professionals
+            and get valuable feedback on your music and EPK.
+            Sign up today and start growing your music career!
             </p>
             <div className='h-8'></div>
             <Link
