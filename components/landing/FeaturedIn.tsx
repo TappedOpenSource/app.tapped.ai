@@ -48,13 +48,6 @@ const FeaturedIn = () => {
           </Link>
         </div>
       </div>
-      <div className='flex flex-row justify-center'>
-        <blockquote className="twitter-tweet" data-conversation="none" data-theme="dark">
-          <p lang="en" dir="ltr">y&#39;all tapped in fr fr 🔥</p>&mdash; buildspace (@_buildspace) <a href="https://twitter.com/_buildspace/status/1700985304797372648?ref_src=twsrc%5Etfw">September 10, 2023</a>
-        </blockquote>
-
-        <Script async src="https://platform.twitter.com/widgets.js"></Script>
-      </div>
     </div>
   );
 };
