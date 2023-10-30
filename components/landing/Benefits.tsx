@@ -10,6 +10,7 @@ type ProductSectionProps = {
   alt: string;
   color?: 'blue' | 'red'
   reverse?: boolean;
+  buttonText?: string;
 };
 
 function ProductSection({
@@ -20,6 +21,7 @@ function ProductSection({
   alt,
   color,
   reverse,
+  buttonText = 'test it',
 }: ProductSectionProps) {
   const red = 'bg-gradient-to-br from-red-600 to-pink-600 py-24';
   const blue = 'bg-gradient-to-br from-blue-600 to-sky-400 py-24';
@@ -50,7 +52,7 @@ function ProductSection({
           <Link
             href={link}
             className="text-lg bg-white text-black font-extrabold rounded-full px-6 py-4 hover:scale-105 transform transition-all duration-200 ease-in-out"
-          >test it</Link>
+          >{buttonText}</Link>
         </div>
         <div>
           <Link
@@ -78,6 +80,16 @@ export default function Benefits() {
       <div className="flex flex-col justify-center">
         <h2 className="text-center text-4xl">explore tapped&apos;s benefits</h2>
         <div className="h-12"></div>
+        <ProductSection
+          title='join the community'
+          description=''
+          link='https://app.tapped.ai/download'
+          image='/images/app_sample.png'
+          alt='ai app Sample'
+          buttonText='download now'
+          reverse
+        />
+        <div className='h-8 md:h-24'></div>
         <ProductSection
           title='look professional'
           description='Whether you&apos;re an indie artist just starting out or a seasoned pro,
@@ -108,7 +120,7 @@ export default function Benefits() {
           link="https://viralsocialmediaideas.com"
           image="/images/viral_idea_sample.png"
           alt='Social Media Idea Sample'
-          reverse={true}
+          reverse
         />
         <div className='h-8 md:h-24'></div>
         <ProductSection
@@ -121,6 +133,8 @@ export default function Benefits() {
           image="/images/epk_sample.png"
           alt='EPK Sample'
           color='blue'
+          buttonText='coming soon'
+
         />
         <div className='h-8 md:h-24'></div>
         <ProductSection
@@ -129,7 +143,7 @@ export default function Benefits() {
           link='https://getmusicviralchecker.com'
           image='/images/viralchecker_sample.png'
           alt='Viral Music Checker Sample'
-          reverse={true}
+          reverse
         />
       </div>
     </section>
