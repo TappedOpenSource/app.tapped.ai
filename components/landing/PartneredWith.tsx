@@ -22,7 +22,6 @@ export default function PartneredWith() {
               alt='Death row records logo'
             />
           </Link>
-
           <Link
             href="https://www.instagram.com/blankkanvaz/"
             target="_blank"
@@ -35,7 +34,6 @@ export default function PartneredWith() {
               alt='Black canvaz logo'
             />
           </Link>
-
           <Link
             href="https://www.instagram.com/playmakrsent/"
           >
@@ -47,7 +45,17 @@ export default function PartneredWith() {
               className='rounded-full'
             />
           </Link>
-
+          <Link
+            href="https://tccentertainment.com"
+          >
+            <Image
+              src='/images/tcc_logo.png'
+              width={100}
+              height={100}
+              alt='TCC entertainment logo'
+              className='rounded-full'
+            />
+          </Link>
         </div>
       </div>
     </>
