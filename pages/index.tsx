@@ -14,6 +14,7 @@ import YourJourney from '@/components/landing/YourJourney';
 import Unshackle from '@/components/landing/Unshackle';
 import JoinTheMovement from '@/components/landing/JoinTheMovement';
 import Nav from '@/components/landing/Nav';
+import PartneredWith from '@/components/landing/PartneredWith';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -86,9 +87,10 @@ export default function Home({ shuffledArtists }: {
               href="/application_form"
               // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
               id="apply-here"
-              className="text-lg font-black rounded-full px-6 pt-6 hover:scale-105 transform transition-all duration-200 ease-in-out"
+              className="text-lg font-black text-center rounded-full px-6 pt-6 hover:scale-105 transform transition-all duration-200 ease-in-out"
             >apply here</Link>
-            <p className="text-xs text-center">(it&apos;s free and takes 2 min)</p>
+            <div className='h-2' />
+            <p className="text-sm text-center font-bold">(it&apos;s free and takes 2 min)</p>
           </div>
           {/* <Link href="/tmp_home" className="block lg:hidden text-black">already a member?</Link> */}
           <div className="pb-12 lg:pb-2"></div>
@@ -114,9 +116,8 @@ export default function Home({ shuffledArtists }: {
           </div>
         </div>
       </div>
-      <FeaturedIn />
-      <div className="h-12"></div>
-      <EmpowermentHub />
+      <div className="h-12 md:h-36"></div>
+      <PartneredWith />
       <div className="h-12 md:h-36"></div>
       <SupportJourney />
       <div className="h-12 md:h-36"></div>
@@ -125,6 +126,8 @@ export default function Home({ shuffledArtists }: {
       <Benefits />
       <div className="h-12 md:h-36"></div>
       <YourJourney />
+      <div className="h-12 md:h-36"></div>
+      <FeaturedIn />
       <div className="h-12 md:h-36"></div>
       <Unshackle />
       <div className="h-12 md:h-36"></div>

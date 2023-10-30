@@ -13,7 +13,6 @@ const Nav = () => {
   return (
     <>
       <nav className='flex items-center flex-wrap bg-transparent p-3 '>
-
         <Link
           href="https://tapped.ai"
           target="_blank"
@@ -31,7 +30,7 @@ const Nav = () => {
           className='inline-flex p-3 hover:bg-blue-500 rounded lg:hidden text-white ml-auto hover:text-white outline-none'
           onClick={handleClick}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17h14M5 12h14M5 7h14"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 17h14M5 12h14M5 7h14"/></svg>
         </button>
         {/* Note that in this div we will use a ternary operator to decide whether or not to display the content of the div  */}
         <div

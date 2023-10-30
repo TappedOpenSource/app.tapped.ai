@@ -8,7 +8,7 @@ const Benefits = () => {
       <div className="flex flex-col justify-center">
         <h2 className="text-center text-4xl">explore tapped&apos;s benefits</h2>
         <div className="h-12"></div>
-        <div className='flex flex-col md:flex-row justify-center items-center gap-6'>
+        <div className='flex flex-col md:flex-row justify-center items-center gap-6 bg-gradient-to-br from-red-600 to-pink-600 py-24'>
           <div className='mx-4 md:mx-0 md:w-1/3'>
             <h1 className='text-2xl font-extrabold'>look professional</h1>
             <p>
@@ -40,7 +40,7 @@ const Benefits = () => {
             </Link>
           </div>
         </div>
-        <div className='h-16 md:h-44'></div>
+        <div className='h-8 md:h-24'></div>
         <div className='flex flex-col md:flex-row justify-center items-center gap-6'>
           <div>
             <Link
@@ -80,11 +80,11 @@ const Benefits = () => {
             >try it out</Link>
           </div>
         </div>
-        <div className='h-16 md:h-44'></div>
-        <div className='flex flex-col md:flex-row justify-center items-center gap-6'>
+        <div className='h-8 md:h-24'></div>
+        <div className='flex flex-col md:flex-row justify-center items-center gap-6 bg-gradient-to-br from-sky-600 to-blue-800 py-24'>
           <div className='mx-4 md:mx-0 md:w-1/3'>
             <h1 className='text-2xl font-extrabold'>earn more</h1>
-            <p>
+            <p className=''>
             Create a professional EPK in minutes with Tapped.
             Get noticed by bookers and promoters,
             reach new fans,
@@ -96,7 +96,7 @@ const Benefits = () => {
             <div className='h-8'></div>
             <Link
               href="https://getmusicepk.com"
-              className="text-lg bg-white text-black font-extrabold rounded-full px-6 py-4 hover:scale-105 transform transition-all duration-200 ease-in-out"
+              className="text-lg bg-black text-white font-extrabold rounded-full px-6 py-4 hover:scale-105 transform transition-all duration-200 ease-in-out"
             >try it out</Link>
           </div>
           <div>
