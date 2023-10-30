@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const Benefits = () => {
+export default function Benefits() {
   return (
     <section>
       <div className="flex flex-col justify-center">
@@ -115,9 +115,36 @@ const Benefits = () => {
             </Link>
           </div>
         </div>
+        <div className='h-8 md:h-24'></div>
+        <div className='flex flex-col md:flex-row justify-center items-center gap-6'>
+          <div className='mx-4 md:mx-0 md:w-1/3'>
+            <h1 className='text-2xl font-extrabold'>stay up-to-date</h1>
+            <p className=''>
+
+            </p>
+            <div className='h-8'></div>
+            <Link
+              href="https://getmusicviralchecker.com"
+              className="text-lg bg-white text-black font-extrabold rounded-full px-6 py-4 hover:scale-105 transform transition-all duration-200 ease-in-out"
+            >test it</Link>
+          </div>
+          <div>
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://getmusicviralchecker.com"
+            >
+              <Image
+                src="/images/viralchecker_sample.png"
+                alt="Viral Music Checker Sample"
+                width={500}
+                height={500}
+                className='rounded-xl'
+              />
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );
-};
-
-export default Benefits;
+}
