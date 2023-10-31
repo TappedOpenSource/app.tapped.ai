@@ -21,7 +21,7 @@ function ProductSection({
   alt,
   color,
   reverse,
-  buttonText = 'test it',
+  buttonText = 'try now',
 }: ProductSectionProps) {
   const red = 'bg-gradient-to-br from-red-600 to-pink-600 py-24';
   const blue = 'bg-gradient-to-br from-blue-600 to-sky-400 py-24';
@@ -91,7 +91,7 @@ export default function Benefits() {
           link='https://app.tapped.ai/download'
           image='/images/app_sample.png'
           alt='ai app Sample'
-          buttonText='download now'
+          buttonText='get the app'
           reverse
         />
         <div className='h-8 md:h-24'></div>
@@ -106,6 +106,7 @@ export default function Benefits() {
           image='/images/marketing_og.png'
           alt='Marketing Report Sample'
           color='red'
+          buttonText='create your own'
         />
         <div className='h-8 md:h-24'></div>
         <ProductSection
@@ -139,7 +140,6 @@ export default function Benefits() {
           alt='EPK Sample'
           color='blue'
           buttonText='coming soon'
-
         />
         <div className='h-8 md:h-24'></div>
         <ProductSection
@@ -148,6 +148,7 @@ export default function Benefits() {
           link='https://getmusicviralchecker.com'
           image='/images/viralchecker_sample.png'
           alt='Viral Music Checker Sample'
+          buttonText='try it out'
           reverse
         />
       </div>
