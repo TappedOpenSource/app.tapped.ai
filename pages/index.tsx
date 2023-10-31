@@ -92,7 +92,6 @@ export default function Home({ shuffledArtists }: {
             <div className='h-2' />
             <p className="text-sm text-center font-bold">(it&apos;s free and takes 2 min)</p>
           </div>
-          {/* <Link href="/tmp_home" className="block lg:hidden text-black">already a member?</Link> */}
           <div className="pb-12 lg:pb-2"></div>
           <div className="overflow-hidden w-screen">
             <div className="relative flex flex-row">
