@@ -40,6 +40,11 @@ function ProductSection({
     }
   })();
 
+  const border = backgroundColor !== '' ?
+    'border-2 border-gray-200' :
+    '';
+
+
   return (
     <>
       <div className={`flex flex-col ${flexDirection} justify-center items-center gap-6 ${backgroundColor}`}>
@@ -65,7 +70,7 @@ function ProductSection({
               alt={alt}
               width={500}
               height={500}
-              className='rounded-xl'
+              className={`rounded-xl ${border}`}
             />
           </Link>
         </div>
