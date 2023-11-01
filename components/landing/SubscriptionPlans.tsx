@@ -9,7 +9,7 @@ const SubscriptionPlans = () => {
           <h3 className="text-4xl text-center md:text-left">
             affordable subscription plans
           </h3>
-          <p className='text-lg text-center md:text-left'>Say goodbye to financial stress. Our monthly subscription plans start at just $50, making it accessible for artists of all backgrounds. Get the support you need without breaking the bank.</p>
+          <p className='text-lg text-center md:text-left lowercase'>Say goodbye to financial stress. Our monthly subscription plans start at just $50, making it accessible for artists of all backgrounds. Get the support you need without breaking the bank.</p>
           <div className='h-8'></div>
           <div className='flex justify-center'>
             <Link
