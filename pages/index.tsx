@@ -80,7 +80,7 @@ export default function Home({ shuffledArtists }: {
           <h2
             className="text-2xl font-thin text-center text-white lg:text-3xl"
           >
-             ai tools for musicians to build and market their brands.
+             Ai tools for musicians to build and market their brands.
           </h2>
           <div className="flex flex-col justify-center mt-8 mb-4 py-2 px-4">
             <Link
@@ -146,27 +146,27 @@ export const getServerSideProps = async () => {
     url: string;
   }[] = [
     {
-      name: 'Maria Alexa',
+      name: 'maria alexa',
       photo: '/images/512x512/maria.512x512.png',
       url: 'https://music.apple.com/us/artist/maria-alexa/1526235494',
     },
     {
-      name: 'Jay?duhhh',
+      name: 'jay?duhhh',
       photo: '/images/512x512/jayduhhh.512x512.png',
       url: 'https://music.apple.com/us/artist/jay-duhhh/1573379288',
     },
     {
-      name: 'ManiDaBrat',
+      name: 'manidabrat',
       photo: '/images/512x512/mani.512x512.png',
       url: 'https://music.apple.com/us/artist/mani-da-brat/1509383758',
     },
     {
-      name: 'Infamou$G',
+      name: 'infamou$g',
       photo: '/images/512x512/infamousg.512x512.png',
       url: 'https://music.apple.com/us/artist/infamou%24-g/1346957051',
     },
     {
-      name: 'Seelife',
+      name: 'seelife',
       photo: '/images/512x512/seelife.512x512.png',
       url: 'https://music.apple.com/us/artist/seelife/1493214282',
     },
@@ -176,42 +176,42 @@ export const getServerSideProps = async () => {
       url: 'https://music.apple.com/us/artist/rysovalid/1140332949',
     },
     {
-      name: 'Niral Desai',
+      name: 'niral desai',
       photo: '/images/512x512/niral.512x512.png',
       url: 'https://music.apple.com/us/artist/niral-desai/1682714169',
     },
     {
-      name: 'Fe_lie the God',
+      name: 'fe_lie the god',
       photo: '/images/512x512/felie.512x512.png',
       url: 'https://music.apple.com/us/artist/fe-lie-the-god/1090646827',
     },
     {
-      name: 'Yung Smilez',
+      name: 'yung smilez',
       photo: '/images/512x512/yungsmilez.512x512.png',
       url: 'https://music.apple.com/us/artist/yung-smilez/1228940318',
     },
     {
-      name: 'Davy HBF',
+      name: 'davy hbf',
       photo: '/images/512x512/davy.512x512.png',
       url: 'https://music.apple.com/us/artist/davy-hbf/1651803177',
     },
     {
-      name: 'Andrew Rohlk',
+      name: 'andrew rohlk',
       photo: '/images/512x512/andrew.512x512.png',
       url: 'https://music.apple.com/us/artist/andrew-rohlk/592655140',
     },
     {
-      name: 'Rein',
+      name: 'rein',
       photo: '/images/512x512/rein.512x512.png',
       url: 'https://music.apple.com/us/artist/rein/1590397406',
     },
     {
-      name: 'Frankie Biggz',
+      name: 'frankie biggz',
       photo: '/images/512x512/frankie.512x512.png',
       url: 'https://music.apple.com/us/artist/frankie-biggz/191277376',
     },
     {
-      name: 'Honey Cane',
+      name: 'honey cane',
       photo: '/images/512x512/jerry.512x512.jpg',
       url: 'https://spotify.link/VeKEG6cfLDb',
     },

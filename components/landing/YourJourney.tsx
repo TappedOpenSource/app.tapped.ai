@@ -21,7 +21,7 @@ const YourJourney = () => {
         <div className="h-6"></div>
         <div className="flex justify-center">
           <div className="md:w-3/4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-center lowercase">
               <JourneyTile
                 number="1"
                 title="choose your plan"

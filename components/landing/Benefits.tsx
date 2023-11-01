@@ -82,7 +82,7 @@ function ProductSection({
 export default function Benefits() {
   return (
     <section>
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center lowercase">
         <h2 className="text-center text-4xl">explore tapped&apos;s benefits</h2>
         <div className="h-12"></div>
         <ProductSection
