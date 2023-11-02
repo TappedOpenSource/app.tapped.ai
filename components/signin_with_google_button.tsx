@@ -1,16 +1,17 @@
-import { LoginResult } from '@/data/auth';
 import { loginWithGoogle } from '@/domain/usecases/login';
 
-const SignInWithGoogleButton = ({ onClick }: {
-  onClick: (loginResult: LoginResult) => void,
-}) => {
+export default function SignInWithGoogleButton({ onClick }: {
+  onClick: () => void,
+}) {
   const handleLogin = async () => {
     // e.preventDefault();
     try {
       const response = await loginWithGoogle();
-      onClick(response);
+      console.log({ userId: response.uid });
     } catch (err) {
       console.error(err);
+    } finally {
+      onClick();
     }
   };
 
@@ -38,6 +39,4 @@ const SignInWithGoogleButton = ({ onClick }: {
         continue with google
     </button>
   );
-};
-
-export default SignInWithGoogleButton;
+}

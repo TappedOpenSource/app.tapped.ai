@@ -6,10 +6,10 @@ import { LoginResult } from '@/data/auth';
 const SignUpField = ({ formData, updateFormData, onValidation }) => {
   const router = useRouter();
 
-  const handleLogin = (loginResult: LoginResult) => {
-    console.log({ userId: loginResult.uid, ...formData });
+  const handleLogin = (loginResult?: LoginResult) => {
+    console.log({ uid: loginResult.uid ?? 'anonymous', ...formData });
     database.createNewApplicationResponse({
-      userId: loginResult.uid,
+      userId: loginResult.uid ?? 'anonymous',
       labelApplication: {
         timestamp: new Date(),
         ...formData,
@@ -28,7 +28,6 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
         </div>
         <div className="flex items-center justify-center w-[60%] mx-auto">
           <SignInWithGoogleButton onClick={handleLogin} />
-          {/* <SignInWithAppleButton /> */}
         </div>
       </div>
     </div>

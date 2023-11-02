@@ -6,7 +6,6 @@ import { shuffle } from '@/utils/shuffle';
 import Footer from '@/components/landing/Footer';
 import SignedArtistCard from '@/components/landing/SignedArtistCard';
 import FeaturedIn from '@/components/landing/FeaturedIn';
-import EmpowermentHub from '@/components/landing/EmpowermentHub';
 import SupportJourney from '@/components/landing/SupportJourney';
 import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
 import Benefits from '@/components/landing/Benefits';

@@ -14,7 +14,7 @@ const Login = () => {
     password: '',
   });
   const query = router.query;
-  const returnTo = (query.returnUrl as string) || '/tmp_home';
+  const returnTo = (query.returnUrl as string) || '/signup_complete';
   console.log({ returnTo });
 
   const handleLogin = async (e: any) => {

@@ -47,7 +47,7 @@ const EmailField = ({ formData, updateFormData, onValidation }) => {
         <h1 className="mb-2 text-2xl font-bold text-white">what is your email?</h1>
         <div className="flex h-full w-full items-center justify-center">
           <input
-            type="text"
+            type="email"
             name="email"
             placeholder='type here...'
             value={formData['email'] || ''}
