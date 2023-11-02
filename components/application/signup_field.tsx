@@ -11,7 +11,7 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
     try {
       const response = await loginWithGoogle();
       console.log({ userId: response.uid });
-      database.createNewApplicationResponse({
+      await database.createNewApplicationResponse({
         userId: response.uid ?? 'anonymous',
         labelApplication: {
           timestamp: new Date(),
