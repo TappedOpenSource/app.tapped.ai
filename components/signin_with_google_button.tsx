@@ -1,7 +1,7 @@
 import { loginWithGoogle } from '@/domain/usecases/login';
 
 export default function SignInWithGoogleButton({ onClick }: {
-  onClick: () => void,
+  onClick: () => void;
 }) {
   const handleLogin = async () => {
     // e.preventDefault();
@@ -18,7 +18,6 @@ export default function SignInWithGoogleButton({ onClick }: {
   return (
     <button
       onClick={handleLogin}
-      type="button"
       className="google_btn"
     >
       <svg
