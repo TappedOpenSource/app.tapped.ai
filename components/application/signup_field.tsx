@@ -1,9 +1,12 @@
 // import SignInWithGoogleButton from '@/components/signin_with_google_button';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import database from '@/data/database';
+// import database from '@/data/database';
 // import { LoginResult } from '@/data/auth';
 // import { loginWithGoogle } from '@/domain/usecases/login';
+
+const functionURL = 'https://us-central1-in-the-loop-306520.cloudfunctions.net/createLabelApplication';
+
 
 const SignUpField = ({ formData, updateFormData, onValidation }) => {
   const router = useRouter();
@@ -20,13 +23,21 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
 
     try {
       setLoading(true);
-      await database.createNewApplicationResponse({
-        userId: 'anonymous',
-        labelApplication: {
-          timestamp: new Date(),
-          ...formData,
+      console.log({ formData });
+      await fetch(functionURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify(formData),
       });
+      // await database.createNewApplicationResponse({
+      //   userId: 'anonymous',
+      //   labelApplication: {
+      //     timestamp: new Date(),
+      //     ...formData,
+      //   },
+      // });
       setLoading(false);
       router.push('/signup_complete');
     } catch (err) {
