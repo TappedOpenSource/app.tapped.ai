@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import router from 'next/router';
-import firebase from '@/utils/firebase';
 import database from '@/data/database';
+import { auth as fAuth } from '@/utils/firebase';
 import auth from '@/data/auth';
 import { onAuthStateChanged } from '@firebase/auth';
 
 // eslint-disable-next-line react/display-name, sonarjs/cognitive-complexity
 const withSubscription = (Component) => (props: JSX.IntrinsicAttributes) => {
   useEffect(() => {
-    onAuthStateChanged(firebase.auth, (authUser) => {
+    onAuthStateChanged(fAuth, (authUser) => {
       if (!authUser) {
         router.push('/login');
       }

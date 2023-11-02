@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { onIdTokenChanged } from 'firebase/auth';
-import firebase from '@/utils/firebase';
+import { auth } from '@/utils/firebase';
 import {
   removeUserCookie,
   setUserCookie,
@@ -28,8 +28,7 @@ const useUser = () => {
   const router = useRouter();
 
   const logout = async () => {
-    return firebase
-      .auth
+    return auth
       .signOut()
       .then(() => {
         router.push('/');
@@ -40,7 +39,7 @@ const useUser = () => {
   };
 
   useEffect(() => {
-    const cancelAuthListener = onIdTokenChanged(firebase.auth, async (userToken) => {
+    const cancelAuthListener = onIdTokenChanged(auth, async (userToken) => {
       if (userToken) {
         const userData = await mapUserData(userToken);
         setUserCookie(userData);

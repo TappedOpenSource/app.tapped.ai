@@ -9,7 +9,7 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
   const router = useRouter();
   const [isErrored, setIsErrored] = useState(false);
 
-  const handleClick = async () => {
+  const handleClick = () => {
     // try {
     //   loginWithGoogle();
     //   // console.log({ userId: response.uid });
@@ -18,7 +18,7 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
     // }
 
     try {
-      await database.createNewApplicationResponse({
+      database.createNewApplicationResponse({
         userId: 'anonymous',
         labelApplication: {
           timestamp: new Date(),

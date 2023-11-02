@@ -15,10 +15,10 @@ import {
 } from 'firebase/firestore';
 import { Option, None, Some } from '@sniptt/monads';
 import { Avatar, avatarConverter } from '@/domain/models/avatar';
-import firebase from '@/utils/firebase';
 import { AlbumName, albumNameConverter } from '@/domain/models/album_name';
 import { LabelApplication, labelApplicationConverter } from '@/domain/models/label_application';
 import { AiModel } from '@/domain/models/ai_model';
+import { db } from '@/utils/firebase';
 
 export type Database = {
   createAvatar: (avatar: Avatar) => Promise<string>
@@ -49,7 +49,6 @@ export type Database = {
   getLatestImageModel: (userId: string) => Promise<Option<AiModel>>;
 }
 
-const db = firebase.db;
 const FirestoreDB: Database = {
   createAvatar: async (avatar: Avatar): Promise<string> => {
     const docRef = doc(

@@ -6,7 +6,7 @@ import { MdMessage } from 'react-icons/md';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { collection, doc, query, getDocs, orderBy, limit } from 'firebase/firestore';
-import firebase from '../utils/firebase';
+import { db } from '@/utils/firebase';
 import FirebaseAuth from '@/data/auth';
 
 const Team: NextPage = () => {
@@ -35,7 +35,7 @@ const Team: NextPage = () => {
   }, [currUid, router]);
 
   const fetchLatestModelId = async (userId) => {
-    const aiModelsCollection = collection(firebase.db, 'aiModels');
+    const aiModelsCollection = collection(db, 'aiModels');
     const userDoc = doc(aiModelsCollection, userId);
     const imageModelsSubCollection = collection(userDoc, 'imageModels');
 

@@ -1,6 +1,6 @@
 
 import { onAuthStateChanged } from '@firebase/auth';
-import firebase from '@/utils/firebase';
+import { auth } from '@/utils/firebase';
 import { None, Option, Some } from '@sniptt/monads';
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, createUserWithEmailAndPassword, ParsedToken } from 'firebase/auth';
 
@@ -27,21 +27,21 @@ export type SignupResult = {uid: string; token: string };
 const FirebaseAuth: Auth = {
   currentUser: None,
   getCurrentUserId: (): Option<{ uid: string }> => {
-    if (firebase.auth.currentUser) {
-      return Some({ uid: firebase.auth.currentUser.uid });
+    if (auth.currentUser) {
+      return Some({ uid: auth.currentUser.uid });
     } else {
       return None;
     }
   },
   getCurrentUserEmail: (): Option<{ email: string }> => {
-    if (firebase.auth.currentUser) {
-      return Some({ email: firebase.auth.currentUser.email });
+    if (auth.currentUser) {
+      return Some({ email: auth.currentUser.email });
     } else {
       return None;
     }
   },
   startAuthObserver: () => {
-    onAuthStateChanged(firebase.auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
@@ -56,12 +56,12 @@ const FirebaseAuth: Auth = {
     });
   },
   authStateObserver: (callback: (user: any) => void) => {
-    onAuthStateChanged(firebase.auth, callback);
+    onAuthStateChanged(auth, callback);
   },
   loginWithCredentials: async (credentials: Credentials) => {
     console.debug('loginWithCredentials', credentials.email);
     const loginResult = await signInWithEmailAndPassword(
-      firebase.auth,
+      auth,
       credentials.email,
       credentials.password,
     );
@@ -73,7 +73,7 @@ const FirebaseAuth: Auth = {
   }) => {
     console.debug('signup');
     const loginResult = await createUserWithEmailAndPassword(
-      firebase.auth,
+      auth,
       email,
       password,
     );
@@ -82,7 +82,7 @@ const FirebaseAuth: Auth = {
   loginWithGoogle: async () => {
     console.debug('loginWithGoogle');
     const provider = new GoogleAuthProvider();
-    const loginResult = await signInWithPopup(firebase.auth, provider);
+    const loginResult = await signInWithPopup(auth, provider);
     return { uid: loginResult.user.uid, token: '123' };
   },
   loginWithApple: async () => {
@@ -91,13 +91,13 @@ const FirebaseAuth: Auth = {
   },
   logout: async () => {
     console.debug('logout');
-    await firebase.auth.signOut();
+    await auth.signOut();
   },
   getCustomClaims: async () => {
-    console.log({ currentUser: firebase.auth.currentUser });
-    const token = await firebase.auth.currentUser?.getIdToken(true);
+    console.log({ currentUser: auth.currentUser });
+    const token = await auth.currentUser?.getIdToken(true);
     console.log({ token });
-    const decodedToken = await firebase.auth.currentUser?.getIdTokenResult();
+    const decodedToken = await auth.currentUser?.getIdTokenResult();
     console.log({ claims: decodedToken?.claims });
     return decodedToken?.claims;
   },

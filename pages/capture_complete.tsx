@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import firebase from '../utils/firebase';
+import { auth, db, storage } from '../utils/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
 import { FaArrowLeft, FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import api from '../data/api';
-import FirebaseAuth from '@/data/auth';
 import withAuth from '@/domain/auth/withAuth';
 
 const CaptureComplete = () => {
@@ -36,11 +35,11 @@ const CaptureComplete = () => {
   };
 
   const uploadImageToStorage = async (imageDataUrl: string, index: number) => {
-    const user = firebase.auth.currentUser;
+    const user = auth.currentUser;
     if (!user) return;
 
     const fileName = `${index}_${new Date().toISOString()}.png`;
-    const imageRef = ref(firebase.storage, `aiModels/${user.uid}/${fileName}`);
+    const imageRef = ref(storage, `aiModels/${user.uid}/${fileName}`);
 
     const data = imageDataUrl.split(',')[1];
     const byteArray = Uint8Array.from(atob(data), (c) => c.charCodeAt(0));
@@ -50,10 +49,10 @@ const CaptureComplete = () => {
   };
 
   const storeImageLinksInFirestore = async (downloadLinks: string[]) => {
-    const user = firebase.auth.currentUser;
+    const user = auth.currentUser;
     if (!user) return;
 
-    const userSamplesCollection = collection(firebase.db, 'referenceImages', user.uid, 'userSamples');
+    const userSamplesCollection = collection(db, 'referenceImages', user.uid, 'userSamples');
 
     const promises = downloadLinks.map((link) => {
       return addDoc(userSamplesCollection, { url: link });
