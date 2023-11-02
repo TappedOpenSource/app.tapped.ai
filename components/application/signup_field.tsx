@@ -8,8 +8,9 @@ import database from '@/data/database';
 const SignUpField = ({ formData, updateFormData, onValidation }) => {
   const router = useRouter();
   const [isErrored, setIsErrored] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     // try {
     //   loginWithGoogle();
     //   // console.log({ userId: response.uid });
@@ -18,16 +19,19 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
     // }
 
     try {
-      database.createNewApplicationResponse({
+      setLoading(true);
+      await database.createNewApplicationResponse({
         userId: 'anonymous',
         labelApplication: {
           timestamp: new Date(),
           ...formData,
         },
       });
+      setLoading(false);
       router.push('/signup_complete');
     } catch (err) {
       console.error(err);
+      setLoading(false);
       setIsErrored(true);
     }
   };
@@ -53,12 +57,19 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
           </p>
         </div>
         <div className="flex items-center justify-center w-[60%] mx-auto">
-          <button
-            onClick={handleClick}
-            className='font-extrabold text-black bg-white rounded-full px-8 py-2'
-          >
+          {loading ? (
+            <div>
+              loading...
+            </div>
+          ) : (
+
+            <button
+              onClick={handleClick}
+              className='font-extrabold text-black bg-white rounded-full px-8 py-2'
+            >
             submit
-          </button>
+            </button>
+          )}
         </div>
       </div>
     </div>
