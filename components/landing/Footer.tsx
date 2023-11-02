@@ -30,21 +30,21 @@ const Footer = () => {
             </a>
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center lowercase">
                     Made with 💙 in Richmond, Virginia
         </div>
-        <div className="flex justify-center mt-2">
+        <div className="flex justify-center mt-2 lowercase">
                     Contact us at
           <a className="font-bold px-1 text-blue-500" href="mailto:tappednetwork@gmail.com">
                         support@tapped.ai
           </a>
         </div>
-        <div className="flex justify-center mt-2">
+        <div className="flex justify-center mt-2 lowercase">
           <Link className="font-bold px-1 text-blue-500" href="https://app.tapped.ai/privacy">
                         Privacy Policy
           </Link>
         </div>
-        <div className="flex justify-center text-sm font-light mb-8">
+        <div className="flex justify-center text-sm font-light mb-8 lowercase">
                    &#169; Tapped App Inc. {new Date().getFullYear()}
         </div>
       </footer>

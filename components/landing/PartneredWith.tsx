@@ -6,7 +6,7 @@ export default function PartneredWith() {
   return (
     <>
       <div className='flex flex-col justify-center items-center gap-8'>
-        <div className="uppercase text-center font-bold opacity-80">
+        <div className="uppercase text-center font-bold opacity-80 lowercase">
         IN PARTNERSHIP WITH
         </div>
         <div className='flex flex-col md:flex-row justify-center items-center gap-10'>
