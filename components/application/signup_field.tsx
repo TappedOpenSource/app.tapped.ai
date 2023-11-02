@@ -1,4 +1,5 @@
 // import SignInWithGoogleButton from '@/components/signin_with_google_button';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import database from '@/data/database';
 // import { LoginResult } from '@/data/auth';
@@ -6,6 +7,7 @@ import database from '@/data/database';
 
 const SignUpField = ({ formData, updateFormData, onValidation }) => {
   const router = useRouter();
+  const [isErrored, setIsErrored] = useState(false);
 
   const handleClick = async () => {
     // try {
@@ -15,15 +17,32 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
     //   console.error(err);
     // }
 
-    await database.createNewApplicationResponse({
-      userId: 'anonymous',
-      labelApplication: {
-        timestamp: new Date(),
-        ...formData,
-      },
-    });
-    router.push('/signup_complete');
+    try {
+      await database.createNewApplicationResponse({
+        userId: 'anonymous',
+        labelApplication: {
+          timestamp: new Date(),
+          ...formData,
+        },
+      });
+      router.push('/signup_complete');
+    } catch (err) {
+      console.error(err);
+      setIsErrored(true);
+    }
   };
+
+  if (isErrored) {
+    return (
+      <div className='flex justify-center items-center'>
+        <div className="text-center">
+          <p className="text-lg font-bold text-white mb-4">
+            something went wrong
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ backgroundColor: '#15242d', height: '100vh' }} className="flex items-center justify-center">
