@@ -11,17 +11,18 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
     try {
       const response = await loginWithGoogle();
       console.log({ userId: response.uid });
-      await database.createNewApplicationResponse({
-        userId: response.uid ?? 'anonymous',
-        labelApplication: {
-          timestamp: new Date(),
-          ...formData,
-        },
-      });
-      router.push('/signup_complete');
     } catch (err) {
       console.error(err);
     }
+
+    await database.createNewApplicationResponse({
+      userId: 'anonymous',
+      labelApplication: {
+        timestamp: new Date(),
+        ...formData,
+      },
+    });
+    router.push('/signup_complete');
   };
 
   return (
