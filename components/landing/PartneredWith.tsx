@@ -56,6 +56,18 @@ export default function PartneredWith() {
               className='rounded-full'
             />
           </Link>
+          <Link
+            href="https://twitter.com/unisonrights"
+            className='rounded-xl p-5 bg-white'
+          >
+            <Image
+              src='/images/unison_logo.png'
+              width={60}
+              height={60}
+              alt='Unison logo'
+              className=''
+            />
+          </Link>
         </div>
       </div>
     </>
