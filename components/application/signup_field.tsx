@@ -9,8 +9,8 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await loginWithGoogle();
-      console.log({ userId: response.uid });
+      loginWithGoogle();
+      // console.log({ userId: response.uid });
     } catch (err) {
       console.error(err);
     }
