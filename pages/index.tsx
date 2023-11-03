@@ -25,6 +25,7 @@ export default function Home({ shuffledArtists }: {
     name: string;
     photo: string;
     url: string;
+    signed?: boolean;
   }[]
 }) {
   // bg-[#63b2fd]
@@ -95,19 +96,21 @@ export default function Home({ shuffledArtists }: {
           <div className="overflow-hidden w-screen">
             <div className="relative flex flex-row">
               <div className="flex flex-row animate-marquee whitespace-nowrap">
-                {shuffledArtists.map(({ name, photo, url }, i) => <SignedArtistCard
+                {shuffledArtists.map(({ name, photo, url, signed }, i) => <SignedArtistCard
                   key={i}
                   name={name}
                   photo={photo}
                   url={url}
+                  signed={signed}
                 />)}
               </div>
               <div className="absolute flex flex-row animate-marquee2 whitespace-nowrap">
-                {shuffledArtists.map(({ name, photo, url }, i) => <SignedArtistCard
+                {shuffledArtists.map(({ name, photo, url, signed }, i) => <SignedArtistCard
                   key={i}
                   name={name}
                   photo={photo}
                   url={url}
+                  signed={signed}
                 />)}
               </div>
             </div>
@@ -143,6 +146,7 @@ export const getServerSideProps = async () => {
     name: string;
     photo: string;
     url: string;
+    signed?: boolean;
   }[] = [
     {
       name: 'maria alexa',
@@ -153,6 +157,7 @@ export const getServerSideProps = async () => {
       name: 'jay?duhhh',
       photo: '/images/512x512/jayduhhh.512x512.png',
       url: 'https://music.apple.com/us/artist/jay-duhhh/1573379288',
+      signed: true,
     },
     {
       name: 'manidabrat',
@@ -178,6 +183,7 @@ export const getServerSideProps = async () => {
       name: 'niral desai',
       photo: '/images/512x512/niral.512x512.png',
       url: 'https://music.apple.com/us/artist/niral-desai/1682714169',
+      signed: true,
     },
     {
       name: 'fe_lie the god',
