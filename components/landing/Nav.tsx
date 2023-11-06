@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 
-const Nav = () => {
+export default function Nav() {
   const [active, setActive] = useState(false);
 
   const handleClick = () => {
@@ -12,7 +12,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav className='flex items-center flex-wrap bg-transparent p-3 '>
+      <nav className='fixed w-screen backdrop-blur-xl bg-[#010F16]/30 flex items-center flex-wrap bg-transparent p-3 '>
         <Link
           href="https://tapped.ai"
           target="_blank"
@@ -82,6 +82,4 @@ const Nav = () => {
       </nav>
     </>
   );
-};
-
-export default Nav;
+}
