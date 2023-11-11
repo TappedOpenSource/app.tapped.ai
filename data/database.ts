@@ -19,8 +19,10 @@ import { AlbumName, albumNameConverter } from '@/domain/models/album_name';
 import { LabelApplication, labelApplicationConverter } from '@/domain/models/label_application';
 import { AiModel } from '@/domain/models/ai_model';
 import { db } from '@/utils/firebase';
+import { UserModel } from '@/domain/models/user_model';
 
 export type Database = {
+  getUserByUsername: (username: string) => Promise<Option<UserModel>>;
   createAvatar: (avatar: Avatar) => Promise<string>
   getAvatar: ({ userId, id }: {
     id: string;
@@ -50,6 +52,23 @@ export type Database = {
 }
 
 const FirestoreDB: Database = {
+  getUserByUsername: async (username: string): Promise<Option<UserModel>> => {
+    const usersCollection = collection(db, 'users');
+    const q = query(
+      usersCollection,
+      where('username', '==', username),
+      limit(1),
+    );
+
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      console.log('No user found!');
+      return None;
+    }
+
+    const user = querySnapshot.docs[0].data() as UserModel;
+    return Some(user);
+  },
   createAvatar: async (avatar: Avatar): Promise<string> => {
     const docRef = doc(
       db,
