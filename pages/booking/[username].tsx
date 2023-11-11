@@ -3,8 +3,10 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import database from '@/data/database';
 import { UserModel } from '@/domain/models/user_model';
+import BookingHistoryPreview from '@/components/profile/BookingHistoryPreview';
+import { getUserByUsername } from '@/data/database';
+import ReviewsPreview from '@/components/profile/ReviewsPreview';
 
 export default function Page() {
   const router = useRouter();
@@ -18,7 +20,7 @@ export default function Page() {
       }
 
       // get user by username
-      const user = await database.getUserByUsername(username);
+      const user = await getUserByUsername(username);
       user.match({
         some: (user) => {
           // set user
@@ -50,19 +52,32 @@ export default function Page() {
           fill
         />
       </div>
-      <div className='py-4 px-6'>
-        <div>
-          <h1 className='text-4xl font-extrabold'>{user.artistName}</h1>
-          <p className='text-sm text-gray-500'>{user.username}</p>
-        </div>
-        <div>
-          <h2 className='text-2xl font-bold'>Services</h2>
-        </div>
-        <div className='text-2xl font-bold'>
-          <h2>Reviews</h2>
-        </div>
-        <div className='text-2xl font-bold'>
-          <h2>Booking History</h2>
+      <div className='md:flex md:justify-center'>
+        <div className='py-4 px-6 md:w-1/2'>
+          <div>
+            <h1 className='text-4xl font-extrabold'>{user.artistName}</h1>
+            <p className='text-sm text-gray-500'>@{user.username}</p>
+          </div>
+          <div className='h-12' />
+          {/* <div>
+            <h2 className='text-2xl font-bold'>Pricings</h2>
+            <p>the prices</p>
+          </div>
+          <div className='h-4' /> */}
+          <div>
+            <h2 className='text-2xl font-bold'>Reviews</h2>
+            <ReviewsPreview userId={user.id} />
+          </div>
+          <div className='h-4' />
+          <div>
+            <h2 className='text-2xl font-bold'>Booking History</h2>
+            <BookingHistoryPreview userId={user.id} />
+          </div>
+          <div className='h-4' />
+          <div>
+            <h2 className='text-2xl font-bold'>More Info</h2>
+            <p>{user.bio}</p>
+          </div>
         </div>
       </div>
     </>

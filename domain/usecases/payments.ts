@@ -1,16 +1,16 @@
-import database from '@/data/database';
+import { createCheckoutSession, getActiveProducts } from '@/data/database';
 import api from '@/data/api';
 import auth from '@/data/auth';
 
 export const subscribe = async ({ priceId }: { priceId: string; }): Promise<void> => {
-  await database.createCheckoutSession({
+  await createCheckoutSession({
     userId: auth.getCurrentUserId().unwrap().uid,
     priceId: priceId,
   });
 };
 
 export const getProductAndPriceData = async (): Promise<any[]> => {
-  return await database.getActiveProducts();
+  return await getActiveProducts();
 };
 
 export const handleBillingPortal = async (): Promise<string> => {

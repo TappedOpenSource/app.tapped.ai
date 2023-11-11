@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import WebcamCapture from '@/components/face_capture/WebcamCapture';
 import withSubscription from '@/domain/auth/withSubscription';
-import database from '@/data/database';
 import auth from '@/data/auth';
 import { Button } from '@mui/material';
+import { getLatestImageModel } from '@/data/database';
 
 const FaceCapture = () => {
   const [modelExists, setModelExists] = useState(true);
@@ -17,7 +17,7 @@ const FaceCapture = () => {
         return;
       }
 
-      const aiModel = await database.getLatestImageModel(userId.unwrap().uid);
+      const aiModel = await getLatestImageModel(userId.unwrap().uid);
       setModelExists(aiModel.isSome());
     };
 

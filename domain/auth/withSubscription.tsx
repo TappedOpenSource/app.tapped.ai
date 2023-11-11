@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import router from 'next/router';
-import database from '@/data/database';
+import { addCustomerSubscriptionListener } from '@/data/database';
 import { auth as fAuth } from '@/utils/firebase';
 import auth from '@/data/auth';
 import { onAuthStateChanged } from '@firebase/auth';
@@ -29,7 +29,7 @@ const withSubscription = (Component) => (props: JSX.IntrinsicAttributes) => {
         }
       });
 
-      database.addCustomerSubscriptionListener(authUser.uid, (snapshot) => {
+      addCustomerSubscriptionListener(authUser.uid, (snapshot) => {
         if (snapshot.empty) {
           router.push('/pricing');
         }
