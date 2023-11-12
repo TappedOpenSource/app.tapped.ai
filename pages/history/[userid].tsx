@@ -65,18 +65,20 @@ export default function History() {
 
   return (
     <>
-      <div className='py-4 px-6 md:w-1/2'>
-        <h1 className="text-4xl font-extrabold">history</h1>
-        <div className="h-4" />
-        {bookings.map((booking, index) => (
-          <div key={index}>
-            <BookingTile booking={booking} user={performer} />
-            <div className="h-4" />
+      <div className='md:flex md:justify-center'>
+        <div className='py-4 px-6 md:w-1/2'>
+          <h1 className="text-4xl font-extrabold">history</h1>
+          <div className="h-4" />
+          {bookings.map((booking, index) => (
+            <div key={index}>
+              <BookingTile booking={booking} user={performer} />
+              <div className="h-4" />
+            </div>
+          ))}
+          <div className="h-4" />
+          <div className='flex justify-center items-center'>
+            <p className='text-xs font-thin text-gray-500'>end of list</p>
           </div>
-        ))}
-        <div className="h-4" />
-        <div className='flex justify-center items-center'>
-          <p className='text-xs font-thin text-gray-500'>end of list</p>
         </div>
       </div>
     </>

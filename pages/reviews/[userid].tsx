@@ -44,17 +44,19 @@ export default function Reviews() {
 
   return (
     <>
-      <div className='py-4 px-6 md:w-1/2'>
-        <h1 className="text-4xl font-extrabold">reviews</h1>
-        <div className="h-4" />
-        {reviews.map((review, index) => (
-          <div key={index}>
-            <ReviewTile review={review} />
+      <div className='md:flex md:justify-center'>
+        <div className='py-4 px-6 md:w-1/2'>
+          <h1 className="text-4xl font-extrabold">reviews</h1>
+          <div className="h-4" />
+          {reviews.map((review, index) => (
+            <div key={index}>
+              <ReviewTile review={review} />
+            </div>
+          ))}
+          <div className="h-4" />
+          <div className='flex justify-center items-center'>
+            <p className='text-xs font-thin text-gray-500'>end of list</p>
           </div>
-        ))}
-        <div className="h-4" />
-        <div className='flex justify-center items-center'>
-          <p className='text-xs font-thin text-gray-500'>end of list</p>
         </div>
       </div>
     </>
