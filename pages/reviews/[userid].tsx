@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getReviewsByPerformerId } from '@/data/database';
+import ReviewTile from '@/components/profile/ReviewTile';
 
 export default function Reviews() {
   const router = useRouter();
@@ -45,9 +46,10 @@ export default function Reviews() {
     <>
       <div className='py-4 px-6 md:w-1/2'>
         <h1 className="text-4xl font-extrabold">reviews</h1>
+        <div className="h-4" />
         {reviews.map((review, index) => (
           <div key={index}>
-            <p>{review.id}</p>
+            <ReviewTile review={review} />
           </div>
         ))}
         <div className="h-4" />
