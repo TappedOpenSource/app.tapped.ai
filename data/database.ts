@@ -117,6 +117,18 @@ export async function getReviewsByPerformerId(userId: string): Promise<Performer
   return queryDocs.docs.map((doc) => doc.data());
 }
 
+export async function getBookingsByRequestee(userId: string): Promise<Booking[]> {
+  const bookingsCollection = collection(db, 'bookings');
+  const querySnapshot = query(
+    bookingsCollection,
+    where('requesteeId', '==', userId),
+    orderBy('timestamp', 'desc'),
+  ).withConverter(bookingConverter);
+  const queryDocs = await getDocs(querySnapshot);
+
+  return queryDocs.docs.map((doc) => doc.data());
+}
+
 export async function createAvatar(avatar: Avatar): Promise<string> {
   const docRef = doc(
     db,
