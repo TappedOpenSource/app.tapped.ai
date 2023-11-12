@@ -43,7 +43,9 @@ export default function Page() {
 
   if (user === null) {
     return (
-      <p>fetching {username}... </p>
+      <div className='min-h-screen flex justify-center items-center'>
+        <p>fetching {username}... </p>
+      </div>
     );
   }
 

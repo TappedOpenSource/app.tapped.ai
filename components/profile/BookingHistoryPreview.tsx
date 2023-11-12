@@ -52,7 +52,6 @@ export default function BookingHistoryPreview({ user }: { user: UserModel }) {
         return;
       }
 
-      console.log({ serviceId: latestBooking.serviceId.unwrap() });
       if (latestBooking.serviceId.isNone()) {
         return;
       }
@@ -62,7 +61,6 @@ export default function BookingHistoryPreview({ user }: { user: UserModel }) {
         serviceId: latestBooking.serviceId.unwrap(),
       });
 
-      console.log({ bookingService });
       bookingService.match({
         some: (service) => {
           setService(service);
