@@ -12,6 +12,7 @@ import InstagramButton from '@/components/profile/InstagramButton';
 import TwitterButton from '@/components/profile/TwitterButton';
 import TiktokButton from '@/components/profile/TiktokButton';
 import SpotifyButton from '@/components/profile/SpotifyButton';
+import Head from 'next/head';
 
 export default function Page() {
   const router = useRouter();
@@ -48,6 +49,38 @@ export default function Page() {
 
   return (
     <>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
+        <meta
+          name="description"
+          content="my live performance page"
+        />
+        <meta property="og:site_name" content="tapped.ai" />
+        <meta
+          property="og:description"
+          content="my live performance page"
+        />
+        <meta
+          property="og:title"
+          content="Tapped Ai : world's first Ai label"
+        />
+        <meta property="og:image" content="https://tapped.ai/download_og.png"></meta>
+        <meta property="og:url" content="https://tapped.ai"></meta>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Tapped Ai : world's first Ai label"
+        />
+        <meta
+          name="twitter:description"
+          content="we want to sign you to our label. apply for free"
+        />
+        <meta property="twitter:image" content="https://tapped.ai/download_og.png"></meta>
+      </Head>
       <div className='relative h-[256px] w-screen overflow-hidden'>
         <Image
           src={user.profilePicture}
@@ -69,6 +102,21 @@ export default function Page() {
             <p>the prices</p>
           </div>
           <div className='h-4' /> */}
+          <div className='flex flex-row items-center justify-around'>
+            <div className='flex flex-col justify-center items-center'>
+              <h3 className='text-2xl'>{user.followerCount}</h3>
+              <p className='text-xs text-thin text-gray-500'>followers</p>
+            </div>
+            <div className='flex flex-col justify-center items-center'>
+              <h3 className='text-2xl'>{user.reviewCount}</h3>
+              <p className='text-xs text-thin text-gray-500'>reviews</p>
+            </div>
+            <div className='flex flex-col justify-center items-center'>
+              <h3 className='text-2xl'>{user.overallRating ? `${user.overallRating}/5` : 'N/A'}</h3>
+              <p className='text-xs text-thin text-gray-500'>rating</p>
+            </div>
+          </div>
+          <div className='h-4' />
           <div className='flex flex-row items-center justify-around'>
             {user.instagramHandle && <InstagramButton instagramHandle={user.instagramHandle} />}
             {user.twitterHandle && <TwitterButton twitterHandle={user.twitterHandle} />}

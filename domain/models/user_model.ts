@@ -21,6 +21,9 @@ export type UserModel = {
     occupations?: string[];
     label?: string;
     genres?: string[];
+    reviewCount: number,
+    followerCount: number,
+    followingCount: number,
 };
 
 export const userModelConverter = {
@@ -48,6 +51,9 @@ export const userModelConverter = {
       occupations: data.occupations,
       label: data.label,
       genres: data.genres,
+      reviewCount: data.reviewCount,
+      followerCount: data.followerCount,
+      followingCount: data.followingCount,
     };
   },
 };
