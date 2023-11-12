@@ -106,16 +106,16 @@ export default function Page() {
           <div className='h-4' /> */}
           <div className='flex flex-row items-center justify-around'>
             <div className='flex flex-col justify-center items-center'>
-              <h3 className='text-2xl'>{user.followerCount}</h3>
-              <p className='text-xs text-thin text-gray-500'>followers</p>
+              <h3 className='text-2xl font-bold'>{user.followerCount}</h3>
+              <p className='text-xs text-font text-gray-500'>followers</p>
             </div>
             <div className='flex flex-col justify-center items-center'>
-              <h3 className='text-2xl'>{user.reviewCount}</h3>
-              <p className='text-xs text-thin text-gray-500'>reviews</p>
+              <h3 className='text-2xl font-bold'>{user.reviewCount}</h3>
+              <p className='text-xs text-font text-gray-500'>reviews</p>
             </div>
             <div className='flex flex-col justify-center items-center'>
-              <h3 className='text-2xl'>{user.overallRating ? `${user.overallRating}/5` : 'N/A'}</h3>
-              <p className='text-xs text-thin text-gray-500'>rating</p>
+              <h3 className='text-2xl font-bold'>{user.overallRating ? `${user.overallRating}/5` : 'N/A'}</h3>
+              <p className='text-sm text-gray-400'>rating</p>
             </div>
           </div>
           <div className='h-4' />
@@ -131,7 +131,7 @@ export default function Page() {
               <h2 className='text-2xl font-bold'>Reviews</h2>
               <div className='w-2' />
               <Link
-                href="/booking/[username]/reviews"
+                href={`/reviews/${user.id}`}
                 className='text-sm text-blue-500'
               >
                 see all
@@ -146,7 +146,7 @@ export default function Page() {
               <h2 className='text-2xl font-bold'>Booking History</h2>
               <div className='w-2' />
               <Link
-                href="/booking/[username]/history"
+                href={`/history/${user.id}`}
                 className='text-sm text-blue-500'
               >
                 see all

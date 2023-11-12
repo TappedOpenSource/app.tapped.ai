@@ -105,6 +105,18 @@ export async function getServiceById({ userId, serviceId }: {
   return Some(service);
 }
 
+export async function getReviewsByPerformerId(userId: string): Promise<PerformerReview[]> {
+  const reviewsCollection = collection(db, `reviews/${userId}/performerReviews`);
+  const querySnapshot = query(
+    reviewsCollection,
+    orderBy('timestamp', 'desc'),
+  ).withConverter(reviewConverter);
+
+  const queryDocs = await getDocs(querySnapshot);
+
+  return queryDocs.docs.map((doc) => doc.data());
+}
+
 export async function createAvatar(avatar: Avatar): Promise<string> {
   const docRef = doc(
     db,
