@@ -4,7 +4,7 @@ import api from '../data/api';
 import { Prompt } from '@/domain/models/avatar';
 import { useRouter } from 'next/router';
 import auth from '@/data/auth';
-import database from '@/data/database';
+import { getLatestImageModel } from '@/data/database';
 
 
 const AestheticPage: React.FC = () => {
@@ -27,7 +27,7 @@ const AestheticPage: React.FC = () => {
       console.log('No user is currently signed in.');
     }
 
-    const imageModel = await database.getLatestImageModel(currUid);
+    const imageModel = await getLatestImageModel(currUid);
     await imageModel.match({
       none: async () => {
         console.log('No image model found.');
