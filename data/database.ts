@@ -20,7 +20,20 @@ import { db } from '@/utils/firebase';
 import { UserModel } from '@/domain/models/user_model';
 import { Booking, bookingConverter } from '@/domain/models/booking';
 import { PerformerReview, reviewConverter } from '@/domain/models/review';
+import { Service, serviceConverter } from '@/domain/models/service';
 
+
+export async function getUserById(userId: string): Promise<Option<UserModel>> {
+  const docRef = doc(db, 'users', userId);
+  const docSnap = await getDoc(docRef);
+  if (!docSnap.exists()) {
+    console.log('No such document!');
+    return None;
+  }
+
+  const user = docSnap.data() as UserModel;
+  return Some(user);
+}
 
 export async function getUserByUsername(username: string): Promise<Option<UserModel>> {
   const usersCollection = collection(db, 'users');
@@ -75,6 +88,21 @@ export async function getLatestPerformerReviewByPerformerId(userId: string): Pro
 
   const review = queryDocs.docs[0].data();
   return Some(review);
+}
+
+export async function getServiceById({ userId, serviceId }: {
+    userId: string,
+    serviceId: string,
+  }): Promise<Option<Service>> {
+  const docRef = doc(db, `/services/${userId}/userServices/${serviceId}`)
+    .withConverter(serviceConverter);
+  const docSnap = await getDoc(docRef);
+  if (!docSnap.exists()) {
+    return None;
+  }
+
+  const service = docSnap.data();
+  return Some(service);
 }
 
 export async function createAvatar(avatar: Avatar): Promise<string> {

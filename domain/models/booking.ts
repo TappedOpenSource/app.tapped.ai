@@ -1,4 +1,5 @@
 
+import { optionFromNullable } from '@/utils/option';
 import {
   QueryDocumentSnapshot,
   SnapshotOptions,
@@ -38,19 +39,19 @@ export const bookingConverter = {
     const data = snapshot.data(options);
     return {
       id: data.id,
-      serviceId: data.serviceId,
+      serviceId: optionFromNullable(data.serviceId),
       name: data.name,
       note: data.note,
       requesterId: data.requesterId,
       requesteeId: data.requesteeId,
       status: data.status,
       rate: data.rate,
-      placeId: data.placeId,
-      geohash: data.geohash,
-      lat: data.lat,
-      lng: data.lng,
-      startTime: data.startTime,
-      endTime: data.endTime,
+      placeId: optionFromNullable(data.placeId),
+      geohash: optionFromNullable(data.geohash),
+      lat: optionFromNullable(data.lat),
+      lng: optionFromNullable(data.lng),
+      startTime: optionFromNullable(data.startTime),
+      endTime: optionFromNullable(data.endTime),
       timestamp: data.timestamp.toDate(),
     };
   },

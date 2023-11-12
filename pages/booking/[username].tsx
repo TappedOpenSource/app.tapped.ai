@@ -3,10 +3,15 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { UserModel } from '@/domain/models/user_model';
 import BookingHistoryPreview from '@/components/profile/BookingHistoryPreview';
 import { getUserByUsername } from '@/data/database';
 import ReviewsPreview from '@/components/profile/ReviewsPreview';
+import InstagramButton from '@/components/profile/InstagramButton';
+import TwitterButton from '@/components/profile/TwitterButton';
+import TiktokButton from '@/components/profile/TiktokButton';
+import SpotifyButton from '@/components/profile/SpotifyButton';
 
 export default function Page() {
   const router = useRouter();
@@ -58,24 +63,52 @@ export default function Page() {
             <h1 className='text-4xl font-extrabold'>{user.artistName}</h1>
             <p className='text-sm text-gray-500'>@{user.username}</p>
           </div>
-          <div className='h-12' />
+          <div className='h-4' />
           {/* <div>
             <h2 className='text-2xl font-bold'>Pricings</h2>
             <p>the prices</p>
           </div>
           <div className='h-4' /> */}
-          <div>
-            <h2 className='text-2xl font-bold'>Reviews</h2>
-            <ReviewsPreview userId={user.id} />
+          <div className='flex flex-row items-center justify-around'>
+            {user.instagramHandle && <InstagramButton instagramHandle={user.instagramHandle} />}
+            {user.twitterHandle && <TwitterButton twitterHandle={user.twitterHandle} />}
+            {user.tiktokHandle && <TiktokButton tiktokHandle={user.tiktokHandle} />}
+            {user.spotifyId && <SpotifyButton spotifyId={user.spotifyId} />}
           </div>
           <div className='h-4' />
           <div>
-            <h2 className='text-2xl font-bold'>Booking History</h2>
-            <BookingHistoryPreview userId={user.id} />
+            <div className='flex flex-row items-center'>
+              <h2 className='text-2xl font-bold'>Reviews</h2>
+              <div className='w-2' />
+              <Link
+                href="/booking/[username]/reviews"
+                className='text-sm text-blue-500'
+              >
+                see all
+              </Link>
+            </div>
+            <div className="h-2" />
+            <ReviewsPreview user={user} />
+          </div>
+          <div className='h-4' />
+          <div>
+            <div className='flex flex-row items-center'>
+              <h2 className='text-2xl font-bold'>Booking History</h2>
+              <div className='w-2' />
+              <Link
+                href="/booking/[username]/history"
+                className='text-sm text-blue-500'
+              >
+                see all
+              </Link>
+            </div>
+            <div className="h-2" />
+            <BookingHistoryPreview user={user} />
           </div>
           <div className='h-4' />
           <div>
             <h2 className='text-2xl font-bold'>More Info</h2>
+            <div className="h-2" />
             <p>{user.bio}</p>
           </div>
         </div>
