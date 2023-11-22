@@ -45,7 +45,7 @@ const Footer = () => {
           </Link>
         </div>
         <div className="flex justify-center text-sm font-light mb-8 lowercase">
-                   &#169; Tapped App Inc. {new Date().getFullYear()}
+                   &#169; Tapped Industries Inc. {new Date().getFullYear()}
         </div>
       </footer>
     </>

@@ -7,7 +7,7 @@ export function shuffle(array) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    // And swap it with the current element.
+    // And swap it with tihe current element.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex], array[currentIndex]];
   }
