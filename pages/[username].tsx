@@ -85,7 +85,7 @@ export default function Page() {
       </Head>
       <div className='relative h-[256px] w-screen overflow-hidden'>
         <Image
-          src={user.profilePicture}
+          src={user.profilePicture ?? '/images/default_avatar.png'}
           alt={`${user.artistName} profile picture`}
           objectFit='cover'
           objectPosition='center'
