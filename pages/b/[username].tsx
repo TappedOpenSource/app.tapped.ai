@@ -13,6 +13,7 @@ import TwitterButton from '@/components/profile/TwitterButton';
 import TiktokButton from '@/components/profile/TiktokButton';
 import SpotifyButton from '@/components/profile/SpotifyButton';
 import Head from 'next/head';
+import { profile } from 'console';
 
 export default function Page() {
   const router = useRouter();
@@ -48,6 +49,17 @@ export default function Page() {
       </div>
     );
   }
+
+  const profileImage = (() => {
+    if (
+      user.profilePicture === undefined ||
+      user.profilePicture === null ||
+      user.profilePicture === '') {
+      return '/images/default_avatar.png';
+    }
+
+    return user.profilePicture;
+  })();
 
   return (
     <>
@@ -85,7 +97,7 @@ export default function Page() {
       </Head>
       <div className='relative h-[256px] w-screen overflow-hidden'>
         <Image
-          src={user.profilePicture ?? '/images/default_avatar.png'}
+          src={profileImage}
           alt={`${user.artistName} profile picture`}
           objectFit='cover'
           objectPosition='center'

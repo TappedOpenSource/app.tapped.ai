@@ -49,6 +49,17 @@ export default function Page() {
     );
   }
 
+  const profileImage = (() => {
+    if (
+      user.profilePicture === undefined ||
+      user.profilePicture === null ||
+      user.profilePicture === '') {
+      return '/images/default_avatar.png';
+    }
+
+    return user.profilePicture;
+  })();
+
   return (
     <>
       <Head>
@@ -85,7 +96,7 @@ export default function Page() {
       </Head>
       <div className='relative h-[256px] w-screen overflow-hidden'>
         <Image
-          src={user.profilePicture ?? '/images/default_avatar.png'}
+          src={profileImage}
           alt={`${user.artistName} profile picture`}
           objectFit='cover'
           objectPosition='center'
