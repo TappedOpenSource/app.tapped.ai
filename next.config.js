@@ -11,6 +11,7 @@ module.exports = {
       'res.cloudinary.com',
       'firebasestorage.googleapis.com',
       'files.stripe.com',
+      'https://storage.googleapis.com',
     ],
   },
 };
