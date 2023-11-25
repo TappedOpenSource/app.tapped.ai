@@ -19,7 +19,7 @@ import { AiModel } from '@/domain/models/ai_model';
 import { db } from '@/utils/firebase';
 import { UserModel } from '@/domain/models/user_model';
 import { Booking, bookingConverter } from '@/domain/models/booking';
-import { PerformerReview, reviewConverter } from '@/domain/models/review';
+import { Review, reviewConverter } from '@/domain/models/review';
 import { Service, serviceConverter } from '@/domain/models/service';
 
 
@@ -71,8 +71,46 @@ export async function getLatestBookingByRequestee(userId: string): Promise<Optio
   return Some(booking);
 }
 
-export async function getLatestPerformerReviewByPerformerId(userId: string): Promise<Option<PerformerReview>> {
+export async function getLatestBookingByRequester(userId: string): Promise<Option<Booking>> {
+  const bookingsCollection = collection(db, 'bookings');
+  const querySnapshot = query(
+    bookingsCollection,
+    where('requesterId', '==', userId),
+    orderBy('timestamp', 'desc'),
+    limit(1),
+  ).withConverter(bookingConverter);
+  const queryDocs = await getDocs(querySnapshot);
+
+  if (queryDocs.empty) {
+    console.log('No booking found!');
+    return None;
+  }
+
+  const booking = queryDocs.docs[0].data();
+  return Some(booking);
+}
+
+export async function getLatestPerformerReviewByPerformerId(userId: string): Promise<Option<Review>> {
   const reviewsCollection = collection(db, `reviews/${userId}/performerReviews`);
+  const querySnapshot = query(
+    reviewsCollection,
+    orderBy('timestamp', 'desc'),
+    limit(1),
+  ).withConverter(reviewConverter);
+
+  const queryDocs = await getDocs(querySnapshot);
+
+  if (queryDocs.empty) {
+    console.log('No review found!');
+    return None;
+  }
+
+  const review = queryDocs.docs[0].data();
+  return Some(review);
+}
+
+export async function getLatestBookerReviewByBookerId(userId: string): Promise<Option<Review>> {
+  const reviewsCollection = collection(db, `reviews/${userId}/bookerReviews`);
   const querySnapshot = query(
     reviewsCollection,
     orderBy('timestamp', 'desc'),
@@ -105,7 +143,7 @@ export async function getServiceById({ userId, serviceId }: {
   return Some(service);
 }
 
-export async function getReviewsByPerformerId(userId: string): Promise<PerformerReview[]> {
+export async function getReviewsByPerformerId(userId: string): Promise<Review[]> {
   const reviewsCollection = collection(db, `reviews/${userId}/performerReviews`);
   const querySnapshot = query(
     reviewsCollection,
@@ -117,11 +155,36 @@ export async function getReviewsByPerformerId(userId: string): Promise<Performer
   return queryDocs.docs.map((doc) => doc.data());
 }
 
+export async function getReviewsByBookerId(userId: string): Promise<Review[]> {
+  const reviewsCollection = collection(db, `reviews/${userId}/bookerReviews`);
+  const querySnapshot = query(
+    reviewsCollection,
+    orderBy('timestamp', 'desc'),
+  ).withConverter(reviewConverter);
+
+  const queryDocs = await getDocs(querySnapshot);
+
+  return queryDocs.docs.map((doc) => doc.data());
+}
+
+
 export async function getBookingsByRequestee(userId: string): Promise<Booking[]> {
   const bookingsCollection = collection(db, 'bookings');
   const querySnapshot = query(
     bookingsCollection,
     where('requesteeId', '==', userId),
+    orderBy('timestamp', 'desc'),
+  ).withConverter(bookingConverter);
+  const queryDocs = await getDocs(querySnapshot);
+
+  return queryDocs.docs.map((doc) => doc.data());
+}
+
+export async function getBookingsByRequester(userId: string): Promise<Booking[]> {
+  const bookingsCollection = collection(db, 'bookings');
+  const querySnapshot = query(
+    bookingsCollection,
+    where('requesterId', '==', userId),
     orderBy('timestamp', 'desc'),
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);

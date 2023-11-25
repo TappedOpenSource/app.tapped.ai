@@ -4,7 +4,7 @@ import { UserModel } from '@/domain/models/user_model';
 import BookingTile from './BookingTile';
 import { useEffect, useState } from 'react';
 
-export default function BookingHistoryPreview({ user }: { user: UserModel }) {
+export default function PerformerBookingHistoryPreview({ user }: { user: UserModel }) {
   const [latestBooking, setLatestBooking] = useState<Booking | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 

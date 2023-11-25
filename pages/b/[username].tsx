@@ -5,15 +5,14 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { UserModel } from '@/domain/models/user_model';
-import BookingHistoryPreview from '@/components/profile/BookingHistoryPreview';
 import { getUserByUsername } from '@/data/database';
-import ReviewsPreview from '@/components/profile/ReviewsPreview';
 import InstagramButton from '@/components/profile/InstagramButton';
 import TwitterButton from '@/components/profile/TwitterButton';
 import TiktokButton from '@/components/profile/TiktokButton';
 import SpotifyButton from '@/components/profile/SpotifyButton';
 import Head from 'next/head';
-import { profile } from 'console';
+import BookerBookingHistoryPreview from '@/components/profile/BookerBookingHistoryPreview';
+import BookerReviewsPreview from '@/components/profile/BookerReviewsPreview';
 
 export default function Page() {
   const router = useRouter();
@@ -143,14 +142,14 @@ export default function Page() {
               <h2 className='text-2xl font-bold'>Reviews</h2>
               <div className='w-2' />
               <Link
-                href={`/reviews/${user.id}`}
+                href={`/b/reviews/${user.id}`}
                 className='text-sm text-blue-500'
               >
                 see all
               </Link>
             </div>
             <div className="h-2" />
-            <ReviewsPreview user={user} />
+            <BookerReviewsPreview user={user} />
           </div>
           <div className='h-4' />
           <div>
@@ -158,14 +157,14 @@ export default function Page() {
               <h2 className='text-2xl font-bold'>Booking History</h2>
               <div className='w-2' />
               <Link
-                href={`/history/${user.id}`}
+                href={`/b/history/${user.id}`}
                 className='text-sm text-blue-500'
               >
                 see all
               </Link>
             </div>
             <div className="h-2" />
-            <BookingHistoryPreview user={user} />
+            <BookerBookingHistoryPreview user={user} />
           </div>
           <div className='h-4' />
           <div>

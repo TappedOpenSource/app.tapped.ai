@@ -1,14 +1,14 @@
 
 import { getLatestPerformerReviewByPerformerId } from '@/data/database';
-import { PerformerReview } from '@/domain/models/review';
+import { Review } from '@/domain/models/review';
 import { UserModel } from '@/domain/models/user_model';
 import { useEffect, useState } from 'react';
 import ReviewTile from './ReviewTile';
 
-export default function ReviewsPreview({ user }: {
+export default function PerformerReviewsPreview({ user }: {
     user: UserModel;
 }) {
-  const [latestReview, setLatestReview] = useState<PerformerReview | null>(null);
+  const [latestReview, setLatestReview] = useState<Review | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {

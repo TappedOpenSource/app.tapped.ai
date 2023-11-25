@@ -1,6 +1,6 @@
 import { DocumentData, QueryDocumentSnapshot, SnapshotOptions, Timestamp } from 'firebase/firestore';
 
-export type PerformerReview = {
+export type Review = {
     id: string;
     bookerId: string;
     performerId: string;
@@ -8,11 +8,11 @@ export type PerformerReview = {
     timestamp: Date;
     overallRating: number;
     overallReview: string;
-    type: 'performer';
+    type: 'performer' | 'booker';
 };
 
 export const reviewConverter = {
-  toFirestore(review: PerformerReview): DocumentData {
+  toFirestore(review: Review): DocumentData {
     return {
       ...review,
       timestamp: Timestamp.fromDate(review.timestamp),
@@ -21,7 +21,7 @@ export const reviewConverter = {
   fromFirestore(
     snapshot: QueryDocumentSnapshot,
     options: SnapshotOptions
-  ): PerformerReview {
+  ): Review {
     const data = snapshot.data(options);
     return {
       id: data.id,

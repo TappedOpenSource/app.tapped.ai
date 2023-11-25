@@ -11,6 +11,18 @@ export default function UserTile({ user }: {
     );
   }
 
+  const profileImage = (() => {
+    if (
+      user.profilePicture === undefined ||
+      user.profilePicture === null ||
+      user.profilePicture === '') {
+      return '/images/default_avatar.png';
+    }
+
+    return user.profilePicture;
+  })();
+
+
   return (
     <Link
       href={`/b/${user.username}`}
@@ -18,7 +30,7 @@ export default function UserTile({ user }: {
       <div className='flex flex-row items-center'>
         <div className='relative h-12 w-12 overflow-hidden rounded-full'>
           <Image
-            src={user.profilePicture}
+            src={profileImage}
             alt={`${user.artistName} profile picture`}
             objectFit='cover'
             objectPosition='center'

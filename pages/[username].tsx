@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { UserModel } from '@/domain/models/user_model';
-import BookingHistoryPreview from '@/components/profile/BookingHistoryPreview';
+import PerformerBookingHistoryPreview from '@/components/profile/PerformerBookingHistoryPreview';
 import { getUserByUsername } from '@/data/database';
-import ReviewsPreview from '@/components/profile/ReviewsPreview';
+import PerformerReviewsPreview from '@/components/profile/PerformerReviewsPreview';
 import InstagramButton from '@/components/profile/InstagramButton';
 import TwitterButton from '@/components/profile/TwitterButton';
 import TiktokButton from '@/components/profile/TiktokButton';
@@ -149,7 +149,7 @@ export default function Page() {
               </Link>
             </div>
             <div className="h-2" />
-            <ReviewsPreview user={user} />
+            <PerformerReviewsPreview user={user} />
           </div>
           <div className='h-4' />
           <div>
@@ -164,7 +164,7 @@ export default function Page() {
               </Link>
             </div>
             <div className="h-2" />
-            <BookingHistoryPreview user={user} />
+            <PerformerBookingHistoryPreview user={user} />
           </div>
           <div className='h-4' />
           <div>

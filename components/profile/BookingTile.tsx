@@ -10,15 +10,17 @@ export default function BookingTile({ booking, user }: {
     user: UserModel;
  }) {
   const [booker, setBooker] = useState<UserModel | null>(null);
+  const [performer, setPerformer] = useState<UserModel | null>(null);
   const [service, setService] = useState<Service | null>(null); // TODO: [service, setService
 
   useEffect(() => {
-    const fetchBooker = async () => {
+    const fetchUsers = async () => {
       if (booking === null) {
         return;
       }
 
       const booker = await getUserById(booking.requesterId);
+      const performer = await getUserById(booking.requesteeId);
       booker.match({
         some: (booker) => {
           setBooker(booker);
@@ -27,8 +29,16 @@ export default function BookingTile({ booking, user }: {
           console.log('booker not found');
         },
       });
+      performer.match({
+        some: (performer) => {
+          setPerformer(performer);
+        },
+        none: () => {
+          console.log('former not found');
+        },
+      });
     };
-    fetchBooker();
+    fetchUsers();
   }, [booking]);
 
   useEffect(() => {
@@ -77,7 +87,7 @@ export default function BookingTile({ booking, user }: {
             {' '}
           booked
             {' '}
-            {user.artistName}
+            {performer?.artistName ?? 'someone'}
             {' for '}
             {service?.title ?? 'a show'}
           </p>
