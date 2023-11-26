@@ -119,7 +119,7 @@ export default function Home({ shuffledArtists }: {
       </div>
       <div className="h-12 md:h-36"></div>
       <PartneredWith />
-      <div className="h-12 md:h-36"></div>
+      {/* <div className="h-12 md:h-36"></div>
       <SupportJourney />
       <div className="h-12 md:h-36"></div>
       <SubscriptionPlans />
@@ -130,7 +130,7 @@ export default function Home({ shuffledArtists }: {
       <div className="h-12 md:h-36"></div>
       <FeaturedIn />
       <div className="h-12 md:h-36"></div>
-      <Unshackle />
+      <Unshackle /> */}
       <div className="h-12 md:h-36"></div>
       <JoinTheMovement />
       <div className="h-12"></div>
