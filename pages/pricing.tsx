@@ -8,11 +8,8 @@ import auth from '@/data/auth';
 import api from '@/data/api';
 import { useRouter } from 'next/router';
 
-const subscriptionPlans = [
-  'tapped ai (starter)',
-  'tapped ai (premium)',
-  'tapped ai (pro)',
-  'tapped ai (business)',
+const subscriptionPlansIds = [
+  'prod_P4wsGUAj9eeoni', // starter
 ];
 
 const Pricing: NextPage = () => {
@@ -23,10 +20,11 @@ const Pricing: NextPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const products = await getProductAndPriceData();
+      console.log({ products });
       setProducts(products);
     };
     fetchProducts();
-  });
+  }, []);
 
   useEffect(() => {
     auth.getCustomClaims().then((claims) => {
@@ -41,13 +39,13 @@ const Pricing: NextPage = () => {
       }
 
       const claim = claims['stripeRole'] as string | null;
-
-      if (claim !== undefined && claim !== null) {
-        api.createPortalLink({ returnUrl: `${window.location.origin}/pricing` }).then(({ url }) => {
-          console.log({ url });
-          setBillingPortal(url);
-        });
-      }
+      console.log({ claim });
+      // if (claim !== undefined && claim !== null) {
+      //   api.createPortalLink({ returnUrl: `${window.location.origin}/pricing` }).then(({ url }) => {
+      //     console.log({ url });
+      //     setBillingPortal(url);
+      //   });
+      // }
     });
   }, [router]);
 
@@ -76,7 +74,7 @@ const Pricing: NextPage = () => {
       <div className="flex flex-col md:flex-row justify-center">
         {products.filter(({ product }) => {
           console.log(product.name);
-          return subscriptionPlans.includes(product.name.toLowerCase());
+          return subscriptionPlansIds.includes(product.id);
         }).map(({ product, prices }) => {
           return (
             <div className="px-5 py-2" key={product.name}>
@@ -85,9 +83,9 @@ const Pricing: NextPage = () => {
           );
         })}
       </div>
-      <div className="px-5 py-2">
+      {/* <div className="px-5 py-2">
         <MarketplaceProductCard />
-      </div>
+      </div> */}
     </>
   );
 };
