@@ -21,6 +21,8 @@ import { UserModel } from '@/domain/models/user_model';
 import { Booking, bookingConverter } from '@/domain/models/booking';
 import { Review, reviewConverter } from '@/domain/models/review';
 import { Service, serviceConverter } from '@/domain/models/service';
+import { Opportunity, opportunityConverter } from '@/domain/models/opportunity';
+import { none } from '@cloudinary/url-gen/qualifiers/fontHinting';
 
 
 export async function getUserById(userId: string): Promise<Option<UserModel>> {
@@ -128,6 +130,24 @@ export async function getLatestBookerReviewByBookerId(userId: string): Promise<O
   return Some(review);
 }
 
+export async function getUserOpportunities(
+  userId: string,
+): Promise<Opportunity[]> {
+  const opportunitiesCollection = collection(db, `opportunities/${userId}/userOpportunities`);
+  const querySnapshot = query(
+    opportunitiesCollection,
+    orderBy('startTime', 'desc'),
+  ).withConverter(opportunityConverter);
+
+  const queryDocs = await getDocs(querySnapshot);
+
+  if (queryDocs.empty) {
+    return [];
+  }
+
+  return queryDocs.docs.map((doc) => doc.data());
+}
+
 export async function getServiceById({ userId, serviceId }: {
     userId: string,
     serviceId: string,
@@ -166,7 +186,6 @@ export async function getReviewsByBookerId(userId: string): Promise<Review[]> {
 
   return queryDocs.docs.map((doc) => doc.data());
 }
-
 
 export async function getBookingsByRequestee(userId: string): Promise<Booking[]> {
   const bookingsCollection = collection(db, 'bookings');

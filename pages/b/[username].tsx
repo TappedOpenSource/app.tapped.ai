@@ -13,6 +13,7 @@ import SpotifyButton from '@/components/profile/SpotifyButton';
 import Head from 'next/head';
 import BookerBookingHistoryPreview from '@/components/profile/BookerBookingHistoryPreview';
 import BookerReviewsPreview from '@/components/profile/BookerReviewsPreview';
+import OpportunitiesSlider from '@/components/profile/OpportunitiesSlider';
 
 export default function Page() {
   const router = useRouter();
@@ -135,6 +136,14 @@ export default function Page() {
             {user.twitterHandle && <TwitterButton twitterHandle={user.twitterHandle} />}
             {user.tiktokHandle && <TiktokButton tiktokHandle={user.tiktokHandle} />}
             {user.spotifyId && <SpotifyButton spotifyId={user.spotifyId} />}
+          </div>
+          <div className='h-4' />
+          <div>
+            <div className='flex flex-row items-center'>
+              <h2 className='text-2xl font-bold'>Performance Opportunities</h2>
+            </div>
+            <div className="h-2" />
+            <OpportunitiesSlider user={user} />
           </div>
           <div className='h-4' />
           <div>
