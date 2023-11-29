@@ -132,6 +132,26 @@ export default function Home({ shuffledArtists }: {
       <div className="h-12 md:h-36"></div>
       <Unshackle /> */}
       <div className="h-12 md:h-36"></div>
+      <div
+        className='px-2 py-24 my-12 md:my-4 md:min-h-screen flex flex-col justify-center items-center bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-green-300 via-blue-500 to-purple-600'
+      >
+        <h1
+          className='uppercase text-5xl md:text-9xl font-extrabold text-center text-white lg:text-6xl'
+        >want to get booked more?</h1>
+        <h1
+          className='uppercase text-5xl md:text-9xl font-extrabold text-center text-white lg:text-6xl'
+        >we can help</h1>
+        <div className="h-12"></div>
+        <div className="flex justify-center py-2 px-4">
+          <Link
+            href="/application_form"
+            // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
+            id="apply-here"
+            className="text-lg font-black text-center rounded-full px-6 pt-6 hover:scale-105 transform transition-all duration-200 ease-in-out"
+          >apply here</Link>
+        </div>
+      </div>
+      <div className="h-12 md:h-36"></div>
       <JoinTheMovement />
       <div className="h-12"></div>
       <div className="w-screen">

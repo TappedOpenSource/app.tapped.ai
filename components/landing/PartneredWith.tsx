@@ -9,7 +9,7 @@ export default function PartneredWith() {
         <div className="uppercase text-center font-bold opacity-80 lowercase">
         IN PARTNERSHIP WITH
         </div>
-        <div className='flex flex-col md:flex-row justify-center items-center gap-10'>
+        <div className='grid grid-cols-2 md:grid-cols-5 justify-center items-center gap-10'>
           <Link
             href="https://www.deathrowofficial.com/"
             target="_blank"
