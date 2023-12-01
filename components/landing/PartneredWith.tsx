@@ -9,7 +9,7 @@ export default function PartneredWith() {
         <div className="uppercase text-center font-bold opacity-80 lowercase">
         IN PARTNERSHIP WITH
         </div>
-        <div className='grid grid-cols-2 md:grid-cols-5 justify-center items-center gap-10'>
+        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-center items-center gap-10'>
           <Link
             href="https://www.deathrowofficial.com/"
             target="_blank"
@@ -68,7 +68,30 @@ export default function PartneredWith() {
               className=''
             />
           </Link>
+          <Link
+            href="https://ktizo.com"
+            className='rounded-xl p-5 bg-white'
+          >
+            <Image
+              src='/images/ktizo.svg'
+              width={60}
+              height={60}
+              alt='Ktizo logo'
+              className=''
+            />
+          </Link>
         </div>
+        <div
+          className='h-6'
+        />
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          href="https://tappedapp.notion.site/the-record-label-of-the-future-cf8298dd5c6d4b5b800f11eced46c261?pvs=4"
+          className='mx-2 md:mx-0 border border-gray-400/50 rounded-xl px-8 md:px-24 py-5 bg-white/10 text-white text-center'
+        >
+          check out our <b>record label of the future</b>
+        </Link>
       </div>
     </>
   );

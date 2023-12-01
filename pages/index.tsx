@@ -144,11 +144,12 @@ export default function Home({ shuffledArtists }: {
         <div className="h-12"></div>
         <div className="flex justify-center py-2 px-4">
           <Link
-            href="/application_form"
-            // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
-            id="apply-here"
-            className="text-lg font-black text-center rounded-full px-6 pt-6 hover:scale-105 transform transition-all duration-200 ease-in-out"
-          >apply here</Link>
+            href="https://app.tapped.ai/download"
+            target="_blank"
+            title="app download"
+            rel="noreferrer"
+            className="bg-white text-black text-lg font-black text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
+          >get started</Link>
         </div>
       </div>
       <div className="h-12 md:h-36"></div>
