@@ -133,10 +133,11 @@ export async function getLatestBookerReviewByBookerId(userId: string): Promise<O
 export async function getUserOpportunities(
   userId: string,
 ): Promise<Opportunity[]> {
-  const opportunitiesCollection = collection(db, `opportunities/${userId}/userOpportunities`);
+  const opportunitiesCollection = collection(db, 'opportunities');
   const querySnapshot = query(
     opportunitiesCollection,
     orderBy('startTime', 'desc'),
+    where('userId', '==', userId),
   ).withConverter(opportunityConverter);
 
   const queryDocs = await getDocs(querySnapshot);
@@ -146,6 +147,18 @@ export async function getUserOpportunities(
   }
 
   return queryDocs.docs.map((doc) => doc.data());
+}
+
+export async function getOpportunityById(opportunityId: string) {
+  const docRef = doc(db, 'opportunities', opportunityId);
+  const docSnap = await getDoc(docRef);
+  if (!docSnap.exists()) {
+    console.log('No such document!');
+    return None;
+  }
+
+  const opportunity = docSnap.data() as Opportunity;
+  return Some(opportunity);
 }
 
 export async function getServiceById({ userId, serviceId }: {
