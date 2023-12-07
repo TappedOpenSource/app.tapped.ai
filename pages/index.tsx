@@ -74,7 +74,7 @@ export default function Home({ shuffledArtists }: {
           <h1
             className="text-5xl md:w-1/2 font-extrabold text-center text-white lg:text-6xl"
           >
-            welcome to the first ever Ai record label.
+            create a world tour from your iPhone
           </h1>
           <div className="pt-2 pb-2"></div>
           <h2
