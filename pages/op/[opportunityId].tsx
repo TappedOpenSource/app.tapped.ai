@@ -2,11 +2,13 @@ import { getOpportunityById, getUserById } from '@/data/database';
 import { Opportunity } from '@/domain/models/opportunity';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import UserTile from '@/components/UserTile';
 import { UserModel } from '@/domain/models/user_model';
 import { FaMoneyBill } from 'react-icons/fa';
 import { getPlaceById } from '@/data/places';
+import { Fab } from '@mui/material';
 
 export default function Page() {
   const router = useRouter();
@@ -79,6 +81,15 @@ export default function Page() {
 
   return (
     <>
+      <div className='fixed right-8 bottom-8'>
+        <Link
+          href='https://app.tapped.ai/download'
+        >
+          <Fab color="primary" aria-label="add" variant='extended'>
+          apply in the app
+          </Fab>
+        </Link>
+      </div>
       <div className='h-4 md:h-12' />
       <div
         className='flex justify-center items-center px-4 md:px-0'
