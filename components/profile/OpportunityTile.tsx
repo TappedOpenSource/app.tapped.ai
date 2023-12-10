@@ -1,6 +1,6 @@
 import { Opportunity } from '@/domain/models/opportunity';
 import Link from 'next/link';
-import { FaCoins, FaMoneyBill } from 'react-icons/fa';
+import { FaMoneyBill } from 'react-icons/fa';
 
 export default function OpportunityTile({ opportunity }: {
     opportunity: Opportunity;
@@ -22,10 +22,10 @@ export default function OpportunityTile({ opportunity }: {
             className='flex flex-row justify-between'
           >
             <Link
-              href='https://app.tapped.ai/download'
+              href={`/op/${opportunity.id}`}
               className='bg-blue-500 text-white rounded-lg px-4 py-2'
             >
-            apply in the app
+              more info
             </Link>
             <div className='flex justify-center items-center'>
               {

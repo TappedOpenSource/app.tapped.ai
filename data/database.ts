@@ -150,7 +150,7 @@ export async function getUserOpportunities(
 }
 
 export async function getOpportunityById(opportunityId: string) {
-  const docRef = doc(db, 'opportunities', opportunityId);
+  const docRef = doc(db, 'opportunities', opportunityId).withConverter(opportunityConverter);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
     console.log('No such document!');

@@ -12,6 +12,7 @@ export type Opportunity = {
     userId: string;
     title: string;
     description: string;
+    flierUrl?: string;
     placeId: string;
     geohash: string;
     lat: number;
@@ -41,6 +42,7 @@ export const opportunityConverter = {
       userId: data.userId,
       title: data.title,
       description: data.description,
+      flierUrl: data.flierUrl,
       placeId: data.placeId,
       geohash: data.geohash,
       lat: data.lat,
