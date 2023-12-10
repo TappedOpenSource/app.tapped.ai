@@ -49,7 +49,7 @@ export default function Reviews() {
           <h1 className="text-4xl font-extrabold">reviews</h1>
           <div className="h-4" />
           {reviews.map((review, index) => (
-            <div key={index}>
+            <div key={index} className='py-4'>
               <ReviewTile review={review} />
             </div>
           ))}

@@ -70,7 +70,7 @@ export default function History() {
           <h1 className="text-4xl font-extrabold">history</h1>
           <div className="h-4" />
           {bookings.map((booking, index) => (
-            <div key={index}>
+            <div key={index} className='py-4'>
               <BookingTile booking={booking} user={performer} />
               <div className="h-4" />
             </div>
