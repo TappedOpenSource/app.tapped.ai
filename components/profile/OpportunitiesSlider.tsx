@@ -26,13 +26,14 @@ export default function OpportunitiesSlider({ user }: {
 
   return (
     <>
-      {
-        opportunities.map((opportunity, index) => {
-          return (
-            <div key={index}>
-              <div
-                className="flex overflow-x-auto space-x-5 snap-x"
-              >
+      <div
+        className="flex flex-row overflow-x-auto space-x-5 snap-x"
+      >
+
+        {
+          opportunities.map((opportunity, index) => {
+            return (
+              <div key={index}>
                 <div
                   className='snap-center'
                 >
@@ -41,9 +42,10 @@ export default function OpportunitiesSlider({ user }: {
                   />
                 </div>
               </div>
-            </div>
-          );
-        })
-      }
+            );
+          })
+        }
+
+      </div>
     </>);
 }
