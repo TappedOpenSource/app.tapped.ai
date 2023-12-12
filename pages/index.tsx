@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import Image from 'next/image';
 import Link from 'next/link';
 import { Rubik } from 'next/font/google';
@@ -14,6 +15,7 @@ import Unshackle from '@/components/landing/Unshackle';
 import JoinTheMovement from '@/components/landing/JoinTheMovement';
 import Nav from '@/components/landing/Nav';
 import PartneredWith from '@/components/landing/PartneredWith';
+import Testimonials from '@/components/landing/Testimonials';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -119,19 +121,21 @@ export default function Home({ shuffledArtists }: {
       </div>
       <div className="h-12 md:h-36"></div>
       <PartneredWith />
-      {/* <div className="h-12 md:h-36"></div>
-      <SupportJourney />
       <div className="h-12 md:h-36"></div>
-      <SubscriptionPlans />
+      <Testimonials />
       <div className="h-12 md:h-36"></div>
-      <Benefits />
-      <div className="h-12 md:h-36"></div>
-      <YourJourney />
-      <div className="h-12 md:h-36"></div>
-      <FeaturedIn />
-      <div className="h-12 md:h-36"></div>
-      <Unshackle /> */}
-      <div className="h-12 md:h-36"></div>
+      {/* <SupportJourney /> */}
+      {/* <div className="h-12 md:h-36"></div> */}
+      {/* <SubscriptionPlans /> */}
+      {/* <div className="h-12 md:h-36"></div> */}
+      {/* <Benefits /> */}
+      {/* <div className="h-12 md:h-36"></div> */}
+      {/* <YourJourney /> */}
+      {/* <div className="h-12 md:h-36"></div> */}
+      {/* <FeaturedIn /> */}
+      {/* <div className="h-12 md:h-36"></div> */}
+      {/* <Unshackle /> */}
+      {/* <div className="h-12 md:h-36"></div> */}
       <div
         className='px-2 py-24 my-12 md:my-4 md:min-h-screen flex flex-col justify-center items-center bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-green-300 via-blue-500 to-purple-600'
       >
