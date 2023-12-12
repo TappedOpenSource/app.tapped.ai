@@ -35,11 +35,11 @@ function Testimonial({ name, text, photo, url, signed = false }) {
   return (
     <Link
       href={url}
-      className="flex flex-col bg-gray-700 rounded-xl h-full"
+      className="flex flex-col h-full mx-2 md:mx-0 border border-gray-400/50 rounded-xl bg-white/10 text-white"
     >
       <div className='flex flex-row items-center justify-start gap-2'>
         <div
-          className="w-16 h-16 relative flex-shrink-0 m-2 hover:scale-105 transform transition-all duration-200 ease-in-out">
+          className="w-12 h-12 relative flex-shrink-0 m-2 hover:scale-105 transform transition-all duration-200 ease-in-out">
           <Image
             fill
             priority
