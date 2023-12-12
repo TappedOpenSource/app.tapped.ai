@@ -60,7 +60,7 @@ export default function Testimonials() {
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center items-center px-12">
         {testimonials.map((testimonial, index) => (
-          <div key={index}>
+          <div key={index} className='h-full'>
             <Testimonial {...testimonial} />
           </div>
         ))}
