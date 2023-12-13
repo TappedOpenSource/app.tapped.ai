@@ -17,7 +17,7 @@ const Footer = () => {
               <h2 className="mb-6 text-sm font-semibold  uppercase text-white">company</h2>
               <ul className="text-gray-400 font-medium">
                 <li className="mb-4">
-                  <Link href="/" className=" hover:underline">about</Link>
+                  <Link href="/about" className=" hover:underline">about</Link>
                 </li>
                 <li className="mb-4">
                   <Link href="https://linktree.tapped.ai" className=" hover:underline">linktree</Link>

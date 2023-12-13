@@ -6,11 +6,8 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <title>tapped ai</title>
           <link rel="icon" href="/favicon.ico" />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          />
           <meta
             name="description"
             content="we want to sign you to our label. apply for free"

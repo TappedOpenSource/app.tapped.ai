@@ -14,6 +14,38 @@ import TiktokButton from '@/components/profile/TiktokButton';
 import SpotifyButton from '@/components/profile/SpotifyButton';
 import Head from 'next/head';
 
+const PageMetadata = ({ username }: { username: string | string[] }) => (
+  <Head>
+    <title>{username} on tapped</title>
+    <link rel="icon" href="/favicon.ico" />
+    <meta
+      name="description"
+      content="my live performance page"
+    />
+    <meta property="og:site_name" content="tapped.ai" />
+    <meta
+      property="og:description"
+      content="my live performance page"
+    />
+    <meta
+      property="og:title"
+      content="Tapped Ai : world's first Ai label"
+    />
+    <meta property="og:image" content="https://tapped.ai/download_og.png"></meta>
+    <meta property="og:url" content="https://tapped.ai"></meta>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Tapped Ai : world's first Ai label"
+    />
+    <meta
+      name="twitter:description"
+      content="we want to sign you to our label. apply for free"
+    />
+    <meta property="twitter:image" content="https://tapped.ai/download_og.png"></meta>
+  </Head>
+);
+
 export default function Page() {
   const router = useRouter();
   const username = router.query.username;
@@ -43,9 +75,12 @@ export default function Page() {
 
   if (user === null) {
     return (
-      <div className='min-h-screen flex justify-center items-center'>
-        <p>fetching {username}... </p>
-      </div>
+      <>
+        <PageMetadata username={username} />
+        <div className='min-h-screen flex justify-center items-center'>
+          <p>fetching {username}... </p>
+        </div>
+      </>
     );
   }
 
@@ -62,38 +97,7 @@ export default function Page() {
 
   return (
     <>
-      <Head>
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        />
-        <meta
-          name="description"
-          content="my live performance page"
-        />
-        <meta property="og:site_name" content="tapped.ai" />
-        <meta
-          property="og:description"
-          content="my live performance page"
-        />
-        <meta
-          property="og:title"
-          content="Tapped Ai : world's first Ai label"
-        />
-        <meta property="og:image" content="https://tapped.ai/download_og.png"></meta>
-        <meta property="og:url" content="https://tapped.ai"></meta>
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Tapped Ai : world's first Ai label"
-        />
-        <meta
-          name="twitter:description"
-          content="we want to sign you to our label. apply for free"
-        />
-        <meta property="twitter:image" content="https://tapped.ai/download_og.png"></meta>
-      </Head>
+      <PageMetadata username={username} />
       <div className='relative h-[256px] w-screen overflow-hidden'>
         <Image
           src={profileImage}
