@@ -27,6 +27,8 @@ const Signup: NextPage = () => {
     }
   };
 
+  let passConfirm = '';
+
   return (
     <div className="flex flex-col justify-center items-center min-h-screen rounded-lg p-16">
       <div className="flex items-center justify-center pb-5">
@@ -74,6 +76,24 @@ const Signup: NextPage = () => {
             type="password"
             onChange={(e) => setData({ ...data, password: e.target.value })}
             value={data.password || ''}
+          />
+        </div>
+        </div>
+        <div className="mb-6 md:flex md:items-center">
+          <div className= 'md:w-1/3'>
+            <label
+              className="mb-1 block pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
+            htmlFor="inline-password"
+          >
+            Confirm Password
+          </label>
+         </div>
+          <div className="md:w-2/3">
+          <input
+            className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
+            id="confirm-password"
+            type="password"
+            onChange={ (e) => passConfirm = e.text}
           />
         </div>
         </div>
