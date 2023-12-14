@@ -6,13 +6,13 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { loginWithCredentials } from '@/domain/usecases/login';
 import SignInWithGoogleButton from '@/components/signin_with_google_button';
+import ContinueWithGoogleButton from '@/components/continue_with_google_button';
 
-const Login = () => {
+export default function Login() {
   const router = useRouter();
-  const [data, setData] = useState({
-    email: '',
-    password: '',
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const query = router.query;
   const returnTo = (query.returnUrl as string) || '/signup_complete';
   console.log({ returnTo });
@@ -21,8 +21,8 @@ const Login = () => {
     e.preventDefault();
     try {
       await loginWithCredentials({
-        email: data.email,
-        password: data.password,
+        email: email,
+        password: password,
       });
       router.push(returnTo);
     } catch (err) {
@@ -39,13 +39,13 @@ const Login = () => {
   };
 
   return (
-    <div className="grid h-screen grid-cols-1 gap-2 rounded-lg bg-[#FFF] p-16 shadow-lg">
+    <div className="flex flex-col justify-center items-center min-h-screen rounded-lg p-16">
       <div className="flex items-center justify-center pb-5">
         <Image
-          src="/images/tapped_logo.png"
+          src="/images/icon_1024.png"
           alt="Tapped_Logo"
-          width={330}
-          height={90}
+          width={124}
+          height={124}
         />
       </div>
 
@@ -65,13 +65,8 @@ const Login = () => {
               id="inline-email"
               type="text"
               placeholder=""
-              onChange={(e: any) =>
-                setData({
-                  ...data,
-                  email: e.target.value,
-                })
-              }
-              value={data.email || ''}
+              onChange={(e: any) => setEmail(e.target.value)}
+              value={email}
             ></input>
           </div>
         </div>
@@ -90,33 +85,26 @@ const Login = () => {
               id="inline-password"
               type="password"
               placeholder=""
-              onChange={(e: any) =>
-                setData({
-                  ...data,
-                  password: e.target.value,
-                })
-              }
-              value={data.password || ''}
+              onChange={(e: any) => setPassword(e.target.value)}
+              value={password}
             ></input>
           </div>
         </div>
-
-        <div className="md:flex md:items-center">
-          <div className="md:w-1/3">
-            <Link href={`/signup?returnUrl=${returnTo}`}>
-              <button className="tapped_signup_btn">Sign Up</button>
-            </Link>
-          </div>
-          <div className="md:w-2/3">
-            <button className="tapped_btn w-full" type="submit">
-              Login
-            </button>
-            <SignInWithGoogleButton onClick={handleGoogleLogin} />
-          </div>
+        <div className="h-8" />
+        <div className='flex flex-col gap-4'>
+          <button
+            className="bg-blue-700 px-4 py-2 rounded-full text-white font-bold"
+            type="submit">
+            login
+          </button>
+          <ContinueWithGoogleButton onClick={handleGoogleLogin} />
         </div>
-      </form>
-    </div>
+        <div className='flex justify-center'>
+          <Link href="/signup" className="text-blue-700 hover:text-blue-900 text-center">
+              Don&apos;t have an account? Sign up
+          </Link>
+        </div>
+      </form >
+    </div >
   );
-};
-
-export default Login;
+}

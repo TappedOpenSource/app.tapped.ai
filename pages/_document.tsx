@@ -6,7 +6,6 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <title>tapped ai</title>
           <link rel="icon" href="/favicon.ico" />
           <meta
             name="description"
