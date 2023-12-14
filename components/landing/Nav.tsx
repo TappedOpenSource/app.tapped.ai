@@ -40,10 +40,10 @@ export default function Nav() {
         >
           <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto'>
             <Link
-              href='https://linktree.tapped.ai'
+              href='https://app.tapped.ai/download'
               className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white '
             >
-                linktree
+                download
             </Link>
             <Link
               href='https://tappedapp.notion.site/Technical-Roadmap-4edc036572bd4d89913f5cd5a4cde0f6?pvs=4'
