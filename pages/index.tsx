@@ -16,6 +16,7 @@ import JoinTheMovement from '@/components/landing/JoinTheMovement';
 import Nav from '@/components/landing/Nav';
 import PartneredWith from '@/components/landing/PartneredWith';
 import Testimonials from '@/components/landing/Testimonials';
+import Snowfall from 'react-snowfall';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -33,6 +34,13 @@ export default function Home({ shuffledArtists }: {
   // bg-[#63b2fd]
   return (
     <div className={rubik.className}>
+      <Snowfall
+        style={{
+          position: 'fixed',
+          width: '100vw',
+          height: '100vh',
+        }}
+      />
       <Nav />
       <div className="flex flex-col items-center justify-start px-12">
         <div className="w-full items-center justify-around text-sm lg:flex">
