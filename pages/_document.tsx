@@ -1,5 +1,7 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
+const title = 'Tapped Ai : world tour from your iPhone';
+const description = 'apply to perform for FREE';
 
 class MyDocument extends Document {
   render() {
@@ -9,27 +11,27 @@ class MyDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
           <meta
             name="description"
-            content="we want to sign you to our label. apply for free"
+            content={description}
           />
           <meta property="og:site_name" content="tapped.ai" />
           <meta
             property="og:description"
-            content="we want to sign you to our label. apply for free"
+            content={description}
           />
           <meta
             property="og:title"
-            content="Tapped Ai : world's first Ai label"
+            content={title}
           />
           <meta property="og:image" content="https://tapped.ai/og.png"></meta>
           <meta property="og:url" content="https://tapped.ai"></meta>
           <meta name="twitter:card" content="summary_large_image" />
           <meta
             name="twitter:title"
-            content="Tapped Ai : world's first Ai label"
+            content={title}
           />
           <meta
             name="twitter:description"
-            content="we want to sign you to our label. apply for free"
+            content={description}
           />
           <meta property="twitter:image" content="https://tapped.ai/og.png"></meta>
         </Head>
