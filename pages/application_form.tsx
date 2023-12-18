@@ -16,6 +16,7 @@ import ReferralField from '@/components/application/referral_field';
 import SegmentedLine from '@/components/SegmentedLine';
 
 import { track } from '@vercel/analytics';
+import LocationField from '@/components/application/location_field';
 
 
 const Application: NextPage = () => {
@@ -28,6 +29,7 @@ const Application: NextPage = () => {
     EmailField,
     PhoneField,
     DescribeField,
+    LocationField,
     LabelField,
     ArtistProfessionField,
     FollowingField,

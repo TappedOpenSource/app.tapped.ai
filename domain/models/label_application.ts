@@ -4,6 +4,7 @@ export type LabelApplication = {
     id: string;
     phone: string;
     name: string;
+    location: string;
     artistLabel: boolean;
     description: string[];
     followingCount: string;
