@@ -3,9 +3,7 @@ import ProductCard from '@/components/ProductCard';
 // import withAuth from '@/domain/auth/withAuth';
 import { getProductAndPriceData } from '@/domain/usecases/payments';
 import { useEffect, useState } from 'react';
-import MarketplaceProductCard from '@/components/MarketplaceProductCard';
 import auth from '@/data/auth';
-import api from '@/data/api';
 import { useRouter } from 'next/router';
 
 const subscriptionPlansIds = [
