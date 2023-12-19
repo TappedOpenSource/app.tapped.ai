@@ -17,6 +17,7 @@ import Nav from '@/components/landing/Nav';
 import PartneredWith from '@/components/landing/PartneredWith';
 import Testimonials from '@/components/landing/Testimonials';
 import Snowfall from 'react-snowfall';
+import FeaturedOpportunities from '@/components/landing/FeaturedOpportunities';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -127,8 +128,9 @@ export default function Home({ shuffledArtists }: {
           </div>
         </div>
       </div>
+
       <div className="h-12 md:h-36"></div>
-      <PartneredWith />
+      <FeaturedOpportunities />
       <div className="h-12 md:h-36"></div>
       <Testimonials />
       <div className="h-12 md:h-36"></div>
@@ -164,6 +166,8 @@ export default function Home({ shuffledArtists }: {
           >get started</Link>
         </div>
       </div>
+      <div className="h-12 md:h-36"></div>
+      <PartneredWith />
       <div className="h-12 md:h-36"></div>
       <JoinTheMovement />
       <div className="h-12"></div>

@@ -161,6 +161,20 @@ export async function getOpportunityById(opportunityId: string) {
   return Some(opportunity);
 }
 
+export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
+  const leadersRef = collection(db, 'leaderboard');
+  const leadersSnap = doc(leadersRef, 'leaders');
+  const leadersDoc = await getDoc(leadersSnap);
+  const { featuredOpportunities } = leadersDoc.data() as { featuredOpportunities: string[] };
+  return await Promise.all(
+    featuredOpportunities.map(
+      async (opId) => {
+        return await getOpportunityById(opId);
+      },
+    ).filter(async (op) => (await op).isSome()).map(async (op) => (await op).unwrap()),
+  );
+}
+
 export async function getServiceById({ userId, serviceId }: {
     userId: string,
     serviceId: string,
