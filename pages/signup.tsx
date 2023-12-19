@@ -10,12 +10,22 @@ const Signup: NextPage = () => {
   const [data, setData] = useState({
     email: '',
     password: '',
+    confirmPassword: '',
   });
   const query = router.query;
   const returnTo = (query.returnUrl as string) || '/tmp_home';
 
   const handleSignup = async (e) => {
+    let password = data.password;
+    let confirmPassword = data.confirmPassword;
+    let email = data.email;
+    console.log({ password, confirmPassword, email });
+    console.log();
+    if (data.password !== data.confirmPassword) {
+      console.log('passwords do not match'); e.preventDefault(); return;
+    }
     e.preventDefault();
+    console.log('signup');
     try {
       await signupWithCredentials({
         email: data.email,
@@ -27,7 +37,6 @@ const Signup: NextPage = () => {
     }
   };
 
-  let passConfirm = '';
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen rounded-lg p-16">
@@ -93,7 +102,7 @@ const Signup: NextPage = () => {
             className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
             id="confirm-password"
             type="password"
-            onChange={ (e) => passConfirm = e.text}
+            onChange={(e) => setData({ ...data, confirmPassword: e.target.value })}
           />
         </div>
         </div>
