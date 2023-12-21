@@ -22,7 +22,6 @@ import { Booking, bookingConverter } from '@/domain/models/booking';
 import { Review, reviewConverter } from '@/domain/models/review';
 import { Service, serviceConverter } from '@/domain/models/service';
 import { Opportunity, opportunityConverter } from '@/domain/models/opportunity';
-import { none } from '@cloudinary/url-gen/qualifiers/fontHinting';
 
 
 export async function getUserById(userId: string): Promise<Option<UserModel>> {

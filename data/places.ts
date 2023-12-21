@@ -1,5 +1,6 @@
 
-const googlePlacesKey = 'AIzaSyAh3GEqDEv4lfnAgeT19-7sgyF7JxLF34g';
+// web only - restricted
+const googlePlacesKey = 'AIzaSyCNxMOlRATil90cBmPAkqqSMtU26q5V46U';
 
 export async function getPlaceById(placeId: string) {
   const fields = [
