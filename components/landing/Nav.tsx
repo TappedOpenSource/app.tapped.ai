@@ -46,6 +46,12 @@ export default function Nav() {
                 download
             </Link>
             <Link
+              href='https://forms.gle/F18XCFnAXmyML2Bn8"'
+              className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
+            >
+                venue
+            </Link>
+            <Link
               href='https://tappedapp.notion.site/Technical-Roadmap-4edc036572bd4d89913f5cd5a4cde0f6?pvs=4'
               target="_blank"
               rel="noopener noreferrer"
@@ -68,12 +74,6 @@ export default function Nav() {
               className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
             >
                 newsletter
-            </Link>
-            <Link
-              href='mailto://support@tapped.ai'
-              className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
-            >
-                contact us
             </Link>
           </div>
         </div>
