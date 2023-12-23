@@ -1,5 +1,5 @@
 import type { NextPage } from 'next/types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -7,37 +7,45 @@ import { signupWithCredentials } from '@/domain/usecases/signup';
 
 const Signup: NextPage = () => {
   const router = useRouter();
-  const [data, setData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(false);
   const query = router.query;
   const returnTo = (query.returnUrl as string) || '/tmp_home';
-  const [inputColor, setInputColor] = useState('white');
 
-  const handleSignup = async (e) => {
-    const password = data.password;
-    const confirmPassword = data.confirmPassword;
-    const email = data.email;
-    console.log({ password, confirmPassword, email, inputColor });
+  useEffect(() => {
+    setError( !(password === confirmPassword) );
+  }, [password, confirmPassword]);
+
+  // const handleConfirmPassword = () => {
+  //   const isMatch = password.length === confirmPassword.length && password.split('').every((char, index) => char === confirmPassword[index]);
+  //   setError(!isMatch);
+  //   return !isMatch;
+  // };
+  const handleSignup = async (e: any) => {
+    // const password = useState(password);
+    // const confirmPassword = useState(confirmPassword);
+    // const email = email;
+    console.log({ password, confirmPassword, email, error });
     console.log();
-    if (data.password !== data.confirmPassword) {
-      console.log('passwords do not match'); e.preventDefault(); setInputColor('red'); return;
-    }
-    setInputColor('black');
     e.preventDefault();
+    if (error) {
+      console.log('passwords do not match'); return;
+    }
     console.log('signup');
     try {
       await signupWithCredentials({
-        email: data.email,
-        password: data.password,
+        email: email,
+        password: password,
       });
       router.push(returnTo);
     } catch (err) {
       console.error(err);
     }
   };
+
+
 
 
   return (
@@ -66,8 +74,8 @@ const Signup: NextPage = () => {
               className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
               id="inline-email"
               type="text"
-              onChange={(e) => setData({ ...data, email: e.target.value })}
-              value={data.email || ''}
+              onChange={(e: any) => setEmail(e.target.value)}
+              value={email || ''}
             />
           </div>
         </div>
@@ -85,8 +93,10 @@ const Signup: NextPage = () => {
               className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
               id="inline-password"
               type="password"
-              onChange={(e) => setData({ ...data, password: e.target.value })}
-              value={data.password || ''}
+              onChange={(e: any) => {
+                setPassword(e.target.value);
+              }}
+              value={password || ''}
             />
           </div>
         </div>
@@ -101,11 +111,13 @@ const Signup: NextPage = () => {
           </div>
           <div className="md:w-2/3">
             <input
-              style={{ borderColor: inputColor }} type = 'password'
               className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
               id="confirm-password"
               // type="password"
-              onChange={(e) => setData({ ...data, confirmPassword: e.target.value })}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
+              style={{ borderColor: error ? 'red' : 'white' }} type = 'password'
             />
           </div>
         </div>
