@@ -14,20 +14,25 @@ export default function DefaultOpportunities() {
   }, []);
 
   return (
-    <div className='flex justify-center items-center'>
-      <div className="flex flex-row overflow-x-auto space-x-5 snap-x">
-        {opportunities.map((opportunity, index) => (
-          <div key={index}>
-            <div
-              className='snap-center'
-            >
-              <OpportunityTile
-                opportunity={opportunity}
-              />
-            </div>
-          </div>
-        ),)}
+    <>
+      <div className='flex justify-center items-center'>
+        <h1 className='text-center text-xl md:text-5xl '>featured opportunities</h1>
       </div>
-    </div>
+      <div className='flex justify-center items-center'>
+        <div className="flex flex-row items-center just-fy-center overflow-x-auto space-x-5 snap-x">
+          {opportunities.map((opportunity, index) => (
+            <div key={index}>
+              <div
+                className='snap-center'
+              >
+                <OpportunityTile
+                  opportunity={opportunity}
+                />
+              </div>
+            </div>
+          ),)}
+        </div>
+      </div>
+    </>
   );
 }

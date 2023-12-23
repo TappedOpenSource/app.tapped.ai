@@ -27,7 +27,7 @@ export default function OpportunitiesSlider({ user }: {
   return (
     <>
       <div
-        className="flex flex-row overflow-x-auto space-x-5 snap-x"
+        className="flex flex-row items-center justify-center overflow-x-auto space-x-5 snap-x"
       >
 
         {
