@@ -17,9 +17,9 @@ const Signup: NextPage = () => {
   const [inputColor, setInputColor] = useState('white');
 
   const handleSignup = async (e) => {
-    let password = data.password;
-    let confirmPassword = data.confirmPassword;
-    let email = data.email;
+    const password = data.password;
+    const confirmPassword = data.confirmPassword;
+    const email = data.email;
     console.log({ password, confirmPassword, email, inputColor });
     console.log();
     if (data.password !== data.confirmPassword) {
@@ -75,33 +75,33 @@ const Signup: NextPage = () => {
           <div className= 'md:w-1/3'>
             <label
               className="mb-1 block pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
-            htmlFor="inline-password"
-          >
+              htmlFor="inline-password"
+            >
             Password
-          </label><p></p>
+            </label><p></p>
           </div>
           <div className="md:w-2/3">
-          <input
-            className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
-            id="inline-password"
-            type="password"
-            onChange={(e) => setData({ ...data, password: e.target.value })}
-            value={data.password || ''}
-          />
-        </div>
+            <input
+              className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
+              id="inline-password"
+              type="password"
+              onChange={(e) => setData({ ...data, password: e.target.value })}
+              value={data.password || ''}
+            />
+          </div>
         </div>
         <div className="mb-6 md:flex md:items-center">
           <div className= 'md:w-1/3'>
             <label
-            className="mb-1 block pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
-            htmlFor="inline-password"
-          >
+              className="mb-1 block pr-4 text-xs font-bold text-gray-500 md:mb-0 md:text-right"
+              htmlFor="inline-password"
+            >
             Confirm Password
             </label>
           </div>
           <div className="md:w-2/3">
             <input
-              style={{borderColor: inputColor }} type = 'password'
+              style={{ borderColor: inputColor }} type = 'password'
               className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
               id="confirm-password"
               // type="password"
