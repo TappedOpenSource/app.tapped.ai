@@ -46,8 +46,6 @@ const Signup: NextPage = () => {
   };
 
 
-
-
   return (
     <div className="flex flex-col justify-center items-center min-h-screen rounded-lg p-16">
       <div className="flex items-center justify-center pb-5">
