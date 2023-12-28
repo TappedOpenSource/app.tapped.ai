@@ -287,7 +287,7 @@ export async function createCheckoutSession({
   const sessionsRef = collection(db, `customers/${userId}/checkout_sessions`);
   const docRef = await addDoc(sessionsRef, {
     price: priceId,
-    success_url: `${window.location.origin}/tmp_home`,
+    success_url: `${window.location.origin}/signup_complete`,
     cancel_url: window.location.origin,
     allow_promotion_codes: true,
     mode: 'subscription',
