@@ -49,7 +49,7 @@ export default function Nav() {
             </Link>
             <Link
               onClick={() => track('nav-click', { item: 'for-venues' })}
-              href='https://forms.gle/F18XCFnAXmyML2Bn8"'
+              href='https://forms.gle/F18XCFnAXmyML2Bn8'
               className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
             >
                 for venues
