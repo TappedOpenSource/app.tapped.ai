@@ -6,12 +6,12 @@ import { Rubik } from 'next/font/google';
 import { shuffle } from '@/utils/shuffle';
 import Footer from '@/components/landing/Footer';
 import SignedArtistCard from '@/components/landing/SignedArtistCard';
-import FeaturedIn from '@/components/landing/FeaturedIn';
-import SupportJourney from '@/components/landing/SupportJourney';
-import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
-import Benefits from '@/components/landing/Benefits';
-import YourJourney from '@/components/landing/YourJourney';
-import Unshackle from '@/components/landing/Unshackle';
+// import FeaturedIn from '@/components/landing/FeaturedIn';
+// import SupportJourney from '@/components/landing/SupportJourney';
+// import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
+// import Benefits from '@/components/landing/Benefits';
+// import YourJourney from '@/components/landing/YourJourney';
+// import Unshackle from '@/components/landing/Unshackle';
 import JoinTheMovement from '@/components/landing/JoinTheMovement';
 import Nav from '@/components/landing/Nav';
 import PartneredWith from '@/components/landing/PartneredWith';
@@ -44,7 +44,7 @@ export default function Home({ shuffledArtists }: {
       />
       <Nav />
       <div className="flex flex-col items-center justify-start px-12">
-        <div className="w-full items-center justify-around text-sm lg:flex">
+        {/* <div className="w-full items-center justify-around text-sm lg:flex">
           <div id="by-tapped" className="fixed z-50 bottom-0 left-0 flex h-24 w-full items-end justify-center bg-white rounded-lg lg:hidden">
             <a
               className="flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
@@ -70,8 +70,7 @@ export default function Home({ shuffledArtists }: {
               Download the app
             </a>
           </div>
-          {/* <Link href="/signup_complete" className="hidden lg:block">already a member?</Link> */}
-        </div>
+        </div> */}
 
         <div className="flex flex-col place-items-center md:pt-20">
           <div className="bg-white/20 rounded-full">
@@ -94,14 +93,19 @@ export default function Home({ shuffledArtists }: {
             tap in with local venues and get more live performances
           </h2>
           <div className="flex flex-col justify-center mt-8 mb-4 py-2 px-4">
-            <Link
+            {/* <Link
               href="/application_form"
               // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
               id="apply-here"
               className="text-lg font-black text-center rounded-full px-6 pt-6 hover:scale-105 transform transition-all duration-200 ease-in-out"
             >apply here</Link>
             <div className='h-2' />
-            <p className="text-sm text-center font-bold">(it&apos;s free and takes 2 min)</p>
+            <p className="text-sm text-center font-bold">(it&apos;s free and takes 2 min)</p> */}
+            <Link
+              href="https://app.tapped.ai/download"
+              id="apply-here"
+              className="text-lg font-black text-center rounded-full px-6 pt-6 hover:scale-105 transform transition-all duration-200 ease-in-out"
+            >get the app</Link>
           </div>
           <div className="pb-12 lg:pb-2"></div>
           <div className="overflow-hidden w-screen">
