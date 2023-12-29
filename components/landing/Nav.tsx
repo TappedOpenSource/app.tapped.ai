@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { track } from '@vercel/analytics/react';
 
 export default function Nav() {
   const [active, setActive] = useState(false);
@@ -40,18 +41,21 @@ export default function Nav() {
         >
           <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto'>
             <Link
+              onClick={() => track('nav-click', { item: 'for-artists' })}
               href='https://app.tapped.ai/download'
               className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white '
             >
-                download
+                for artists
             </Link>
             <Link
+              onClick={() => track('nav-click', { item: 'for-venues' })}
               href='https://forms.gle/F18XCFnAXmyML2Bn8"'
               className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
             >
-                venue
+                for venues
             </Link>
             <Link
+              onClick={() => track('nav-click', { item: 'roadmap' })}
               href='https://tappedapp.notion.site/Technical-Roadmap-4edc036572bd4d89913f5cd5a4cde0f6?pvs=4'
               target="_blank"
               rel="noopener noreferrer"
@@ -60,6 +64,7 @@ export default function Nav() {
                 roadmap
             </Link>
             <Link
+              onClick={() => track('nav-click', { item: 'blog' })}
               href='https://blog.tapped.ai'
               target="_blank"
               rel="noopener noreferrer"
@@ -68,6 +73,7 @@ export default function Nav() {
                 blog
             </Link>
             <Link
+              onClick={() => track('nav-click', { item: 'newsletter' })}
               href='https://getmusicnewsletters.com'
               target="_blank"
               rel="noopener noreferrer"
