@@ -45,7 +45,7 @@ export default function Nav() {
               href='https://app.tapped.ai/download'
               className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white '
             >
-                for artists
+                for performers
             </Link>
             <Link
               onClick={() => track('nav-click', { item: 'for-venues' })}
