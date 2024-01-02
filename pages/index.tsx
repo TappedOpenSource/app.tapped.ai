@@ -92,7 +92,7 @@ export default function Home({ shuffledArtists }: {
           <h2
             className="text-2xl font-thin text-center text-gray-200"
           >
-            tap in with local venues and get more live performances
+            secure live bookings with the power of data
           </h2>
           <div className="flex flex-col justify-center mt-8 mb-4 py-2 px-4">
             {/* <Link
