@@ -173,8 +173,8 @@ export default function Home({ shuffledArtists }: {
 
       <div className="h-12 md:h-36"></div>
       <PartneredWith />
-      <div className="h-12 md:h-36"></div>
-      <JoinTheMovement />
+      {/* <div className="h-12 md:h-36"></div> */}
+      {/* <JoinTheMovement /> */}
       <div className="h-12"></div>
       <div className="w-screen">
         <Footer />
