@@ -12,7 +12,7 @@ import SignedArtistCard from '@/components/landing/SignedArtistCard';
 // import Benefits from '@/components/landing/Benefits';
 // import YourJourney from '@/components/landing/YourJourney';
 // import Unshackle from '@/components/landing/Unshackle';
-import JoinTheMovement from '@/components/landing/JoinTheMovement';
+// import JoinTheMovement from '@/components/landing/JoinTheMovement';
 import Nav from '@/components/landing/Nav';
 import PartneredWith from '@/components/landing/PartneredWith';
 import Testimonials from '@/components/landing/Testimonials';
@@ -73,13 +73,15 @@ export default function Home({ shuffledArtists }: {
         </div> */}
 
         <div className="flex flex-col place-items-center md:pt-20">
-          <div className="bg-white/20 rounded-full">
+          <Link
+            href='https://app.tapped.ai/download'
+            className="bg-white/20 rounded-full">
             <p
               className="text-center text-white py-4 px-8"
             >
-                join over 500+ artists in our community
+                join over 1000+ artists in our community
             </p>
-          </div>
+          </Link>
           <div className="h-8"></div>
           <h1
             className="text-5xl md:w-1/2 font-extrabold text-center text-white lg:text-6xl"
