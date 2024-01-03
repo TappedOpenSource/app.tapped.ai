@@ -88,7 +88,7 @@ export default function Benefits() {
         <ProductSection
           title='join the community'
           description=''
-          link='https://app.tapped.ai/download'
+          link='https://tapped.ai/download'
           image='/images/app_sample.png'
           alt='ai app Sample'
           buttonText='get the app'

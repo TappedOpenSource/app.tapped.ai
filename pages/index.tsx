@@ -66,7 +66,7 @@ export default function Home({ shuffledArtists }: {
             </a>
             <a
               className="md:hidden underline flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-              href="https://app.tapped.ai/download"
+              href="https://tapped.ai/download"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -77,7 +77,7 @@ export default function Home({ shuffledArtists }: {
 
         <div className="flex flex-col place-items-center md:pt-20">
           <Link
-            href='https://app.tapped.ai/download'
+            href='https://tapped.ai/download'
             className="bg-white/20 rounded-full">
             <p
               className="text-center text-white py-4 px-8"
@@ -99,7 +99,7 @@ export default function Home({ shuffledArtists }: {
           </h2>
           <div className="flex flex-col md:flex-row justify-center mt-8 mb-4 py-2 px-4 gap-4">
             <Link
-              href="https://app.tapped.ai/download"
+              href="https://tapped.ai/download"
               className="text-lg font-black bg-white text-black text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
             >for performers</Link>
             <Link
@@ -157,7 +157,7 @@ export default function Home({ shuffledArtists }: {
         <div className="h-12"></div>
         <div className="flex justify-center py-2 px-4">
           <Link
-            href="https://app.tapped.ai/download"
+            href="https://tapped.ai/download"
             target="_blank"
             title="app download"
             rel="noreferrer"

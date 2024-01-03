@@ -32,7 +32,7 @@ const MarketplaceProductCard = () => {
         <p className="px-4 pt-8 text-3xl font-bold text-white">FREE</p>
         <div className="px-5 pt-4">
           <Link
-            href="https://app.tapped.ai/download"
+            href="https://tapped.ai/download"
             className="block flex justify-center focus:shadow-outline-blue w-full rounded-sm bg-[#42A5F5] px-4 py-2 my-6 text-white hover:bg-gray-700 focus:border-gray-700 focus:outline-none active:bg-gray-800"
           >
             Sign Up

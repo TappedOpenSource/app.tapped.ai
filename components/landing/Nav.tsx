@@ -42,7 +42,7 @@ export default function Nav() {
           <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto'>
             <Link
               onClick={() => track('nav-click', { item: 'for-artists' })}
-              href='https://app.tapped.ai/download'
+              href='https://tapped.ai/download'
               className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white '
             >
                 for performers

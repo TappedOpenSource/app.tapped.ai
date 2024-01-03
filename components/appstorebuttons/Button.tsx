@@ -31,40 +31,7 @@ const Button: FC<ButtonProps> = ({
   className,
 }) => {
   return (
-    <>
-      <style jsx>{`
-  .button-container {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    gap: 10px;
-    cursor: pointer;
-
-    border: 2px solid var(--primary-color);
-    border-radius: 10px;
-  }
-
-.button-container-dark {
-  background-color: #202020;
-  color: #fff;
-}
-
-.button-text-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  font-family: ${outfit.style.fontFamily};
-}
-
-.button-store-name {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.button-title {
-  font-size: 12px;
-}
-`}</style>
+    <div>
       <button
         onClick={() => url && window.open(url, '_blank')}
         style={{
@@ -79,12 +46,12 @@ const Button: FC<ButtonProps> = ({
         )}
       >
         <Image src={logo} alt={storeName} height={36} width={36} />
-        <div className="button-text-container">
+        <div className={outfit.className + ' flex flex-col items-start'}>
           <span className="button-title">{title}</span>
           <span className="button-store-name">{storeName}</span>
         </div>
       </button>
-    </>
+    </div>
   );
 };
 

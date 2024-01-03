@@ -83,7 +83,7 @@ export default function Page() {
     <>
       <div className='fixed right-8 bottom-8'>
         <Link
-          href='https://app.tapped.ai/download'
+          href='https://tapped.ai/download'
         >
           <Fab color="primary" aria-label="add" variant='extended'>
           apply in the app
