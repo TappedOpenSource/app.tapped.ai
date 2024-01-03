@@ -16,7 +16,7 @@ export default function DefaultOpportunities() {
   return (
     <>
       <div className='flex justify-center items-center'>
-        <h1 className='text-center text-xl md:text-5xl '>featured opportunities</h1>
+        <h1 className='text-center text-xl md:text-5xl font-extrabold'>featured opportunities</h1>
       </div>
       <div className='flex justify-center items-center'>
         <div className="flex flex-row items-center just-fy-center overflow-x-auto space-x-5 snap-x">

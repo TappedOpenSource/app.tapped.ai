@@ -19,7 +19,7 @@ export default function OpportunityTile({ opportunity }: {
   return (
     <>
       <Link href={`/op/${opportunity.id}`}>
-        <div className='flex flex-col w-[320px] h-[350px] justify-between rounded-xl p-4 overflow-hidden'>
+        <div className='flex flex-col w-[320px] h-[350px] justify-between rounded-xl p-4 overflow-hidden hover:scale-105 transform transition-all duration-200 ease-in-out'>
           <div className='relative w-[300px] h-[300px]'>
             <Image
               src={opImage}
