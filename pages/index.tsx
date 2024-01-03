@@ -24,6 +24,8 @@ const rubik = Rubik({
   weight: ['300', '400', '500', '600', '700', '800', '900'],
 });
 
+const isWinter = [12, 1, 2].includes(new Date().getMonth());
+
 export default function Home({ shuffledArtists }: {
   shuffledArtists: {
     name: string;
@@ -36,13 +38,13 @@ export default function Home({ shuffledArtists }: {
   // bg-[#63b2fd]
   return (
     <div className={rubik.className}>
-      <Snowfall
+      {isWinter && <Snowfall
         style={{
           position: 'fixed',
           width: '100vw',
           height: '100vh',
         }}
-      />
+      />}
       <Nav />
       <div className="flex flex-col items-center justify-start px-12">
         {/* <div className="w-full items-center justify-around text-sm lg:flex">
