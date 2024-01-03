@@ -29,7 +29,7 @@ export default function Home({ shuffledArtists }: {
     name: string;
     photo: string;
     url: string;
-    username: string;
+    username?: string;
     signed?: boolean;
   }[]
 }) {
@@ -180,7 +180,7 @@ export const getServerSideProps = async () => {
     name: string;
     photo: string;
     url: string;
-    username: string;
+    username?: string;
     signed?: boolean;
   }[] = [
     {
@@ -190,23 +190,20 @@ export const getServerSideProps = async () => {
       url: 'https://music.apple.com/us/artist/maria-alexa/1526235494',
     },
     {
-      name: 'jay?duhhh',
-      photo: '/images/512x512/jayduhhh.512x512.png',
-      url: 'https://music.apple.com/us/artist/jay-duhhh/1573379288',
-      username: 'jayduhhh',
-      signed: true,
+      name: 'funk flex',
+      photo: '/images/512x512/512.funkflex.jpeg',
+      url: 'https://music.apple.com/us/artist/funk-flex/130882',
     },
+    // {
+    //   name: 'manidabrat',
+    //   photo: '/images/512x512/mani.512x512.png',
+    //   url: 'https://music.apple.com/us/artist/mani-da-brat/1509383758',
+    //   username: 'manidabrat',
+    // },
     {
-      name: 'manidabrat',
-      photo: '/images/512x512/mani.512x512.png',
-      url: 'https://music.apple.com/us/artist/mani-da-brat/1509383758',
-      username: 'manidabrat',
-    },
-    {
-      name: 'infamou$g',
-      photo: '/images/512x512/infamousg.512x512.png',
-      url: 'https://music.apple.com/us/artist/infamou%24-g/1346957051',
-      username: 'infamousg',
+      name: 'NLE Choppa',
+      photo: '/images/512x512/512.choppa.jpeg',
+      url: 'https://music.apple.com/us/artist/nle-choppa/1449052753',
     },
     {
       name: 'seelife',
@@ -240,10 +237,9 @@ export const getServerSideProps = async () => {
       username: 'yungsmilez',
     },
     {
-      name: 'davy hbf',
-      photo: '/images/512x512/davy.512x512.png',
-      url: 'https://music.apple.com/us/artist/davy-hbf/1651803177',
-      username: 'davyhbf',
+      name: 'bobby shmurda',
+      photo: '/images/512x512/512.bobbyschmurda.jpeg',
+      url: 'https://music.apple.com/us/artist/bobby-shmurda/902809133',
     },
     {
       name: 'andrew rohlk',
@@ -264,16 +260,14 @@ export const getServerSideProps = async () => {
       username: 'frankiebiggz',
     },
     {
-      name: 'honey cane',
-      photo: '/images/512x512/jerry.512x512.jpg',
-      url: 'https://spotify.link/VeKEG6cfLDb',
-      username: 'honeycane',
+      name: 'meek mill',
+      photo: '/images/512x512/512.meekmill.jpeg',
+      url: 'https://music.apple.com/us/artist/meek-mill/313865761',
     },
     {
-      name: 'ffeel',
-      photo: '/images/masters/ffeel.png',
-      url: 'https://music.apple.com/artist/1681892422',
-      username: 'ffeel',
+      name: 'rick ross',
+      photo: '/images/512x512/512.rickross.jpeg',
+      url: 'https://music.apple.com/us/artist/rick-ross/4022281',
     },
   ];
   const shuffledArtists = shuffle(signedArtists);

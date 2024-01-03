@@ -1,13 +1,13 @@
-format=*.png
-for i in $format;
-do
- if [[ "$i" == "$format" ]]
- then
-    echo "No Files"
- else
-   name=$(basename -- "$i")
-    echo "file name $name"
-  ffmpeg -hide_banner -loglevel error -i "$name" -vf crop="iw:iw" "tmp/$name.1-1.png"
-  ffmpeg -hide_banner -loglevel error -i "tmp/$name.1-1.png" -vf scale=512:512 "output/$name.512x512.png"
- fi
-done 
+#!/usr/bin/env bash
+
+shopt -s nocaseglob
+
+# out_dir="$HOME/Repos/Tapped/getmusicart.com/public/images/marque/"
+
+for input_file in *.png *.jpg *.jpeg; do
+  echo "[FILE] $input_file"
+
+  ffmpeg -hide_banner -loglevel error -i $input_file -vf crop="iw:iw" "1-1.$input_file"
+
+  ffmpeg -hide_banner -loglevel error -i "$input_file" -vf scale=512:512 "512.$input_file"
+done;
