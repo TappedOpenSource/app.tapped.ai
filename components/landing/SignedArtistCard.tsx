@@ -1,16 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const SignedArtistCard = ({ name, photo, url, signed }: {
+const SignedArtistCard = ({ name, photo, username, signed }: {
   name: string;
   photo: string;
   url: string;
-  signed: boolean;
+  username: string;
+  signed?: boolean;
 }) => {
   return (
     <>
       <Link
-        href={url}
+        href={`https://tapped.ai/${username}`}
         target="_blank"
         rel="noreferrer"
       >

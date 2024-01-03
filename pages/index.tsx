@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import Image from 'next/image';
+// import Image from 'next/image';
 import Link from 'next/link';
 import { Rubik } from 'next/font/google';
 
@@ -29,6 +29,7 @@ export default function Home({ shuffledArtists }: {
     name: string;
     photo: string;
     url: string;
+    username: string;
     signed?: boolean;
   }[]
 }) {
@@ -113,21 +114,15 @@ export default function Home({ shuffledArtists }: {
           <div className="overflow-hidden w-screen">
             <div className="relative flex flex-row">
               <div className="flex flex-row animate-marquee whitespace-nowrap">
-                {shuffledArtists.map(({ name, photo, url, signed }, i) => <SignedArtistCard
+                {shuffledArtists.map((userInfo, i) => <SignedArtistCard
                   key={i}
-                  name={name}
-                  photo={photo}
-                  url={url}
-                  signed={signed}
+                  {...userInfo}
                 />)}
               </div>
               <div className="absolute flex flex-row animate-marquee2 whitespace-nowrap">
-                {shuffledArtists.map(({ name, photo, url, signed }, i) => <SignedArtistCard
+                {shuffledArtists.map((userInfo, i) => <SignedArtistCard
                   key={i}
-                  name={name}
-                  photo={photo}
-                  url={url}
-                  signed={signed}
+                  {...userInfo}
                 />)}
               </div>
             </div>
@@ -190,84 +185,100 @@ export const getServerSideProps = async () => {
     name: string;
     photo: string;
     url: string;
+    username: string;
     signed?: boolean;
   }[] = [
     {
       name: 'maria alexa',
       photo: '/images/512x512/maria.512x512.png',
+      username: 'marialexa',
       url: 'https://music.apple.com/us/artist/maria-alexa/1526235494',
     },
     {
       name: 'jay?duhhh',
       photo: '/images/512x512/jayduhhh.512x512.png',
       url: 'https://music.apple.com/us/artist/jay-duhhh/1573379288',
+      username: 'jayduhhh',
       signed: true,
     },
     {
       name: 'manidabrat',
       photo: '/images/512x512/mani.512x512.png',
       url: 'https://music.apple.com/us/artist/mani-da-brat/1509383758',
+      username: 'manidabrat',
     },
     {
       name: 'infamou$g',
       photo: '/images/512x512/infamousg.512x512.png',
       url: 'https://music.apple.com/us/artist/infamou%24-g/1346957051',
+      username: 'infamousg',
     },
     {
       name: 'seelife',
       photo: '/images/512x512/seelife.512x512.png',
       url: 'https://music.apple.com/us/artist/seelife/1493214282',
+      username: 'seelife',
     },
     {
       name: 'rysovalid',
       photo: '/images/512x512/rysovalid.512x512.png',
       url: 'https://music.apple.com/us/artist/rysovalid/1140332949',
+      username: 'rysovalid',
     },
     {
       name: 'niral desai',
       photo: '/images/512x512/niral.512x512.png',
       url: 'https://music.apple.com/us/artist/niral-desai/1682714169',
+      username: 'niraldesai',
       signed: true,
     },
     {
       name: 'fe_lie the god',
       photo: '/images/512x512/felie.512x512.png',
       url: 'https://music.apple.com/us/artist/fe-lie-the-god/1090646827',
+      username: 'fe_lie540',
     },
     {
       name: 'yung smilez',
       photo: '/images/512x512/yungsmilez.512x512.png',
       url: 'https://music.apple.com/us/artist/yung-smilez/1228940318',
+      username: 'yungsmilez',
     },
     {
       name: 'davy hbf',
       photo: '/images/512x512/davy.512x512.png',
       url: 'https://music.apple.com/us/artist/davy-hbf/1651803177',
+      username: 'davyhbf',
     },
     {
       name: 'andrew rohlk',
       photo: '/images/512x512/andrew.512x512.png',
       url: 'https://music.apple.com/us/artist/andrew-rohlk/592655140',
+      username: 'arohlk',
     },
     {
       name: 'rein',
       photo: '/images/512x512/rein.512x512.png',
       url: 'https://music.apple.com/us/artist/rein/1590397406',
+      username: 'rein',
     },
     {
       name: 'frankie biggz',
       photo: '/images/512x512/frankie.512x512.png',
       url: 'https://music.apple.com/us/artist/frankie-biggz/191277376',
+      username: 'frankiebiggz',
     },
     {
       name: 'honey cane',
       photo: '/images/512x512/jerry.512x512.jpg',
       url: 'https://spotify.link/VeKEG6cfLDb',
+      username: 'honeycane',
     },
     {
       name: 'ffeel',
       photo: '/images/masters/ffeel.png',
       url: 'https://music.apple.com/artist/1681892422',
+      username: 'ffeel',
     },
   ];
   const shuffledArtists = shuffle(signedArtists);
