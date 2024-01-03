@@ -95,20 +95,15 @@ export default function Home({ shuffledArtists }: {
           >
             secure live bookings with the power of data
           </h2>
-          <div className="flex flex-col justify-center mt-8 mb-4 py-2 px-4">
-            {/* <Link
-              href="/application_form"
-              // href="https://d4wmuljalg3.typeform.com/to/FGWV5B6D"
-              id="apply-here"
-              className="text-lg font-black text-center rounded-full px-6 pt-6 hover:scale-105 transform transition-all duration-200 ease-in-out"
-            >apply here</Link>
-            <div className='h-2' />
-            <p className="text-sm text-center font-bold">(it&apos;s free and takes 2 min)</p> */}
+          <div className="flex flex-col md:flex-row justify-center mt-8 mb-4 py-2 px-4 gap-4">
             <Link
               href="https://app.tapped.ai/download"
-              id="apply-here"
-              className="text-lg font-black text-center rounded-full px-6 pt-6 hover:scale-105 transform transition-all duration-200 ease-in-out"
-            >get the app</Link>
+              className="text-lg font-black bg-white text-black text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
+            >for performers</Link>
+            <Link
+              href="https://tapped.ai/venue"
+              className="text-lg font-black text-white bg-white/25 text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
+            >for bookers</Link>
           </div>
           <div className="pb-12 lg:pb-2"></div>
           <div className="overflow-hidden w-screen">
