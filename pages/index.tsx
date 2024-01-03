@@ -124,7 +124,8 @@ export default function Home({ shuffledArtists }: {
           </div>
         </div>
       </div>
-
+      <div className="h-12 md:h-36"></div>
+      <PartneredWith />
       <div className="h-12 md:h-36"></div>
       <FeaturedOpportunities />
       <div className="h-12 md:h-36"></div>
@@ -162,9 +163,6 @@ export default function Home({ shuffledArtists }: {
           >get started</Link>
         </div>
       </div>
-
-      <div className="h-12 md:h-36"></div>
-      <PartneredWith />
       {/* <div className="h-12 md:h-36"></div> */}
       {/* <JoinTheMovement /> */}
       <div className="h-12"></div>
