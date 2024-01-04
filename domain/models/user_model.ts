@@ -14,8 +14,11 @@ export type UserModel = {
     overallRating?: number;
     placeId?: string;
     tiktokHandle?: string;
+    tiktokFollowers?: number;
     twitterHandle?: string;
+    twitterFollowers?: number;
     instagramHandle?: string;
+    instagramFollowers?: number;
     youtubeChannelId?: string;
     spotifyId?: string;
     occupations?: string[];
@@ -34,26 +37,9 @@ export const userModelConverter = {
     snapshot: QueryDocumentSnapshot,
     options: SnapshotOptions
   ): UserModel {
-    const data = snapshot.data(options);
+    const data = snapshot.data(options) as UserModel;
     return {
-      id: data.id,
-      email: data.email,
-      username: data.username,
-      artistName: data.artistName,
-      bio: data.bio,
-      profilePicture: data.profilePicture,
-      overallRating: data.overallRating,
-      placeId: data.placeId,
-      tiktokHandle: data.tiktokHandle,
-      twitterHandle: data.twitterHandle,
-      instagramHandle: data.instagramHandle,
-      youtubeChannelId: data.youtubeChannelId,
-      occupations: data.occupations,
-      label: data.label,
-      genres: data.genres,
-      reviewCount: data.reviewCount,
-      followerCount: data.followerCount,
-      followingCount: data.followingCount,
+      ...data,
     };
   },
 };
