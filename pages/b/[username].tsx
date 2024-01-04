@@ -96,6 +96,10 @@ export default function Page() {
     return user.profilePicture;
   })();
 
+  const audienceSize = (user.twitterFollowers ?? 0) +
+    (user.instagramFollowers ?? 0) +
+    (user.tiktokFollowers ?? 0);
+
   return (
     <>
       <PageMetadata username={username} />
@@ -121,10 +125,18 @@ export default function Page() {
           </div>
           <div className='h-4' /> */}
           <div className='flex flex-row items-center justify-around'>
-            <div className='flex flex-col justify-center items-center'>
-              <h3 className='text-2xl font-bold'>{user.followerCount ?? 0}</h3>
-              <p className='text-xs text-font text-gray-500'>followers</p>
-            </div>
+            {audienceSize > user.followerCount ?
+              (
+                <div className='flex flex-col justify-center items-center'>
+                  <h3 className='text-2xl font-bold'>{audienceSize}</h3>
+                  <p className='text-xs text-font text-gray-500'>audience</p>
+                </div>
+              ) : (
+                <div className='flex flex-col justify-center items-center'>
+                  <h3 className='text-2xl font-bold'>{user.followerCount ?? 0}</h3>
+                  <p className='text-xs text-font text-gray-500'>followers</p>
+                </div>
+              )}
             <div className='flex flex-col justify-center items-center'>
               <h3 className='text-2xl font-bold'>{user.reviewCount ?? 0}</h3>
               <p className='text-xs text-font text-gray-500'>reviews</p>
