@@ -127,12 +127,12 @@ export default function Page() {
             {audienceSize > user.followerCount ?
               (
                 <div className='flex flex-col justify-center items-center'>
-                  <h3 className='text-2xl font-bold'>{audienceSize}</h3>
+                  <h3 className='text-2xl font-bold'>{audienceSize.toLocaleString()}</h3>
                   <p className='text-xs text-font text-gray-500'>audience</p>
                 </div>
               ) : (
                 <div className='flex flex-col justify-center items-center'>
-                  <h3 className='text-2xl font-bold'>{user.followerCount ?? 0}</h3>
+                  <h3 className='text-2xl font-bold'>{(user.followerCount ?? 0).toLocaleString()}</h3>
                   <p className='text-xs text-font text-gray-500'>followers</p>
                 </div>
               )}
