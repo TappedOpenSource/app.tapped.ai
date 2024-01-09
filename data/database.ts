@@ -136,6 +136,7 @@ export async function getUserOpportunities(
   const querySnapshot = query(
     opportunitiesCollection,
     orderBy('startTime', 'desc'),
+    where('startTime', '>', new Date()),
     where('userId', '==', userId),
   ).withConverter(opportunityConverter);
 
