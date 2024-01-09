@@ -113,7 +113,7 @@ export default function Page() {
         />
       </div>
       <div className='md:flex md:justify-center'>
-        <div className='py-4 px-6 md:w-1/2'>
+        <div className='py-4 px-6 md:w-2/3'>
           <div>
             <h1 className='text-4xl font-extrabold'>{user.artistName}</h1>
             <p className='text-sm text-gray-500'>@{user.username}</p>
