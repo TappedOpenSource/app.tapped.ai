@@ -16,7 +16,7 @@ export async function generateMetadata(
   try {
     const { opportunityId } = params;
 
-    const res = await fetch(`${getOpportunityByIdUrl}?opportunityid=${opportunityId}`);
+    const res = await fetch(`${getOpportunityByIdUrl}?id=${opportunityId}`);
     const opportunity = await res.json() as Opportunity;
 
     const imageSrc = opImage(opportunity);
