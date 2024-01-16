@@ -15,9 +15,7 @@ export default function Nav() {
     <>
       <nav className='fixed w-screen backdrop-blur-xl bg-[#010F16]/30 flex items-center flex-wrap bg-transparent p-3 '>
         <Link
-          href="https://tapped.ai"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/"
           className='inline-flex items-center p-2 mr-4 '
         >
           <Image
@@ -42,7 +40,7 @@ export default function Nav() {
           <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto'>
             <Link
               onClick={() => track('nav-click', { item: 'for-artists' })}
-              href='https://tapped.ai/download'
+              href='/download'
               className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white '
             >
                 for performers
@@ -71,15 +69,6 @@ export default function Nav() {
               className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
             >
                 blog
-            </Link>
-            <Link
-              onClick={() => track('nav-click', { item: 'newsletter' })}
-              href='https://getmusicnewsletters.com'
-              target="_blank"
-              rel="noopener noreferrer"
-              className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
-            >
-                newsletter
             </Link>
           </div>
         </div>

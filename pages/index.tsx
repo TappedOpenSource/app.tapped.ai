@@ -99,11 +99,11 @@ export default function Home({ shuffledArtists }: {
           </h2>
           <div className="flex flex-col md:flex-row justify-center mt-8 mb-4 py-2 px-4 gap-4">
             <Link
-              href="https://tapped.ai/download"
+              href="/download"
               className="text-lg font-black bg-white text-black text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
             >for performers</Link>
             <Link
-              href="https://tapped.ai/venue"
+              href="/venue"
               className="text-lg font-black text-white bg-white/25 text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
             >for bookers</Link>
           </div>

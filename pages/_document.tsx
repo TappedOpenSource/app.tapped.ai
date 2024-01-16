@@ -22,8 +22,8 @@ class MyDocument extends Document {
             property="og:title"
             content={title}
           />
-          <meta property="og:image" content="https://tapped.ai/og.png"></meta>
-          <meta property="og:url" content="https://tapped.ai"></meta>
+          <meta property="og:image" content="https://tapped.ai/og.png" />
+          <meta property="og:url" content="https://tapped.ai" />
           <meta name="twitter:card" content="summary_large_image" />
           <meta
             name="twitter:title"
@@ -33,7 +33,7 @@ class MyDocument extends Document {
             name="twitter:description"
             content={description}
           />
-          <meta property="twitter:image" content="https://tapped.ai/og.png"></meta>
+          <meta property="twitter:image" content="https://tapped.ai/og.png" />
         </Head>
         <body className="antialiased">
           <Main />
