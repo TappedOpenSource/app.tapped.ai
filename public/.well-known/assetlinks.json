@@ -1,0 +1,9 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.intheloopstudio",
+      "sha256_cert_fingerprints":
+      ["35:1D:E7:E9:32:E9:32:B5:4A:64:E6:5B:24:41:44:D1:F5:73:AE:E5:49:B0:49:FF:7F:5B:5B:8D:1E:57:AA:FE"]
+    }
+  }]
