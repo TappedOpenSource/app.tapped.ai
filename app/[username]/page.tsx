@@ -35,7 +35,7 @@ export async function generateMetadata(
     twitter: {
       card: 'summary_large_image',
       site: '@tappedai',
-      title: 'Tapped Ai',
+      title: `${username}`,
       description: `${username} on tapped`,
       images: imageSrc,
     },

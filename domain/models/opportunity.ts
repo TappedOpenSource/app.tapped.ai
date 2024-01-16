@@ -54,3 +54,14 @@ export const opportunityConverter = {
     };
   },
 };
+
+export const opImage = (opportunity: Opportunity) => {
+  if (
+    opportunity.flierUrl !== undefined &&
+    opportunity.flierUrl !== null &&
+    opportunity.flierUrl !== '') {
+    return opportunity.flierUrl;
+  }
+
+  return '/images/default_avatar.png';
+};
