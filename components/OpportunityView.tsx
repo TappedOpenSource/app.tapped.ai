@@ -10,7 +10,7 @@ import { FaMoneyBill } from 'react-icons/fa';
 import { getPlaceById } from '@/data/places';
 import { Fab } from '@mui/material';
 
-export default function Page({ opportunityId }: {
+export default function OpportunityView({ opportunityId }: {
     opportunityId: string;
 }) {
   const [opportunity, setOpportunity] = useState<Opportunity | null>(null);
