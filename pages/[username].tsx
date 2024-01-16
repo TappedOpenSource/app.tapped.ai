@@ -111,8 +111,6 @@ export default function Page({
         alt={`${user.artistName} profile picture`}
         fill
         style={{
-          maxWidth: '100%',
-          height: 'auto',
           objectFit: 'cover',
           objectPosition: 'center',
         }} />

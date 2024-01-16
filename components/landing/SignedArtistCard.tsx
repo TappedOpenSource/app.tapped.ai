@@ -26,8 +26,6 @@ const SignedArtistCard = ({ name, photo, username, url }: {
           alt={name}
           style={{
             objectFit: 'cover',
-            maxWidth: '100%',
-            height: 'auto',
           }} />
         <div className="absolute bg-gradient-to-t from-black to-30% bottom-0 left-0 w-full h-full rounded-2xl"></div>
         <p className="absolute font-bold text-xl bottom-0 left-0 pb-2 pl-2">{name}</p>

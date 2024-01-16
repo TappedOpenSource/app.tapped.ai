@@ -48,8 +48,6 @@ function Testimonial({ name, text, photo, url, signed = false }) {
             alt={name}
             style={{
               objectFit: 'cover',
-              maxWidth: '100%',
-              height: 'auto',
             }} />
         </div>
         <h3 className="text-2xl font-extrabold">{name}</h3>

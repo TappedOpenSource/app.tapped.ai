@@ -100,8 +100,6 @@ export default function Page() {
           fill
           className='rounded-xl'
           style={{
-            maxWidth: '100%',
-            height: 'auto',
             objectFit: 'cover',
             objectPosition: 'center',
           }} />

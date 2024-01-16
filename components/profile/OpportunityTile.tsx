@@ -25,10 +25,8 @@ export default function OpportunityTile({ opportunity }: {
             alt='opportunity flier'
             fill
             className='rounded-xl'
+            objectFit='cover'
             style={{
-              maxWidth: '100%',
-              height: 'auto',
-              objectFit: 'cover',
             }} />
         </div>
         <h1
