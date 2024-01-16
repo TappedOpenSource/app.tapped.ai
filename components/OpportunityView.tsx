@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { getOpportunityById, getUserById } from '@/data/database';
-import { Opportunity } from '@/domain/models/opportunity';
+import { Opportunity, opImage } from '@/domain/models/opportunity';
 import Link from 'next/link';
 import Image from 'next/image';
 import UserTile from '@/components/UserTile';
@@ -66,19 +66,7 @@ export default function OpportunityView({ opportunityId }: {
     );
   }
 
-  const opImage = (() => {
-    if (
-      opportunity.flierUrl !== undefined &&
-      opportunity.flierUrl !== null &&
-      opportunity.flierUrl !== '') {
-      return opportunity.flierUrl;
-    }
-
-    return '/images/default_avatar.png';
-  })();
-
-  console.log({ opportunity });
-
+  const imageSrc = opImage(opportunity);
 
   return (
     <>
@@ -97,7 +85,7 @@ export default function OpportunityView({ opportunityId }: {
       >
         <div className='md:px-0 relative h-[512px] w-full md:w-1/2 overflow-hidden'>
           <Image
-            src={opImage}
+            src={imageSrc}
             alt={`${opportunity.title} flier`}
             fill
             className='rounded-xl'
