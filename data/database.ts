@@ -55,6 +55,7 @@ export async function getLatestBookingByRequestee(userId: string): Promise<Optio
   const querySnapshot = query(
     bookingsCollection,
     where('requesteeId', '==', userId),
+    where('status', '==', 'confirmed'),
     orderBy('timestamp', 'desc'),
     limit(1),
   ).withConverter(bookingConverter);
@@ -74,6 +75,7 @@ export async function getLatestBookingByRequester(userId: string): Promise<Optio
   const querySnapshot = query(
     bookingsCollection,
     where('requesterId', '==', userId),
+    where('status', '==', 'confirmed'),
     orderBy('timestamp', 'desc'),
     limit(1),
   ).withConverter(bookingConverter);
@@ -216,6 +218,7 @@ export async function getBookingsByRequestee(userId: string): Promise<Booking[]>
   const querySnapshot = query(
     bookingsCollection,
     where('requesteeId', '==', userId),
+    where('status', '==', 'confirmed'),
     orderBy('timestamp', 'desc'),
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
@@ -228,6 +231,7 @@ export async function getBookingsByRequester(userId: string): Promise<Booking[]>
   const querySnapshot = query(
     bookingsCollection,
     where('requesterId', '==', userId),
+    where('status', '==', 'confirmed'),
     orderBy('timestamp', 'desc'),
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
