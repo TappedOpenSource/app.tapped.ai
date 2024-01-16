@@ -43,3 +43,19 @@ export const userModelConverter = {
     };
   },
 };
+
+export const audienceSize = (user: UserModel) => (user.twitterFollowers ?? 0) +
+    (user.instagramFollowers ?? 0) +
+    (user.tiktokFollowers ?? 0);
+
+
+export const profileImage = (user: UserModel) => {
+  if (
+    user.profilePicture === undefined ||
+      user.profilePicture === null ||
+      user.profilePicture === '') {
+    return '/images/default_avatar.png';
+  }
+
+  return user.profilePicture;
+};
