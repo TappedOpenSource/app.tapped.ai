@@ -15,7 +15,7 @@ import BookerBookingHistoryPreview from '@/components/profile/BookerBookingHisto
 import BookerReviewsPreview from '@/components/profile/BookerReviewsPreview';
 import OpportunitiesSlider from '@/components/profile/OpportunitiesSlider';
 
-const PageMetadata = ({ username }: { username: string | string[] }) => (
+const PageMetadata = ({ username }: { username: string }) => (
   <Head>
     <title>{username} on tapped</title>
     <link rel="icon" href="/favicon.ico" />
