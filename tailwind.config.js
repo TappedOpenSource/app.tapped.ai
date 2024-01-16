@@ -4,16 +4,19 @@ module.exports = {
     hoverOnlyWhenSupported: true,
   },
   content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}', // Note the addition of the `app` directory.
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+
+    // Or if using `src` directory:
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       animation: {
-        marquee: 'marquee 25s linear infinite',
-        marquee2: 'marquee2 25s linear infinite',
-        'fade-in': 'fadeIn 1s'
+        'marquee': 'marquee 25s linear infinite',
+        'marquee2': 'marquee2 25s linear infinite',
+        'fade-in': 'fadeIn 1s',
       },
       keyframes: {
         marquee: {
@@ -26,15 +29,15 @@ module.exports = {
         },
         fadeIn: {
           '0%': { opacity: 0 },
-          '100%': { opacity: 1 }
-        }
+          '100%': { opacity: 1 },
+        },
       },
       boxShadow: {
         highlight: 'inset 0 0 0 1px rgba(255, 255, 255, 0.05)',
       },
       screens: {
-        narrow: { raw: '(max-aspect-ratio: 3 / 2)' },
-        wide: { raw: '(min-aspect-ratio: 3 / 2)' },
+        'narrow': { raw: '(max-aspect-ratio: 3 / 2)' },
+        'wide': { raw: '(min-aspect-ratio: 3 / 2)' },
         'taller-than-854': { raw: '(min-height: 854px)' },
       },
     },
