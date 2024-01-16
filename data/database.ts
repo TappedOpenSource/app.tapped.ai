@@ -296,7 +296,7 @@ export async function createCheckoutSession({
 
   // Wait for the CheckoutSession to get attached by the extension
   onSnapshot(docRef, (snap) => {
-    const { error, url } = snap.data();
+    const { error, url } = snap.data() as { error: Error; url: string };
     if (error) {
       // Show an error to your customer and then inspect your function logs.
       alert(`An error occured: ${error.message}`);

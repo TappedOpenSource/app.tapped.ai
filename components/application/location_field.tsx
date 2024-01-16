@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const LocationField = ({ formData, updateFormData, onValidation }) => {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const validateForUI = (value) => {
     if (value.trim() === '') {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const ArtistProfessionField = ({ formData, updateFormData, onValidation }) => {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
 
   const handleInputChange = (e) => {

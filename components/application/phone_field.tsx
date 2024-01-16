@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const PhoneField = ({ formData, updateFormData, onValidation }) => {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [touched, setTouched] = useState(false);
 
   const validateForUI = (value) => {
