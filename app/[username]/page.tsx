@@ -20,11 +20,25 @@ export async function generateMetadata(
 
   const imageSrc = profileImage(user);
 
+  const description = 'Tapped Ai : world\'s first Ai label';
   return {
+    metadataBase: new URL('http://localhost:3000'),
     title: `${username}`,
-    description: 'Tapped Ai : world\'s first Ai label',
+    description,
     openGraph: {
-      images: [imageSrc],
+      type: 'website',
+      url: `https://tapped.ai/${username}`,
+      title: `${username}`,
+      description,
+      siteName: 'Tapped Ai',
+      images: [{ url: imageSrc }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@tappedai',
+      title: 'Tapped Ai',
+      description,
+      images: imageSrc,
     },
   };
 }
