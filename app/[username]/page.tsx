@@ -1,4 +1,4 @@
-import UserProfileView from '@/components/UserProfileView';
+import PerformerProfileView from '@/components/PerformerProfileView';
 import { UserModel, profileImage } from '@/domain/models/user_model';
 import { Metadata, ResolvingMetadata } from 'next';
 
@@ -47,7 +47,7 @@ export default function Page({ params }: Props) {
 
   return (
     <>
-      <UserProfileView username={username} />
+      <PerformerProfileView username={username} />
     </>
   );
 }
