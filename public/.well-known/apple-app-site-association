@@ -1,3 +1,40 @@
 {
-   "/":"*"
-}
+   "applinks":{
+     "apps":[
+        
+     ],
+     "details":[
+       {
+         "appIDs":[
+           "9HNXYM86C6.com.intheloopstudio"
+         ],
+         "components":[
+           {
+             "/":"/*",
+             "comment":"Matches any URL"
+           },
+           {
+             "/":"/venue",
+             "exclude":true,
+             "comment":"Matches URL with a path /venue and instructs the system not to open it as a universal link."
+           },
+           {
+             "/":"/about",
+             "exclude":true,
+             "comment":"Matches URL with a path /about and instructs the system not to open it as a universal link."
+           },
+           {
+             "/":"/terms",
+             "exclude":true,
+             "comment":"Matches URL with a path /terms and instructs the system not to open it as a universal link."
+           },
+           {
+             "/":"/privacy",
+             "exclude":true,
+             "comment":"Matches URL with a path /privacy and instructs the system not to open it as a universal link."
+           }
+         ]
+       }
+     ]
+   }
+ }
