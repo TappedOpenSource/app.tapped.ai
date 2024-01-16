@@ -1,10 +1,10 @@
 'use client';
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserModel } from '@/domain/models/user_model';
+import { UserModel, audienceSize, profileImage } from '@/domain/models/user_model';
 import { getUserByUsername } from '@/data/database';
 import InstagramButton from '@/components/profile/InstagramButton';
 import TwitterButton from '@/components/profile/TwitterButton';
@@ -89,27 +89,16 @@ export default function Page({
     );
   }
 
-  const profileImage = (() => {
-    if (
-      user.profilePicture === undefined ||
-      user.profilePicture === null ||
-      user.profilePicture === '') {
-      return '/images/default_avatar.png';
-    }
+  const imageSrc = profileImage(user);
 
-    return user.profilePicture;
-  })();
-
-  const audienceSize = (user.twitterFollowers ?? 0) +
-    (user.instagramFollowers ?? 0) +
-    (user.tiktokFollowers ?? 0);
+  const audience = audienceSize(user);
 
   return (
     <>
       <PageMetadata username={username} />
       <div className='relative h-[256px] w-screen overflow-hidden'>
         <Image
-          src={profileImage}
+          src={imageSrc}
           alt={`${user.artistName} profile picture`}
           objectFit='cover'
           objectPosition='center'
@@ -129,10 +118,10 @@ export default function Page({
           </div>
           <div className='h-4' /> */}
           <div className='flex flex-row items-center justify-around'>
-            {audienceSize > user.followerCount ?
+            {audience > user.followerCount ?
               (
                 <div className='flex flex-col justify-center items-center'>
-                  <h3 className='text-2xl font-bold'>{audienceSize.toLocaleString()}</h3>
+                  <h3 className='text-2xl font-bold'>{audience.toLocaleString()}</h3>
                   <p className='text-xs text-font text-gray-500'>audience</p>
                 </div>
               ) : (

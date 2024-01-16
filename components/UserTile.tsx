@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { UserModel } from '@/domain/models/user_model';
+import { UserModel, profileImage } from '@/domain/models/user_model';
 import Link from 'next/link';
 
 export default function UserTile({ user }: {
@@ -11,17 +11,7 @@ export default function UserTile({ user }: {
     );
   }
 
-  const profileImage = (() => {
-    if (
-      user.profilePicture === undefined ||
-      user.profilePicture === null ||
-      user.profilePicture === '') {
-      return '/images/default_avatar.png';
-    }
-
-    return user.profilePicture;
-  })();
-
+  const imageSrc = profileImage(user);
 
   return (
     <Link
@@ -30,12 +20,10 @@ export default function UserTile({ user }: {
       <div className='flex flex-row items-center'>
         <div className='relative h-12 w-12 overflow-hidden rounded-full'>
           <Image
-            src={profileImage}
+            src={imageSrc}
             alt={`${user.artistName} profile picture`}
             fill
             style={{
-              maxWidth: '100%',
-              height: 'auto',
               objectFit: 'cover',
               objectPosition: 'center',
             }} />

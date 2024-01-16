@@ -1,45 +1,39 @@
-'use client';
-
 import UserProfileView from '@/components/UserProfileView';
+import { UserModel, profileImage } from '@/domain/models/user_model';
+import { Metadata, ResolvingMetadata } from 'next';
 
-export default function Page({
-  params,
-}: {
-  params: { username: string };
-}) {
+type Props = {
+  params: { username: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+const getUserByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/getUserByUsername`;
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const username = params.username;
+
+  const res = await fetch(`${getUserByIdUrl}?username=${username}`);
+  const user = await res.json() as UserModel;
+
+  const imageSrc = profileImage(user);
+
+  return {
+    title: `${username}`,
+    description: 'Tapped Ai : world\'s first Ai label',
+    openGraph: {
+      images: [imageSrc],
+    },
+  };
+}
+
+export default function Page({ params }: Props) {
   const username = params.username;
 
   return (
     <>
-      <head>
-        <title>{username} on tapped</title>
-        <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="my live performance page"
-        />
-        <meta property="og:site_name" content="tapped.ai" />
-        <meta
-          property="og:description"
-          content="my live performance page"
-        />
-        <meta
-          property="og:title"
-          content="Tapped Ai : world's first Ai label"
-        />
-        <meta property="og:image" content="https://tapped.ai/download_og.png"></meta>
-        <meta property="og:url" content="https://tapped.ai"></meta>
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Tapped Ai : world's first Ai label"
-        />
-        <meta
-          name="twitter:description"
-          content="we want to sign you to our label. apply for free"
-        />
-        <meta property="twitter:image" content="https://tapped.ai/download_og.png"></meta>
-      </head>
       <UserProfileView username={username} />
     </>
   );
