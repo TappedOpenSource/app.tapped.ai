@@ -47,9 +47,13 @@ const PageMetadata = ({ username }: { username: string | string[] }) => (
   </Head>
 );
 
-export default function Page() {
+export default function Page({
+  params,
+}: {
+  params: { username: string };
+}) {
   const router = useRouter();
-  const username = router.query.username;
+  const username = params.username;
   const [user, setUser] = useState<UserModel | null>(null);
 
   useEffect(() => {

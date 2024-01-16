@@ -24,7 +24,10 @@ const SubscriptionPlans = () => {
             alt="image of jayduhhh"
             width={400}
             height={400}
-          />
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }} />
         </div>
       </div>
     </section>

@@ -45,38 +45,39 @@ function ProductSection({
     '';
 
 
-  return (
-    <>
-      <div className={`flex flex-col ${flexDirection} justify-center items-center gap-6 ${backgroundColor}`}>
-        <div className='mx-4 md:mx-0 md:w-1/3'>
-          <h1 className='text-2xl font-extrabold'>{title}</h1>
-          <p className=''>
-            {description}
-          </p>
-          <div className='h-8'></div>
-          <Link
-            href={link}
-            className="text-lg bg-white text-black font-extrabold rounded-full px-6 py-4 hover:scale-105 transform transition-all duration-200 ease-in-out"
-          >{buttonText}</Link>
-        </div>
-        <div>
-          <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            href={link}
-          >
-            <Image
-              src={image}
-              alt={alt}
-              width={500}
-              height={500}
-              className={`rounded-xl ${border}`}
-            />
-          </Link>
-        </div>
+  return <>
+    <div className={`flex flex-col ${flexDirection} justify-center items-center gap-6 ${backgroundColor}`}>
+      <div className='mx-4 md:mx-0 md:w-1/3'>
+        <h1 className='text-2xl font-extrabold'>{title}</h1>
+        <p className=''>
+          {description}
+        </p>
+        <div className='h-8'></div>
+        <Link
+          href={link}
+          className="text-lg bg-white text-black font-extrabold rounded-full px-6 py-4 hover:scale-105 transform transition-all duration-200 ease-in-out"
+        >{buttonText}</Link>
       </div>
-    </>
-  );
+      <div>
+        <Link
+          target="_blank"
+          rel="noopener noreferrer"
+          href={link}
+        >
+          <Image
+            src={image}
+            alt={alt}
+            width={500}
+            height={500}
+            className={`rounded-xl ${border}`}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }} />
+        </Link>
+      </div>
+    </div>
+  </>;
 }
 
 export default function Benefits() {

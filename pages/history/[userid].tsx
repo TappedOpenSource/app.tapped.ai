@@ -3,11 +3,15 @@ import { getBookingsByRequestee, getUserById } from '@/data/database';
 import { Booking } from '@/domain/models/booking';
 import { UserModel } from '@/domain/models/user_model';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function History() {
+export default function History({
+  params,
+}: {
+  params: { userid: string };
+}) {
   const router = useRouter();
-  const userId = router.query.userid;
+  const userId = params.userid;
 
   const [performer, setPerformer] = useState<UserModel | null>(null); // TODO: [performer, setPerformer
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -47,7 +51,7 @@ export default function History() {
     fetchUser();
   }, [userId, router]);
 
-  if (loading) {
+  if (loading || !performer) {
     return (
       <div className='min-h-screen flex justify-center items-center'>
         <p>fetching bookings... </p>

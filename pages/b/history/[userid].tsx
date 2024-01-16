@@ -5,9 +5,13 @@ import { UserModel } from '@/domain/models/user_model';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
-export default function History() {
+export default function History({
+  params,
+}: {
+  params: { userid: string };
+}) {
   const router = useRouter();
-  const userId = router.query.userid;
+  const userId = params.userid;
 
   const [booker, setBooker] = useState<UserModel | null>(null); // TODO: [performer, setPerformer
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -47,7 +51,7 @@ export default function History() {
     fetchUser();
   }, [userId, router]);
 
-  if (loading) {
+  if (loading || booker === null) {
     return (
       <div className='min-h-screen flex justify-center items-center'>
         <p>fetching bookings... </p>

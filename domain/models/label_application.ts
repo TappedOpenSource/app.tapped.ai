@@ -24,7 +24,7 @@ export const labelApplicationConverter = {
     const data = snapshot.data(options);
     return {
       ...data,
-      timestamp: data.timestamp.toDate(),
+      timestamp: data?.timestamp.toDate(),
     };
   },
 };

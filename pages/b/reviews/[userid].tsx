@@ -3,13 +3,14 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getReviewsByBookerId } from '@/data/database';
 import ReviewTile from '@/components/profile/ReviewTile';
+import { Review } from '@/domain/models/review';
 
 export default function Reviews() {
   const router = useRouter();
   const userId = router.query.userid;
 
   const [loading, setLoading] = useState(true);
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
     const fetchReviews = async () => {

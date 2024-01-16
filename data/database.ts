@@ -12,10 +12,7 @@ import {
   limit,
 } from 'firebase/firestore';
 import { Option, None, Some } from '@sniptt/monads';
-import { Avatar, avatarConverter } from '@/domain/models/avatar';
-import { AlbumName, albumNameConverter } from '@/domain/models/album_name';
 import { LabelApplication, labelApplicationConverter } from '@/domain/models/label_application';
-import { AiModel } from '@/domain/models/ai_model';
 import { db } from '@/utils/firebase';
 import { UserModel } from '@/domain/models/user_model';
 import { Booking, bookingConverter } from '@/domain/models/booking';
@@ -238,46 +235,6 @@ export async function getBookingsByRequester(userId: string): Promise<Booking[]>
   return queryDocs.docs.map((doc) => doc.data());
 }
 
-export async function createAvatar(avatar: Avatar): Promise<string> {
-  const docRef = doc(
-    db,
-    `/avatars/${avatar.userId}/userAvatars/${avatar.id}`,
-  ).withConverter(avatarConverter);
-  await setDoc(docRef, avatar);
-
-  return docRef.id;
-}
-export async function getAvatar({ userId, id }: {
-    userId: string,
-    id: string,
-  }): Promise<Option<Avatar>> {
-  const docRef = doc(db, `/avatars/${userId}/userAvatars/${id}`).withConverter(avatarConverter);
-  const docSnap = await getDoc(docRef);
-  if (!docSnap.exists()) {
-    return None;
-  }
-
-  const avatar = docSnap.data();
-  console.log(JSON.stringify(avatar));
-
-  return Some(avatar);
-}
-export async function getAvatarsByUser({ userId }: {
-    userId: string,
-  }): Promise<Avatar[]> {
-  const avatarsCollection = collection(db, `/avatars/${userId}/userAvatars`).withConverter(avatarConverter);
-  const avatarDocs = await getDocs(avatarsCollection);
-  return avatarDocs.docs.map((doc) => doc.data());
-}
-export async function createGeneratedAlbumName(albumName: AlbumName): Promise<string> {
-  const docRef = doc(
-    db,
-    `/albumNames/${albumName.userId}/userAlbumNames/${albumName.id}`,
-  ).withConverter(albumNameConverter);
-  await setDoc(docRef, albumName);
-
-  return docRef.id;
-}
 export async function createCheckoutSession({
   userId,
   priceId,
@@ -350,20 +307,3 @@ export async function createNewApplicationResponse({ userId, labelApplication }:
 
   return docRef.id;
 }
-export async function getLatestImageModel(userId: string): Promise<Option<AiModel>> {
-  const aiModelsCollection = collection(db, 'aiModels');
-  const userDoc = doc(aiModelsCollection, userId);
-  const imageModelsSubCollection = collection(userDoc, 'imageModels');
-
-  const q = query(imageModelsSubCollection, orderBy('timestamp', 'desc'), limit(1));
-
-  const querySnapshot = await getDocs(q);
-  if (querySnapshot.empty) {
-    console.log('No modelId found for user!');
-    return None;
-  }
-
-  const imageModel = querySnapshot.docs[0].data() as AiModel;
-  return Some(imageModel);
-}
-

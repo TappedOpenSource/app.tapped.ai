@@ -34,7 +34,7 @@ const FirebaseAuth: Auth = {
     }
   },
   getCurrentUserEmail: (): Option<{ email: string }> => {
-    if (auth.currentUser) {
+    if (auth.currentUser && auth.currentUser.email) {
       return Some({ email: auth.currentUser.email });
     } else {
       return None;
@@ -99,7 +99,7 @@ const FirebaseAuth: Auth = {
     console.log({ token });
     const decodedToken = await auth.currentUser?.getIdTokenResult();
     console.log({ claims: decodedToken?.claims });
-    return decodedToken?.claims;
+    return decodedToken?.claims ?? null;
   },
 };
 

@@ -45,7 +45,15 @@ const Button: FC<ButtonProps> = ({
           className
         )}
       >
-        <Image src={logo} alt={storeName} height={36} width={36} />
+        <Image
+          src={logo}
+          alt={storeName}
+          height={36}
+          width={36}
+          style={{
+            maxWidth: '100%',
+            height: 'auto',
+          }} />
         <div className={outfit.className + ' flex flex-col items-start'}>
           <span className="button-title">{title}</span>
           <span className="button-store-name">{storeName}</span>

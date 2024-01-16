@@ -29,7 +29,7 @@ const withSubscription = (Component) => (props: JSX.IntrinsicAttributes) => {
         }
       });
 
-      addCustomerSubscriptionListener(authUser.uid, (snapshot) => {
+      addCustomerSubscriptionListener(authUser?.uid, (snapshot) => {
         if (snapshot.empty) {
           router.push('/pricing');
         }

@@ -46,7 +46,11 @@ function Testimonial({ name, text, photo, url, signed = false }) {
             className='rounded-full'
             src={photo}
             alt={name}
-            style={{ objectFit: 'cover' }} />
+            style={{
+              objectFit: 'cover',
+              maxWidth: '100%',
+              height: 'auto',
+            }} />
         </div>
         <h3 className="text-2xl font-extrabold">{name}</h3>
       </div>

@@ -1,6 +1,4 @@
 
-import Image from 'next/image';
-
 const SupportJourney = () => {
   return (
     <section id="support-journey">

@@ -54,7 +54,10 @@ const Signup: NextPage = () => {
           alt="Tapped_Logo"
           width={180}
           height={180}
-        />
+          style={{
+            maxWidth: '100%',
+            height: 'auto',
+          }} />
       </div>
 
       <form className="w-full max-w-sm" onSubmit={handleSignup}>

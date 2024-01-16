@@ -1,8 +1,8 @@
 'use client';
 
+import React from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
-
 import { app } from '@/utils/firebase';
 console.log(app.name);
 

@@ -17,7 +17,10 @@ const FeaturedIn = () => {
               width={124}
               height={124}
               className='rounded-lg'
-            />
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+              }} />
           </Link>
         </div>
         <div>
@@ -30,7 +33,10 @@ const FeaturedIn = () => {
               width={124}
               height={124}
               className='rounded-lg'
-            />
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+              }} />
           </Link>
         </div>
         <div>
@@ -43,7 +49,10 @@ const FeaturedIn = () => {
               width={124}
               height={124}
               className='rounded-lg'
-            />
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+              }} />
           </Link>
         </div>
       </div>

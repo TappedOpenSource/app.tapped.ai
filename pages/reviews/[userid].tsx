@@ -1,15 +1,18 @@
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { getReviewsByPerformerId } from '@/data/database';
 import ReviewTile from '@/components/profile/ReviewTile';
+import { Review } from '@/domain/models/review';
 
-export default function Reviews() {
-  const router = useRouter();
-  const userId = router.query.userid;
+export default function Reviews({
+  params,
+}: {
+  params: { userid: string };
+}) {
+  const userId = params.userid;
 
   const [loading, setLoading] = useState(true);
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
     const fetchReviews = async () => {

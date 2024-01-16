@@ -32,10 +32,13 @@ export default function UserTile({ user }: {
           <Image
             src={profileImage}
             alt={`${user.artistName} profile picture`}
-            objectFit='cover'
-            objectPosition='center'
             fill
-          />
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+              objectFit: 'cover',
+              objectPosition: 'center',
+            }} />
         </div>
         <div className='ml-4'>
           <h3 className='text-xl font-bold'>{user.artistName}</h3>

@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   try {
     const signature = cloudinary.utils.api_sign_request(
       paramsToSign,
-      process.env.CLOUDINARY_API_SECRET,
+      process.env.CLOUDINARY_API_SECRET ?? '',
     );
     res.status(200).json({
       signature,

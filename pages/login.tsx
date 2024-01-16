@@ -46,7 +46,10 @@ export default function Login() {
           alt="Tapped_Logo"
           width={124}
           height={124}
-        />
+          style={{
+            maxWidth: '100%',
+            height: 'auto',
+          }} />
       </div>
 
       <form className="w-full max-w-sm" onSubmit={handleLogin}>
