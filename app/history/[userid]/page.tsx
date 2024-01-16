@@ -1,3 +1,5 @@
+'use client';
+
 import BookingTile from '@/components/profile/BookingTile';
 import { getBookingsByRequestee, getUserById } from '@/data/database';
 import { Booking } from '@/domain/models/booking';
