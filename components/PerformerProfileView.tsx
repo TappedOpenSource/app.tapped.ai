@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserModel, audienceSize, profileImage } from '@/domain/models/user_model';
+import { UserModel, audienceSize, profileImage, reviewCount } from '@/domain/models/user_model';
 import PerformerBookingHistoryPreview from '@/components/profile/PerformerBookingHistoryPreview';
 import { getUserByUsername } from '@/data/database';
 import PerformerReviewsPreview from '@/components/profile/PerformerReviewsPreview';
@@ -77,33 +77,25 @@ export default function PerformerProfileView({ username }: { username: string })
           </div>
           <div className='h-4' /> */}
           <div className='flex flex-row items-center justify-around'>
-            {audience > user.followerCount ?
-              (
-                <div className='flex flex-col justify-center items-center'>
-                  <h3 className='text-2xl font-bold'>{audience.toLocaleString()}</h3>
-                  <p className='text-xs text-font text-gray-500'>audience</p>
-                </div>
-              ) : (
-                <div className='flex flex-col justify-center items-center'>
-                  <h3 className='text-2xl font-bold'>{(user.followerCount ?? 0).toLocaleString()}</h3>
-                  <p className='text-xs text-font text-gray-500'>followers</p>
-                </div>
-              )}
             <div className='flex flex-col justify-center items-center'>
-              <h3 className='text-2xl font-bold'>{user.reviewCount ?? 0}</h3>
+              <h3 className='text-2xl font-bold'>{audience.toLocaleString()}</h3>
+              <p className='text-xs text-font text-gray-500'>audience</p>
+            </div>
+            <div className='flex flex-col justify-center items-center'>
+              <h3 className='text-2xl font-bold'>{reviewCount(user)}</h3>
               <p className='text-xs text-font text-gray-500'>reviews</p>
             </div>
             <div className='flex flex-col justify-center items-center'>
-              <h3 className='text-2xl font-bold'>{user.overallRating ? `${user.overallRating}/5` : 'N/A'}</h3>
+              <h3 className='text-2xl font-bold'>{user.performerInfo?.rating ? `${user.performerInfo?.rating}/5` : 'N/A'}</h3>
               <p className='text-sm text-gray-400'>rating</p>
             </div>
           </div>
           <div className='h-4' />
           <div className='flex flex-row items-center justify-around'>
-            {user.instagramHandle && <InstagramButton instagramHandle={user.instagramHandle} />}
-            {user.twitterHandle && <TwitterButton twitterHandle={user.twitterHandle} />}
-            {user.tiktokHandle && <TiktokButton tiktokHandle={user.tiktokHandle} />}
-            {user.spotifyId && <SpotifyButton spotifyId={user.spotifyId} />}
+            {user.socialFollowing.instagramHandle && <InstagramButton instagramHandle={user.socialFollowing.instagramHandle} />}
+            {user.socialFollowing.twitterHandle && <TwitterButton twitterHandle={user.socialFollowing.twitterHandle} />}
+            {user.socialFollowing.tiktokHandle && <TiktokButton tiktokHandle={user.socialFollowing.tiktokHandle} />}
+            {user.performerInfo?.spotifyId && <SpotifyButton spotifyId={user.performerInfo.spotifyId} />}
           </div>
           <div className='h-4' />
           <div>

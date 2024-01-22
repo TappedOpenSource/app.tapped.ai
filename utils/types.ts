@@ -8,6 +8,7 @@ export interface ImageProps {
   blurDataUrl?: string
 }
 
+
 export interface SharedModalProps {
   index: number
   images?: ImageProps[]
@@ -17,3 +18,4 @@ export interface SharedModalProps {
   navigation: boolean
   direction?: number
 }
+
