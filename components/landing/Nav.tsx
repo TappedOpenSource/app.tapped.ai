@@ -55,6 +55,15 @@ export default function Nav() {
               for bookers
           </Link>
           <Link
+            onClick={() => track('nav-click', { item: 'data' })}
+            href='https://data.tapped.ai'
+            target="_blank"
+            rel="noopener noreferrer"
+            className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
+          >
+              analytics
+          </Link>
+          <Link
             onClick={() => track('nav-click', { item: 'roadmap' })}
             href='https://tappedapp.notion.site/Technical-Roadmap-4edc036572bd4d89913f5cd5a4cde0f6?pvs=4'
             target="_blank"
