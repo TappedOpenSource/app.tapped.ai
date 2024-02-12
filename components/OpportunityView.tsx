@@ -72,7 +72,7 @@ export default function OpportunityView({ opportunityId }: {
     <>
       <div className='fixed right-8 bottom-8'>
         <Link
-          href='https://tapped.ai/download'
+          href={`https://tappednetwork.page.link/opportunity/${opportunityId}`}
         >
           <Fab color="primary" aria-label="add" variant='extended'>
         apply in the app
