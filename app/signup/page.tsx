@@ -1,3 +1,5 @@
+'use client';
+
 import type { NextPage } from 'next/types';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -6,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { signupWithCredentials } from '@/domain/usecases/signup';
 
 const Signup: NextPage = ({ searchParams }: {
-  searchParams: URLSearchParams;
+  searchParams: { [key: string ]: string | string[] | null };
 }) => {
   const router = useRouter();
   const [email, setEmail] = useState('');

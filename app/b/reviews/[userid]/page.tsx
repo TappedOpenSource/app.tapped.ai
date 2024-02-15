@@ -1,13 +1,14 @@
+'use client';
 
 import { useEffect, useState } from 'react';
 import { getReviewsByBookerId } from '@/data/database';
 import ReviewTile from '@/components/profile/ReviewTile';
 import { Review } from '@/domain/models/review';
 
-export default function Reviews({ searchParams }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+export default function Reviews({ params }: {
+  params: { userid: string },
 }) {
-  const userId = searchParams['userid'];
+  const userId = params.userid;
 
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState<Review[]>([]);
