@@ -3,7 +3,7 @@ import withAuth from '@/domain/auth/withAuth';
 import { logout } from '@/domain/usecases/login';
 import { Button } from '@mui/material';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import RiveComponent from '@rive-app/react-canvas';
 import Link from 'next/link';
 

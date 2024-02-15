@@ -3,18 +3,20 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { loginWithCredentials } from '@/domain/usecases/login';
 import SignInWithGoogleButton from '@/components/signin_with_google_button';
 import ContinueWithGoogleButton from '@/components/continue_with_google_button';
 
-export default function Login() {
+export default function Login({ searchParams }: {
+  searchParams: { [key: string]: string | string[] | null };
+}) {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const query = router.query;
-  const returnTo = (query.returnUrl as string) || '/signup_complete';
+  const returnUrl = searchParams['returnUrl'];
+  const returnTo = (returnUrl as string) || '/signup_complete';
   console.log({ returnTo });
 
   const handleLogin = async (e: any) => {

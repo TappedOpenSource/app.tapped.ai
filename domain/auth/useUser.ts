@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { onIdTokenChanged } from 'firebase/auth';
 import { auth } from '@/utils/firebase';
 import {

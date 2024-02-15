@@ -54,21 +54,24 @@ export default function PerformerProfileView({ username }: { username: string })
 
   return (
     <>
-      <div className='relative h-[256px] w-screen overflow-hidden'>
-        <Image
-          src={imageSrc}
-          alt={`${user.artistName} profile picture`}
-          fill
-          style={{
-            objectFit: 'cover',
-            objectPosition: 'center',
-          }} />
-      </div>
       <div className='md:flex md:justify-center'>
         <div className='py-4 px-6 md:w-1/2'>
-          <div>
-            <h1 className='text-4xl font-extrabold'>{user.artistName}</h1>
-            <p className='text-sm text-gray-500'>@{user.username}</p>
+          <div className='flex flex-row justify-start items-center'>
+            <div className='relative w-[128px] h-[128px] lg:h-[256px] lg:w-[256px] overflow-hidden rounded-full'>
+              <Image
+                src={imageSrc}
+                alt={`${user.artistName} profile picture`}
+                fill
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                }} />
+            </div>
+            <div className="w-4" />
+            <div>
+              <h1 className='text-4xl lg:text-8xl font-extrabold'>{user.artistName}</h1>
+              <p className='text-sm lg:text-xl text-gray-500'>@{user.username}</p>
+            </div>
           </div>
           <div className='h-4' />
           {/* <div>
@@ -98,21 +101,7 @@ export default function PerformerProfileView({ username }: { username: string })
             {user.performerInfo?.spotifyId && <SpotifyButton spotifyId={user.performerInfo.spotifyId} />}
           </div>
           <div className='h-4' />
-          <div>
-            <div className='flex flex-row items-center'>
-              <h2 className='text-2xl font-bold'>Reviews</h2>
-              <div className='w-2' />
-              <Link
-                href={`/reviews/${user.id}`}
-                className='text-sm text-blue-500'
-              >
-                see all
-              </Link>
-            </div>
-            <div className="h-2" />
-            <PerformerReviewsPreview user={user} />
-          </div>
-          <div className='h-4' />
+
           <div>
             <div className='flex flex-row items-center'>
               <h2 className='text-2xl font-bold'>Booking History</h2>
@@ -127,9 +116,24 @@ export default function PerformerProfileView({ username }: { username: string })
             <div className="h-2" />
             <PerformerBookingHistoryPreview user={user} />
           </div>
-          <div className='h-4' />
+          <div className='h-8' />
           <div>
-            <h2 className='text-2xl font-bold'>More Info</h2>
+            <div className='flex flex-row items-center'>
+              <h2 className='text-2xl font-bold'>Reviews</h2>
+              <div className='w-2' />
+              <Link
+                href={`/reviews/${user.id}`}
+                className='text-sm text-blue-500'
+              >
+                see all
+              </Link>
+            </div>
+            <div className="h-2" />
+            <PerformerReviewsPreview user={user} />
+          </div>
+          <div className='h-8' />
+          <div>
+            <h2 className='text-2xl font-bold'>About</h2>
             <div className="h-2" />
             <p>{user.bio}</p>
           </div>

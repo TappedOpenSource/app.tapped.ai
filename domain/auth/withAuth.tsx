@@ -1,21 +1,18 @@
 import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { redirect, usePathname } from 'next/navigation';
 import { auth } from '@/utils/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
 // eslint-disable-next-line react/display-name
 const withAuth = (Component) => (props: JSX.IntrinsicAttributes) => {
-  const router = useRouter();
+  const pathname = usePathname();
   useEffect(() => {
     onAuthStateChanged(auth, (authUser) => {
       if (!authUser) {
-        router.push({
-          pathname: '/login',
-          query: { returnUrl: router.pathname },
-        });
+        redirect(`/login?returnUrl=${pathname}`);
       }
     });
-  }, [router]);
+  }, [pathname]);
 
   return (
     <>

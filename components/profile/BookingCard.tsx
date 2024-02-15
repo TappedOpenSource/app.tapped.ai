@@ -2,12 +2,11 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Booking } from '@/domain/models/booking';
 import { UserModel, profileImage } from '@/domain/models/user_model';
-import BookIcon from '@mui/icons-material/Book';
 import { getServiceById, getUserById } from '@/data/database';
 import { Service } from '@/domain/models/service';
 import { None } from '@sniptt/monads';
 
-export default function BookingTile({ booking, user }: {
+export default function BookingCard({ booking, user }: {
     booking: Booking;
     user: UserModel;
  }) {
@@ -77,30 +76,25 @@ export default function BookingTile({ booking, user }: {
     fetchService();
   }, [booking, user]);
 
-  // const bookerImageSrc = booker !== null ? profileImage(booker) : '/images/default_avatar.png';
+  const bookerImageSrc = booker !== null ? profileImage(booker) : '/images/default_avatar.png';
 
   return (
     <>
-      <div className='flex flex-row'>
-        <div className='flex justify-center items-center'>
-          <BookIcon />
+      <div>
+        <div>
+          <Image
+            src={bookerImageSrc}
+            alt={'booking image'}
+            width={150}
+            height={150}
+            className='rounded-lg'
+          />
         </div>
+        <div className='w-6' />
+        <p className='font-bold'>Performer</p>
         <div className='w-3' />
         <div>
-          <div className='flex flex-row items-center'>
-            <p className='font-bold'>Performer</p>
-            <div className='w-3' />
-            <p className='text-xs font-thin text-gray-300'>{booking.timestamp.toDateString()}</p>
-          </div>
-          <p className='break-word'>
-            {booker?.artistName ?? 'someone'}
-            {' '}
-          booked
-            {' '}
-            {performer?.artistName ?? 'someone'}
-            {' for '}
-            {service?.title ?? 'a show'}
-          </p>
+          <p className='text-xs font-thin text-gray-300'>{booking.timestamp.toDateString()}</p>
         </div>
       </div>
     </>

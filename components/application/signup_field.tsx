@@ -1,6 +1,6 @@
 // import SignInWithGoogleButton from '@/components/signin_with_google_button';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 // import database from '@/data/database';
 // import { LoginResult } from '@/data/auth';
 // import { loginWithGoogle } from '@/domain/usecases/login';

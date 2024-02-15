@@ -1,25 +1,18 @@
-import { getLatestBookingByRequestee } from '@/data/database';
+import { getBookingsByRequestee } from '@/data/database';
 import { Booking } from '@/domain/models/booking';
 import { UserModel } from '@/domain/models/user_model';
-import BookingTile from './BookingTile';
 import { useEffect, useState } from 'react';
+import BookingCard from './BookingCard';
 
 export default function PerformerBookingHistoryPreview({ user }: { user: UserModel }) {
-  const [latestBooking, setLatestBooking] = useState<Booking | null>(null);
+  const [latestBookings, setLatestBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchBooking = async () => {
     // fetch latest booking
-      const latestBooking = await getLatestBookingByRequestee(user.id);
-      latestBooking.match({
-        some: (booking) => {
-          setLatestBooking(booking);
-        },
-        none: () => {
-          console.log('booking not found');
-        },
-      });
+      const latestBookings = await getBookingsByRequestee(user.id);
+      setLatestBookings(latestBookings);
     };
     fetchBooking().then(() => setLoading(false));
   }, [user]);
@@ -30,7 +23,7 @@ export default function PerformerBookingHistoryPreview({ user }: { user: UserMod
     );
   }
 
-  if (latestBooking === null) {
+  if (latestBookings.length === 0) {
     return (
       <p>no booking history</p>
     );
@@ -38,7 +31,19 @@ export default function PerformerBookingHistoryPreview({ user }: { user: UserMod
 
   return (
     <>
-      <BookingTile booking={latestBooking} user={user} />
+      <div className='flex justify-start items-center'>
+        <div className="flex flex-row items-center just-fy-center overflow-x-auto space-x-5 snap-x">
+          {latestBookings.map((booking, index) => (
+            <div key={index}>
+              <div
+                className='snap-center'
+              >
+                <BookingCard booking={booking} user={user} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   );
 }

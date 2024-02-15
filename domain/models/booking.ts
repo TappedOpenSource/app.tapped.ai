@@ -12,7 +12,7 @@ export type Booking = {
     serviceId: Option<string>;
     name: string;
     note: string;
-    requesterId: string;
+    requesterId: Option<string>;
     requesteeId: string;
     status: 'pending' | 'confirmed' | 'canceled';
     rate: number;

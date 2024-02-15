@@ -2,17 +2,19 @@ import type { NextPage } from 'next/types';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { signupWithCredentials } from '@/domain/usecases/signup';
 
-const Signup: NextPage = () => {
+const Signup: NextPage = ({ searchParams }: {
+  searchParams: URLSearchParams;
+}) => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(false);
-  const query = router.query;
-  const returnTo = (query.returnUrl as string) || '/tmp_home';
+  const returnUrl = searchParams['returnUrl'];
+  const returnTo = (returnUrl as string) || '/tmp_home';
 
   useEffect(() => {
     setError( !(password === confirmPassword) );

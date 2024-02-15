@@ -4,7 +4,7 @@ import ProductCard from '@/components/ProductCard';
 import { getProductAndPriceData } from '@/domain/usecases/payments';
 import { useEffect, useState } from 'react';
 import auth from '@/data/auth';
-import { useRouter } from 'next/router';
+import { redirect, usePathname, useRouter } from 'next/navigation';
 
 const subscriptionPlansIds = [
   'prod_P4wsGUAj9eeoni', // starter
@@ -12,6 +12,7 @@ const subscriptionPlansIds = [
 
 const Pricing: NextPage = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const [billingPortal, setBillingPortal] = useState<string | null>(null);
   const [products, setProducts] = useState<any[]>([]);
 
@@ -29,10 +30,7 @@ const Pricing: NextPage = () => {
       console.log({ claims });
 
       if (claims === undefined || claims === null) {
-        router.push({
-          pathname: '/login',
-          query: { returnUrl: router.pathname },
-        });
+        redirect(`/login?returnUrl=${pathname}`);
         return;
       }
 
@@ -45,7 +43,7 @@ const Pricing: NextPage = () => {
       //   });
       // }
     });
-  }, [router]);
+  }, [pathname]);
 
   if (billingPortal) {
     return (

@@ -4,7 +4,7 @@ import BookingTile from '@/components/profile/BookingTile';
 import { getBookingsByRequestee, getUserById } from '@/data/database';
 import { Booking } from '@/domain/models/booking';
 import { UserModel } from '@/domain/models/user_model';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 
 export default function History({
