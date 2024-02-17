@@ -12,7 +12,7 @@ export type Booking = {
     serviceId: Option<string>;
     name: string;
     note: string;
-    requesterId: Option<string>;
+    requesterId?: string | null;
     requesteeId: string;
     status: 'pending' | 'confirmed' | 'canceled';
     rate: number;
@@ -20,8 +20,8 @@ export type Booking = {
     geohash: Option<string>;
     lat: Option<number>;
     lng: Option<number>;
-    startTime: Option<Date>;
-    endTime: Option<Date>;
+    startTime: Date;
+    endTime: Date;
     timestamp: Date;
 }
 
@@ -50,8 +50,8 @@ export const bookingConverter = {
       geohash: optionFromNullable(data.geohash),
       lat: optionFromNullable(data.lat),
       lng: optionFromNullable(data.lng),
-      startTime: optionFromNullable(data.startTime),
-      endTime: optionFromNullable(data.endTime),
+      startTime: data.startTime.toDate(),
+      endTime: data.endTime.toDate(),
       timestamp: data.timestamp.toDate(),
     };
   },

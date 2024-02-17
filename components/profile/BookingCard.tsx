@@ -20,12 +20,13 @@ export default function BookingCard({ booking, user }: {
         return;
       }
 
+      const requesterId = booking.requesterId;
       const booker = await (() => {
-        if (booking.requesterId === undefined || booking.requesterId === null) {
+        if (requesterId === undefined || requesterId === null) {
           return None;
         }
 
-        return getUserById(booking.requesteeId);
+        return getUserById(requesterId);
       })();
 
       const performer = await getUserById(booking.requesteeId);
@@ -77,6 +78,7 @@ export default function BookingCard({ booking, user }: {
   }, [booking, user]);
 
   const bookerImageSrc = booker !== null ? profileImage(booker) : '/images/default_avatar.png';
+  const startTimeStr = booking.startTime.toDateString();
 
   return (
     <>
@@ -94,7 +96,7 @@ export default function BookingCard({ booking, user }: {
         <p className='font-bold'>Performer</p>
         <div className='w-3' />
         <div>
-          <p className='text-xs font-thin text-gray-300'>{booking.timestamp.toDateString()}</p>
+          <p className='text-xs font-thin text-gray-300'>{startTimeStr}</p>
         </div>
       </div>
     </>
