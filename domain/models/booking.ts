@@ -23,6 +23,7 @@ export type Booking = {
     startTime: Date;
     endTime: Date;
     timestamp: Date;
+    flierUrl: Option<string>;
 }
 
 export const bookingConverter = {
@@ -53,6 +54,7 @@ export const bookingConverter = {
       startTime: data.startTime.toDate(),
       endTime: data.endTime.toDate(),
       timestamp: data.timestamp.toDate(),
+      flierUrl: optionFromNullable(data.flierUrl),
     };
   },
 };

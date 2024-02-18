@@ -25,7 +25,7 @@ export async function getUserById(userId: string): Promise<Option<UserModel>> {
   const docRef = doc(db, 'users', userId);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
-    console.log('No such document!');
+    console.log('user doesnt exist');
     return None;
   }
 
@@ -237,6 +237,18 @@ export async function getBookingsByRequester(userId: string): Promise<Booking[]>
   const queryDocs = await getDocs(querySnapshot);
 
   return queryDocs.docs.map((doc) => doc.data());
+}
+
+export async function getBookingById(bookingId: string): Promise<Option<Booking>> {
+  const docRef = doc(db, 'bookings', bookingId).withConverter(bookingConverter);
+  const docSnap = await getDoc(docRef);
+  if (!docSnap.exists()) {
+    console.log('No such document!');
+    return None;
+  }
+
+  const booking = docSnap.data();
+  return Some(booking);
 }
 
 export async function createCheckoutSession({

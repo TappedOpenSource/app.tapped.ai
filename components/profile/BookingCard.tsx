@@ -1,3 +1,6 @@
+'use client';
+
+import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Booking } from '@/domain/models/booking';
@@ -82,7 +85,9 @@ export default function BookingCard({ booking, user }: {
 
   return (
     <>
-      <div>
+      <Link
+        href={`/booking/${booking.id}`}
+      >
         <div>
           <Image
             src={bookerImageSrc}
@@ -98,7 +103,7 @@ export default function BookingCard({ booking, user }: {
         <div>
           <p className='text-xs font-thin text-gray-300'>{startTimeStr}</p>
         </div>
-      </div>
+      </Link>
     </>
   );
 }
