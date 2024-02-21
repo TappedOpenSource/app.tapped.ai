@@ -12,14 +12,16 @@ import {
   limit,
 } from 'firebase/firestore';
 import { Option, None, Some } from '@sniptt/monads';
-import { LabelApplication, labelApplicationConverter } from '@/domain/models/label_application';
+import {
+  LabelApplication,
+  labelApplicationConverter,
+} from '@/domain/models/label_application';
 import { db } from '@/utils/firebase';
 import { UserModel } from '@/domain/models/user_model';
 import { Booking, bookingConverter } from '@/domain/models/booking';
 import { Review, reviewConverter } from '@/domain/models/review';
 import { Service, serviceConverter } from '@/domain/models/service';
 import { Opportunity, opportunityConverter } from '@/domain/models/opportunity';
-
 
 export async function getUserById(userId: string): Promise<Option<UserModel>> {
   const docRef = doc(db, 'users', userId);
@@ -33,13 +35,11 @@ export async function getUserById(userId: string): Promise<Option<UserModel>> {
   return Some(user);
 }
 
-export async function getUserByUsername(username: string): Promise<Option<UserModel>> {
+export async function getUserByUsername(
+  username: string
+): Promise<Option<UserModel>> {
   const usersCollection = collection(db, 'users');
-  const q = query(
-    usersCollection,
-    where('username', '==', username),
-    limit(1),
-  );
+  const q = query(usersCollection, where('username', '==', username), limit(1));
 
   const querySnapshot = await getDocs(q);
   if (querySnapshot.empty) {
@@ -50,14 +50,16 @@ export async function getUserByUsername(username: string): Promise<Option<UserMo
   const user = querySnapshot.docs[0].data() as UserModel;
   return Some(user);
 }
-export async function getLatestBookingByRequestee(userId: string): Promise<Option<Booking>> {
+export async function getLatestBookingByRequestee(
+  userId: string
+): Promise<Option<Booking>> {
   const bookingsCollection = collection(db, 'bookings');
   const querySnapshot = query(
     bookingsCollection,
     where('requesteeId', '==', userId),
     where('status', '==', 'confirmed'),
     orderBy('timestamp', 'desc'),
-    limit(1),
+    limit(1)
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
 
@@ -70,14 +72,16 @@ export async function getLatestBookingByRequestee(userId: string): Promise<Optio
   return Some(booking);
 }
 
-export async function getLatestBookingByRequester(userId: string): Promise<Option<Booking>> {
+export async function getLatestBookingByRequester(
+  userId: string
+): Promise<Option<Booking>> {
   const bookingsCollection = collection(db, 'bookings');
   const querySnapshot = query(
     bookingsCollection,
     where('requesterId', '==', userId),
     where('status', '==', 'confirmed'),
     orderBy('timestamp', 'desc'),
-    limit(1),
+    limit(1)
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
 
@@ -90,12 +94,17 @@ export async function getLatestBookingByRequester(userId: string): Promise<Optio
   return Some(booking);
 }
 
-export async function getLatestPerformerReviewByPerformerId(userId: string): Promise<Option<Review>> {
-  const reviewsCollection = collection(db, `reviews/${userId}/performerReviews`);
+export async function getLatestPerformerReviewByPerformerId(
+  userId: string
+): Promise<Option<Review>> {
+  const reviewsCollection = collection(
+    db,
+    `reviews/${userId}/performerReviews`
+  );
   const querySnapshot = query(
     reviewsCollection,
     orderBy('timestamp', 'desc'),
-    limit(1),
+    limit(1)
   ).withConverter(reviewConverter);
 
   const queryDocs = await getDocs(querySnapshot);
@@ -109,12 +118,14 @@ export async function getLatestPerformerReviewByPerformerId(userId: string): Pro
   return Some(review);
 }
 
-export async function getLatestBookerReviewByBookerId(userId: string): Promise<Option<Review>> {
+export async function getLatestBookerReviewByBookerId(
+  userId: string
+): Promise<Option<Review>> {
   const reviewsCollection = collection(db, `reviews/${userId}/bookerReviews`);
   const querySnapshot = query(
     reviewsCollection,
     orderBy('timestamp', 'desc'),
-    limit(1),
+    limit(1)
   ).withConverter(reviewConverter);
 
   const queryDocs = await getDocs(querySnapshot);
@@ -129,14 +140,15 @@ export async function getLatestBookerReviewByBookerId(userId: string): Promise<O
 }
 
 export async function getUserOpportunities(
-  userId: string,
+  userId: string
 ): Promise<Opportunity[]> {
   const opportunitiesCollection = collection(db, 'opportunities');
   const querySnapshot = query(
     opportunitiesCollection,
     orderBy('startTime', 'desc'),
     where('startTime', '>', new Date()),
-    where('userId', '==', userId),
+    where('deleted', '==', false),
+    where('userId', '==', userId)
   ).withConverter(opportunityConverter);
 
   const queryDocs = await getDocs(querySnapshot);
@@ -149,7 +161,9 @@ export async function getUserOpportunities(
 }
 
 export async function getOpportunityById(opportunityId: string) {
-  const docRef = doc(db, 'opportunities', opportunityId).withConverter(opportunityConverter);
+  const docRef = doc(db, 'opportunities', opportunityId).withConverter(
+    opportunityConverter
+  );
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
     console.log('No such document!');
@@ -164,22 +178,28 @@ export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
   const leadersRef = collection(db, 'leaderboard');
   const leadersSnap = doc(leadersRef, 'leaders');
   const leadersDoc = await getDoc(leadersSnap);
-  const { featuredOpportunities } = leadersDoc.data() as { featuredOpportunities: string[] };
+  const { featuredOpportunities } = leadersDoc.data() as {
+    featuredOpportunities: string[];
+  };
   return await Promise.all(
-    featuredOpportunities.map(
-      async (opId) => {
-        return await getOpportunityById(opId);
-      },
-    ).filter(async (op) => (await op).isSome()).map(async (op) => (await op).unwrap()),
+    featuredOpportunities
+      .map(getOpportunityById)
+      .filter(async (op) => (await op).isSome())
+      .map(async (op) => (await op).unwrap())
   );
 }
 
-export async function getServiceById({ userId, serviceId }: {
-    userId: string,
-    serviceId: string,
-  }): Promise<Option<Service>> {
-  const docRef = doc(db, `/services/${userId}/userServices/${serviceId}`)
-    .withConverter(serviceConverter);
+export async function getServiceById({
+  userId,
+  serviceId,
+}: {
+  userId: string;
+  serviceId: string;
+}): Promise<Option<Service>> {
+  const docRef = doc(
+    db,
+    `/services/${userId}/userServices/${serviceId}`
+  ).withConverter(serviceConverter);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
     return None;
@@ -189,11 +209,16 @@ export async function getServiceById({ userId, serviceId }: {
   return Some(service);
 }
 
-export async function getReviewsByPerformerId(userId: string): Promise<Review[]> {
-  const reviewsCollection = collection(db, `reviews/${userId}/performerReviews`);
+export async function getReviewsByPerformerId(
+  userId: string
+): Promise<Review[]> {
+  const reviewsCollection = collection(
+    db,
+    `reviews/${userId}/performerReviews`
+  );
   const querySnapshot = query(
     reviewsCollection,
-    orderBy('timestamp', 'desc'),
+    orderBy('timestamp', 'desc')
   ).withConverter(reviewConverter);
 
   const queryDocs = await getDocs(querySnapshot);
@@ -205,7 +230,7 @@ export async function getReviewsByBookerId(userId: string): Promise<Review[]> {
   const reviewsCollection = collection(db, `reviews/${userId}/bookerReviews`);
   const querySnapshot = query(
     reviewsCollection,
-    orderBy('timestamp', 'desc'),
+    orderBy('timestamp', 'desc')
   ).withConverter(reviewConverter);
 
   const queryDocs = await getDocs(querySnapshot);
@@ -213,33 +238,39 @@ export async function getReviewsByBookerId(userId: string): Promise<Review[]> {
   return queryDocs.docs.map((doc) => doc.data());
 }
 
-export async function getBookingsByRequestee(userId: string): Promise<Booking[]> {
+export async function getBookingsByRequestee(
+  userId: string
+): Promise<Booking[]> {
   const bookingsCollection = collection(db, 'bookings');
   const querySnapshot = query(
     bookingsCollection,
     where('requesteeId', '==', userId),
     where('status', '==', 'confirmed'),
-    orderBy('timestamp', 'desc'),
+    orderBy('timestamp', 'desc')
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
 
   return queryDocs.docs.map((doc) => doc.data());
 }
 
-export async function getBookingsByRequester(userId: string): Promise<Booking[]> {
+export async function getBookingsByRequester(
+  userId: string
+): Promise<Booking[]> {
   const bookingsCollection = collection(db, 'bookings');
   const querySnapshot = query(
     bookingsCollection,
     where('requesterId', '==', userId),
     where('status', '==', 'confirmed'),
-    orderBy('timestamp', 'desc'),
+    orderBy('timestamp', 'desc')
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
 
   return queryDocs.docs.map((doc) => doc.data());
 }
 
-export async function getBookingById(bookingId: string): Promise<Option<Booking>> {
+export async function getBookingById(
+  bookingId: string
+): Promise<Option<Booking>> {
   const docRef = doc(db, 'bookings', bookingId).withConverter(bookingConverter);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
@@ -255,9 +286,9 @@ export async function createCheckoutSession({
   userId,
   priceId,
 }: {
-    userId: string;
-    priceId: string;
-  }): Promise<void> {
+  userId: string;
+  priceId: string;
+}): Promise<void> {
   const sessionsRef = collection(db, `customers/${userId}/checkout_sessions`);
   const docRef = await addDoc(sessionsRef, {
     price: priceId,
@@ -280,46 +311,60 @@ export async function createCheckoutSession({
     }
   });
 }
-export async function getActiveProducts(): Promise<{ product: any, prices: any }[]> {
-  const productsQuery = query(collection(db, 'products'), where('active', '==', true));
+export async function getActiveProducts(): Promise<
+  { product: any; prices: any }[]
+  > {
+  const productsQuery = query(
+    collection(db, 'products'),
+    where('active', '==', true)
+  );
   const products = await getDocs(productsQuery);
 
-  return await Promise.all(products.docs.map(async (product) => {
-    const priceRef = collection(db, `products/${product.id}/prices`);
-    const pricesQuery = query(priceRef, where('active', '==', true), orderBy('unit_amount'));
-    const prices = await getDocs(pricesQuery);
+  return await Promise.all(
+    products.docs.map(async (product) => {
+      const priceRef = collection(db, `products/${product.id}/prices`);
+      const pricesQuery = query(
+        priceRef,
+        where('active', '==', true),
+        orderBy('unit_amount')
+      );
+      const prices = await getDocs(pricesQuery);
 
-    return {
-      product: {
-        id: product.id,
-        ...(product.data()),
-      },
-      prices: prices.docs.map((price) => {
-        return {
-          id: price.id,
-          ...(price.data()),
-        };
-      }),
-    };
-  })
+      return {
+        product: {
+          id: product.id,
+          ...product.data(),
+        },
+        prices: prices.docs.map((price) => {
+          return {
+            id: price.id,
+            ...price.data(),
+          };
+        }),
+      };
+    })
   );
 }
 export async function addCustomerSubscriptionListener(userId, callback) {
   const subscriptionsRef = collection(db, `customers/${userId}/subscriptions`);
-  const queryRef = query(subscriptionsRef, where('status', 'in', ['trialing', 'active']));
+  const queryRef = query(
+    subscriptionsRef,
+    where('status', 'in', ['trialing', 'active'])
+  );
   return onSnapshot(queryRef, callback);
 }
-export async function createNewApplicationResponse({ userId, labelApplication }: {
-    userId: string;
-    labelApplication: LabelApplication;
-  }) {
+export async function createNewApplicationResponse({
+  userId,
+  labelApplication,
+}: {
+  userId: string;
+  labelApplication: LabelApplication;
+}) {
   const docRef = doc(db, `label_applications/${labelApplication.id}`);
-  await setDoc(docRef,
-    {
-      userId,
-      ...labelApplicationConverter.toFirestore(labelApplication),
-    },
-  );
+  await setDoc(docRef, {
+    userId,
+    ...labelApplicationConverter.toFirestore(labelApplication),
+  });
 
   return docRef.id;
 }

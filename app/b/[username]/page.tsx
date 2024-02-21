@@ -3,31 +3,31 @@ import BookerProfileView from '@/components/BookerProfileView';
 import { UserModel, profileImage } from '@/domain/models/user_model';
 
 type Props = {
-  params: { username: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+  params: { username: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 const getUserByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/getUserByUsername`;
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvingMetadata,
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const host = 'https://tapped.ai';
   try {
     const username = params.username;
 
     const res = await fetch(`${getUserByIdUrl}?username=${username}`);
-    const user = await res.json() as UserModel;
+    const user = (await res.json()) as UserModel;
 
     const imageSrc = profileImage(user);
-
     return {
-      metadataBase: new URL('http://localhost:3000'),
+      metadataBase: new URL(host),
       title: `${username}`,
       description: `${username} on tapped`,
       openGraph: {
         type: 'website',
-        url: `https://tapped.ai/${username}`,
+        url: `${host}/${username}`,
         title: `${username}`,
         description: `${username} on tapped`,
         siteName: 'Tapped Ai',
@@ -44,23 +44,23 @@ export async function generateMetadata(
   } catch (e) {
     console.log(e);
     return {
-      metadataBase: new URL('http://localhost:3000'),
+      metadataBase: new URL(host),
       title: 'Tapped',
       description: 'Tapped',
       openGraph: {
         type: 'website',
-        url: 'https://tapped.ai',
+        url: host,
         title: 'Tapped',
         description: 'Tapped',
         siteName: 'Tapped Ai',
-        images: [{ url: 'https://tapped.ai/og.png' }],
+        images: [{ url: `${host}/og.png` }],
       },
       twitter: {
         card: 'summary_large_image',
         site: '@tappedai',
         title: 'Tapped',
         description: 'Tapped',
-        images: 'https://tapped.ai/og.png',
+        images: `${host}/og.png`,
       },
     };
   }

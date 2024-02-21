@@ -1,11 +1,18 @@
 'use client';
 
+import { Fab } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserModel, audienceSize, profileImage, reviewCount } from '@/domain/models/user_model';
-import { getUserByUsername } from '@/data/database';
+import { Opportunity } from '@/domain/models/opportunity';
+import {
+  UserModel,
+  audienceSize,
+  profileImage,
+  reviewCount,
+} from '@/domain/models/user_model';
+import { getUserByUsername, getUserOpportunities } from '@/data/database';
 import InstagramButton from '@/components/profile/InstagramButton';
 import TwitterButton from '@/components/profile/TwitterButton';
 import TiktokButton from '@/components/profile/TiktokButton';
@@ -14,11 +21,10 @@ import BookerBookingHistoryPreview from '@/components/profile/BookerBookingHisto
 import OpportunitiesSlider from '@/components/profile/OpportunitiesSlider';
 import BookerReviewsPreview from '@/components/profile/BookerReviewsPreview';
 
-export default function BookerProfileView({ username }: {
-    username: string;
-}) {
+export default function BookerProfileView({ username }: { username: string }) {
   const router = useRouter();
   const [user, setUser] = useState<UserModel | null>(null);
+  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,10 +48,22 @@ export default function BookerProfileView({ username }: {
     fetchUser();
   }, [router, username]);
 
+  useEffect(() => {
+    const fetchOpportunities = async () => {
+      if (user === null) {
+        return;
+      }
+
+      const opportunities = await getUserOpportunities(user.id);
+      setOpportunities(opportunities);
+    };
+    fetchOpportunities();
+  }, [user]);
+
   if (user === null) {
     return (
       <>
-        <div className='min-h-screen flex justify-center items-center'>
+        <div className="flex min-h-screen items-center justify-center">
           <p>fetching {username}... </p>
         </div>
       </>
@@ -57,64 +75,93 @@ export default function BookerProfileView({ username }: {
 
   return (
     <>
-      <div className='relative h-[256px] w-screen overflow-hidden'>
+      <div className="fixed right-8 bottom-8">
+        <Link href={`https://tappednetwork.page.link/${user.username}`}>
+          <Fab color="primary" aria-label="add" variant="extended">
+            get more info from the app
+          </Fab>
+        </Link>
+      </div>
+      <div className="relative h-[256px] w-screen overflow-hidden">
         <Image
           src={imageSrc}
           alt={`${user.artistName} profile picture`}
-          objectFit='cover'
-          objectPosition='center'
+          objectFit="cover"
+          objectPosition="center"
           fill
         />
       </div>
-      <div className='md:flex md:justify-center'>
-        <div className='py-4 px-6 md:w-2/3'>
+      <div className="md:flex md:justify-center">
+        <div className="py-4 px-6 md:w-2/3">
           <div>
-            <h1 className='text-4xl font-extrabold'>{user.artistName}</h1>
-            <p className='text-sm text-gray-500'>@{user.username}</p>
+            <h1 className="text-4xl font-extrabold">{user.artistName}</h1>
+            <p className="text-sm text-gray-500">@{user.username}</p>
           </div>
-          <div className='h-4' />
+          <div className="h-4" />
           {/* <div>
             <h2 className='text-2xl font-bold'>Pricings</h2>
             <p>the prices</p>
           </div>
           <div className='h-4' /> */}
-          <div className='flex flex-row items-center justify-around'>
-            <div className='flex flex-col justify-center items-center'>
-              <h3 className='text-2xl font-bold'>{audience.toLocaleString()}</h3>
-              <p className='text-xs text-font text-gray-500'>audience</p>
+          <div className="flex flex-row items-center justify-around">
+            <div className="flex flex-col items-center justify-center">
+              <h3 className="text-2xl font-bold">
+                {audience.toLocaleString()}
+              </h3>
+              <p className="text-font text-xs text-gray-500">audience</p>
             </div>
-            <div className='flex flex-col justify-center items-center'>
-              <h3 className='text-2xl font-bold'>{reviewCount(user) ?? 0}</h3>
-              <p className='text-xs text-font text-gray-500'>reviews</p>
+            <div className="flex flex-col items-center justify-center">
+              <h3 className="text-2xl font-bold">{reviewCount(user) ?? 0}</h3>
+              <p className="text-font text-xs text-gray-500">reviews</p>
             </div>
-            <div className='flex flex-col justify-center items-center'>
-              <h3 className='text-2xl font-bold'>{user.bookerInfo?.rating ? `${user.bookerInfo?.rating}/5` : 'N/A'}</h3>
-              <p className='text-sm text-gray-400'>rating</p>
+            <div className="flex flex-col items-center justify-center">
+              <h3 className="text-2xl font-bold">
+                {user.bookerInfo?.rating ?
+                  `${user.bookerInfo?.rating}/5` :
+                  'N/A'}
+              </h3>
+              <p className="text-sm text-gray-400">rating</p>
             </div>
           </div>
-          <div className='h-4' />
-          <div className='flex flex-row items-center justify-around'>
-            {user.socialFollowing.instagramHandle && <InstagramButton instagramHandle={user.socialFollowing.instagramHandle} />}
-            {user.socialFollowing.twitterHandle && <TwitterButton twitterHandle={user.socialFollowing.twitterHandle} />}
-            {user.socialFollowing.tiktokHandle && <TiktokButton tiktokHandle={user.socialFollowing.tiktokHandle} />}
-            {user.performerInfo?.spotifyId && <SpotifyButton spotifyId={user.performerInfo?.spotifyId} />}
+          <div className="h-4" />
+          <div className="flex flex-row items-center justify-around">
+            {user.socialFollowing.instagramHandle && (
+              <InstagramButton
+                instagramHandle={user.socialFollowing.instagramHandle}
+              />
+            )}
+            {user.socialFollowing.twitterHandle && (
+              <TwitterButton
+                twitterHandle={user.socialFollowing.twitterHandle}
+              />
+            )}
+            {user.socialFollowing.tiktokHandle && (
+              <TiktokButton tiktokHandle={user.socialFollowing.tiktokHandle} />
+            )}
+            {user.performerInfo?.spotifyId && (
+              <SpotifyButton spotifyId={user.performerInfo?.spotifyId} />
+            )}
           </div>
-          <div className='h-4' />
+          <div className="h-4" />
+          {opportunities.length > 0 && (
+            <div>
+              <div className="flex flex-row items-center">
+                <h2 className="text-2xl font-bold">
+                  Performance Opportunities
+                </h2>
+              </div>
+              <div className="h-2" />
+              <OpportunitiesSlider opportunities={opportunities} />
+            </div>
+          )}
+          <div className="h-4" />
           <div>
-            <div className='flex flex-row items-center'>
-              <h2 className='text-2xl font-bold'>Performance Opportunities</h2>
-            </div>
-            <div className="h-2" />
-            <OpportunitiesSlider user={user} />
-          </div>
-          <div className='h-4' />
-          <div>
-            <div className='flex flex-row items-center'>
-              <h2 className='text-2xl font-bold'>Reviews</h2>
-              <div className='w-2' />
+            <div className="flex flex-row items-center">
+              <h2 className="text-2xl font-bold">Reviews</h2>
+              <div className="w-2" />
               <Link
                 href={`/b/reviews/${user.id}`}
-                className='text-sm text-blue-500'
+                className="text-sm text-blue-500"
               >
                 see all
               </Link>
@@ -122,14 +169,14 @@ export default function BookerProfileView({ username }: {
             <div className="h-2" />
             <BookerReviewsPreview user={user} />
           </div>
-          <div className='h-4' />
+          <div className="h-4" />
           <div>
-            <div className='flex flex-row items-center'>
-              <h2 className='text-2xl font-bold'>Booking History</h2>
-              <div className='w-2' />
+            <div className="flex flex-row items-center">
+              <h2 className="text-2xl font-bold">Booking History</h2>
+              <div className="w-2" />
               <Link
                 href={`/b/history/${user.id}`}
-                className='text-sm text-blue-500'
+                className="text-sm text-blue-500"
               >
                 see all
               </Link>
@@ -137,9 +184,9 @@ export default function BookerProfileView({ username }: {
             <div className="h-2" />
             <BookerBookingHistoryPreview user={user} />
           </div>
-          <div className='h-4' />
+          <div className="h-4" />
           <div>
-            <h2 className='text-2xl font-bold'>More Info</h2>
+            <h2 className="text-2xl font-bold">More Info</h2>
             <div className="h-2" />
             <p>{user.bio}</p>
           </div>

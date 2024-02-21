@@ -1,21 +1,11 @@
 import { Opportunity } from '@/domain/models/opportunity';
-import { UserModel } from '@/domain/models/user_model';
-import { useEffect, useState } from 'react';
 import OpportunityTile from './OpportunityTile';
-import { getUserOpportunities } from '@/data/database';
 
-export default function OpportunitiesSlider({ user }: {
-    user: UserModel;
+export default function OpportunitiesSlider({
+  opportunities,
+}: {
+  opportunities: Opportunity[];
 }) {
-  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
-  useEffect(() => {
-    const fetchOpportunities = async () => {
-      const opportunities = await getUserOpportunities(user.id);
-      setOpportunities(opportunities);
-    };
-    fetchOpportunities();
-  }, [user.id]);
-
   if (opportunities.length === 0) {
     return (
       <>
@@ -26,26 +16,17 @@ export default function OpportunitiesSlider({ user }: {
 
   return (
     <>
-      <div
-        className="flex flex-row items-center justify-start overflow-x-auto space-x-5 snap-x"
-      >
-
-        {
-          opportunities.map((opportunity, index) => {
-            return (
-              <div key={index}>
-                <div
-                  className='snap-center'
-                >
-                  <OpportunityTile
-                    opportunity={opportunity}
-                  />
-                </div>
+      <div className="flex snap-x flex-row items-center justify-start space-x-5 overflow-x-auto">
+        {opportunities.map((opportunity, index) => {
+          return (
+            <div key={index}>
+              <div className="snap-center">
+                <OpportunityTile opportunity={opportunity} />
               </div>
-            );
-          })
-        }
-
+            </div>
+          );
+        })}
       </div>
-    </>);
+    </>
+  );
 }
