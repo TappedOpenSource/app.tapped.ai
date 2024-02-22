@@ -14,14 +14,14 @@ import {
   profileImage,
   reviewCount,
 } from '@/domain/models/user_model';
-import { getUserByUsername, getUserOpportunities } from '@/data/database';
+import { getBookingsByRequester, getLatestBookerReviewByBookerId, getLatestBookingByRequester, getUserByUsername, getUserOpportunities } from '@/data/database';
 import InstagramButton from '@/components/profile/InstagramButton';
 import TwitterButton from '@/components/profile/TwitterButton';
 import TiktokButton from '@/components/profile/TiktokButton';
 import SpotifyButton from '@/components/profile/SpotifyButton';
 import BookerBookingHistoryPreview from '@/components/profile/BookerBookingHistoryPreview';
 import OpportunitiesSlider from '@/components/profile/OpportunitiesSlider';
-import BookerReviewsPreview from '@/components/profile/BookerReviewsPreview';
+import ReviewTile from './profile/ReviewTile';
 
 export default function BookerProfileView({ username }: { username: string }) {
   const router = useRouter();
@@ -63,6 +63,35 @@ export default function BookerProfileView({ username }: { username: string }) {
     };
 
     fetchOpportunities();
+
+    const fetchBooking = async () => {
+      if (user === null) {
+        return;
+      }
+
+      // fetch latest booking
+      const bookings = await getBookingsByRequester(user.id);
+      setBookings(bookings);
+    };
+    fetchBooking();
+
+    const fetchLatestReview = async () => {
+      if (user === null) {
+        return;
+      }
+
+      // get latest review
+      const latestReview = await getLatestBookerReviewByBookerId(user.id);
+      latestReview.match({
+        some: (review) => {
+          setLatestReview(review);
+        },
+        none: () => {
+          console.log('no reviews found');
+        },
+      });
+    };
+    fetchLatestReview();
   }, [user]);
 
   if (user === null) {
@@ -160,35 +189,39 @@ export default function BookerProfileView({ username }: { username: string }) {
             </div>
           )}
           <div className="h-8" />
-          <div>
-            <div className="flex flex-row items-center">
-              <h2 className="text-2xl font-bold">Booking History</h2>
-              <div className="w-2" />
-              <Link
-                href={`/b/history/${user.id}`}
-                className="text-sm text-blue-500"
-              >
+          {bookings.length !== 0 && (
+            <div>
+              <div className="flex flex-row items-center">
+                <h2 className="text-2xl font-bold">Booking History</h2>
+                <div className="w-2" />
+                <Link
+                  href={`/b/history/${user.id}`}
+                  className="text-sm text-blue-500"
+                >
                 see all
-              </Link>
+                </Link>
+              </div>
+              <div className="h-2" />
+              <BookerBookingHistoryPreview user={user} bookings={bookings} />
             </div>
-            <div className="h-2" />
-            <BookerBookingHistoryPreview user={user} />
-          </div>
+          )}
           <div className="h-8" />
-          <div>
-            <div className="flex flex-row items-center">
-              <h2 className="text-2xl font-bold">Reviews</h2>
-              <div className="w-2" />
-              <Link
-                href={`/b/reviews/${user.id}`}
-                className="text-sm text-blue-500"
-              >
+          {latestReview && (
+            <div>
+              <div className="flex flex-row items-center">
+                <h2 className="text-2xl font-bold">Reviews</h2>
+                <div className="w-2" />
+                <Link
+                  href={`/b/reviews/${user.id}`}
+                  className="text-sm text-blue-500"
+                >
                 see all
-              </Link>
+                </Link>
+              </div>
+              <div className="h-2" />
+              <ReviewTile review={latestReview} />
             </div>
-            <div className="h-2" />
-            <BookerReviewsPreview user={user} />
-          </div>
+          )}
           <div>
             <h2 className="text-2xl font-bold">More Info</h2>
             <div className="h-2" />

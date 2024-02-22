@@ -1,36 +1,12 @@
-import { getLatestBookingByRequester } from '@/data/database';
 import { Booking } from '@/domain/models/booking';
 import { UserModel } from '@/domain/models/user_model';
-import BookingTile from './BookingTile';
-import { useEffect, useState } from 'react';
+import BookingCard from './BookingCard';
 
-export default function BookererBookingHistoryPreview({ user }: { user: UserModel }) {
-  const [latestBooking, setLatestBooking] = useState<Booking | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const fetchBooking = async () => {
-    // fetch latest booking
-      const latestBooking = await getLatestBookingByRequester(user.id);
-      latestBooking.match({
-        some: (booking) => {
-          setLatestBooking(booking);
-        },
-        none: () => {
-          console.log('booking not found');
-        },
-      });
-    };
-    fetchBooking().then(() => setLoading(false));
-  }, [user]);
-
-  if (loading) {
-    return (
-      <p>fetching latest booking...</p>
-    );
-  }
-
-  if (latestBooking === null) {
+export default function BookererBookingHistoryPreview({ user, bookings }: {
+  user: UserModel;
+  bookings: Booking[];
+}) {
+  if (bookings.length === 0) {
     return (
       <p>no booking history</p>
     );
@@ -38,7 +14,19 @@ export default function BookererBookingHistoryPreview({ user }: { user: UserMode
 
   return (
     <>
-      <BookingTile booking={latestBooking} user={user} />
+      <div className='flex justify-start items-center'>
+        <div className="flex flex-row items-center just-fy-center overflow-x-auto space-x-5 snap-x">
+          {bookings.map((booking, index) => (
+            <div key={index}>
+              <div
+                className='snap-center'
+              >
+                <BookingCard booking={booking} user={user} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   );
 }
