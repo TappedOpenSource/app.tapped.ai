@@ -109,13 +109,6 @@ export default function BookerProfileView({ username }: { username: string }) {
 
   return (
     <>
-      <div className="fixed right-8 bottom-8">
-        <Link href="/download">
-          <Fab color="primary" aria-label="add" variant="extended">
-            get more info from the app
-          </Fab>
-        </Link>
-      </div>
       <div className="relative h-[256px] w-screen overflow-hidden">
         <Image
           src={imageSrc}
