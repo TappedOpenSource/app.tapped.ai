@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Opportunity } from '@/domain/models/opportunity';
+import { Review } from '@/domain/models/review';
+import { Booking } from '@/domain/models/booking';
 import {
   UserModel,
   audienceSize,
@@ -25,6 +27,8 @@ export default function BookerProfileView({ username }: { username: string }) {
   const router = useRouter();
   const [user, setUser] = useState<UserModel | null>(null);
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [latestReview, setLatestReview] = useState<Review | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -57,6 +61,7 @@ export default function BookerProfileView({ username }: { username: string }) {
       const opportunities = await getUserOpportunities(user.id);
       setOpportunities(opportunities);
     };
+
     fetchOpportunities();
   }, [user]);
 
@@ -76,7 +81,7 @@ export default function BookerProfileView({ username }: { username: string }) {
   return (
     <>
       <div className="fixed right-8 bottom-8">
-        <Link href={`https://tappednetwork.page.link/${user.username}`}>
+        <Link href="/download">
           <Fab color="primary" aria-label="add" variant="extended">
             get more info from the app
           </Fab>
@@ -142,7 +147,7 @@ export default function BookerProfileView({ username }: { username: string }) {
               <SpotifyButton spotifyId={user.performerInfo?.spotifyId} />
             )}
           </div>
-          <div className="h-4" />
+          <div className="h-8" />
           {opportunities.length > 0 && (
             <div>
               <div className="flex flex-row items-center">
@@ -154,22 +159,7 @@ export default function BookerProfileView({ username }: { username: string }) {
               <OpportunitiesSlider opportunities={opportunities} />
             </div>
           )}
-          <div className="h-4" />
-          <div>
-            <div className="flex flex-row items-center">
-              <h2 className="text-2xl font-bold">Reviews</h2>
-              <div className="w-2" />
-              <Link
-                href={`/b/reviews/${user.id}`}
-                className="text-sm text-blue-500"
-              >
-                see all
-              </Link>
-            </div>
-            <div className="h-2" />
-            <BookerReviewsPreview user={user} />
-          </div>
-          <div className="h-4" />
+          <div className="h-8" />
           <div>
             <div className="flex flex-row items-center">
               <h2 className="text-2xl font-bold">Booking History</h2>
@@ -184,7 +174,21 @@ export default function BookerProfileView({ username }: { username: string }) {
             <div className="h-2" />
             <BookerBookingHistoryPreview user={user} />
           </div>
-          <div className="h-4" />
+          <div className="h-8" />
+          <div>
+            <div className="flex flex-row items-center">
+              <h2 className="text-2xl font-bold">Reviews</h2>
+              <div className="w-2" />
+              <Link
+                href={`/b/reviews/${user.id}`}
+                className="text-sm text-blue-500"
+              >
+                see all
+              </Link>
+            </div>
+            <div className="h-2" />
+            <BookerReviewsPreview user={user} />
+          </div>
           <div>
             <h2 className="text-2xl font-bold">More Info</h2>
             <div className="h-2" />

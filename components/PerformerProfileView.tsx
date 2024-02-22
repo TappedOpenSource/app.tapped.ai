@@ -1,21 +1,29 @@
 'use client';
 
+import type { Review } from '@/domain/models/review';
+import type { Booking } from '@/domain/models/booking';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { UserModel, audienceSize, profileImage, reviewCount } from '@/domain/models/user_model';
 import PerformerBookingHistoryPreview from '@/components/profile/PerformerBookingHistoryPreview';
-import { getUserByUsername } from '@/data/database';
-import PerformerReviewsPreview from '@/components/profile/PerformerReviewsPreview';
+import {
+  getBookingsByRequestee,
+  getUserByUsername,
+  getLatestPerformerReviewByPerformerId,
+} from '@/data/database';
 import InstagramButton from '@/components/profile/InstagramButton';
 import TwitterButton from '@/components/profile/TwitterButton';
 import TiktokButton from '@/components/profile/TiktokButton';
 import SpotifyButton from '@/components/profile/SpotifyButton';
+import ReviewTile from '@/components/profile/ReviewTile';
 
 export default function PerformerProfileView({ username }: { username: string }) {
   const router = useRouter();
   const [user, setUser] = useState<UserModel | null>(null);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [latestReview, setLatestReview] = useState<Review | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -38,6 +46,47 @@ export default function PerformerProfileView({ username }: { username: string })
     };
     fetchUser();
   }, [router, username]);
+
+  useEffect(() => {
+    const fetchBooking = async () => {
+      if (user === null) {
+        return;
+      }
+
+      // fetch latest booking
+      const latestBookings = await getBookingsByRequestee(user.id);
+      setBookings(latestBookings);
+    };
+    fetchBooking();
+
+    const fetchLatestReview = async () => {
+      if (user === null) {
+        return;
+      }
+
+      // get latest review
+      const latestReview = await getLatestPerformerReviewByPerformerId(user.id);
+      latestReview.match({
+        some: (review) => {
+          setLatestReview(review);
+        },
+        none: () => {
+          console.log('no reviews found');
+        },
+      });
+    };
+    fetchLatestReview();
+  }, [user]);
+
+  if (user === null) {
+    return (
+      <>
+        <div className="flex min-h-screen items-center justify-center">
+          <p>fetching {username}... </p>
+        </div>
+      </>
+    );
+  }
 
   if (user === null) {
     return (
@@ -101,36 +150,39 @@ export default function PerformerProfileView({ username }: { username: string })
             {user.performerInfo?.spotifyId && <SpotifyButton spotifyId={user.performerInfo.spotifyId} />}
           </div>
           <div className='h-4' />
-
-          <div>
-            <div className='flex flex-row items-center'>
-              <h2 className='text-2xl font-bold'>Booking History</h2>
-              <div className='w-2' />
-              <Link
-                href={`/history/${user.id}`}
-                className='text-sm text-blue-500'
-              >
+          {bookings.length !== 0 && (
+            <div>
+              <div className='flex flex-row items-center'>
+                <h2 className='text-2xl font-bold'>Booking History</h2>
+                <div className='w-2' />
+                <Link
+                  href={`/history/${user.id}`}
+                  className='text-sm text-blue-500'
+                >
                 see all
-              </Link>
+                </Link>
+              </div>
+              <div className="h-2" />
+              <PerformerBookingHistoryPreview user={user} bookings={bookings} />
             </div>
-            <div className="h-2" />
-            <PerformerBookingHistoryPreview user={user} />
-          </div>
+          )}
           <div className='h-8' />
-          <div>
-            <div className='flex flex-row items-center'>
-              <h2 className='text-2xl font-bold'>Reviews</h2>
-              <div className='w-2' />
-              <Link
-                href={`/reviews/${user.id}`}
-                className='text-sm text-blue-500'
-              >
+          {latestReview && (
+            <div>
+              <div className='flex flex-row items-center'>
+                <h2 className='text-2xl font-bold'>Reviews</h2>
+                <div className='w-2' />
+                <Link
+                  href={`/reviews/${user.id}`}
+                  className='text-sm text-blue-500'
+                >
                 see all
-              </Link>
+                </Link>
+              </div>
+              <div className="h-2" />
+              <ReviewTile review={latestReview} />
             </div>
-            <div className="h-2" />
-            <PerformerReviewsPreview user={user} />
-          </div>
+          )}
           <div className='h-8' />
           <div>
             <h2 className='text-2xl font-bold'>About</h2>
