@@ -8,14 +8,14 @@ export default function Eula() {
         </h1>
 
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">
-                    This End User License Agreement (the &quot;Agreement&quot;) is a legally binding contract between you (the &quot;User&quot;) and Tapped App Inc. (the &quot;App&quot;), governing your use of the Tapped App and its associated services. By accessing or using the Tapped App, you acknowledge that you have read, understood, and agree to be bound by the terms and conditions set forth in this Agreement. If you do not agree with these terms, you may not use the Tapped App.
+                    This End User License Agreement (the &quot;Agreement&quot;) is a legally binding contract between you (the &quot;User&quot;) and Tapped Industries Inc. (the &quot;App&quot;), governing your use of the Tapped App and its associated services. By accessing or using the Tapped App, you acknowledge that you have read, understood, and agree to be bound by the terms and conditions set forth in this Agreement. If you do not agree with these terms, you may not use the Tapped App.
         </div>
 
         <h2 className="text-center md:text-start text-3xl mt-10 mb-5">
                     Grant of License
         </h2>
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">
-                    Tapped App Inc. grants you a non-exclusive, non-transferable, revocable license to use the Tapped App solely for the purpose of connecting artists and promoters for live performances, in accordance with the terms of this Agreement.
+                    Tapped Industries Inc. grants you a non-exclusive, non-transferable, revocable license to use the Tapped App solely for the purpose of connecting artists and promoters for live performances, in accordance with the terms of this Agreement.
         </div>
 
 
@@ -46,7 +46,7 @@ export default function Eula() {
                     3.1. You retain ownership of any content you post or share on the Tapped App.
         </div>
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">
-                    3.2. By posting or sharing content on the Tapped App, you grant Tapped App Inc. a non-exclusive, royalty-free, worldwide license to use, reproduce, modify, adapt, publish, translate, distribute, and display such content for the purpose of operating and improving the Tapped App.
+                    3.2. By posting or sharing content on the Tapped App, you grant Tapped Industries Inc. a non-exclusive, royalty-free, worldwide license to use, reproduce, modify, adapt, publish, translate, distribute, and display such content for the purpose of operating and improving the Tapped App.
         </div>
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">
                     3.3. You represent and warrant that you have all necessary rights and permissions to post or share the content on the Tapped App and that such content does not infringe upon any third-party rights.
@@ -56,7 +56,7 @@ export default function Eula() {
                     Termination
         </h2>
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">
-                    4.1. Tapped App Inc. reserves the right to terminate or suspend your access to the Tapped App at any time, without prior notice, for any violation of this Agreement.
+                    4.1. Tapped Industries Inc. reserves the right to terminate or suspend your access to the Tapped App at any time, without prior notice, for any violation of this Agreement.
         </div>
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">
                     4.2. Upon termination, all licenses and rights granted to you under this Agreement will immediately cease, and you must discontinue all use of the Tapped App.
@@ -66,17 +66,17 @@ export default function Eula() {
                     Limitation of Liability
         </h2>
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">
-                    5.1. Tapped App Inc. shall not be liable for any indirect, incidental, special, or consequential damages arising out of or in connection with your use of the Tapped App, including but not limited to loss of profits, data, or goodwill.
+                    5.1. Tapped Industries Inc. shall not be liable for any indirect, incidental, special, or consequential damages arising out of or in connection with your use of the Tapped App, including but not limited to loss of profits, data, or goodwill.
         </div>
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">
-                    5.2. In no event shall the total liability of Tapped App Inc. exceed the amount paid by you, if any, for accessing the Tapped App.
+                    5.2. In no event shall the total liability of Tapped Industries Inc. exceed the amount paid by you, if any, for accessing the Tapped App.
         </div>
 
         <h2 className="text-center md:text-start text-3xl mt-10 mb-5">
                     Governing Law and Jurisdiction
         </h2>
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">
-                This Agreement shall be governed by and construed in accordance with the laws of the jurisdiction where Tapped App Inc. is registered. Any disputes arising under or in connection with this Agreement shall be subject to the exclusive jurisdiction of the courts in that jurisdiction.
+                This Agreement shall be governed by and construed in accordance with the laws of the jurisdiction where Tapped Industries Inc. is registered. Any disputes arising under or in connection with this Agreement shall be subject to the exclusive jurisdiction of the courts in that jurisdiction.
         </div>
 
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">
@@ -84,11 +84,11 @@ export default function Eula() {
         </div>
 
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">
-                Effective Date: 05/30/2023
+                Effective Date: 02/22/2024
         </div>
 
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">
-                Tapped App Inc.
+                Tapped Industries Inc.
         </div>
       </div>
     </>

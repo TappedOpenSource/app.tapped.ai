@@ -269,6 +269,11 @@ export const getServerSideProps = async () => {
       photo: '/images/512x512/512.rickross.jpeg',
       url: 'https://music.apple.com/us/artist/rick-ross/4022281',
     },
+    {
+      name: 'chloe battelle',
+      photo: '/images/512x512/512.chloe.jpg',
+      url: 'https://soundcloud.com/chloebattelle',
+    },
   ];
   const shuffledArtists = shuffle(signedArtists);
   return { props: { shuffledArtists } };

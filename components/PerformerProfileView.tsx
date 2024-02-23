@@ -2,6 +2,7 @@
 
 import type { Review } from '@/domain/models/review';
 import type { Booking } from '@/domain/models/booking';
+import { Fab } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -103,6 +104,13 @@ export default function PerformerProfileView({ username }: { username: string })
 
   return (
     <>
+      <div className="fixed right-8 bottom-8">
+        <Link href="/download">
+          <Fab color="primary" aria-label="add" variant="extended">
+            book them on the app
+          </Fab>
+        </Link>
+      </div>
       <div className='md:flex md:justify-center'>
         <div className='py-4 px-6 md:w-1/2'>
           <div className='flex flex-row justify-start items-center'>
