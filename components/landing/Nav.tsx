@@ -12,7 +12,7 @@ export default function Nav() {
   };
 
   return <>
-    <nav className='fixed w-screen backdrop-blur-xl bg-[#010F16]/30 flex items-center flex-wrap bg-transparent p-3 '>
+    <nav className='positioned w-screen backdrop-blur-xl bg-[#010F16]/30 flex items-center flex-wrap bg-transparent p-3 '>
       <Link
         href="/"
         className='inline-flex items-center p-2 mr-4 '

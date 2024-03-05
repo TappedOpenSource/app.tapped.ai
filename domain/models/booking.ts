@@ -58,3 +58,31 @@ export const bookingConverter = {
     };
   },
 };
+
+export const bookingImage = (booking: Booking | null): string => {
+  if (booking === null) {
+    return defaultImage('0');
+  }
+
+  return booking.flierUrl.match({
+    some: (flierUrl) => {
+      return flierUrl;
+    },
+    none: () => {
+      return defaultImage(booking.id);
+    },
+  });
+};
+
+const defaultImage = (id: string): string => {
+  const defaultImages = [
+    '/images/default_images/bob.png',
+    '/images/default_images/daftpunk.png',
+    '/images/default_images/deadmau5.png',
+    '/images/default_images/kanye.png',
+    '/images/default_images/skrillex.png',
+  ];
+
+  const index = id.length % defaultImages.length;
+  return defaultImages[index];
+};

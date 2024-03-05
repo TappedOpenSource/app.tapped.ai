@@ -6,6 +6,7 @@ import { getBookingById, getUserById } from '@/data/database';
 import { Booking } from '@/domain/models/booking';
 import UserTile from '../UserTile';
 import { UserModel } from '@/domain/models/user_model';
+import Nav from '../landing/Nav';
 
 export default function BookingView({ bookingId }: {
     bookingId: string;
@@ -78,12 +79,13 @@ export default function BookingView({ bookingId }: {
 
   const flier = booking.flierUrl.match({
     some: (url) => (
-      <div className='relative h-[512px] w-[512px]'>
+      <div className='relative h-[60vh] w-[95vw] rounded-xl'>
         <Image
           src={url}
           alt='flier'
           fill
           objectFit='cover'
+          className='rounded-xl'
         />
       </div>
     ),
@@ -94,7 +96,7 @@ export default function BookingView({ bookingId }: {
     null :
     (
       <>
-        <h3 className='font-extrabold text-3xl'>Booker</h3>
+        <h3 className='font-extrabold text-xl'>Booker</h3>
         <UserTile user={booker} />
       </>
     );
@@ -103,26 +105,27 @@ export default function BookingView({ bookingId }: {
     null :
     (
       <>
-        <h3 className='font-extrabold text-3xl'>Performer</h3>
+        <h3 className='font-extrabold text-xl'>Performer</h3>
         <UserTile user={performer} />
       </>
     );
 
   return (
     <>
+      <Nav />
       <div className='flex justify-center'>
-        <div className='px-6 w-auto md:w-1/2'>
+        <div className='px-6 pb-12 w-auto md:w-1/2'>
           {flier}
-          <h1 className='font-extrabold text-5xl'>{booking.name}</h1>
-          <div className='h-6' />
+          <h1 className='font-extrabold text-4xl'>{booking.name}</h1>
+          <div className='h-8' />
           {bookerStuff}
           <div className='h-6' />
           {performerStuff}
           <div className='h-6' />
-          <h3 className='font-extrabold text-3xl'>Date</h3>
+          <h3 className='font-extrabold text-xl'>Date</h3>
           <p>Date: {booking.startTime.toDateString()}</p>
           <div className='h-6' />
-          <h3 className='font-extrabold text-3xl'>Duration</h3>
+          <h3 className='font-extrabold text-xl'>Duration</h3>
           <p>{duration}</p>
         </div>
       </div>

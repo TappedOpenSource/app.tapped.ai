@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { Booking } from '@/domain/models/booking';
+import { Booking, bookingImage } from '@/domain/models/booking';
 import { UserModel, profileImage } from '@/domain/models/user_model';
 import { getServiceById, getUserById } from '@/data/database';
 import { Service } from '@/domain/models/service';
@@ -80,7 +80,7 @@ export default function BookingCard({ booking, user }: {
     fetchService();
   }, [booking, user]);
 
-  const bookerImageSrc = booker !== null ? profileImage(booker) : '/images/default_avatar.png';
+  const bookerImageSrc = bookingImage(booking);
   const startTimeStr = booking.startTime.toDateString();
 
   return (
@@ -88,13 +88,13 @@ export default function BookingCard({ booking, user }: {
       <Link
         href={`/booking/${booking.id}`}
       >
-        <div>
+        <div className='relative w-[300px] h-[300px]'>
           <Image
             src={bookerImageSrc}
             alt={'booking image'}
-            width={150}
-            height={150}
             className='rounded-lg'
+            objectFit='cover'
+            fill
           />
         </div>
         <div className='w-6' />
