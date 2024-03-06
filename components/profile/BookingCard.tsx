@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Booking, bookingImage } from '@/domain/models/booking';
-import { UserModel, profileImage } from '@/domain/models/user_model';
+import { UserModel } from '@/domain/models/user_model';
 import { getServiceById, getUserById } from '@/data/database';
 import { Service } from '@/domain/models/service';
 import { None } from '@sniptt/monads';

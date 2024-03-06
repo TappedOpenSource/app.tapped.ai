@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { Booking } from '@/domain/models/booking';
+import { Booking, bookingImage } from '@/domain/models/booking';
 import { UserModel, profileImage } from '@/domain/models/user_model';
 import BookIcon from '@mui/icons-material/Book';
 import { getServiceById, getUserById } from '@/data/database';
@@ -26,10 +26,8 @@ export default function BookingTile({ booking, user }: {
           return None;
         }
 
-        return getUserById(booking.requesteeId);
+        return getUserById(booking.requesterId);
       })();
-
-      const performer = await getUserById(booking.requesteeId);
       booker.match({
         some: (booker) => {
           setBooker(booker);
@@ -38,6 +36,8 @@ export default function BookingTile({ booking, user }: {
           console.log('booker not found');
         },
       });
+
+      const performer = await getUserById(booking.requesteeId);
       performer.match({
         some: (performer) => {
           setPerformer(performer);
@@ -77,13 +77,19 @@ export default function BookingTile({ booking, user }: {
     fetchService();
   }, [booking, user]);
 
-  // const bookerImageSrc = booker !== null ? profileImage(booker) : '/images/default_avatar.png';
+  const imageSrc = bookingImage(booking);
 
   return (
     <>
       <div className='flex flex-row'>
         <div className='flex justify-center items-center'>
-          <BookIcon />
+          <Image
+            src={imageSrc}
+            alt='booking image'
+            width={50}
+            height={50}
+            objectFit='cover'
+          />
         </div>
         <div className='w-3' />
         <div>
