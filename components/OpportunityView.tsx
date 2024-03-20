@@ -73,7 +73,7 @@ export default function OpportunityView({
   return (
     <>
       <div className="fixed right-8 bottom-8">
-        <Link href="/download">
+        <Link href={'https://tapped.ai/download'}>
           <Fab color="primary" aria-label="add" variant="extended">
             apply in the app
           </Fab>
