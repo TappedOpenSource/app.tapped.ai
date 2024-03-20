@@ -45,7 +45,6 @@ export default function RootLayout({
       </body>
       <Script
         src="instagram.js"
-        strategy="beforeInteractive"
       />
     </html>
   );
