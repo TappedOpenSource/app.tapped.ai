@@ -175,18 +175,32 @@ export async function getOpportunityById(opportunityId: string) {
 }
 
 export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
+  const opportunitiesRef = collection(db, 'opportunities');
+  const tccOpsQuery = query(
+    opportunitiesRef,
+    where('userId', '==', 'yfjw9oCMwPVzAxgENxGxecPcNym1'),
+    where('deleted', '==', false),
+    where('startTime', '>', new Date()),
+    orderBy('startTime', 'desc'),
+    limit(3),
+  ).withConverter(opportunityConverter);
+  const tccOpsSnap = await getDocs(tccOpsQuery);
+  const tccOps = tccOpsSnap.docs.map((doc) => doc.data());
+
   const leadersRef = collection(db, 'leaderboard');
   const leadersSnap = doc(leadersRef, 'leaders');
   const leadersDoc = await getDoc(leadersSnap);
   const { featuredOpportunities } = leadersDoc.data() as {
     featuredOpportunities: string[];
   };
-  return await Promise.all(
+  const leaderOps = await Promise.all(
     featuredOpportunities
       .map(getOpportunityById)
       .filter(async (op) => (await op).isSome())
       .map(async (op) => (await op).unwrap())
   );
+
+  return [...tccOps, ...leaderOps];
 }
 
 export async function getServiceById({
