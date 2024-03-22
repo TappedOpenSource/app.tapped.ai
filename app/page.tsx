@@ -16,7 +16,7 @@ import SignedArtistCard from '@/components/landing/SignedArtistCard';
 import Nav from '@/components/landing/Nav';
 import PartneredWith from '@/components/landing/PartneredWith';
 import Testimonials from '@/components/landing/Testimonials';
-import Snowfall from 'react-snowfall';
+// import Snowfall from 'react-snowfall';
 import FeaturedOpportunities from '@/components/landing/FeaturedOpportunities';
 
 const rubik = Rubik({
@@ -24,27 +24,21 @@ const rubik = Rubik({
   weight: ['300', '400', '500', '600', '700', '800', '900'],
 });
 
-const isWinter = [12, 1, 2].includes(new Date().getMonth());
+// const isWinter = [12, 1, 2].includes(new Date().getMonth());
 
-export default function Home({ shuffledArtists }: {
-  shuffledArtists: {
-    name: string;
-    photo: string;
-    url: string;
-    username?: string;
-    signed?: boolean;
-  }[]
-}) {
+export default async function Home() {
+  const { shuffledArtists } = await getData();
+
   // bg-[#63b2fd]
   return (
     <div className={rubik.className}>
-      {isWinter && <Snowfall
+      {/* {isWinter && <Snowfall
         style={{
           position: 'fixed',
           width: '100vw',
           height: '100vh',
         }}
-      />}
+      />} */}
       <Nav />
       <div className="flex flex-col items-center justify-start px-12">
         {/* <div className="w-full items-center justify-around text-sm lg:flex">
@@ -175,7 +169,7 @@ export default function Home({ shuffledArtists }: {
   );
 }
 
-export const getServerSideProps = async () => {
+const getData = async () => {
   const signedArtists: {
     name: string;
     photo: string;
@@ -276,6 +270,6 @@ export const getServerSideProps = async () => {
     },
   ];
   const shuffledArtists = shuffle(signedArtists);
-  return { props: { shuffledArtists } };
+  return { shuffledArtists };
 };
 

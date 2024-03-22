@@ -3,7 +3,6 @@ import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 
 import './globals.css';
-import Script from 'next/script';
 
 const title = 'Tapped Ai : world tour from your iPhone';
 const description = 'apply to perform for FREE';
@@ -38,7 +37,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <script src='' async />
       <body>
         {children}
         <Analytics />

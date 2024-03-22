@@ -1,3 +1,5 @@
+'use client';
+
 import type { NextPage } from 'next';
 import ProductCard from '@/components/ProductCard';
 // import withAuth from '@/domain/auth/withAuth';
@@ -7,11 +9,10 @@ import auth from '@/data/auth';
 import { redirect, usePathname, useRouter } from 'next/navigation';
 
 const subscriptionPlansIds = [
-  'prod_P4wsGUAj9eeoni', // starter
+  'prod_PDFgqCLcjDQpP9', // premium
 ];
 
 const Pricing: NextPage = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const [billingPortal, setBillingPortal] = useState<string | null>(null);
   const [products, setProducts] = useState<any[]>([]);
@@ -52,7 +53,7 @@ const Pricing: NextPage = () => {
           href={billingPortal}
           className="px-5 py-2 text-white bg-[#42A5F5] rounded-md"
         >
-        Manage Subscription
+        manage subscription
         </a>
       </div>
     );
@@ -61,11 +62,10 @@ const Pricing: NextPage = () => {
   return (
     <>
       <h1 className="px-5 pt-10 text-left text-5xl font-bold text-white">
-        Pricing Plans
+        pricing plans
       </h1>
       <p className="px-5 pb-10 pt-6 text-left text-lg text-white text-center">
-        Select a plan and lets get you introduced to your team from the first
-        ever Ai Label.
+        choose how long you want to subscribe for
       </p>
       <div className="flex flex-col md:flex-row justify-center">
         {products.filter(({ product }) => {
@@ -73,15 +73,16 @@ const Pricing: NextPage = () => {
           return subscriptionPlansIds.includes(product.id);
         }).map(({ product, prices }) => {
           return (
-            <div className="px-5 py-2" key={product.name}>
-              <ProductCard product={product} prices={prices} key={product.name} />
+            <div className="px-5 py-2 flex flex-col md:flex-row gap-4" key={product.name}>
+              {prices.map((price: any) => {
+                return (
+                  <ProductCard product={product} price={price} key={price.id} />
+                );
+              })}
             </div>
           );
         })}
       </div>
-      {/* <div className="px-5 py-2">
-        <MarketplaceProductCard />
-      </div> */}
     </>
   );
 };

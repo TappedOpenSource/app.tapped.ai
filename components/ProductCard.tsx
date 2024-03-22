@@ -2,22 +2,21 @@ import { useState } from 'react';
 import { Button, CircularProgress, Icon } from '@mui/material';
 import { subscribe } from '@/domain/usecases/payments';
 
-const ProductCard = ({ product, prices }: {
+const ProductCard = ({ product, price }: {
   product: any;
-  prices: any[];
+  price: any;
  }) => {
-  const priceData = prices[0];
-  const priceWithCents = (priceData.unit_amount / 100).toFixed(2);
+  const priceWithCents = (price.unit_amount / 100).toFixed(2);
 
   console.log(JSON.stringify(product, null, 2));
 
   const formatedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: priceData.currency,
+    currency: price.currency,
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
   }).format(priceWithCents);
-  const priceText = `${formatedPrice} / ${priceData.interval ?? 'once'}`;
+  const priceText = `${formatedPrice} / ${price.interval ?? 'once'}`;
 
   const [loading, setLoading] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -25,7 +24,7 @@ const ProductCard = ({ product, prices }: {
   const handleSubscribe = async () => {
     setLoading(true);
     try {
-      await subscribe({ priceId: priceData.id });
+      await subscribe({ priceId: price.id });
       setIsSubscribed(true);
     } catch (error) {
       console.error(error);
@@ -43,7 +42,7 @@ const ProductCard = ({ product, prices }: {
           </p>
         </div>
         {/* <p className="px-4 pt-2 text-white">{product?.description ?? ''}</p> */}
-        <div className="p-4 flex flex-col gap-4">
+        {/* <div className="p-4 flex flex-col gap-4">
           {product?.description?.split('#').map((feature: string, key: string) => {
             return (
               <div key={key} className='flex flex-row'>
@@ -53,7 +52,7 @@ const ProductCard = ({ product, prices }: {
               </div>
             );
           })}
-        </div>
+        </div> */}
         <p className="px-4 pt-8 text-3xl font-bold text-white">{priceText}</p>
         <div className="px-5 pt-10">
           <button
