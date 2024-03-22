@@ -82,7 +82,7 @@ export default function PartneredWith() {
               height: 'auto',
             }} />
         </Link>
-        <Link
+        {/* <Link
           href="https://ktizo.com"
           className='rounded-xl p-5 bg-white'
         >
@@ -96,7 +96,7 @@ export default function PartneredWith() {
               maxWidth: '100%',
               height: 'auto',
             }} />
-        </Link>
+        </Link> */}
       </div>
       <div
         className='h-6'
