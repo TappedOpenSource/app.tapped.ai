@@ -200,11 +200,11 @@ export const getServerSideProps = async () => {
     //   url: 'https://music.apple.com/us/artist/mani-da-brat/1509383758',
     //   username: 'manidabrat',
     // },
-    {
-      name: 'NLE Choppa',
-      photo: '/images/512x512/512.choppa.jpeg',
-      url: 'https://music.apple.com/us/artist/nle-choppa/1449052753',
-    },
+    // {
+    //   name: 'NLE Choppa',
+    //   photo: '/images/512x512/512.choppa.jpeg',
+    //   url: 'https://music.apple.com/us/artist/nle-choppa/1449052753',
+    // },
     {
       name: 'seelife',
       photo: '/images/512x512/seelife.512x512.png',
@@ -236,11 +236,11 @@ export const getServerSideProps = async () => {
       url: 'https://music.apple.com/us/artist/yung-smilez/1228940318',
       username: 'yungsmilez',
     },
-    {
-      name: 'bobby shmurda',
-      photo: '/images/512x512/512.bobbyschmurda.jpeg',
-      url: 'https://music.apple.com/us/artist/bobby-shmurda/902809133',
-    },
+    // {
+    //   name: 'bobby shmurda',
+    //   photo: '/images/512x512/512.bobbyschmurda.jpeg',
+    //   url: 'https://music.apple.com/us/artist/bobby-shmurda/902809133',
+    // },
     {
       name: 'andrew rohlk',
       photo: '/images/512x512/andrew.512x512.png',
@@ -259,16 +259,16 @@ export const getServerSideProps = async () => {
       url: 'https://music.apple.com/us/artist/frankie-biggz/191277376',
       username: 'frankiebiggz',
     },
-    {
-      name: 'meek mill',
-      photo: '/images/512x512/512.meekmill.jpeg',
-      url: 'https://music.apple.com/us/artist/meek-mill/313865761',
-    },
-    {
-      name: 'rick ross',
-      photo: '/images/512x512/512.rickross.jpeg',
-      url: 'https://music.apple.com/us/artist/rick-ross/4022281',
-    },
+    // {
+    //   name: 'meek mill',
+    //   photo: '/images/512x512/512.meekmill.jpeg',
+    //   url: 'https://music.apple.com/us/artist/meek-mill/313865761',
+    // },
+    // {
+    //   name: 'rick ross',
+    //   photo: '/images/512x512/512.rickross.jpeg',
+    //   url: 'https://music.apple.com/us/artist/rick-ross/4022281',
+    // },
     {
       name: 'chloe battelle',
       photo: '/images/512x512/512.chloe.jpg',
