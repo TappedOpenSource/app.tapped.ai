@@ -76,7 +76,7 @@ export default async function Home() {
             <p
               className="text-center text-white py-4 px-8"
             >
-                join over 1000+ artists in our community
+                join over 1000+ performers on the app.
             </p>
           </Link>
           <div className="h-8"></div>
