@@ -42,7 +42,7 @@ export default function Download() {
             step 2. complete your profile on the app
           </p>
           <p>
-            step 3. swipe on the home feed
+            step 3. apply to perform at thousands of venues
           </p>
         </div>
       </div>
