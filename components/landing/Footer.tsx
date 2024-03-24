@@ -22,12 +22,12 @@ const Footer = () => {
                 <li className="mb-4">
                   <Link href="https://linktree.tapped.ai" className=" hover:underline">linktree</Link>
                 </li>
-                {/* <li className="mb-4">
-                  <Link href="/" className="hover:underline">Careers</Link>
+                <li className="mb-4">
+                  <Link href="https://tappedapp.notion.site/join-tapped-9ccf655358344b21979f73adadf22d98?pvs=74" className="hover:underline">careers</Link>
                 </li>
                 <li className="mb-4">
-                  <Link href="/" className="hover:underline">Brand Center</Link>
-                </li> */}
+                  <Link href="https://tappedapp.notion.site/the-record-label-of-the-future-cf8298dd5c6d4b5b800f11eced46c261?pvs=4" className="hover:underline">neo record label</Link>
+                </li>
                 <li className="mb-4">
                   <Link href="https://blog.tapped.ai" className="hover:underline">blog</Link>
                 </li>

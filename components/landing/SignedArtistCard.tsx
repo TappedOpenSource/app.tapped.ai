@@ -17,7 +17,7 @@ const SignedArtistCard = ({ name, photo, username, url }: {
     >
 
       <div
-        className="w-48 h-64 md:w-64 md:h-72 relative flex-shrink-0 m-2 hover:scale-105 transform transition-all duration-200 ease-in-out">
+        className="w-48 h-64 md:w-54 md:h-72 relative flex-shrink-0 m-2 hover:scale-105 transform transition-all duration-200 ease-in-out">
         <Image
           fill
           priority

@@ -62,7 +62,7 @@ export default function Nav() {
             rel="noopener noreferrer"
             className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
           >
-              analytics
+              map
           </Link>
           <Link
             onClick={() => track('nav-click', { item: 'roadmap' })}
