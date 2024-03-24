@@ -29,6 +29,10 @@ module.exports = {
         protocol: 'https',
         hostname: 'storage.googleapis.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'songbyrddc.com',
+      },
     ],
   },
 };

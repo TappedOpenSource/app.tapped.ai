@@ -159,9 +159,9 @@ function BuildHeader({ user }: { user: UserModel }) {
       </div>
       <div className='h-4' />
       <div className='flex flex-row items-center justify-around'>
-        {user.socialFollowing.instagramHandle && <InstagramButton instagramHandle={user.socialFollowing.instagramHandle} />}
-        {user.socialFollowing.twitterHandle && <TwitterButton twitterHandle={user.socialFollowing.twitterHandle} />}
-        {user.socialFollowing.tiktokHandle && <TiktokButton tiktokHandle={user.socialFollowing.tiktokHandle} />}
+        {user.socialFollowing?.instagramHandle && <InstagramButton instagramHandle={user.socialFollowing.instagramHandle} />}
+        {user.socialFollowing?.twitterHandle && <TwitterButton twitterHandle={user.socialFollowing.twitterHandle} />}
+        {user.socialFollowing?.tiktokHandle && <TiktokButton tiktokHandle={user.socialFollowing.tiktokHandle} />}
         {user.performerInfo?.spotifyId && <SpotifyButton spotifyId={user.performerInfo.spotifyId} />}
       </div>
     </div>
