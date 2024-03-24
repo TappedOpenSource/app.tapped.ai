@@ -102,9 +102,9 @@ export const userModelConverter = {
 export const reviewCount = (user: UserModel) => (user.bookerInfo?.reviewCount ?? 0) +
     (user.performerInfo?.reviewCount ?? 0);
 
-export const audienceSize = (user: UserModel) => (user.socialFollowing.twitterFollowers ?? 0) +
-    (user.socialFollowing.instagramFollowers ?? 0) +
-    (user.socialFollowing.tiktokFollowers ?? 0);
+export const audienceSize = (user: UserModel) => (user.socialFollowing?.twitterFollowers ?? 0) +
+    (user.socialFollowing?.instagramFollowers ?? 0) +
+    (user.socialFollowing?.tiktokFollowers ?? 0);
 
 
 export const profileImage = (user: UserModel) => {
