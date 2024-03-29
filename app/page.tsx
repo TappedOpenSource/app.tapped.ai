@@ -6,23 +6,14 @@ import { Rubik } from 'next/font/google';
 import { shuffle } from '@/utils/shuffle';
 import Footer from '@/components/landing/Footer';
 import SignedArtistCard from '@/components/landing/SignedArtistCard';
-// import FeaturedIn from '@/components/landing/FeaturedIn';
-// import SupportJourney from '@/components/landing/SupportJourney';
-// import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
-// import Benefits from '@/components/landing/Benefits';
-// import YourJourney from '@/components/landing/YourJourney';
-// import Unshackle from '@/components/landing/Unshackle';
-// import JoinTheMovement from '@/components/landing/JoinTheMovement';
 import Nav from '@/components/landing/Nav';
 import PartneredWith from '@/components/landing/PartneredWith';
 import Testimonials from '@/components/landing/Testimonials';
 // import Snowfall from 'react-snowfall';
 import FeaturedOpportunities from '@/components/landing/FeaturedOpportunities';
 import SupportJourney from '@/components/landing/SupportJourney';
-import Benefits from '@/components/landing/Benefits';
 import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
 import YourJourney from '@/components/landing/YourJourney';
-import Unshackle from '@/components/landing/Unshackle';
 
 const rubik = Rubik({
   subsets: ['latin'],

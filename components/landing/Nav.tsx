@@ -56,10 +56,10 @@ export default function Nav() {
               for bookers
           </Link>
           <Link
-            onClick={() => track('nav-click', { item: 'data' })}
-            href='https://data.tapped.ai'
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={() => track('nav-click', { item: 'map' })}
+            href='/map'
+            // target="_blank"
+            // rel="noopener noreferrer"
             className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
           >
               map
