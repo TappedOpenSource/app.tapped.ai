@@ -149,6 +149,7 @@ export default async function Home() {
           >get started</Link>
         </div>
       </div>
+      <div className="h-12 md:h-36"></div>
       <SupportJourney />
       <div className="h-12 md:h-36"></div>
       <SubscriptionPlans />
