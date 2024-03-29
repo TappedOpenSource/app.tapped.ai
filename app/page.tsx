@@ -36,8 +36,9 @@ export default async function Home() {
         }}
       />} */}
       <Nav />
-      <div className="flex flex-col items-center justify-start px-12">
-        {/* <div className="w-full items-center justify-around text-sm lg:flex">
+      <main>
+        <div className="flex flex-col items-center justify-start px-12">
+          {/* <div className="w-full items-center justify-around text-sm lg:flex">
           <div id="by-tapped" className="fixed z-50 bottom-0 left-0 flex h-24 w-full items-end justify-center bg-white rounded-lg lg:hidden">
             <a
               className="flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
@@ -65,57 +66,58 @@ export default async function Home() {
           </div>
         </div> */}
 
-        <div className="flex flex-col place-items-center md:pt-20">
-          <Link
-            href='https://tapped.ai/download'
-            className="bg-white/20 rounded-full">
-            <p
-              className="text-center text-white py-4 px-8"
-            >
+          <div className="flex flex-col place-items-center md:pt-20">
+            <Link
+              href='https://tapped.ai/download'
+              className="bg-white/20 rounded-full">
+              <p
+                className="text-center text-white py-4 px-8"
+              >
                 join over 10,000+ performers on the app.
-            </p>
-          </Link>
-          <div className="h-8"></div>
-          <h1
-            className="text-5xl md:w-1/2 font-extrabold text-center text-white lg:text-6xl"
-          >
+              </p>
+            </Link>
+            <div className="h-8"></div>
+            <h1
+              className="text-5xl md:w-1/2 font-extrabold text-center text-white lg:text-6xl"
+            >
             create a world tour from your iPhone
-          </h1>
-          <div className="pt-2 pb-2"></div>
-          <h2
-            className="text-2xl font-thin text-center text-gray-200"
-          >
+            </h1>
+            <div className="pt-2 pb-2"></div>
+            <h2
+              className="text-2xl font-thin text-center text-gray-200"
+            >
             live music data with superpowers
-          </h2>
-          <div className="flex flex-col md:flex-row justify-center mt-8 mb-4 py-2 px-4 gap-4">
-            <Link
-              href="/download"
-              className="text-lg font-black bg-white text-black text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
-            >for performers</Link>
-            <Link
-              href="/venue"
-              className="text-lg font-black text-white bg-white/25 text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
-            >for bookers</Link>
-          </div>
-          <div className="pb-12 lg:pb-2"></div>
-          <div className="overflow-hidden w-screen">
-            <div className="relative flex flex-row">
-              <div className="flex flex-row animate-marquee whitespace-nowrap">
-                {shuffledArtists.map((userInfo, i) => <SignedArtistCard
-                  key={i}
-                  {...userInfo}
-                />)}
-              </div>
-              <div className="absolute flex flex-row animate-marquee2 whitespace-nowrap">
-                {shuffledArtists.map((userInfo, i) => <SignedArtistCard
-                  key={i}
-                  {...userInfo}
-                />)}
+            </h2>
+            <div className="flex flex-col md:flex-row justify-center mt-8 mb-4 py-2 px-4 gap-4">
+              <Link
+                href="/download"
+                className="text-lg font-black bg-white text-black text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
+              >for performers</Link>
+              <Link
+                href="/venue"
+                className="text-lg font-black text-white bg-white/25 text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
+              >for bookers</Link>
+            </div>
+            <div className="pb-12 lg:pb-2"></div>
+            <div className="overflow-hidden w-screen">
+              <div className="relative flex flex-row">
+                <div className="flex flex-row animate-marquee whitespace-nowrap">
+                  {shuffledArtists.map((userInfo, i) => <SignedArtistCard
+                    key={i}
+                    {...userInfo}
+                  />)}
+                </div>
+                <div className="absolute flex flex-row animate-marquee2 whitespace-nowrap">
+                  {shuffledArtists.map((userInfo, i) => <SignedArtistCard
+                    key={i}
+                    {...userInfo}
+                  />)}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </main>
       <div className="h-12 md:h-36"></div>
       <PartneredWith />
       <div className="h-12 md:h-36"></div>
