@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 const title = 'Tapped Ai : world tour from your iPhone';
-const description = 'apply to perform for FREE';
+const description = 'live music data with superpowers';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://tapped.ai'),
