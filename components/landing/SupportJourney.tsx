@@ -12,11 +12,11 @@ const SupportJourney = () => {
         </div>
         <div className="h-8"></div> */}
         <h2 className="text-center text-4xl mx-4 md:mx-0 md:w-1/2">
-        giving artists the tools they need to succeed in the music industry
+        live music bookings powered by data
         </h2>
         <div className="h-8"></div>
         <p className="text-center text-lg mx-4 md:mx-0 md:w-1/2 lowercase">
-        Unlike traditional record labels, we&apos;re not interested in taking a slice of your hard-earned success. We believe your art should remain yours. That&apos;s why we don&apos;t ask for any equity, and there are no long-term contracts tying you down.
+        tapped ai revolutionizes the live music scene by leveraging data analytics to match artists with the perfect venues for their performances. our platform analyzes a wealth of data, including venue capacities, audience demographics, and genre preferences, to provide personalized venue recommendations.
         </p>
         {/* <div className="h-8"></div>
         <Image

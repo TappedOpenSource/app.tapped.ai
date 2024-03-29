@@ -18,6 +18,11 @@ import PartneredWith from '@/components/landing/PartneredWith';
 import Testimonials from '@/components/landing/Testimonials';
 // import Snowfall from 'react-snowfall';
 import FeaturedOpportunities from '@/components/landing/FeaturedOpportunities';
+import SupportJourney from '@/components/landing/SupportJourney';
+import Benefits from '@/components/landing/Benefits';
+import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
+import YourJourney from '@/components/landing/YourJourney';
+import Unshackle from '@/components/landing/Unshackle';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -89,7 +94,7 @@ export default async function Home() {
           <h2
             className="text-2xl font-thin text-center text-gray-200"
           >
-            secure live bookings with the power of data
+            live music data with superpowers
           </h2>
           <div className="flex flex-col md:flex-row justify-center mt-8 mb-4 py-2 px-4 gap-4">
             <Link
@@ -123,22 +128,23 @@ export default async function Home() {
       <div className="h-12 md:h-36"></div>
       <PartneredWith />
       <div className="h-12 md:h-36"></div>
+
+      <SupportJourney />
+      <div className="h-12 md:h-36"></div>
+      <SubscriptionPlans />
+      <div className="h-12 md:h-36"></div>
+      {/* <Benefits /> */}
+      {/* <div className="h-12 md:h-36"></div> */}
+      <YourJourney />
+      <div className="h-12 md:h-36"></div>
+      {/* <Unshackle />
+      <div className="h-12 md:h-36"></div> */}
+      {/* <FeaturedIn /> */}
+      {/* <div className="h-12 md:h-36"></div> */}
       <FeaturedOpportunities />
       <div className="h-12 md:h-36"></div>
       <Testimonials />
       <div className="h-12 md:h-36"></div>
-      {/* <SupportJourney /> */}
-      {/* <div className="h-12 md:h-36"></div> */}
-      {/* <SubscriptionPlans /> */}
-      {/* <div className="h-12 md:h-36"></div> */}
-      {/* <Benefits /> */}
-      {/* <div className="h-12 md:h-36"></div> */}
-      {/* <YourJourney /> */}
-      {/* <div className="h-12 md:h-36"></div> */}
-      {/* <FeaturedIn /> */}
-      {/* <div className="h-12 md:h-36"></div> */}
-      {/* <Unshackle /> */}
-      {/* <div className="h-12 md:h-36"></div> */}
       <div
         className='px-2 py-24 my-12 md:my-0 md:min-h-screen flex flex-col justify-center items-center bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-green-300 via-blue-500 to-purple-600'
       >

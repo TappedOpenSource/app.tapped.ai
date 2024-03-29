@@ -17,31 +17,31 @@ const YourJourney = () => {
   return (
     <section>
       <div className="flex flex-col justify-center">
-        <h2 className="text-center text-4xl">your journey with tapped Ai</h2>
+        <h2 className="text-center text-4xl">your journey with tapped ai</h2>
         <div className="h-6"></div>
         <div className="flex justify-center">
           <div className="md:w-3/4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-center lowercase">
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 justify-center lowercase">
               <JourneyTile
                 number="1"
-                title="choose your plan"
-                description="Select the subscription plan that suits your needs, whether you're just starting out or ready to take your career to the next level."
+                title="get started for free"
+                description="Sign up for free and get access to information on thousands of venues and events. discover the perfect location for your next gig or event."
               />
               <JourneyTile
                 number="2"
-                title="access your services"
-                description="Dive into our app and access a range of services tailored to your requirements. Get help with marketing strategies, brand development, styling, and more."
+                title="upgrade your experience"
+                description="effortlessly conduct mass outreach and pinpoint the ideal venues for your genre and capacity requirements. simplify your booking process and focus on what you do best – creating and performing."
               />
               <JourneyTile
                 number="3"
-                title="empower your brand"
-                description="Collaborate with your virtual team members to enhance your branding, create captivating cover art, and present a professional image to the world."
+                title="get booked"
+                description="our platform simplifies the process of maintaining communication with venues, enhancing your chances of getting booked and showcasing your talent to audiences far and wide."
               />
-              <JourneyTile
+              {/* <JourneyTile
                 number="4"
                 title="pay as you go"
                 description="Only pay for the services you use, ensuring you have complete control over your budget."
-              />
+              /> */}
             </div>
           </div>
         </div>

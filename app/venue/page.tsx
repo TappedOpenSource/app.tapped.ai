@@ -23,22 +23,6 @@ export default function Venue() {
             className="bg-white text-black text-lg font-black text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
           >contact us</Link>
         </div>
-        <div className="h-4"></div>
-        <div className='w-full flex flex-row justify-around items-center gap-4'>
-          <div className='w-full h-px bg-white'></div>
-          <p>or</p>
-          <div className='w-full h-px bg-white'></div>
-        </div>
-        <div className="h-4"></div>
-        <div className="flex justify-center py-2 px-4">
-          <Link
-            href="https://forms.gle/F18XCFnAXmyML2Bn8"
-            target="_blank"
-            title="app download"
-            rel="noreferrer"
-            className="bg-white text-black text-lg font-black text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
-          >add an opportunity</Link>
-        </div>
       </div>
     </>
   );
