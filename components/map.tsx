@@ -16,8 +16,7 @@ import { useDebounce } from '@/context/debounce';
 import { useSearch } from '@/context/search';
 import { profileImage } from '@/domain/models/user_model';
 
-const defaultMapboxToken =
-    'pk.eyJ1Ijoiam9uYXlsb3I4OSIsImEiOiJjbHJvNGdsemswNjl3MnFtdHNieXEyaWphIn0.gwc31X7uTzjxeDm6vcGzCg';
+const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = 'mapbox/dark-v11';
 // const mapboxLightStyle = 'mapbox/light-v10';
 
@@ -52,7 +51,7 @@ export default function VenueMap() {
 
   const markers = useMemo(
     () =>
-      (data || []).map((venue) => {
+      (data ?? []).map((venue) => {
         const lat = venue.location?.lat;
         const lng = venue.location?.lng;
 
@@ -67,7 +66,7 @@ export default function VenueMap() {
             longitude={lng}
             latitude={lat}
             anchor="bottom"
-            onClick={() => window.open(`https://tapped.ai/b/${venue.username}`, '_blank')}
+            onClick={() => window.open(`/b/${venue.username}`, '_blank')}
           >
             <Image
               src={imageSrc}

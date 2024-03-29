@@ -1,6 +1,5 @@
 import { UserModel } from '@/domain/models/user_model';
 import algoliasearch from 'algoliasearch';
-import { getUserById } from './database';
 
 export const searchClient = algoliasearch(
   'GCNFAI2WB6',
@@ -22,18 +21,8 @@ export async function queryVenuesInBoundedBox(bounds: BoundingBox | null): Promi
       [[bounds.sw.lat, bounds.sw.lng, bounds.ne.lat, bounds.ne.lng]],
   });
 
-  if (response.hits.length > 0) {
-    const users = await Promise.all(
-      response.hits.map(async (hit: any) => {
-        const userId = hit.objectID;
-        return await getUserById(userId);
-      }),
-    );
-
-    return users
-      .filter((user) => user.isSome)
-      .map((user) => user.unwrap());
-  }
-
-  return [];
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return response.hits;
 }
+

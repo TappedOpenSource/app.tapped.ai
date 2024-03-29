@@ -8,18 +8,11 @@ import {
 } from 'react-instantsearch';
 import Image from 'next/image';
 import Link from 'next/link';
-import CustomSearchBox from '@/components/SearchBox';
-import { useEffect } from 'react';
+import CustomSearchBox from '@/components/searchbox';
 import { searchClient } from '@/data/search';
 
 function Hit({ hit }: { hit: UserModel }) {
-  useEffect(() => {
-    // get the artist info using hit.id
-
-  }, [hit]);
-
   const imageSrc = profileImage(hit);
-
   return (
     <Link
       href={`https://tapped.ai/${hit.username}`}
@@ -33,7 +26,8 @@ function Hit({ hit }: { hit: UserModel }) {
           width={50}
           height={50}
           className="rounded-full"
-          style={{ objectFit: 'cover' }}
+          objectFit='cover'
+          style={{ objectFit: 'cover', overflow: 'hidden' }}
         />
         <div className="w-4" />
         <div>
