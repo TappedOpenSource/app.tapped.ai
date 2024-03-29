@@ -8,6 +8,37 @@
   }
 }
 
+.button-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  cursor: pointer;
+
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+}
+
+.button-container-dark {
+  background-color: #202020;
+  color: #fff;
+}
+
+.button-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.button-store-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.button-title {
+  font-size: 12px;
+}
+
 .google_btn {
   @apply text-black w-full bg-white hover:bg-black/90 hover:text-white focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2;
 }
