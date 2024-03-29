@@ -98,17 +98,6 @@ export default function PartneredWith() {
             }} />
         </Link> */}
       </div>
-      <div
-        className='h-6'
-      />
-      <Link
-        target="_blank"
-        rel="noreferrer"
-        href="https://tappedapp.notion.site/the-record-label-of-the-future-cf8298dd5c6d4b5b800f11eced46c261?pvs=4"
-        className='mx-2 md:mx-0 border border-gray-400/50 rounded-xl px-8 md:px-24 py-5 bg-white/10 text-white text-center'
-      >
-        check out our <b>record label of the future</b>
-      </Link>
     </div>
   </>;
 }
