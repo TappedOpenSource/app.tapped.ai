@@ -90,6 +90,8 @@ export default function VenueMap() {
   useEffect(() => {
     if (selectedVenue) {
       setOpen(true);
+    } else {
+      setOpen(false);
     }
   }, [selectedVenue]);
 
@@ -112,18 +114,15 @@ export default function VenueMap() {
   return (
 
     <div className='w-screen h-screen m-0'>
-      <UserSheet isOpen={isOpen} onClose={() => setOpen(false)}>
+      <UserSheet isOpen={isOpen} onClose={() => setSelectedVenue(null)}>
         <Sheet.Container>
           <Sheet.Header />
           <Sheet.Content>
             <Sheet.Scroller>
 
-              {selectedVenue === null ? null :
+              {selectedVenue === null ?
+                null :
                 <BookerProfileView username={selectedVenue.username} />}
-              {/* <div className='flex flex-col items-center'>
-              <h1 className="font-bold text-2xl">{selectedUser?.artistName}</h1>
-              <p className="text-sm text-gray-400">@{selectedUser?.username}</p>
-            </div> */}
             </Sheet.Scroller>
           </Sheet.Content>
         </Sheet.Container>

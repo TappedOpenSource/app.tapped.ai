@@ -82,6 +82,81 @@ export default function PartneredWith() {
               height: 'auto',
             }} />
         </Link>
+        <Link
+          href='https://www.rocnation.com/'
+        >
+          <Image
+            src='/images/rocnation.png'
+            width={100}
+            height={100}
+            alt='roc nation'
+            className='rounded-xl'
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
+        </Link>
+        <Link
+          href='https://www.rcarecords.com/'
+        >
+          <Image
+            src='/images/rca.jpeg'
+            width={100}
+            height={100}
+            alt='rac'
+            className='rounded-full'
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
+        </Link>
+        <Link
+          href='https://www.instagram.com/plugnation_llc/'
+        >
+          <Image
+            src='/images/mic.png'
+            width={100}
+            height={100}
+            alt='rac'
+            className='rounded-full'
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
+        </Link>
+        <Link
+          href='https://mediumcreativeagency.com/'
+        >
+          <Image
+            src='/images/medium.jpeg'
+            width={100}
+            height={100}
+            alt='rac'
+            className='rounded-xl'
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
+        </Link>
+        <Link
+          href='https://www.grammy.com/'
+        >
+          <Image
+            src='/images/grammys.png'
+            width={100}
+            height={100}
+            alt='rac'
+            className='rounded-xl'
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
+        </Link>
         {/* <Link
           href="https://ktizo.com"
           className='rounded-xl p-5 bg-white'

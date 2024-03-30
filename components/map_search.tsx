@@ -66,6 +66,8 @@ export default function MapSearch() {
   useEffect(() => {
     if (selectedUser) {
       setOpen(true);
+    } else {
+      setOpen(false);
     }
   }, [selectedUser]);
 
@@ -86,7 +88,7 @@ export default function MapSearch() {
 
   return (
     <>
-      <UserSheet isOpen={isOpen} onClose={() => setOpen(false)}>
+      <UserSheet isOpen={isOpen} onClose={() => setSelectedUser(null)}>
         <Sheet.Container>
           <Sheet.Header />
           <Sheet.Content>
