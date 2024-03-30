@@ -27,7 +27,7 @@ export default async function Home() {
 
   // bg-[#63b2fd]
   return (
-    <div className={rubik.className}>
+    <div className={`${rubik.className} landing`}>
       {/* {isWinter && <Snowfall
         style={{
           position: 'fixed',

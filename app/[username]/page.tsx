@@ -1,3 +1,4 @@
+import Nav from '@/components/landing/Nav';
 import PerformerProfileView from '@/components/PerformerProfileView';
 import { UserModel, profileImage } from '@/domain/models/user_model';
 import { Metadata, ResolvingMetadata } from 'next';
@@ -68,9 +69,9 @@ export async function generateMetadata(
 
 export default function Page({ params }: Props) {
   const username = params.username;
-
   return (
     <>
+      <Nav />
       <PerformerProfileView username={username} />
     </>
   );

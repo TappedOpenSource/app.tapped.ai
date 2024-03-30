@@ -102,14 +102,6 @@ export default function PerformerProfileView({ username }: { username: string })
 
   return (
     <>
-      <div className="fixed right-8 bottom-8">
-        <Link href="/download">
-          <Fab color="primary" aria-label="add" variant="extended">
-            book them on the app
-          </Fab>
-        </Link>
-      </div>
-      <Nav />
       <div className='lg:flex lg:justify-center'>
         <BuildHeader user={user} />
         <BuildRows user={user} bookings={bookings} latestReview={latestReview} />
@@ -124,7 +116,7 @@ function BuildHeader({ user }: { user: UserModel }) {
   return (
     <div className='py-6 lg:py-12 px-6 md:w-1/2 lg:w-[30vw]'>
       <div className='flex flex-row lg:flex-col justify-start items-center'>
-        <div className='relative w-[128px] h-[128px] lg:h-[256px] lg:w-[256px] overflow-hidden rounded-full'>
+        <div className='z-1 relative w-[128px] h-[128px] lg:h-[256px] lg:w-[256px] overflow-hidden rounded-full'>
           <Image
             src={imageSrc}
             alt={`${user.artistName} profile picture`}
