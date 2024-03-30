@@ -5,9 +5,6 @@ import Image from 'next/image';
 export default function PartneredWith() {
   return <>
     <div className='flex flex-col justify-center items-center gap-8'>
-      <div className="uppercase text-center font-bold opacity-80 lowercase">
-      IN PARTNERSHIP WITH
-      </div>
       <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-center items-center gap-10'>
         <Link
           href="https://www.deathrowofficial.com/"
