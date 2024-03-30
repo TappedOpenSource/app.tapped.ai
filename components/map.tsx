@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import {
   Map,
   FullscreenControl,
@@ -14,13 +14,18 @@ import {
 import { BoundingBox } from '@/data/search';
 import { useDebounce } from '@/context/debounce';
 import { useSearch } from '@/context/search';
-import { profileImage } from '@/domain/models/user_model';
+import { profileImage, UserModel } from '@/domain/models/user_model';
+import BookerProfileView from './BookerProfileView';
+import styled from 'styled-components';
+import Sheet from 'react-modal-sheet';
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = 'mapbox/dark-v11';
 // const mapboxLightStyle = 'mapbox/light-v10';
 
 export default function VenueMap() {
+  const [isOpen, setOpen] = useState(false);
+  const [selectedVenue, setSelectedVenue] = useState<UserModel | null>(null);
   const [popupInfo, setPopupInfo] = useState<{
         longitude: number;
         latitude: number;
@@ -66,7 +71,7 @@ export default function VenueMap() {
             longitude={lng}
             latitude={lat}
             anchor="bottom"
-            onClick={() => window.open(`/b/${venue.username}`, '_blank')}
+            onClick={() => setSelectedVenue(venue)}
           >
             <Image
               src={imageSrc}
@@ -82,9 +87,48 @@ export default function VenueMap() {
     [data]
   );
 
+  useEffect(() => {
+    if (selectedVenue) {
+      setOpen(true);
+    }
+  }, [selectedVenue]);
+
+
+  const UserSheet = styled(Sheet)`
+  .react-modal-sheet-container {
+    background-color: #222 !important;
+  }
+
+  .react-modal-sheet-backdrop {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .react-modal-sheet-drag-indicator {
+    background-color: #666 !important;
+  }
+`;
+
+
   return (
 
     <div className='w-screen h-screen m-0'>
+      <UserSheet isOpen={isOpen} onClose={() => setOpen(false)}>
+        <Sheet.Container>
+          <Sheet.Header />
+          <Sheet.Content>
+            <Sheet.Scroller>
+
+              {selectedVenue === null ? null :
+                <BookerProfileView username={selectedVenue.username} />}
+              {/* <div className='flex flex-col items-center'>
+              <h1 className="font-bold text-2xl">{selectedUser?.artistName}</h1>
+              <p className="text-sm text-gray-400">@{selectedUser?.username}</p>
+            </div> */}
+            </Sheet.Scroller>
+          </Sheet.Content>
+        </Sheet.Container>
+        <Sheet.Backdrop />
+      </UserSheet>
       <Map
         initialViewState={{
           latitude: 38.895,
