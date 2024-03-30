@@ -97,9 +97,9 @@ export default function VenueMap() {
         mapboxAccessToken={defaultMapboxToken}
         onRender={onRender}
       >
-        <GeolocateControl position="top-left" />
-        <FullscreenControl position="top-left" />
-        <NavigationControl position="top-left" />
+        <GeolocateControl position="bottom-right" />
+        <FullscreenControl position="bottom-right" />
+        <NavigationControl position="bottom-right" />
         <ScaleControl />
 
         {markers}

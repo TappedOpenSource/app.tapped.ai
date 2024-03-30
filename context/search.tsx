@@ -1,4 +1,4 @@
-import { BoundingBox, queryVenuesInBoundedBox } from '@/data/search';
+import { BoundingBox, queryVenuesInBoundedBox, queryUsers } from '@/data/search';
 import { useQuery } from '@tanstack/react-query';
 
 export const useSearch = () => {
@@ -10,7 +10,21 @@ export const useSearch = () => {
       },
     });
 
+  const useSearchData = (query: string, { hitsPerPage }: {
+    hitsPerPage: number;
+  }) => useQuery({
+    queryKey: ['users', query],
+    queryFn: async () => {
+      if (query === '') {
+        return [];
+      }
+
+      return await queryUsers(query, { hitsPerPage });
+    },
+  });
+
   return {
     useVenueData,
+    useSearchData,
   };
 };

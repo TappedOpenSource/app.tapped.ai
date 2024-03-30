@@ -33,6 +33,10 @@ module.exports = {
         protocol: 'https',
         hostname: 'songbyrddc.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
     ],
   },
 };
