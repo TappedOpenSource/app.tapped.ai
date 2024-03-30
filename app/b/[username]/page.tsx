@@ -1,6 +1,7 @@
 import type { Metadata, ResolvingMetadata } from 'next/types';
 import BookerProfileView from '@/components/BookerProfileView';
 import { UserModel, profileImage } from '@/domain/models/user_model';
+import Nav from '@/components/landing/Nav';
 
 type Props = {
   params: { username: string };
@@ -71,6 +72,7 @@ export default function Page({ params }: Props) {
 
   return (
     <>
+      <Nav />
       <BookerProfileView username={username} />
     </>
   );
