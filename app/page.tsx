@@ -287,6 +287,12 @@ const getData = async () => {
       url: 'https://open.spotify.com/artist/3Co2OcoVMpSvY6l1JdZUbT',
       username: 'kang',
     },
+    {
+      name: 'marly xlla',
+      photo: '/images/512x512/512.marly.png',
+      url: 'https://www.instagram.com/marlyxlla/',
+      username: 'marlyxlla',
+    },
   ];
   const shuffledArtists = shuffle(signedArtists);
   return { shuffledArtists };
