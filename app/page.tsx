@@ -215,7 +215,7 @@ const getData = async () => {
       name: 'niral desai',
       photo: '/images/512x512/niral.512x512.png',
       url: 'https://music.apple.com/us/artist/niral-desai/1682714169',
-      username: 'niraldesai',
+      username: 'niral_desai',
       signed: true,
     },
     {
@@ -267,6 +267,13 @@ const getData = async () => {
       name: 'chloe battelle',
       photo: '/images/512x512/512.chloe.jpg',
       url: 'https://soundcloud.com/chloebattelle',
+      username: 'chloebattelle',
+    },
+    {
+      name: 'midnite taxi',
+      photo: '/images/masters/midnitetaxi.png',
+      url: 'https://open.spotify.com/artist/4FSFJPU7qvgicPKVlAeB9A',
+      username: 'midnitetaxi',
     },
   ];
   const shuffledArtists = shuffle(signedArtists);
