@@ -281,6 +281,12 @@ const getData = async () => {
       url: 'https://www.instagram.com/macnadiacheese',
       username: 'macnadiacheese',
     },
+    {
+      name: 'kang',
+      photo: '/images/512x512/512.kang.png',
+      url: 'https://open.spotify.com/artist/3Co2OcoVMpSvY6l1JdZUbT',
+      username: 'kang',
+    },
   ];
   const shuffledArtists = shuffle(signedArtists);
   return { shuffledArtists };
