@@ -275,6 +275,12 @@ const getData = async () => {
       url: 'https://open.spotify.com/artist/4FSFJPU7qvgicPKVlAeB9A',
       username: 'midnitetaxi',
     },
+    {
+      name: 'nadia aram',
+      photo: '/images/512x512/512.nadia.png',
+      url: 'https://www.instagram.com/macnadiacheese',
+      username: 'macnadiacheese',
+    },
   ];
   const shuffledArtists = shuffle(signedArtists);
   return { shuffledArtists };
