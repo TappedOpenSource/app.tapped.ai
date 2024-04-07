@@ -14,18 +14,14 @@ import {
 import { BoundingBox } from '@/data/search';
 import { useDebounce } from '@/context/debounce';
 import { useSearch } from '@/context/search';
-import { profileImage, UserModel } from '@/domain/models/user_model';
-import BookerProfileView from './BookerProfileView';
-import styled from 'styled-components';
-import Sheet from 'react-modal-sheet';
+import { profileImage } from '@/domain/models/user_model';
+import { useRouter } from 'next/navigation';
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = 'mapbox/dark-v11';
 // const mapboxLightStyle = 'mapbox/light-v10';
 
 export default function VenueMap() {
-  const [isOpen, setOpen] = useState(false);
-  const [selectedVenue, setSelectedVenue] = useState<UserModel | null>(null);
   const [popupInfo, setPopupInfo] = useState<{
         longitude: number;
         latitude: number;
@@ -36,6 +32,7 @@ export default function VenueMap() {
   const { useVenueData } = useSearch();
   const [bounds, setBounds] = useState<null | BoundingBox>(null);
   const debouncedBounds = useDebounce<null | BoundingBox>(bounds, 250);
+  const router = useRouter();
 
   const { data } = useVenueData(debouncedBounds);
 
@@ -71,7 +68,7 @@ export default function VenueMap() {
             longitude={lng}
             latitude={lat}
             anchor="bottom"
-            onClick={() => setSelectedVenue(venue)}
+            onClick={() => router.push(`/map?user_id=${venue.id}`)}
           >
             <Image
               src={imageSrc}
@@ -84,50 +81,12 @@ export default function VenueMap() {
           </Marker>
         );
       }),
-    [data]
+    [data, router]
   );
-
-  useEffect(() => {
-    if (selectedVenue) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-  }, [selectedVenue]);
-
-
-  const UserSheet = styled(Sheet)`
-  .react-modal-sheet-container {
-    background-color: #222 !important;
-  }
-
-  .react-modal-sheet-backdrop {
-    background-color: rgba(0, 0, 0, 0.3) !important;
-  }
-
-  .react-modal-sheet-drag-indicator {
-    background-color: #666 !important;
-  }
-`;
 
 
   return (
-
     <div className='w-screen h-screen m-0'>
-      <UserSheet isOpen={isOpen} onClose={() => setSelectedVenue(null)}>
-        <Sheet.Container>
-          <Sheet.Header />
-          <Sheet.Content>
-            <Sheet.Scroller>
-
-              {selectedVenue === null ?
-                null :
-                <BookerProfileView username={selectedVenue.username} />}
-            </Sheet.Scroller>
-          </Sheet.Content>
-        </Sheet.Container>
-        <Sheet.Backdrop />
-      </UserSheet>
       <Map
         initialViewState={{
           latitude: 38.895,

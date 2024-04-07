@@ -1,12 +1,11 @@
 
 import Image from 'next/image';
 import { UserModel, profileImage } from '@/domain/models/user_model';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useSearch } from '@/context/search';
 import { useDebounce } from '@/context/debounce';
-import Sheet from 'react-modal-sheet';
-import PerformerProfileView from './PerformerProfileView';
-import { styled } from 'styled-components';
+import { useRouter } from 'next/navigation';
+
 
 function Hit({ hit, onClick }: { hit: UserModel, onClick: () => void}) {
   const imageSrc = profileImage(hit);
@@ -41,11 +40,10 @@ function Hit({ hit, onClick }: { hit: UserModel, onClick: () => void}) {
 
 
 export default function MapSearch() {
-  const [isOpen, setOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<UserModel | null>(null);
   const { useSearchData } = useSearch();
   const [query, setQuery] = useState<string>('');
   const debouncedQuery = useDebounce<string>(query, 250);
+  const router = useRouter();
 
   const { data } = useSearchData(debouncedQuery, { hitsPerPage: 10 });
 
@@ -56,55 +54,16 @@ export default function MapSearch() {
           <Hit
             key={user.id}
             hit={user}
-            onClick={() => setSelectedUser(user)}
+            onClick={() => router.push(`/map?user_id=${user.id}`)}
           />
         );
       }),
-    [data],
+    [data, router],
   );
-
-  useEffect(() => {
-    if (selectedUser) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-  }, [selectedUser]);
-
-  const UserSheet = styled(Sheet)`
-  .react-modal-sheet-container {
-    background-color: #222 !important;
-  }
-
-  .react-modal-sheet-backdrop {
-    background-color: rgba(0, 0, 0, 0.3) !important;
-  }
-
-  .react-modal-sheet-drag-indicator {
-    background-color: #666 !important;
-  }
-`;
-
 
   return (
     <>
-      <UserSheet isOpen={isOpen} onClose={() => setSelectedUser(null)}>
-        <Sheet.Container>
-          <Sheet.Header />
-          <Sheet.Content>
-            <Sheet.Scroller>
 
-              {selectedUser === null ? null :
-                <PerformerProfileView username={selectedUser.username} />}
-              {/* <div className='flex flex-col items-center'>
-              <h1 className="font-bold text-2xl">{selectedUser?.artistName}</h1>
-              <p className="text-sm text-gray-400">@{selectedUser?.username}</p>
-            </div> */}
-            </Sheet.Scroller>
-          </Sheet.Content>
-        </Sheet.Container>
-        <Sheet.Backdrop />
-      </UserSheet>
       <div className='px-8 pt-8 pb-1 w-screen'>
         <input
           type='text'

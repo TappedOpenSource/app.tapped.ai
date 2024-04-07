@@ -19,7 +19,6 @@ import TwitterButton from '@/components/profile/TwitterButton';
 import TiktokButton from '@/components/profile/TiktokButton';
 import SpotifyButton from '@/components/profile/SpotifyButton';
 import ReviewTile from '@/components/profile/ReviewTile';
-import Nav from './landing/Nav';
 
 export default function PerformerProfileView({ username }: { username: string }) {
   const router = useRouter();
