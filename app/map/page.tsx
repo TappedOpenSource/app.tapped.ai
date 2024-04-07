@@ -7,14 +7,14 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Sheet from 'react-modal-sheet';
 import PerformerProfileView from '@/components/PerformerProfileView';
 import { styled } from 'styled-components';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { UserModel } from '@/domain/models/user_model';
-import { getUserById, getUserByUsername } from '@/data/database';
+import { getUserByUsername } from '@/data/database';
 import { optionToNullable } from '@/utils/option';
 
 const queryClient = new QueryClient();
 
-export default function Page() {
+function BottomSheet() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const username = searchParams.get('username');
@@ -48,25 +48,33 @@ export default function Page() {
 `;
 
   return (
-    <>
-      <QueryClientProvider client={queryClient}>
-        <UserSheet isOpen={isOpen} onClose={() => router.push('/map')}>
-          <Sheet.Container>
-            <Sheet.Header />
-            <Sheet.Content>
-              <Sheet.Scroller>
+    <UserSheet isOpen={isOpen} onClose={() => router.push('/map')}>
+      <Sheet.Container>
+        <Sheet.Header />
+        <Sheet.Content>
+          <Sheet.Scroller>
 
-                {selectedUser === null ? null :
-                  <PerformerProfileView username={selectedUser.username} />}
-                {/* <div className='flex flex-col items-center'>
+            {selectedUser === null ? null :
+              <PerformerProfileView username={selectedUser.username} />}
+            {/* <div className='flex flex-col items-center'>
               <h1 className="font-bold text-2xl">{selectedUser?.artistName}</h1>
               <p className="text-sm text-gray-400">@{selectedUser?.username}</p>
             </div> */}
-              </Sheet.Scroller>
-            </Sheet.Content>
-          </Sheet.Container>
-          <Sheet.Backdrop />
-        </UserSheet>
+          </Sheet.Scroller>
+        </Sheet.Content>
+      </Sheet.Container>
+      <Sheet.Backdrop />
+    </UserSheet>
+  );
+}
+
+export default function Page() {
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <BottomSheet />
+        </Suspense>
         <div className='absolute z-10'>
           <MapSearch />
         </div>
