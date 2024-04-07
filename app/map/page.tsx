@@ -9,7 +9,7 @@ import PerformerProfileView from '@/components/PerformerProfileView';
 import { styled } from 'styled-components';
 import { useEffect, useState } from 'react';
 import { UserModel } from '@/domain/models/user_model';
-import { getUserById } from '@/data/database';
+import { getUserById, getUserByUsername } from '@/data/database';
 import { optionToNullable } from '@/utils/option';
 
 const queryClient = new QueryClient();
@@ -17,20 +17,20 @@ const queryClient = new QueryClient();
 export default function Page() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const userId = searchParams.get('user_id');
-  const isOpen = userId !== null;
+  const username = searchParams.get('username');
+  const isOpen = username !== null;
 
   const [selectedUser, setSelectedUser] = useState<UserModel | null>(null);
   useEffect(() => {
-    if (userId === null) {
+    if (username === null) {
       return;
     }
     const fetchUser = async () => {
-      const user = await getUserById(userId);
+      const user = await getUserByUsername(username);
       setSelectedUser(optionToNullable(user));
     };
     fetchUser();
-  }, [userId]);
+  }, [username]);
 
 
   const UserSheet = styled(Sheet)`

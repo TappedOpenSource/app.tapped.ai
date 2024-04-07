@@ -68,7 +68,7 @@ export default function VenueMap() {
             longitude={lng}
             latitude={lat}
             anchor="bottom"
-            onClick={() => router.push(`/map?user_id=${venue.id}`)}
+            onClick={() => router.push(`/map?username=${venue.username}`)}
           >
             <Image
               src={imageSrc}

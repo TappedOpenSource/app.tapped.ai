@@ -54,7 +54,7 @@ export default function MapSearch() {
           <Hit
             key={user.id}
             hit={user}
-            onClick={() => router.push(`/map?user_id=${user.id}`)}
+            onClick={() => router.push(`/map?username=${user.username}`)}
           />
         );
       }),
