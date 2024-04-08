@@ -9,10 +9,10 @@ export default function Venue() {
       >
         <h1
           className='uppercase text-5xl md:text-6xl font-extrabold text-center text-white lg:text-9xl'
-        >want to find the best talent for your venue?</h1>
+        >want to find the best talent for your venue or event?</h1>
         <h1
           className='uppercase text-2xl md:text-3xl text-center text-white lg:text-4xl'
-        >become a verified venue</h1>
+        >become a verified booker</h1>
         <div className="h-12"></div>
         <div className="flex justify-center py-2 px-4">
           <Link

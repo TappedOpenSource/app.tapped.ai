@@ -91,12 +91,12 @@ export default async function Home() {
             <div className="flex flex-col md:flex-row justify-center mt-8 mb-4 py-2 px-4 gap-4">
               <Link
                 href="/download"
-                className="text-lg font-black bg-white text-black text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
-              >for performers</Link>
-              <Link
+                className="text-lg font-bold bg-white text-black text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
+              >get started</Link>
+              {/* <Link
                 href="/venue"
                 className="text-lg font-black text-white bg-white/25 text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
-              >for bookers</Link>
+              >for bookers</Link> */}
             </div>
             <div className="pb-12 lg:pb-2"></div>
             <div className="overflow-hidden w-screen">
