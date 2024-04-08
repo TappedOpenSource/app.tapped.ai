@@ -293,6 +293,30 @@ const getData = async () => {
       url: 'https://www.instagram.com/marlyxlla/',
       username: 'marlyxlla',
     },
+    {
+      name: 'normn',
+      photo: '/images/512x512/512.normn.png',
+      url: 'https://www.instagram.com/iamnormn/',
+      username: 'normn',
+    },
+    {
+      name: 'kenny',
+      photo: '/images/512x512/512.kenny.png',
+      url: 'https://kennethlartey.xyz/',
+      username: 'kenny',
+    },
+    {
+      name: 'zoe gabrielle',
+      photo: '/images/512x512/512.zoe.png',
+      url: 'https://www.instagram.com/izoegabrielle',
+      username: 'zoegabrielle',
+    },
+    {
+      name: 'seckofinesse',
+      photo: '/images/512x512/512.secko.png',
+      url: 'https://www.instagram.com/seckofinesse/',
+      username: 'seckofinesse',
+    },
   ];
   const shuffledArtists = shuffle(signedArtists);
   return { shuffledArtists };
