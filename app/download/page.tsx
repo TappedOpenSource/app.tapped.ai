@@ -32,20 +32,6 @@ export default function Download() {
           theme={'dark'}
         />
       </div>
-      <div className='flex justify-center py-6'>
-        <div className='md:w-1/3'>
-          <h3 className='text-xl font-bold'>how do I apply for opportunities?</h3>
-          <p>
-            step 1. download the app
-          </p>
-          <p>
-            step 2. complete your profile on the app
-          </p>
-          <p>
-            step 3. apply to perform at thousands of venues
-          </p>
-        </div>
-      </div>
     </div>
   </>;
 }
