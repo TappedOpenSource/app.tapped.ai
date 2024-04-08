@@ -323,6 +323,12 @@ const getData = async () => {
       url: 'https://www.instagram.com/ffeel/',
       username: 'ffeel',
     },
+    {
+      name: 'alpharaulphy',
+      photo: '/images/512x512/512.raulphy.png',
+      url: 'https://www.instagram.com/alpharaulphy/',
+      username: 'alpharaulphy',
+    },
   ];
   const shuffledArtists = shuffle(signedArtists);
   return { shuffledArtists };
