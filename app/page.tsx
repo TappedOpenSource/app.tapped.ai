@@ -317,6 +317,12 @@ const getData = async () => {
       url: 'https://www.instagram.com/seckofinesse/',
       username: 'seckofinesse',
     },
+    {
+      name: 'ffeel',
+      photo: '/images/512x512/512.ffeel.png',
+      url: 'https://www.instagram.com/ffeel/',
+      username: 'ffeel',
+    },
   ];
   const shuffledArtists = shuffle(signedArtists);
   return { shuffledArtists };
