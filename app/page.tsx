@@ -297,7 +297,7 @@ const getData = async () => {
       name: 'normn',
       photo: '/images/512x512/512.normn.png',
       url: 'https://www.instagram.com/iamnormn/',
-      username: 'normn',
+      username: 'iamnormn',
     },
     {
       name: 'kenny',
