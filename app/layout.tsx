@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 
 import './globals.css';
 
-const title = 'tapped Ai : world tour from your iPhone';
+const title = 'tapped ai : create world tour from your iphone';
 const description = 'live music data with superpowers';
 
 export const metadata: Metadata = {

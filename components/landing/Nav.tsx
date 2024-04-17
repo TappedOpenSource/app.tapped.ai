@@ -40,36 +40,37 @@ export default function Nav() {
           active ? '' : 'hidden'
         }   w-full lg:inline-flex lg:flex-grow lg:w-auto`}
       >
-        <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto'>
-          <Link
-            onClick={() => track('nav-click', { item: 'for-artists' })}
-            href='/download'
-            className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white '
-          >
-              for performers
-          </Link>
+        <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start flex flex-col lg:h-auto'>
+
           <Link
             onClick={() => track('nav-click', { item: 'for-venues' })}
             href='/venue'
-            className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
+            className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500/50 hover:text-white'
           >
-              for bookers
+              venues/bookers
           </Link>
           <Link
             onClick={() => track('nav-click', { item: 'map' })}
             href='/map'
             // target="_blank"
             // rel="noopener noreferrer"
-            className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
+            className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500/50 hover:text-white'
           >
               map
+          </Link>
+          <Link
+            onClick={() => track('nav-click', { item: 'team' })}
+            href='/team'
+            className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500/50 hover:text-white '
+          >
+              team
           </Link>
           <Link
             onClick={() => track('nav-click', { item: 'roadmap' })}
             href='https://tappedapp.notion.site/Technical-Roadmap-4edc036572bd4d89913f5cd5a4cde0f6?pvs=4'
             target="_blank"
             rel="noopener noreferrer"
-            className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
+            className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500/50 hover:text-white'
           >
               roadmap
           </Link>
@@ -78,7 +79,7 @@ export default function Nav() {
             href='https://blog.tapped.ai'
             target="_blank"
             rel="noopener noreferrer"
-            className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500 hover:text-white'
+            className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500/50 hover:text-white'
           >
               blog
           </Link>
