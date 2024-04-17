@@ -318,7 +318,7 @@ const getData = async () => {
     },
     {
       name: 'chandler',
-      photo: '/images/512x512/512.chandler.png',
+      photo: '/images/512x512/512.chandler.jpg',
       url: 'https://www.instagram.com/chandlermatkins/',
       username: 'chandler',
     },
