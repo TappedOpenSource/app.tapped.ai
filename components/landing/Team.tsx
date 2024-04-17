@@ -11,7 +11,6 @@ type MemberProps = {
 function Member({ image, name, title, subtitle }: MemberProps) {
   return (
     <div>
-
       <div className='relative rounded-xl w-[192px] h-[288px] mx-4 my-4'>
         <Image src={image} alt={name} fill className='rounded-xl' style={{ objectFit: 'cover' }} />
         <div className='absolute h-full w-full bg-gradient-to-t from-black from-10% via-transparent via-50% to-transparent' />
