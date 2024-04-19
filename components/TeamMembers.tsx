@@ -5,7 +5,7 @@ export default function TeamMembers() {
     <>
       <div className="flex justify-center flex-col">
         <div className='flex justify-center'>
-          <div className="grid grid-cols-1 md:grid-cols-3 justify-center items-center">
+          <div className="grid grid-cols-1 md:grid-cols-4 justify-center items-center">
             {teamMembers.map((member, i) => (
               <div key={i}>
                 <Member {...member} />
