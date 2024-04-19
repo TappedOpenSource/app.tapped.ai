@@ -20,12 +20,6 @@ export default function TeamMembers() {
 
 const teamMembers: MemberProps[] = [
   {
-    image: '/images/masters/bryan.png',
-    name: 'bryan frumkin',
-    title: 'data entry',
-    subtitle: null,
-  },
-  {
     image: '/images/masters/armaanomar.png',
     name: 'armaan omarzai',
     title: 'engineer',
@@ -35,6 +29,18 @@ const teamMembers: MemberProps[] = [
     image: '/images/masters/avidshotz.jpeg',
     name: 'charles legard',
     title: 'engineer',
+    subtitle: null,
+  },
+  {
+    image: '/images/masters/phil.png',
+    name: 'phil osae',
+    title: 'data entry',
+    subtitle: null,
+  },
+  {
+    image: '/images/masters/bryan.png',
+    name: 'bryan frumkin',
+    title: 'data entry',
     subtitle: null,
   },
 ];
