@@ -128,6 +128,10 @@ export default async function Home() {
       <div className="h-12 md:h-36"></div>
       <Team />
       <div className="h-12 md:h-36"></div>
+      <div className='flex justify-center items-center'>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/iWDIax023zQ?si=-oJhhqdaGXZymTSI" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+      </div>
+      <div className="h-12 md:h-36"></div>
       <div
         className='px-2 py-24 my-12 md:my-0 md:min-h-screen flex flex-col justify-center items-center bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-green-300 via-blue-500 to-purple-600'
       >
