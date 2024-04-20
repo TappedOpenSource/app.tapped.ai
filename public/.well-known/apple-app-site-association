@@ -14,6 +14,11 @@
              "comment":"Matches any URL"
            },
            {
+            "/":"/spotify",
+            "exclude": true,
+            "comment": "Matches URL with a path /spotify and instructs the system not to open it as a universal link."
+           },
+           {
              "/":"/venue",
              "exclude":true,
              "comment":"Matches URL with a path /venue and instructs the system not to open it as a universal link."
