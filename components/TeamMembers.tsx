@@ -34,7 +34,7 @@ const teamMembers: MemberProps[] = [
   {
     image: '/images/masters/phil.png',
     name: 'phil osae',
-    title: 'data entry',
+    title: 'data analyst',
     subtitle: null,
   },
   {
