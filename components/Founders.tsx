@@ -20,7 +20,7 @@ export default function Founders() {
 
 const founders: MemberProps[] = [
   {
-    image: '/images/masters/johannes.jpeg',
+    image: '/images/masters/johannes.png',
     name: 'johannes naylor',
     title: 'founder',
     subtitle: 'prev. audius, capital one',
