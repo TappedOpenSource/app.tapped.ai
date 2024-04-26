@@ -28,7 +28,7 @@ const teamMembers: MemberProps[] = [
   {
     image: '/images/masters/avidshotz.jpeg',
     name: 'charles legard',
-    title: 'engineer',
+    title: 'engineer + dj extraordinaire',
     subtitle: null,
   },
   {
