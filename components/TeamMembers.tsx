@@ -22,7 +22,7 @@ const teamMembers: MemberProps[] = [
   {
     image: '/images/masters/armaanomar.png',
     name: 'armaan omarzai',
-    title: 'engineer',
+    title: 'fortran engineer',
     subtitle: null,
   },
   {
