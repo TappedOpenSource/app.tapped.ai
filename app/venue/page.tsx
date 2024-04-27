@@ -16,7 +16,7 @@ export default function Venue() {
         <div className="h-12"></div>
         <div className="flex justify-center py-2 px-4">
           <Link
-            href="mailto://support@tapped.ai"
+            href="mailto:support@tapped.ai"
             target="_blank"
             title="app download"
             rel="noreferrer"
