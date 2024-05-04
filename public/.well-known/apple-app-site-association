@@ -37,6 +37,11 @@
              "/":"/privacy",
              "exclude":true,
              "comment":"Matches URL with a path /privacy and instructs the system not to open it as a universal link."
+           },
+           {
+             "/":"/team",
+             "exclude":true,
+             "comment":"Matches URL with a path /about and instructs the system not to open it as a universal link."
            }
          ]
        }
