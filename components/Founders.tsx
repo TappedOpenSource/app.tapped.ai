@@ -26,7 +26,7 @@ const founders: MemberProps[] = [
     subtitle: 'prev. audius, capital one',
   },
   {
-    image: '/images/masters/ilias.png',
+    image: '/images/masters/ilias.jpeg',
     name: 'ilias anwar',
     title: 'founder',
     subtitle: 'prev. tcc entertainment, gold media agency',
