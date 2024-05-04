@@ -1,8 +1,10 @@
+import Nav from '@/components/landing/Nav';
 import { NextPage } from 'next';
 
 const About: NextPage = () => {
   return (
     <>
+      <Nav />
       <main className="container mx-auto py-8">
 
         <section className="shadow-md rounded-lg p-4">
