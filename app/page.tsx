@@ -1,6 +1,7 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 // import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Rubik } from 'next/font/google';
 
 import { shuffle } from '@/utils/shuffle';
@@ -10,7 +11,7 @@ import Nav from '@/components/landing/Nav';
 import PartneredWith from '@/components/landing/PartneredWith';
 // import Snowfall from 'react-snowfall';
 import SupportJourney from '@/components/landing/SupportJourney';
-import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
+// import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
 import YourJourney from '@/components/landing/YourJourney';
 import Team from '@/components/landing/Team';
 
@@ -122,7 +123,23 @@ export default async function Home() {
       <div className="h-12 md:h-36"></div>
       <SupportJourney />
       <div className="h-12 md:h-36"></div>
-      <SubscriptionPlans />
+      {/* <SubscriptionPlans /> */}
+      <div className='flex flex-col justify-center items-center'>
+        <h2 className="text-center text-4xl">discover over 10,000 venues</h2>
+        <div className="h-4" />
+        <Link
+          href={'/map'}
+          className='relative w-[50vw] h-[50vw] md:h-[50vh] hover:scale-105 transform transition-all duration-200 ease-in-out overflow-hidden rounded-lg shadow-lg'
+        >
+          <Image
+            src="/images/map_preview.png"
+            alt="Tapped Ai Map Preview"
+            fill
+            style={{ objectFit: 'cover' }}
+          />
+        </Link>
+      </div>
+
       <div className="h-12 md:h-36"></div>
       <YourJourney />
       <div className="h-12 md:h-36"></div>
