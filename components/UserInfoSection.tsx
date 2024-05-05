@@ -17,29 +17,35 @@ export default function UserInfoSection({ user }: {
       <p>@{user.username}</p>
       <div className="w-full h-px bg-gray-200/20 my-1" />
       {venueType && (
-        <div className='flex flex-row'>
-          <ApartmentIcon />
-          <div className='w-2' />
-          <p>{venueType}</p>
-        </div>
+        <>
+          <div className='flex flex-row'>
+            <ApartmentIcon />
+            <div className='w-2' />
+            <p>{venueType}</p>
+          </div>
+          <div className="w-full h-px bg-gray-200/20 my-1" />
+        </>
       )}
-      <div className="w-full h-px bg-gray-200/20 my-1" />
       {capacity && (
-        <div className='flex flex-row'>
-          <PeopleAltIcon />
-          <div className='w-2' />
-          <p>{capacity} capacity</p>
-        </div>
+        <>
+          <div className='flex flex-row'>
+            <PeopleAltIcon />
+            <div className='w-2' />
+            <p>{capacity} capacity</p>
+          </div>
+          <div className="w-full h-px bg-gray-200/20 my-1" />
+        </>
       )}
-      <div className="w-full h-px bg-gray-200/20 my-1" />
       {genres && genres.length > 0 && (
-        <div className='flex flex-row'>
-          <MusicNoteIcon />
-          <div className='w-2' />
-          <p className='text-ellipsis overflow-hidden'>{genres.join(', ')}</p>
-        </div>
+        <>
+          <div className='flex flex-row'>
+            <MusicNoteIcon />
+            <div className='w-2' />
+            <p className='text-ellipsis overflow-hidden'>{genres.join(', ')}</p>
+          </div>
+          <div className="w-full h-px bg-gray-200/20 my-1" />
+        </>
       )}
-      <div className="w-full h-px bg-gray-200/20 my-1" />
       {rating && (
         <div className='flex flex-row'>
           <StarIcon />
