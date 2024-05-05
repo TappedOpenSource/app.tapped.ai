@@ -5,7 +5,7 @@ import MapSearch from '@/components/map_search';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Sheet from 'react-modal-sheet';
-import PerformerProfileView from '@/components/PerformerProfileView';
+import ProfileView from '@/components/PerformerProfileView';
 import { styled } from 'styled-components';
 import { Suspense, useEffect, useState } from 'react';
 import { UserModel } from '@/domain/models/user_model';
@@ -55,7 +55,7 @@ function BottomSheet() {
           <Sheet.Scroller>
 
             {selectedUser === null ? null :
-              <PerformerProfileView username={selectedUser.username} />}
+              <ProfileView username={selectedUser.username} />}
             {/* <div className='flex flex-col items-center'>
               <h1 className="font-bold text-2xl">{selectedUser?.artistName}</h1>
               <p className="text-sm text-gray-400">@{selectedUser?.username}</p>

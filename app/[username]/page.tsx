@@ -1,5 +1,5 @@
 import Nav from '@/components/landing/Nav';
-import PerformerProfileView from '@/components/PerformerProfileView';
+import ProfileView from '@/components/PerformerProfileView';
 import { UserModel, profileImage } from '@/domain/models/user_model';
 import { Metadata, ResolvingMetadata } from 'next';
 
@@ -72,7 +72,7 @@ export default function Page({ params }: Props) {
   return (
     <>
       <Nav />
-      <PerformerProfileView username={username} />
+      <ProfileView username={username} />
     </>
   );
 }

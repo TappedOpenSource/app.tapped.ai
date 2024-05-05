@@ -72,7 +72,7 @@ export default function VenueMap() {
           >
             <Image
               src={imageSrc}
-              alt="musician profile picture"
+              alt="venue profile picture"
               width={35}
               height={35}
               className="rounded-full hover:cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
@@ -83,7 +83,6 @@ export default function VenueMap() {
       }),
     [data, router]
   );
-
 
   return (
     <div className='w-screen h-screen m-0'>

@@ -2,7 +2,6 @@
 
 import type { Review } from '@/domain/models/review';
 import type { Booking } from '@/domain/models/booking';
-import { Fab } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -13,14 +12,17 @@ import {
   getBookingsByRequestee,
   getUserByUsername,
   getLatestPerformerReviewByPerformerId,
+  getBookingsByRequester,
 } from '@/data/database';
 import InstagramButton from '@/components/profile/InstagramButton';
 import TwitterButton from '@/components/profile/TwitterButton';
 import TiktokButton from '@/components/profile/TiktokButton';
 import SpotifyButton from '@/components/profile/SpotifyButton';
 import ReviewTile from '@/components/profile/ReviewTile';
+import UserInfoSection from './UserInfoSection';
+import { Button } from '@mui/material';
 
-export default function PerformerProfileView({ username }: { username: string }) {
+export default function ProfileView({ username }: { username: string }) {
   const router = useRouter();
   const [user, setUser] = useState<UserModel | null>(null);
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -55,7 +57,12 @@ export default function PerformerProfileView({ username }: { username: string })
       }
 
       // fetch latest booking
-      const latestBookings = await getBookingsByRequestee(user.id);
+      const latestRequesteeBookings = await getBookingsByRequestee(user.id);
+      const latestRequesterBookings = await getBookingsByRequester(user.id);
+      const latestBookings = latestRequesteeBookings.concat(latestRequesterBookings).sort((a, b) => {
+        return b.startTime.getTime() - a.startTime.getTime();
+      });
+
       setBookings(latestBookings);
     };
     fetchBooking();
@@ -66,15 +73,26 @@ export default function PerformerProfileView({ username }: { username: string })
       }
 
       // get latest review
-      const latestReview = await getLatestPerformerReviewByPerformerId(user.id);
-      latestReview.match({
+      const latestPerformerReview = await getLatestPerformerReviewByPerformerId(user.id);
+      const latestBookerReview = await getLatestPerformerReviewByPerformerId(user.id);
+
+      const latestReview = latestPerformerReview.match({
         some: (review) => {
-          setLatestReview(review);
+          return review;
         },
         none: () => {
-          console.log('no reviews found');
+          return latestBookerReview.match({
+            some: (review) => {
+              return review;
+            },
+            none: () => {
+              return null;
+            },
+          });
         },
       });
+
+      setLatestReview(latestReview);
     };
     fetchLatestReview();
   }, [user]);
@@ -126,7 +144,7 @@ function BuildHeader({ user }: { user: UserModel }) {
             }} />
         </div>
         <div className="w-4 lg:h-6" />
-        <div>
+        <div className=''>
           <h1
             className='text-4xl lg:text-4xl font-extrabold'
           >{user.artistName}</h1>
@@ -148,6 +166,17 @@ function BuildHeader({ user }: { user: UserModel }) {
           <p className='text-sm text-gray-400'>rating</p>
         </div>
       </div>
+      <div className='h-4' />
+      <div className='flex justify-center items-center w-full'>
+        <Link
+          href='/download'
+          className='w-full rounded-full bg-blue-500 px-4 py-2 text-center text-white font-bold cursor-pointer hover:bg-blue-600 transition duration-300 ease-in-out'
+        >
+            request to perform
+        </Link>
+      </div>
+      <div className='h-4' />
+      <UserInfoSection user={user} />
       <div className='h-4' />
       <div className='flex flex-row items-center justify-around'>
         {user.socialFollowing?.instagramHandle && <InstagramButton instagramHandle={user.socialFollowing.instagramHandle} />}
