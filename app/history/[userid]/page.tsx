@@ -1,7 +1,7 @@
 'use client';
 
 import BookingTile from '@/components/profile/BookingTile';
-import { getBookingsByRequestee, getUserById } from '@/data/database';
+import { getBookingsByRequestee, getBookingsByRequester, getUserById } from '@/data/database';
 import { Booking } from '@/domain/models/booking';
 import { UserModel } from '@/domain/models/user_model';
 import { useRouter } from 'next/navigation';
@@ -21,13 +21,18 @@ export default function History({
 
   useEffect(() => {
     const fetchBookings = async () => {
-      if (typeof userId !== 'string') {
+      if (userId === null) {
         return;
       }
 
-      const bookings = await getBookingsByRequestee(userId);
-      setBookings(bookings);
-      setLoading(false);
+      // fetch latest booking
+      const latestRequesteeBookings = await getBookingsByRequestee(userId);
+      const latestRequesterBookings = await getBookingsByRequester(userId);
+      const latestBookings = latestRequesteeBookings.concat(latestRequesterBookings).sort((a, b) => {
+        return b.startTime.getTime() - a.startTime.getTime();
+      });
+
+      setBookings(latestBookings);
     };
     fetchBookings();
   }, [userId]);

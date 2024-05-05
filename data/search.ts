@@ -14,12 +14,13 @@ export type BoundingBox = {
     readonly ne: { lat: number, lng: number },
 };
 
-export async function queryVenuesInBoundedBox(bounds: BoundingBox | null): Promise<UserModel[]> {
+export async function queryVenuesInBoundedBox(bounds: BoundingBox | null, { hitsPerPage = 50 }: { hitsPerPage: number }): Promise<UserModel[]> {
   const response = await usersIndex.search<UserModel>('', {
     filters: 'occupations:Venue OR occupations:venue AND deleted:false',
     insideBoundingBox: bounds === null ?
       undefined :
       [[bounds.sw.lat, bounds.sw.lng, bounds.ne.lat, bounds.ne.lng]],
+    hitsPerPage: hitsPerPage,
   });
 
   return response.hits;

@@ -12,6 +12,7 @@ export default function UserInfoSection({ user }: {
   const rating = user.performerInfo?.rating ?? user.bookerInfo?.rating ?? null;
   const venueType = user.venueInfo?.type;
 
+
   return (
     <div className="w-full px-8 py-4 flex flex-col justify-start items-start rounded-xl bg-gray-800 shadow-lg">
       <p>@{user.username}</p>

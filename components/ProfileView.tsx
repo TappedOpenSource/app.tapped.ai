@@ -20,7 +20,6 @@ import TiktokButton from '@/components/profile/TiktokButton';
 import SpotifyButton from '@/components/profile/SpotifyButton';
 import ReviewTile from '@/components/profile/ReviewTile';
 import UserInfoSection from './UserInfoSection';
-import { Button } from '@mui/material';
 
 export default function ProfileView({ username }: { username: string }) {
   const router = useRouter();
@@ -167,14 +166,17 @@ function BuildHeader({ user }: { user: UserModel }) {
         </div>
       </div>
       <div className='h-4' />
-      <div className='flex justify-center items-center w-full'>
-        <Link
-          href='/download'
-          className='w-full rounded-full bg-blue-500 px-4 py-2 text-center text-white font-bold cursor-pointer hover:bg-blue-600 transition duration-300 ease-in-out'
-        >
+      {user.venueInfo !== null && (
+
+        <div className='flex justify-center items-center w-full'>
+          <Link
+            href='/download'
+            className='w-full rounded-full bg-blue-500 px-4 py-2 text-center text-white font-bold cursor-pointer hover:bg-blue-600 transition duration-300 ease-in-out'
+          >
             request to perform
-        </Link>
-      </div>
+          </Link>
+        </div>
+      )}
       <div className='h-4' />
       <UserInfoSection user={user} />
       <div className='h-4' />

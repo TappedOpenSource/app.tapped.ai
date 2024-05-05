@@ -5,7 +5,7 @@ import MapSearch from '@/components/map_search';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Sheet from 'react-modal-sheet';
-import ProfileView from '@/components/PerformerProfileView';
+import ProfileView from '@/components/ProfileView';
 import { styled } from 'styled-components';
 import { Suspense, useEffect, useState } from 'react';
 import { UserModel } from '@/domain/models/user_model';

@@ -6,7 +6,9 @@ export const useSearch = () => {
     useQuery({
       queryKey: ['venues', boundingBox],
       queryFn: async () => {
-        return await queryVenuesInBoundedBox(boundingBox);
+        return await queryVenuesInBoundedBox(boundingBox, {
+          hitsPerPage: 150,
+        });
       },
     });
 

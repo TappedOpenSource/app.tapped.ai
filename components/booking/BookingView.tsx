@@ -79,7 +79,7 @@ export default function BookingView({ bookingId }: {
 
   const flier = booking.flierUrl.match({
     some: (url) => (
-      <div className='relative h-[60vh] w-[95vw] rounded-xl'>
+      <div className='relative h-[60vh] w-[95vw] md:w-full rounded-xl'>
         <Image
           src={url}
           alt='flier'
@@ -110,6 +110,9 @@ export default function BookingView({ bookingId }: {
       </>
     );
 
+  const dateString = booking.startTime.toDateString();
+  const timeString = booking.startTime.toLocaleTimeString();
+
   return (
     <>
       <Nav />
@@ -123,10 +126,7 @@ export default function BookingView({ bookingId }: {
           {performerStuff}
           <div className='h-6' />
           <h3 className='font-extrabold text-xl'>Date</h3>
-          <p>Date: {booking.startTime.toDateString()}</p>
-          <div className='h-6' />
-          <h3 className='font-extrabold text-xl'>Duration</h3>
-          <p>{duration}</p>
+          <p>{dateString} @ {timeString}</p>
         </div>
       </div>
       <div className='h-42' />

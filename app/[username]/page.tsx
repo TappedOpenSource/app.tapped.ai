@@ -1,5 +1,5 @@
 import Nav from '@/components/landing/Nav';
-import ProfileView from '@/components/PerformerProfileView';
+import ProfileView from '@/components/ProfileView';
 import { UserModel, profileImage } from '@/domain/models/user_model';
 import { Metadata, ResolvingMetadata } from 'next';
 
