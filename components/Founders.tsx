@@ -24,12 +24,14 @@ const founders: MemberProps[] = [
     name: 'johannes naylor',
     title: 'founder',
     subtitle: 'prev. audius, capital one',
+    url: 'https://twitter.com/jonaylor89',
   },
   {
     image: '/images/masters/ilias.jpeg',
     name: 'ilias anwar',
     title: 'founder',
     subtitle: 'prev. tcc entertainment, gold media agency',
+    url: 'https://www.linkedin.com/in/iliasanwar/',
   },
 ];
 
