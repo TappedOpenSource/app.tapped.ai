@@ -45,7 +45,7 @@ export default function MapSearch() {
   const debouncedQuery = useDebounce<string>(query, 250);
   const router = useRouter();
 
-  const { data } = useSearchData(debouncedQuery, { hitsPerPage: 10 });
+  const { data } = useSearchData(debouncedQuery, { hitsPerPage: 5 });
 
   const userTiles = useMemo(
     () =>
