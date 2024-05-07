@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { getBookingById, getUserById } from '@/data/database';
-import { Booking } from '@/domain/models/booking';
+import { Booking } from '@/domain/types/booking';
 import UserTile from '../UserTile';
-import { UserModel } from '@/domain/models/user_model';
+import { UserModel } from '@/domain/types/user_model';
 import Nav from '../landing/Nav';
 
 export default function BookingView({ bookingId }: {
@@ -20,10 +20,7 @@ export default function BookingView({ bookingId }: {
     const fetchBooking = async () => {
       setLoading(true);
       const booking = await getBookingById(bookingId);
-      booking.match({
-        some: (b) => setBooking(b),
-        none: () => setBooking(null),
-      });
+      setBooking(booking ?? null);
       setLoading(false);
     };
     fetchBooking();
@@ -38,10 +35,7 @@ export default function BookingView({ bookingId }: {
         }
 
         const user = await getUserById(requesterId);
-        user.match({
-          some: (u) => setBooker(u),
-          none: () => setBooker(null),
-        });
+        setBooker(user ?? null);
       };
       fetchBooker();
     }
@@ -56,10 +50,7 @@ export default function BookingView({ bookingId }: {
         }
 
         const user = await getUserById(performerId);
-        user.match({
-          some: (u) => setPerformer(u),
-          none: () => setPerformer(null),
-        });
+        setPerformer(user ?? null);
       };
       fetchPerformer();
     }
@@ -75,22 +66,7 @@ export default function BookingView({ bookingId }: {
     );
   }
 
-  const duration = formatDuration(booking.startTime, booking.endTime);
-
-  const flier = booking.flierUrl.match({
-    some: (url) => (
-      <div className='relative h-[60vh] w-[95vw] md:w-full rounded-xl'>
-        <Image
-          src={url}
-          alt='flier'
-          fill
-          objectFit='cover'
-          className='rounded-xl'
-        />
-      </div>
-    ),
-    none: () => null,
-  });
+  // const duration = formatDuration(booking.startTime, booking.endTime);
 
   const bookerStuff = booker === null ?
     null :
@@ -118,7 +94,17 @@ export default function BookingView({ bookingId }: {
       <Nav />
       <div className='flex justify-center'>
         <div className='px-6 pb-12 w-auto md:w-1/2'>
-          {flier}
+          {(booking.flierUrl !== null && booking.flierUrl !== undefined) && (
+            <div className='relative h-[60vh] w-[95vw] md:w-full rounded-xl'>
+              <Image
+                src={booking.flierUrl}
+                alt='flier'
+                fill
+                objectFit='cover'
+                className='rounded-xl'
+              />
+            </div>
+          )}
           <h1 className='font-extrabold text-4xl'>{booking.name}</h1>
           <div className='h-8' />
           {bookerStuff}

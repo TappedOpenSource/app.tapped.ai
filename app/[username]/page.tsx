@@ -1,6 +1,6 @@
 import Nav from '@/components/landing/Nav';
 import ProfileView from '@/components/ProfileView';
-import { UserModel, profileImage } from '@/domain/models/user_model';
+import { UserModel, profileImage } from '@/domain/types/user_model';
 import { Metadata, ResolvingMetadata } from 'next';
 
 type Props = {

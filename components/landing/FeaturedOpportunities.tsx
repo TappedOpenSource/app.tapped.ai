@@ -1,7 +1,7 @@
 'use client';
 
 import { getFeaturedOpportunities } from '@/data/database';
-import { Opportunity } from '@/domain/models/opportunity';
+import { Opportunity } from '@/domain/types/opportunity';
 import { useEffect, useState } from 'react';
 import OpportunityTile from '../profile/OpportunityTile';
 

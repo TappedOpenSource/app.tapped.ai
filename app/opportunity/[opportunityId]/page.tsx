@@ -1,7 +1,7 @@
 
 import type { Metadata, ResolvingMetadata } from 'next/types';
 import OpportunityView from '@/components/OpportunityView';
-import { Opportunity, opImage } from '@/domain/models/opportunity';
+import { Opportunity, opImage } from '@/domain/types/opportunity';
 
 type Props = {
   params: { opportunityId: string }

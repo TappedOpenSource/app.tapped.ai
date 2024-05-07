@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { getOpportunityById, getUserById } from '@/data/database';
-import { Opportunity, opImage } from '@/domain/models/opportunity';
+import { Opportunity, opImage } from '@/domain/types/opportunity';
 import Link from 'next/link';
 import Image from 'next/image';
 import UserTile from '@/components/UserTile';
-import { UserModel } from '@/domain/models/user_model';
+import { UserModel } from '@/domain/types/user_model';
 import { FaMoneyBill } from 'react-icons/fa';
 import { getPlaceById } from '@/data/places';
 import { Fab } from '@mui/material';
@@ -26,10 +26,7 @@ export default function OpportunityView({
       }
 
       const opportunity = await getOpportunityById(opportunityId);
-      opportunity.match({
-        some: (opportunity) => setOpportunity(opportunity),
-        none: () => setOpportunity(null),
-      });
+      setOpportunity(opportunity ?? null);
     };
     getOpportunity();
   }, [opportunityId]);
@@ -41,10 +38,7 @@ export default function OpportunityView({
 
     const getBooker = async () => {
       const booker = await getUserById(opportunity.userId);
-      booker.match({
-        some: (booker) => setBooker(booker),
-        none: () => setBooker(null),
-      });
+      setBooker(booker ?? null);
     };
     getBooker();
   }, [opportunity]);

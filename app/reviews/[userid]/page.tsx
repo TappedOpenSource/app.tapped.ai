@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getReviewsByPerformerId } from '@/data/database';
 import ReviewTile from '@/components/profile/ReviewTile';
-import { Review } from '@/domain/models/review';
+import { Review } from '@/domain/types/review';
 
 export default function Reviews({
   params,

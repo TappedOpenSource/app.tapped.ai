@@ -11,28 +11,27 @@ import {
   orderBy,
   limit,
 } from 'firebase/firestore';
-import { Option, None, Some } from '@sniptt/monads';
 import {
   LabelApplication,
   labelApplicationConverter,
-} from '@/domain/models/label_application';
+} from '@/domain/types/label_application';
 import { db } from '@/utils/firebase';
-import { UserModel } from '@/domain/models/user_model';
-import { Booking, bookingConverter } from '@/domain/models/booking';
-import { Review, reviewConverter } from '@/domain/models/review';
-import { Service, serviceConverter } from '@/domain/models/service';
-import { Opportunity, opportunityConverter } from '@/domain/models/opportunity';
+import type { UserModel } from '@/domain/types/user_model';
+import type { Option } from '@/domain/types/option';
+import { type Booking, bookingConverter } from '@/domain/types/booking';
+import { type Review, reviewConverter } from '@/domain/types/review';
+import { type Service, serviceConverter } from '@/domain/types/service';
+import { type Opportunity, opportunityConverter } from '@/domain/types/opportunity';
 
 export async function getUserById(userId: string): Promise<Option<UserModel>> {
   const docRef = doc(db, 'users', userId);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
     console.log('user doesnt exist');
-    return None;
+    return null;
   }
 
-  const user = docSnap.data() as UserModel;
-  return Some(user);
+  return docSnap.data() as UserModel;
 }
 
 export async function getUserByUsername(
@@ -44,11 +43,10 @@ export async function getUserByUsername(
   const querySnapshot = await getDocs(q);
   if (querySnapshot.empty) {
     console.log('No user found!');
-    return None;
+    return null;
   }
 
-  const user = querySnapshot.docs[0].data() as UserModel;
-  return Some(user);
+  return querySnapshot.docs[0].data() as UserModel;
 }
 export async function getLatestBookingByRequestee(
   userId: string
@@ -65,11 +63,10 @@ export async function getLatestBookingByRequestee(
 
   if (queryDocs.empty) {
     console.log('No booking found!');
-    return None;
+    return null;
   }
 
-  const booking = queryDocs.docs[0].data();
-  return Some(booking);
+  return queryDocs.docs[0].data();
 }
 
 export async function getLatestBookingByRequester(
@@ -87,11 +84,10 @@ export async function getLatestBookingByRequester(
 
   if (queryDocs.empty) {
     console.log('No booking found!');
-    return None;
+    return null;
   }
 
-  const booking = queryDocs.docs[0].data();
-  return Some(booking);
+  return queryDocs.docs[0].data();
 }
 
 export async function getLatestPerformerReviewByPerformerId(
@@ -111,11 +107,10 @@ export async function getLatestPerformerReviewByPerformerId(
 
   if (queryDocs.empty) {
     console.log('No review found!');
-    return None;
+    return null;
   }
 
-  const review = queryDocs.docs[0].data();
-  return Some(review);
+  return queryDocs.docs[0].data();
 }
 
 export async function getLatestBookerReviewByBookerId(
@@ -132,11 +127,10 @@ export async function getLatestBookerReviewByBookerId(
 
   if (queryDocs.empty) {
     console.log('No review found!');
-    return None;
+    return null;
   }
 
-  const review = queryDocs.docs[0].data();
-  return Some(review);
+  return queryDocs.docs[0].data();
 }
 
 export async function getUserOpportunities(
@@ -167,11 +161,10 @@ export async function getOpportunityById(opportunityId: string) {
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
     console.log('No such document!');
-    return None;
+    return null;
   }
 
-  const opportunity = docSnap.data() as Opportunity;
-  return Some(opportunity);
+  return docSnap.data() as Opportunity;
 }
 
 export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
@@ -196,9 +189,8 @@ export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
   const leaderOps = await Promise.all(
     featuredOpportunities
       .map(getOpportunityById)
-      .filter(async (op) => (await op).isSome())
-      .map(async (op) => (await op).unwrap())
-  );
+      .filter(async (op) => (await op) !== null)
+  ) as Opportunity[];
 
   return [...tccOps, ...leaderOps];
 }
@@ -216,11 +208,10 @@ export async function getServiceById({
   ).withConverter(serviceConverter);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
-    return None;
+    return null;
   }
 
-  const service = docSnap.data();
-  return Some(service);
+  return docSnap.data();
 }
 
 export async function getReviewsByPerformerId(
@@ -289,11 +280,10 @@ export async function getBookingById(
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
     console.log('No such document!');
-    return None;
+    return null;
   }
 
-  const booking = docSnap.data();
-  return Some(booking);
+  return docSnap.data();
 }
 
 export async function createCheckoutSession({

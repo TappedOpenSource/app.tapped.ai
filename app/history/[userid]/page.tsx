@@ -2,8 +2,8 @@
 
 import BookingTile from '@/components/profile/BookingTile';
 import { getBookingsByRequestee, getBookingsByRequester, getUserById } from '@/data/database';
-import { Booking } from '@/domain/models/booking';
-import { UserModel } from '@/domain/models/user_model';
+import { Booking } from '@/domain/types/booking';
+import { UserModel } from '@/domain/types/user_model';
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 
@@ -44,15 +44,11 @@ export default function History({
       }
 
       const user = await getUserById(userId);
-      user.match({
-        some: (user) => {
-          setPerformer(user);
-        },
-        none: () => {
-          console.log('user not found');
-          router.push('/404');
-        },
-      });
+      if (user === undefined || user === null) {
+        router.push('/404');
+        return;
+      }
+      setPerformer(user);
       setLoading(false);
     };
     fetchUser();

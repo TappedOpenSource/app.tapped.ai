@@ -1,11 +1,11 @@
 
-import { optionFromNullable } from '@/utils/option';
 import {
   QueryDocumentSnapshot,
   SnapshotOptions,
   Timestamp,
 } from '@firebase/firestore';
-import { Option } from '@sniptt/monads';
+import { UserModel } from './user_model';
+import { Option } from './option';
 
 export type Booking = {
     id: string;
@@ -40,41 +40,45 @@ export const bookingConverter = {
     const data = snapshot.data(options);
     return {
       id: data.id,
-      serviceId: optionFromNullable(data.serviceId),
+      serviceId: data.serviceId,
       name: data.name,
       note: data.note,
       requesterId: data.requesterId,
       requesteeId: data.requesteeId,
       status: data.status,
       rate: data.rate,
-      placeId: optionFromNullable(data.placeId),
-      geohash: optionFromNullable(data.geohash),
-      lat: optionFromNullable(data.lat),
-      lng: optionFromNullable(data.lng),
+      placeId: data.placeId,
+      geohash: data.geohash,
+      lat: data.lat,
+      lng: data.lng,
       startTime: data.startTime.toDate(),
       endTime: data.endTime.toDate(),
       timestamp: data.timestamp.toDate(),
-      flierUrl: optionFromNullable(data.flierUrl),
+      flierUrl: data.flierUrl,
     };
   },
 };
 
-export const bookingImage = (booking: Booking | null): string => {
+export const bookingImage = (booking: Booking, user: Option<UserModel>): string => {
   if (booking === null) {
-    return defaultImage('0');
+    return defaultImage();
   }
 
-  return booking.flierUrl.match({
-    some: (flierUrl) => {
-      return flierUrl;
-    },
-    none: () => {
-      return defaultImage(booking.id);
-    },
-  });
+  const flierUrl = booking.flierUrl;
+  if (flierUrl !== null && flierUrl !== undefined) {
+    return flierUrl;
+  }
+
+  const pfp = user?.profilePicture;
+  if (pfp === null || pfp === undefined) {
+    return defaultImage(user?.id);
+  }
+
+
+  return pfp;
 };
 
-const defaultImage = (id: string): string => {
+const defaultImage = (id: Option<string> = null): string => {
   const defaultImages = [
     '/images/default_images/bob.png',
     '/images/default_images/daftpunk.png',
@@ -83,6 +87,8 @@ const defaultImage = (id: string): string => {
     '/images/default_images/skrillex.png',
   ];
 
-  const index = id.length % defaultImages.length;
+  const length = id?.length ?? 0;
+
+  const index = length % defaultImages.length;
   return defaultImages[index];
 };

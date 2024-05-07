@@ -1,5 +1,5 @@
-import { Booking } from '@/domain/models/booking';
-import { UserModel } from '@/domain/models/user_model';
+import { Booking } from '@/domain/types/booking';
+import { UserModel } from '@/domain/types/user_model';
 import BookingCard from './BookingCard';
 
 export default function BookererBookingHistoryPreview({ user, bookings }: {

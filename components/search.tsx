@@ -1,7 +1,7 @@
 
 'use client';
 
-import { UserModel, profileImage } from '@/domain/models/user_model';
+import { UserModel, profileImage } from '@/domain/types/user_model';
 import {
   InstantSearch,
   Hits,

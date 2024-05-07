@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Opportunity } from '@/domain/models/opportunity';
+import { Opportunity } from '@/domain/types/opportunity';
 
 export default function OpportunityTile({ opportunity }: {
     opportunity: Opportunity;

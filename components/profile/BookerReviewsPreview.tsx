@@ -1,7 +1,7 @@
 
 import { getLatestBookerReviewByBookerId } from '@/data/database';
-import { Review } from '@/domain/models/review';
-import { UserModel } from '@/domain/models/user_model';
+import { Review } from '@/domain/types/review';
+import { UserModel } from '@/domain/types/user_model';
 import { useEffect, useState } from 'react';
 import ReviewTile from './ReviewTile';
 
@@ -15,15 +15,7 @@ export default function BookererReviewsPreview({ user }: {
     const fetchLatestReview = async () => {
       // get latest review
       const latestReview = await getLatestBookerReviewByBookerId(user.id);
-      latestReview.match({
-        some: (review) => {
-          setLatestReview(review);
-        },
-        none: () => {
-          console.log('no reviews found');
-        },
-      });
-
+      setLatestReview(latestReview ?? null);
       setLoading(false);
     };
     fetchLatestReview();

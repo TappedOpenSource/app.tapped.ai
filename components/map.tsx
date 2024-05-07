@@ -14,7 +14,7 @@ import {
 import { BoundingBox } from '@/data/search';
 import { useDebounce } from '@/context/debounce';
 import { useSearch } from '@/context/search';
-import { profileImage } from '@/domain/models/user_model';
+import { profileImage } from '@/domain/types/user_model';
 import { useRouter } from 'next/navigation';
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
@@ -54,10 +54,10 @@ export default function VenueMap() {
   const markers = useMemo(
     () =>
       (data ?? []).map((venue) => {
-        const lat = venue.location?.lat;
-        const lng = venue.location?.lng;
+        const lat = venue.location?.lat ?? null;
+        const lng = venue.location?.lat ?? null;
 
-        if (!lat || !lng) {
+        if (lat === null || lng === null) {
           return null;
         }
 

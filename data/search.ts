@@ -1,4 +1,4 @@
-import { UserModel } from '@/domain/models/user_model';
+import { UserModel } from '@/domain/types/user_model';
 import algoliasearch from 'algoliasearch';
 
 export const searchClient = algoliasearch(

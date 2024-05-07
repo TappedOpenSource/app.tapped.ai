@@ -8,11 +8,24 @@ import Sheet from 'react-modal-sheet';
 import ProfileView from '@/components/ProfileView';
 import { styled } from 'styled-components';
 import { Suspense, useEffect, useState } from 'react';
-import { UserModel } from '@/domain/models/user_model';
+import { UserModel } from '@/domain/types/user_model';
 import { getUserByUsername } from '@/data/database';
-import { optionToNullable } from '@/utils/option';
 
 const queryClient = new QueryClient();
+
+const UserSheet = styled(Sheet)`
+  .react-modal-sheet-container {
+    background-color: #222 !important;
+  }
+
+  .react-modal-sheet-backdrop {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .react-modal-sheet-drag-indicator {
+    background-color: #666 !important;
+  }
+`;
 
 function BottomSheet() {
   const router = useRouter();
@@ -27,25 +40,10 @@ function BottomSheet() {
     }
     const fetchUser = async () => {
       const user = await getUserByUsername(username);
-      setSelectedUser(optionToNullable(user));
+      setSelectedUser(user ?? null);
     };
     fetchUser();
   }, [username]);
-
-
-  const UserSheet = styled(Sheet)`
-  .react-modal-sheet-container {
-    background-color: #222 !important;
-  }
-
-  .react-modal-sheet-backdrop {
-    background-color: rgba(0, 0, 0, 0.3) !important;
-  }
-
-  .react-modal-sheet-drag-indicator {
-    background-color: #666 !important;
-  }
-`;
 
   return (
     <UserSheet isOpen={isOpen} onClose={() => router.push('/map')}>

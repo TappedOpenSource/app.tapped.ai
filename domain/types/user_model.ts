@@ -1,3 +1,4 @@
+import type { Option } from './option';
 import {
   DocumentData,
   QueryDocumentSnapshot,
@@ -5,7 +6,6 @@ import {
   Timestamp,
 } from 'firebase/firestore';
 
-type Option<T> = T | null | undefined;
 
 export type Location = {
   lat: number;
@@ -87,7 +87,6 @@ export type UserModel = {
   occupations: string[];
   profilePicture: Option<string>;
   location: Option<Location>;
-  badgesCount: number;
   performerInfo: Option<PerformerInfo>;
   venueInfo: Option<VenueInfo>;
   bookerInfo: Option<BookerInfo>;
@@ -123,10 +122,7 @@ export const audienceSize = (user: UserModel) => (user.socialFollowing?.twitterF
 
 
 export const profileImage = (user: UserModel) => {
-  if (
-    user.profilePicture === undefined ||
-      user.profilePicture === null ||
-      user.profilePicture === '') {
+  if (user.profilePicture === undefined || user.profilePicture === null) {
     return '/images/default_avatar.png';
   }
 

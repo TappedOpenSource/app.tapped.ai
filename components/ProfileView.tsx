@@ -1,12 +1,12 @@
 'use client';
 
-import type { Review } from '@/domain/models/review';
-import type { Booking } from '@/domain/models/booking';
+import type { Review } from '@/domain/types/review';
+import type { Booking } from '@/domain/types/booking';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserModel, audienceSize, profileImage, reviewCount } from '@/domain/models/user_model';
+import { UserModel, audienceSize, profileImage, reviewCount } from '@/domain/types/user_model';
 import PerformerBookingHistoryPreview from '@/components/profile/PerformerBookingHistoryPreview';
 import {
   getBookingsByRequestee,
@@ -35,16 +35,12 @@ export default function ProfileView({ username }: { username: string }) {
 
       // get user by username
       const user = await getUserByUsername(username);
-      user.match({
-        some: (user) => {
-          // set user
-          setUser(user);
-        },
-        none: () => {
-          console.log('user not found');
-          router.push('/404');
-        },
-      });
+      if (user === undefined || user === null) {
+        router.push('/404');
+        return;
+      }
+
+      setUser(user);
     };
     fetchUser();
   }, [router, username]);
@@ -75,22 +71,7 @@ export default function ProfileView({ username }: { username: string }) {
       const latestPerformerReview = await getLatestPerformerReviewByPerformerId(user.id);
       const latestBookerReview = await getLatestPerformerReviewByPerformerId(user.id);
 
-      const latestReview = latestPerformerReview.match({
-        some: (review) => {
-          return review;
-        },
-        none: () => {
-          return latestBookerReview.match({
-            some: (review) => {
-              return review;
-            },
-            none: () => {
-              return null;
-            },
-          });
-        },
-      });
-
+      const latestReview = latestPerformerReview ?? latestBookerReview ?? null;
       setLatestReview(latestReview);
     };
     fetchLatestReview();

@@ -1,6 +1,6 @@
 
 import Image from 'next/image';
-import { UserModel, profileImage } from '@/domain/models/user_model';
+import { UserModel, profileImage } from '@/domain/types/user_model';
 import { useMemo, useState } from 'react';
 import { useSearch } from '@/context/search';
 import { useDebounce } from '@/context/debounce';

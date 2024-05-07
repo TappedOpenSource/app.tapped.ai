@@ -1,4 +1,4 @@
-import { UserModel } from '@/domain/models/user_model';
+import { UserModel } from '@/domain/types/user_model';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';

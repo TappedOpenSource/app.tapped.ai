@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { UserModel, profileImage } from '@/domain/models/user_model';
+import { UserModel, profileImage } from '@/domain/types/user_model';
 import Link from 'next/link';
 
 export default function UserTile({ user }: {

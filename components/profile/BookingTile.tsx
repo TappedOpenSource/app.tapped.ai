@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { Booking, bookingImage } from '@/domain/models/booking';
-import { UserModel, profileImage } from '@/domain/models/user_model';
-import BookIcon from '@mui/icons-material/Book';
+import { Booking, bookingImage } from '@/domain/types/booking';
+import { UserModel, profileImage } from '@/domain/types/user_model';
 import { getServiceById, getUserById } from '@/data/database';
-import { Service } from '@/domain/models/service';
-import { None } from '@sniptt/monads';
+import { Service } from '@/domain/types/service';
 
 export default function BookingTile({ booking, user }: {
     booking: Booking;
@@ -23,29 +21,14 @@ export default function BookingTile({ booking, user }: {
 
       const booker = await (() => {
         if (booking.requesterId === undefined || booking.requesterId === null) {
-          return None;
+          return null;
         }
 
         return getUserById(booking.requesterId);
       })();
-      booker.match({
-        some: (booker) => {
-          setBooker(booker);
-        },
-        none: () => {
-          console.log('booker not found');
-        },
-      });
-
+      setBooker(booker ?? null);
       const performer = await getUserById(booking.requesteeId);
-      performer.match({
-        some: (performer) => {
-          setPerformer(performer);
-        },
-        none: () => {
-          console.log('former not found');
-        },
-      });
+      setPerformer(performer ?? null);
     };
     fetchUsers();
   }, [booking]);
@@ -56,28 +39,21 @@ export default function BookingTile({ booking, user }: {
         return;
       }
 
-      if (booking.serviceId.isNone()) {
+      if (booking.serviceId === undefined || booking.serviceId === null) {
         return;
       }
 
       const bookingService = await getServiceById({
         userId: user.id,
-        serviceId: booking.serviceId.unwrap(),
+        serviceId: booking.serviceId,
       });
 
-      bookingService.match({
-        some: (service) => {
-          setService(service);
-        },
-        none: () => {
-          console.log('service not found');
-        },
-      });
+      setService(bookingService ?? null);
     };
     fetchService();
   }, [booking, user]);
 
-  const imageSrc = bookingImage(booking);
+  const imageSrc = bookingImage(booking, null);
 
   return (
     <>

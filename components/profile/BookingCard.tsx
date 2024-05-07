@@ -1,21 +1,21 @@
 'use client';
 
+import type { Option } from '@/domain/types/option';
+import type { UserModel } from '@/domain/types/user_model';
+import type { Service } from '@/domain/types/service';
+import { type Booking, bookingImage } from '@/domain/types/booking';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { Booking, bookingImage } from '@/domain/models/booking';
-import { UserModel } from '@/domain/models/user_model';
 import { getServiceById, getUserById } from '@/data/database';
-import { Service } from '@/domain/models/service';
-import { None } from '@sniptt/monads';
 
 export default function BookingCard({ booking, user }: {
     booking: Booking;
     user: UserModel;
  }) {
-  const [booker, setBooker] = useState<UserModel | null>(null);
-  const [performer, setPerformer] = useState<UserModel | null>(null);
-  const [service, setService] = useState<Service | null>(null); // TODO: [service, setService
+  const [booker, setBooker] = useState<Option<UserModel>>(null);
+  const [performer, setPerformer] = useState<Option<UserModel>>(null);
+  const [service, setService] = useState<Option<Service>>(null); // TODO: [service, setService
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -26,29 +26,15 @@ export default function BookingCard({ booking, user }: {
       const requesterId = booking.requesterId;
       const booker = await (() => {
         if (requesterId === undefined || requesterId === null) {
-          return None;
+          return null;
         }
 
         return getUserById(requesterId);
       })();
 
       const performer = await getUserById(booking.requesteeId);
-      booker.match({
-        some: (booker) => {
-          setBooker(booker);
-        },
-        none: () => {
-          console.log('booker not found');
-        },
-      });
-      performer.match({
-        some: (performer) => {
-          setPerformer(performer);
-        },
-        none: () => {
-          console.log('former not found');
-        },
-      });
+      setBooker(booker);
+      setPerformer(performer);
     };
     fetchUsers();
   }, [booking]);
@@ -59,28 +45,23 @@ export default function BookingCard({ booking, user }: {
         return;
       }
 
-      if (booking.serviceId.isNone()) {
+      if (booking.serviceId === undefined || booking.serviceId === null) {
         return;
       }
 
       const bookingService = await getServiceById({
         userId: user.id,
-        serviceId: booking.serviceId.unwrap(),
+        serviceId: booking.serviceId,
       });
 
-      bookingService.match({
-        some: (service) => {
-          setService(service);
-        },
-        none: () => {
-          console.log('service not found');
-        },
-      });
+      setService(bookingService);
     };
     fetchService();
   }, [booking, user]);
 
-  const bookerImageSrc = bookingImage(booking);
+  const isRequester = user.id == booker?.id;
+
+  const bookerImageSrc = bookingImage(booking, user);
   const startTimeStr = booking.startTime.toDateString();
 
   return (
