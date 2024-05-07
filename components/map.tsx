@@ -71,7 +71,7 @@ export default function VenueMap() {
             anchor="bottom"
             onClick={() => router.push(`/map?username=${venue.username}`)}
           >
-            <div className='flex flex-row justify-center items-center rounded-xl px-1 py-1 bg-gray-900 shadow-xl'>
+            <div className='flex flex-row justify-center items-center rounded-xl px-1 py-1 bg-gray-900 shadow-xl hover:cursor-pointer hover:scale-105 transform transition-all duration-200 ease-in-out'>
               <div className="relative h-[22px] w-[22px]">
                 <Image
                   src={imageSrc}
