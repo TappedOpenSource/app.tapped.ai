@@ -61,6 +61,7 @@ export default function VenueMap() {
           return null;
         }
 
+        const venueCapacity = venue.venueInfo?.capacity ?? 0;
         const imageSrc = profileImage(venue);
         return (
           <Marker
@@ -70,14 +71,23 @@ export default function VenueMap() {
             anchor="bottom"
             onClick={() => router.push(`/map?username=${venue.username}`)}
           >
-            <Image
-              src={imageSrc}
-              alt="venue profile picture"
-              width={35}
-              height={35}
-              className="rounded-full hover:cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
-              style={{ objectFit: 'cover', overflow: 'hidden' }}
-            />
+            <div className='flex flex-row justify-center items-center rounded-xl px-1 py-1 bg-gray-900 shadow-xl'>
+              <div className="relative h-[22px] w-[22px]">
+                <Image
+                  src={imageSrc}
+                  alt="venue profile picture"
+                  className="rounded-full hover:cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
+                  style={{ objectFit: 'cover', overflow: 'hidden' }}
+                  fill
+                />
+              </div>
+              {venueCapacity !== 0 && (
+                <>
+                  <div className="w-1" />
+                  <p>{venueCapacity}</p>
+                </>
+              )}
+            </div>
           </Marker>
         );
       }),
