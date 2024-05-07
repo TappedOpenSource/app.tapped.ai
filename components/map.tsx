@@ -83,8 +83,7 @@ export default function VenueMap() {
               </div>
               {venueCapacity !== 0 && (
                 <>
-                  <div className="w-1" />
-                  <p>{venueCapacity}</p>
+                  <p className="pl-1 pr-1">{venueCapacity}</p>
                 </>
               )}
             </div>
