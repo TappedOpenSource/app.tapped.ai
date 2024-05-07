@@ -2,8 +2,13 @@ import { createCheckoutSession, getActiveProducts } from '@/data/database';
 import auth from '@/data/auth';
 
 export const subscribe = async ({ priceId }: { priceId: string; }): Promise<void> => {
+  const currentUser = auth.getCurrentUserId();
+  if (!currentUser) {
+    return;
+  }
+
   await createCheckoutSession({
-    userId: auth.getCurrentUserId().unwrap().uid,
+    userId: currentUser.uid,
     priceId: priceId,
   });
 };

@@ -1,7 +1,7 @@
 
+import type { Option } from '@/domain/types/option';
 import { onAuthStateChanged } from '@firebase/auth';
 import { auth } from '@/utils/firebase';
-import { None, Option, Some } from '@sniptt/monads';
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, createUserWithEmailAndPassword, ParsedToken } from 'firebase/auth';
 
 export type Auth = {
@@ -25,19 +25,19 @@ export type LoginResult = { uid: string; token: string };
 export type SignupResult = {uid: string; token: string };
 
 const FirebaseAuth: Auth = {
-  currentUser: None,
+  currentUser: null,
   getCurrentUserId: (): Option<{ uid: string }> => {
     if (auth.currentUser) {
-      return Some({ uid: auth.currentUser.uid });
+      return { uid: auth.currentUser.uid };
     } else {
-      return None;
+      return null;
     }
   },
   getCurrentUserEmail: (): Option<{ email: string }> => {
     if (auth.currentUser && auth.currentUser.email) {
-      return Some({ email: auth.currentUser.email });
+      return { email: auth.currentUser.email };
     } else {
-      return None;
+      return null;
     }
   },
   startAuthObserver: () => {
@@ -47,11 +47,11 @@ const FirebaseAuth: Auth = {
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
 
-        FirebaseAuth.currentUser = Some({ uid });
+        FirebaseAuth.currentUser = { uid };
       } else {
         // User is signed out
         // ...
-        FirebaseAuth.currentUser = None;
+        FirebaseAuth.currentUser = null;
       }
     });
   },

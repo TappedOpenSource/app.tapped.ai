@@ -67,7 +67,7 @@ export default function MapSearch() {
       <div className='px-8 pt-8 pb-1 w-screen'>
         <input
           type='text'
-          placeholder='search...'
+          placeholder='search tapped...'
           className='bg-gray-900 rounded-full py-4 px-6 w-full md:w-1/2 lg:w-1/3 xl:w-1/4'
           onChange={(e) => setQuery(e.target.value)}
         />
