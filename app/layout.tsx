@@ -17,14 +17,14 @@ export const metadata: Metadata = {
     title,
     description,
     siteName: 'Tapped Ai',
-    images: [{ url: 'https://tapped.ai/og.png' }],
+    images: [{ url: 'https://tapped.ai/map-og.png' }],
   },
   twitter: {
     card: 'summary_large_image',
     site: '@tappedai',
     title,
     description,
-    images: 'https://tapped.ai/og.png',
+    images: 'https://tapped.ai/map-og.png',
   },
 };
 

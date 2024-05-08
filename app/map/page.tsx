@@ -64,28 +64,6 @@ function BottomSheet() {
   );
 }
 
-const title = 'tapped ai';
-const description = 'create a world tour from your iPhone. discover venue, performers, and events in your city and around the world with our live music data.';
-export const metadata: Metadata = {
-  title,
-  description,
-  openGraph: {
-    type: 'website',
-    url: 'https://tapped.ai/map',
-    title,
-    description,
-    siteName: 'Tapped Ai',
-    images: [{ url: 'https://tapped.ai/map-og.png' }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    site: '@tappedai',
-    title,
-    description,
-    images: 'https://tapped.ai/map-og.png',
-  },
-};
-
 export default function Page() {
   return (
     <>
