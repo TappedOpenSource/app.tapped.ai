@@ -27,6 +27,7 @@ const UserSheet = styled(Sheet)`
   }
 `;
 
+
 function BottomSheet() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -44,6 +45,7 @@ function BottomSheet() {
     };
     fetchUser();
   }, [username]);
+
 
   return (
     <UserSheet isOpen={isOpen} onClose={() => router.push('/map')}>

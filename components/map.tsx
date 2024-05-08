@@ -68,24 +68,26 @@ export default function VenueMap() {
             key={venue.id}
             longitude={lng}
             latitude={lat}
-            anchor="bottom"
+            anchor="center"
             onClick={() => router.push(`/map?username=${venue.username}`)}
           >
             <div className='flex flex-row justify-center items-center rounded-xl px-1 py-1 bg-gray-900 shadow-xl hover:cursor-pointer hover:scale-105 transform transition-all duration-200 ease-in-out'>
-              <div className="relative h-[22px] w-[22px]">
-                <Image
-                  src={imageSrc}
-                  alt="venue profile picture"
-                  className="rounded-full hover:cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
-                  style={{ objectFit: 'cover', overflow: 'hidden' }}
-                  fill
-                />
+              <div>
+                <div className="relative h-[22px] w-[22px]">
+                  <Image
+                    src={imageSrc}
+                    alt="venue profile picture"
+                    className="rounded-full"
+                    style={{ objectFit: 'cover', overflow: 'hidden' }}
+                    fill
+                  />
+                </div>
+                {venueCapacity !== 0 && (
+                  <>
+                    <p className="pl-1 pr-1">{venueCapacity}</p>
+                  </>
+                )}
               </div>
-              {venueCapacity !== 0 && (
-                <>
-                  <p className="pl-1 pr-1">{venueCapacity}</p>
-                </>
-              )}
             </div>
           </Marker>
         );
