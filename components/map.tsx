@@ -30,6 +30,7 @@ export default function VenueMap() {
         state: string;
         image: string;
     } | null>(null);
+
   const { useVenueData } = useSearch();
   const [bounds, setBounds] = useState<null | BoundingBox>(null);
   const debouncedBounds = useDebounce<null | BoundingBox>(bounds, 250);
@@ -53,9 +54,9 @@ export default function VenueMap() {
 
   const markers = useMemo(
     () =>
-      (data ?? []).slice(0, 5).map((venue) => {
+      (data ?? []).map((venue) => {
         const lat = venue.location?.lat ?? null;
-        const lng = venue.location?.lat ?? null;
+        const lng = venue.location?.lng ?? null;
 
         if (lat === null || lng === null) {
           return null;
@@ -68,7 +69,7 @@ export default function VenueMap() {
             key={venue.id}
             longitude={lng}
             latitude={lat}
-            anchor="center"
+            anchor="bottom"
             onClick={() => router.push(`/map?username=${venue.username}`)}
           >
             <div className='flex flex-row justify-center items-center rounded-xl px-1 py-1 bg-gray-900 shadow-xl hover:cursor-pointer hover:scale-105 transform transition-all duration-200 ease-in-out'>
@@ -89,7 +90,7 @@ export default function VenueMap() {
             </div>
           </Marker>
         );
-      }),
+      }).filter((x) => x !== null) as JSX.Element[],
     [data, router]
   );
 
@@ -107,7 +108,7 @@ export default function VenueMap() {
         mapboxAccessToken={defaultMapboxToken}
         onRender={onRender}
       >
-        <GeolocateControl position="bottom-right" />
+        <GeolocateControl position="bottom-right" showUserHeading trackUserLocation />
         <FullscreenControl position="bottom-right" />
         <NavigationControl position="bottom-right" />
         <ScaleControl />
@@ -127,7 +128,7 @@ export default function VenueMap() {
                 target="_new"
                 href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=${popupInfo.city}, ${popupInfo.state}`}
               >
-                                Wikipedia
+                 Wikipedia
               </a>
             </div>
             <img width="100%" src={popupInfo.image} />

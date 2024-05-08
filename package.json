@@ -9,7 +9,6 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@cloudinary/url-gen": "^1.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.11.0",
@@ -23,7 +22,6 @@
     "@vercel/analytics": "^1.0.1",
     "algoliasearch": "^4.23.2",
     "classnames": "^2.3.2",
-    "cloudinary": "^1.40.0",
     "firebase": "^10.1.0",
     "framer-motion": "^7.10.3",
     "fs": "^0.0.1-security",
