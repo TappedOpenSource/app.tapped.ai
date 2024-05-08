@@ -27,7 +27,6 @@ const UserSheet = styled(Sheet)`
   }
 `;
 
-
 function BottomSheet() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -56,10 +55,6 @@ function BottomSheet() {
 
             {selectedUser === null ? null :
               <ProfileView username={selectedUser.username} />}
-            {/* <div className='flex flex-col items-center'>
-              <h1 className="font-bold text-2xl">{selectedUser?.artistName}</h1>
-              <p className="text-sm text-gray-400">@{selectedUser?.username}</p>
-            </div> */}
           </Sheet.Scroller>
         </Sheet.Content>
       </Sheet.Container>
@@ -72,7 +67,7 @@ export default function Page() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>loading...</div>}>
           <BottomSheet />
         </Suspense>
         <div className='absolute z-10'>

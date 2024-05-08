@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import {
   Map,
   FullscreenControl,
@@ -10,6 +10,7 @@ import {
   NavigationControl,
   Popup,
   ScaleControl,
+  MapboxEvent,
 } from 'react-map-gl';
 import { BoundingBox } from '@/data/search';
 import { useDebounce } from '@/context/debounce';
@@ -36,9 +37,8 @@ export default function VenueMap() {
 
   const { data } = useVenueData(debouncedBounds);
 
-  const onRender = useCallback((e: mapboxgl.MapboxEvent) => {
+  const onRender = useCallback((e: MapboxEvent) => {
     const currentMapBounds = e.target.getBounds();
-
     setBounds({
       ne: {
         lat: currentMapBounds.getNorth(),
@@ -53,7 +53,7 @@ export default function VenueMap() {
 
   const markers = useMemo(
     () =>
-      (data ?? []).map((venue) => {
+      (data ?? []).slice(0, 5).map((venue) => {
         const lat = venue.location?.lat ?? null;
         const lng = venue.location?.lat ?? null;
 
@@ -72,22 +72,20 @@ export default function VenueMap() {
             onClick={() => router.push(`/map?username=${venue.username}`)}
           >
             <div className='flex flex-row justify-center items-center rounded-xl px-1 py-1 bg-gray-900 shadow-xl hover:cursor-pointer hover:scale-105 transform transition-all duration-200 ease-in-out'>
-              <div>
-                <div className="relative h-[22px] w-[22px]">
-                  <Image
-                    src={imageSrc}
-                    alt="venue profile picture"
-                    className="rounded-full"
-                    style={{ objectFit: 'cover', overflow: 'hidden' }}
-                    fill
-                  />
-                </div>
-                {venueCapacity !== 0 && (
-                  <>
-                    <p className="pl-1 pr-1">{venueCapacity}</p>
-                  </>
-                )}
+              <div className="relative h-[22px] w-[22px]">
+                <Image
+                  src={imageSrc}
+                  alt="venue profile picture"
+                  className="rounded-full"
+                  style={{ objectFit: 'cover', overflow: 'hidden' }}
+                  fill
+                />
               </div>
+              {venueCapacity !== 0 && (
+                <>
+                  <p className="pl-1 pr-1">{venueCapacity}</p>
+                </>
+              )}
             </div>
           </Marker>
         );

@@ -59,7 +59,7 @@ export default function BookingCard({ booking, user }: {
     fetchService();
   }, [booking, user]);
 
-  const isRequester = user.id == booker?.id;
+  // const isRequester = user.id == booker?.id;
 
   const bookerImageSrc = bookingImage(booking, user);
   const startTimeStr = booking.startTime.toDateString();
