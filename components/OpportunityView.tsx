@@ -10,6 +10,7 @@ import { UserModel } from '@/domain/types/user_model';
 import { FaMoneyBill } from 'react-icons/fa';
 import { getPlaceById } from '@/data/places';
 import { Fab } from '@mui/material';
+import { LoadingSpinner } from './LoadingSpinner';
 
 export default function OpportunityView({
   opportunityId,
@@ -57,7 +58,7 @@ export default function OpportunityView({
   if (!opportunity) {
     return (
       <>
-        <p>loading...</p>
+        <LoadingSpinner />
       </>
     );
   }

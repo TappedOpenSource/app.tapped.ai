@@ -14,7 +14,7 @@ export default function UserInfoSection({ user }: {
 
 
   return (
-    <div className="w-full px-8 py-4 flex flex-col justify-start items-start rounded-xl bg-gray-800 shadow-lg">
+    <div className="w-full px-8 py-4 flex flex-col justify-start items-start rounded-xl bg-white/10 shadow-lg">
       <p>@{user.username}</p>
       <div className="w-full h-px bg-gray-200/20 my-1" />
       {venueType && (

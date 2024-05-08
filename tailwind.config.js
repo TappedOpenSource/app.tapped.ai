@@ -13,6 +13,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        background: '#010F16',
+      },
       animation: {
         'marquee': 'marquee 25s linear infinite',
         'marquee2': 'marquee2 25s linear infinite',

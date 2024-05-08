@@ -10,13 +10,13 @@ import { styled } from 'styled-components';
 import { Suspense, useEffect, useState } from 'react';
 import { UserModel } from '@/domain/types/user_model';
 import { getUserByUsername } from '@/data/database';
-import { Metadata } from 'next';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
 
 const queryClient = new QueryClient();
 
 const UserSheet = styled(Sheet)`
   .react-modal-sheet-container {
-    background-color: #222 !important;
+    background-color: #010F16FF !important;
   }
 
   .react-modal-sheet-backdrop {
@@ -68,7 +68,9 @@ export default function Page() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Suspense fallback={<div>loading...</div>}>
+        <Suspense fallback={<div className='min-h-screen w-screen flex justify-center items-center'>
+          <LoadingSpinner />
+        </div>}>
           <BottomSheet />
         </Suspense>
         <div className='absolute z-10'>

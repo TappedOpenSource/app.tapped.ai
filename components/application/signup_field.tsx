@@ -1,6 +1,7 @@
 // import SignInWithGoogleButton from '@/components/signin_with_google_button';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { LoadingSpinner } from '../LoadingSpinner';
 // import database from '@/data/database';
 // import { LoginResult } from '@/data/auth';
 // import { loginWithGoogle } from '@/domain/usecases/login';
@@ -70,7 +71,7 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
         <div className="flex items-center justify-center w-[60%] mx-auto">
           {loading ? (
             <div>
-              loading...
+              <LoadingSpinner />
             </div>
           ) : (
 

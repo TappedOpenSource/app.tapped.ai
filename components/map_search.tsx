@@ -1,36 +1,57 @@
 
 import Image from 'next/image';
-import { UserModel, profileImage } from '@/domain/types/user_model';
+import { UserModel, audienceSize, profileImage } from '@/domain/types/user_model';
 import { useMemo, useState } from 'react';
 import { useSearch } from '@/context/search';
 import { useDebounce } from '@/context/debounce';
 import { useRouter } from 'next/navigation';
 
+function getSubtitle(hit: UserModel): string {
+  const capacity = hit.venueInfo?.capacity ?? null;
+  const totalFollowing = audienceSize(hit);
+  const category = hit.performerInfo?.category ?? null;
+
+  if (capacity === null && category === null) {
+    return totalFollowing === 0 ? `@${hit.username}` : `${totalFollowing} followers`;
+  }
+
+
+  if (capacity === null && category !== null) {
+    return `${category} performer`;
+  }
+
+  if (capacity === null) {
+    return `@${hit.username}`;
+  }
+
+  return `${capacity} capacity venue`;
+}
 
 function Hit({ hit, onClick }: { hit: UserModel, onClick: () => void}) {
   const imageSrc = profileImage(hit);
+  const subtitle = getSubtitle(hit);
+
   return (
     <button
       onClick={onClick}
     >
       <div className='px-8 py-px w-screen'>
         <div
-          className='w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 flex flex-row items-center justify-start bg-gray-900 rounded-full py-3 my-1 hover:scale-105 transition-all duration-150 ease-in-out'
+          className='w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 flex flex-row items-center justify-start bg-background rounded-full py-3 my-1 hover:scale-105 transition-all duration-150 ease-in-out'
         >
-          <div className='relative w-[48px] h-[48px]'>
+          <div className='relative w-[42px] h-[42px]'>
             <Image
               src={imageSrc}
               alt="user profile picture"
               fill
               className="rounded-full"
-              objectFit='cover'
               style={{ objectFit: 'cover', overflow: 'hidden' }}
             />
           </div>
           <div className="w-4" />
           <div className='flex flex-col justify-start items-start'>
-            <h1 className="font-bold text-xl line-clamp-1">{hit.artistName}</h1>
-            <p className="text-sm text-gray-400 line-clamp-1">@{hit.username}</p>
+            <h1 className="font-bold text-xl line-clamp-1">{hit.artistName ?? hit.username}</h1>
+            <p className="text-sm text-gray-400 line-clamp-1">{subtitle}</p>
           </div>
         </div>
       </div>
@@ -63,12 +84,11 @@ export default function MapSearch() {
 
   return (
     <>
-
       <div className='px-8 pt-8 pb-1 w-screen'>
         <input
           type='text'
           placeholder='search tapped...'
-          className='bg-gray-900 rounded-full py-4 px-6 w-full md:w-1/2 lg:w-1/3 xl:w-1/4'
+          className='bg-background rounded-full shadow-xl py-4 px-6 w-full md:w-1/2 lg:w-1/3 xl:w-1/4'
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>

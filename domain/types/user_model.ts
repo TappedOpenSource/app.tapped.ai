@@ -43,6 +43,7 @@ export type PerformerInfo = {
   reviewCount: number;
   label: string;
   spotifyId?: Option<string>;
+  category: 'undiscovered' | 'emerging' | 'hometownHero' | 'mainstream' | 'legendary';
 };
 
 export type VenueInfo = {

@@ -79,7 +79,9 @@ export default function BookingCard({ booking, user }: {
           />
         </div>
         <div className='w-6' />
-        <p className='font-bold'>Performer</p>
+        <p className='font-bold line-clamp-2 text-ellipsis'>{
+          booking.name ?? 'live performance'
+        }</p>
         <div className='w-3' />
         <div>
           <p className='text-xs font-thin text-gray-300'>{startTimeStr}</p>

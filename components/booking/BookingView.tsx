@@ -7,6 +7,7 @@ import { Booking } from '@/domain/types/booking';
 import UserTile from '../UserTile';
 import { UserModel } from '@/domain/types/user_model';
 import Nav from '../landing/Nav';
+import { LoadingSpinner } from '../LoadingSpinner';
 
 export default function BookingView({ bookingId }: {
     bookingId: string;
@@ -60,7 +61,7 @@ export default function BookingView({ bookingId }: {
     return (
       <>
         <div className='min-h-screen flex justify-center items-center'>
-          <p>fetching booking... </p>
+          <LoadingSpinner />
         </div>
       </>
     );
