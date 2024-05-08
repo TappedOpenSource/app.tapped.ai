@@ -69,7 +69,7 @@ export default function VenueMap() {
             key={venue.id}
             longitude={lng}
             latitude={lat}
-            anchor="bottom"
+            anchor="center"
             onClick={() => router.push(`/map?username=${venue.username}`)}
           >
             <div className='flex flex-row justify-center items-center rounded-xl px-1 py-1 bg-gray-900 shadow-xl hover:cursor-pointer hover:scale-105 transform transition-all duration-200 ease-in-out'>
