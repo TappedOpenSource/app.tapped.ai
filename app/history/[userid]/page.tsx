@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import BookingTile from '@/components/profile/BookingTile';
-import { getBookingsByRequestee, getBookingsByRequester, getUserById } from '@/data/database';
-import { Booking } from '@/domain/types/booking';
-import { UserModel } from '@/domain/types/user_model';
-import { useRouter } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
+import BookingTile from "@/components/profile/BookingTile";
+import { getBookingsByRequestee, getBookingsByRequester, getUserById } from "@/data/database";
+import { Booking } from "@/domain/types/booking";
+import { UserModel } from "@/domain/types/user_model";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
 
 export default function History({
   params,
@@ -39,13 +39,13 @@ export default function History({
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (typeof userId !== 'string') {
+      if (typeof userId !== "string") {
         return;
       }
 
       const user = await getUserById(userId);
       if (user === undefined || user === null) {
-        router.push('/404');
+        router.push("/404");
         return;
       }
       setPerformer(user);

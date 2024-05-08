@@ -1,5 +1,5 @@
-import Nav from '@/components/landing/Nav';
-import { NextPage } from 'next';
+import Nav from "@/components/landing/Nav";
+import { NextPage } from "next";
 
 const About: NextPage = () => {
   return (

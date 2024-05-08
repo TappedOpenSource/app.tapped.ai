@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import UserTile from '../UserTile';
-import { UserModel } from '@/domain/types/user_model';
-import { Review } from '@/domain/types/review';
-import { getUserById } from '@/data/database';
+import { useState, useEffect } from "react";
+import UserTile from "../UserTile";
+import { UserModel } from "@/domain/types/user_model";
+import { Review } from "@/domain/types/review";
+import { getUserById } from "@/data/database";
 
 export default function ReviewTile({ review }: {
     review: Review;
@@ -15,7 +15,7 @@ export default function ReviewTile({ review }: {
         return;
       }
 
-      const reviewerId = review.type === 'booker' ?
+      const reviewerId = review.type === "booker" ?
         review.performerId :
         review.bookerId;
 

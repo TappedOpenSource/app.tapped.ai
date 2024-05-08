@@ -1,8 +1,8 @@
-import { UserModel } from '@/domain/types/user_model';
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import StarIcon from '@mui/icons-material/Star';
+import { UserModel } from "@/domain/types/user_model";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
+import StarIcon from "@mui/icons-material/Star";
 
 export default function UserInfoSection({ user }: {
     user: UserModel;
@@ -42,7 +42,7 @@ export default function UserInfoSection({ user }: {
           <div className='flex flex-row'>
             <MusicNoteIcon />
             <div className='w-2' />
-            <p className='text-ellipsis overflow-hidden'>{genres.join(', ')}</p>
+            <p className='text-ellipsis overflow-hidden'>{genres.join(", ")}</p>
           </div>
           <div className="w-full h-px bg-gray-200/20 my-1" />
         </>

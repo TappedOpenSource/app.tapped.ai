@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Button, CircularProgress, Icon } from '@mui/material';
-import { subscribe } from '@/domain/usecases/payments';
+import { useState } from "react";
+import { CircularProgress } from "@mui/material";
+// import { subscribe } from "@/domain/usecases/payments";
 
 const ProductCard = ({ product, price }: {
   product: any;
@@ -10,13 +10,13 @@ const ProductCard = ({ product, price }: {
 
   console.log(JSON.stringify(product, null, 2));
 
-  const formatedPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
+  const formatedPrice = new Intl.NumberFormat("en-US", {
+    style: "currency",
     currency: price.currency,
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
   }).format(priceWithCents);
-  const priceText = `${formatedPrice} / ${price.interval ?? 'once'}`;
+  const priceText = `${formatedPrice} / ${price.interval ?? "once"}`;
 
   const [loading, setLoading] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -24,7 +24,7 @@ const ProductCard = ({ product, price }: {
   const handleSubscribe = async () => {
     setLoading(true);
     try {
-      await subscribe({ priceId: price.id });
+      // await subscribe({ priceId: price.id });
       setIsSubscribed(true);
     } catch (error) {
       console.error(error);
@@ -32,13 +32,13 @@ const ProductCard = ({ product, price }: {
     setLoading(false);
   };
 
-  const buttonText = isSubscribed ? 'Redirecting...' : 'Subscribe';
+  const buttonText = isSubscribed ? "Redirecting..." : "Subscribe";
   return (
     <div className="h-full flex items-center justify-center rounded-lg bg-[#2d2d2d] shadow">
       <div>
         <div>
           <p className="px-4 pt-4 text-left text-lg font-bold text-[#42A5F5]">
-            {product?.name.toUpperCase() ?? ''}
+            {product?.name.toUpperCase() ?? ""}
           </p>
         </div>
         {/* <p className="px-4 pt-2 text-white">{product?.description ?? ''}</p> */}
@@ -59,11 +59,11 @@ const ProductCard = ({ product, price }: {
             onClick={handleSubscribe}
             disabled={loading || isSubscribed}
             className={`focus:shadow-outline-blue w-full rounded-sm bg-[#42A5F5] px-4 py-2 my-6 text-white hover:bg-gray-700 focus:border-gray-700 focus:outline-none active:bg-gray-800 ${
-              loading || isSubscribed ? 'cursor-not-allowed' : ''
+              loading || isSubscribed ? "cursor-not-allowed" : ""
             }`}
           >
             {loading ? (
-              <CircularProgress size={16} style={{ color: 'inherit' }} />
+              <CircularProgress size={16} style={{ color: "inherit" }} />
             ) : (
               buttonText
             )}

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { getFeaturedOpportunities } from '@/data/database';
-import { Opportunity } from '@/domain/types/opportunity';
-import { useEffect, useState } from 'react';
-import OpportunityTile from '../profile/OpportunityTile';
+import { getFeaturedOpportunities } from "@/data/database";
+import { Opportunity } from "@/domain/types/opportunity";
+import { useEffect, useState } from "react";
+import OpportunityTile from "../profile/OpportunityTile";
 
 export default function DefaultOpportunities() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);

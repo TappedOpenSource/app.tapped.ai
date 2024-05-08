@@ -1,33 +1,33 @@
 
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 const testimonials = [
   {
-    name: 'Andrew Rohlk',
-    text: 'I love Tapped! Great team and great product. I\'ve gotten so many more bookings since I started using it.',
-    photo: '/images/512x512/andrew.512x512.png',
-    url: 'https://music.apple.com/us/artist/andrew-rohlk/592655140',
+    name: "Andrew Rohlk",
+    text: "I love Tapped! Great team and great product. I've gotten so many more bookings since I started using it.",
+    photo: "/images/512x512/andrew.512x512.png",
+    url: "https://music.apple.com/us/artist/andrew-rohlk/592655140",
   },
   {
-    name: 'Niral',
-    text: 'I started my music career about 8 months ago and I\'ve been using Tapped since day 1. They played a crucial role to my success and ulitmately to getting signed to a label.',
-    photo: '/images/512x512/niral.512x512.png',
-    url: 'https://music.apple.com/us/artist/niral-desai/1682714169',
+    name: "Niral",
+    text: "I started my music career about 8 months ago and I've been using Tapped since day 1. They played a crucial role to my success and ulitmately to getting signed to a label.",
+    photo: "/images/512x512/niral.512x512.png",
+    url: "https://music.apple.com/us/artist/niral-desai/1682714169",
     signed: true,
   },
   {
-    name: 'Jayduhhhh',
-    text: 'Tapped Ai played a huge role in getting me my highest paying booking to date. I\'m so grateful for the team and the product.',
-    photo: '/images/512x512/jayduhhh.512x512.png',
-    url: 'https://music.apple.com/us/artist/jay-duhhh/1573379288',
+    name: "Jayduhhhh",
+    text: "Tapped Ai played a huge role in getting me my highest paying booking to date. I'm so grateful for the team and the product.",
+    photo: "/images/512x512/jayduhhh.512x512.png",
+    url: "https://music.apple.com/us/artist/jay-duhhh/1573379288",
     signed: true,
   },
   {
-    name: 'Seelife',
-    text: 'I f*** with Tapped heavy. They\'ve helped me get my music out there and I\'ve gotten a lot of new fans from it. I\'m excited to see what they do next.',
-    photo: '/images/512x512/seelife.512x512.png',
-    url: 'https://music.apple.com/us/artist/seelife/1493214282',
+    name: "Seelife",
+    text: "I f*** with Tapped heavy. They've helped me get my music out there and I've gotten a lot of new fans from it. I'm excited to see what they do next.",
+    photo: "/images/512x512/seelife.512x512.png",
+    url: "https://music.apple.com/us/artist/seelife/1493214282",
   },
 ];
 
@@ -47,7 +47,7 @@ function Testimonial({ name, text, photo, url, signed = false }) {
             src={photo}
             alt={name}
             style={{
-              objectFit: 'cover',
+              objectFit: "cover",
             }} />
         </div>
         <h3 className="text-2xl font-extrabold">{name}</h3>

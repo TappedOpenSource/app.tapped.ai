@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { useState } from 'react';
-import { track } from '@vercel/analytics/react';
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+import { track } from "@vercel/analytics/react";
 
 export default function Nav() {
   const [active, setActive] = useState(false);
@@ -24,8 +24,8 @@ export default function Nav() {
           height={75}
           alt='tapped logo'
           style={{
-            maxWidth: '100%',
-            height: 'auto',
+            maxWidth: "100%",
+            height: "auto",
           }} />
       </Link>
       <button
@@ -37,20 +37,20 @@ export default function Nav() {
       {/* Note that in this div we will use a ternary operator to decide whether or not to display the content of the div  */}
       <div
         className={`${
-          active ? '' : 'hidden'
+          active ? "" : "hidden"
         }   w-full lg:inline-flex lg:flex-grow lg:w-auto`}
       >
         <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start flex flex-col lg:h-auto'>
 
           <Link
-            onClick={() => track('nav-click', { item: 'for-venues' })}
+            onClick={() => track("nav-click", { item: "for-venues" })}
             href='/venue'
             className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500/50 hover:text-white'
           >
               venues/bookers
           </Link>
           <Link
-            onClick={() => track('nav-click', { item: 'map' })}
+            onClick={() => track("nav-click", { item: "map" })}
             href='/map'
             // target="_blank"
             // rel="noopener noreferrer"
@@ -59,14 +59,14 @@ export default function Nav() {
               map
           </Link>
           <Link
-            onClick={() => track('nav-click', { item: 'team' })}
+            onClick={() => track("nav-click", { item: "team" })}
             href='/team'
             className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-blue-500/50 hover:text-white '
           >
               team
           </Link>
           <Link
-            onClick={() => track('nav-click', { item: 'roadmap' })}
+            onClick={() => track("nav-click", { item: "roadmap" })}
             href='https://tappedapp.notion.site/Technical-Roadmap-4edc036572bd4d89913f5cd5a4cde0f6?pvs=4'
             target="_blank"
             rel="noopener noreferrer"
@@ -75,7 +75,7 @@ export default function Nav() {
               roadmap
           </Link>
           <Link
-            onClick={() => track('nav-click', { item: 'blog' })}
+            onClick={() => track("nav-click", { item: "blog" })}
             href='https://blog.tapped.ai'
             target="_blank"
             rel="noopener noreferrer"

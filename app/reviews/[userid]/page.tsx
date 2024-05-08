@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { getReviewsByPerformerId } from '@/data/database';
-import ReviewTile from '@/components/profile/ReviewTile';
-import { Review } from '@/domain/types/review';
+import React, { useEffect, useState } from "react";
+import { getReviewsByPerformerId } from "@/data/database";
+import ReviewTile from "@/components/profile/ReviewTile";
+import { Review } from "@/domain/types/review";
 
 export default function Reviews({
   params,
@@ -17,7 +17,7 @@ export default function Reviews({
 
   useEffect(() => {
     const fetchReviews = async () => {
-      if (typeof userId !== 'string') {
+      if (typeof userId !== "string") {
         return;
       }
 

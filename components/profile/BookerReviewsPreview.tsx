@@ -1,10 +1,10 @@
 
-import { getLatestBookerReviewByBookerId } from '@/data/database';
-import { Review } from '@/domain/types/review';
-import { UserModel } from '@/domain/types/user_model';
-import { useEffect, useState } from 'react';
-import ReviewTile from './ReviewTile';
-import { LoadingSpinner } from '../LoadingSpinner';
+import { getLatestBookerReviewByBookerId } from "@/data/database";
+import { Review } from "@/domain/types/review";
+import { UserModel } from "@/domain/types/user_model";
+import { useEffect, useState } from "react";
+import ReviewTile from "./ReviewTile";
+import { LoadingSpinner } from "../LoadingSpinner";
 
 export default function BookererReviewsPreview({ user }: {
     user: UserModel;

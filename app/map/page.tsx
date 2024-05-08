@@ -1,16 +1,17 @@
-'use client';
+"use client";
 
-import VenueMap from '@/components/map';
-import MapSearch from '@/components/map_search';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
-import Sheet from 'react-modal-sheet';
-import ProfileView from '@/components/ProfileView';
-import { styled } from 'styled-components';
-import { Suspense, useEffect, useState } from 'react';
-import { UserModel } from '@/domain/types/user_model';
-import { getUserByUsername } from '@/data/database';
-import { LoadingSpinner } from '@/components/LoadingSpinner';
+import VenueMap from "@/components/map";
+import MapHeader from "@/components/map_header";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useRouter, useSearchParams } from "next/navigation";
+import Sheet from "react-modal-sheet";
+import ProfileView from "@/components/ProfileView";
+import { styled } from "styled-components";
+import { Suspense, useEffect, useState } from "react";
+import { UserModel } from "@/domain/types/user_model";
+import { getUserByUsername } from "@/data/database";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { AuthContext, AuthProvider } from "@/context/auth";
 
 const queryClient = new QueryClient();
 
@@ -31,7 +32,7 @@ const UserSheet = styled(Sheet)`
 function BottomSheet() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const username = searchParams.get('username');
+  const username = searchParams.get("username");
   const isOpen = username !== null;
 
   const [selectedUser, setSelectedUser] = useState<UserModel | null>(null);
@@ -48,7 +49,7 @@ function BottomSheet() {
 
 
   return (
-    <UserSheet isOpen={isOpen} onClose={() => router.push('/map')}>
+    <UserSheet isOpen={isOpen} onClose={() => router.push("/map")}>
       <Sheet.Container>
         <Sheet.Header />
         <Sheet.Content>
@@ -67,19 +68,21 @@ function BottomSheet() {
 export default function Page() {
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <Suspense fallback={<div className='min-h-screen w-screen flex justify-center items-center'>
-          <LoadingSpinner />
-        </div>}>
-          <BottomSheet />
-        </Suspense>
-        <div className='absolute z-10'>
-          <MapSearch />
-        </div>
-        <div className='z-0'>
-          <VenueMap />
-        </div>
-      </QueryClientProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <Suspense fallback={<div className='min-h-screen w-screen flex justify-center items-center'>
+            <LoadingSpinner />
+          </div>}>
+            <BottomSheet />
+          </Suspense>
+          <div className='absolute z-10'>
+            <MapHeader />
+          </div>
+          <div className='z-0'>
+            <VenueMap />
+          </div>
+        </QueryClientProvider>
+      </AuthProvider>
     </>
   );
 }

@@ -1,5 +1,5 @@
-import { Opportunity } from '@/domain/types/opportunity';
-import OpportunityTile from './OpportunityTile';
+import { Opportunity } from "@/domain/types/opportunity";
+import OpportunityTile from "./OpportunityTile";
 
 export default function OpportunitiesSlider({
   opportunities,

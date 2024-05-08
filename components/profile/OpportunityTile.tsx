@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { Opportunity } from '@/domain/types/opportunity';
+import Link from "next/link";
+import Image from "next/image";
+import { Opportunity } from "@/domain/types/opportunity";
 
 export default function OpportunityTile({ opportunity }: {
     opportunity: Opportunity;
@@ -9,11 +9,11 @@ export default function OpportunityTile({ opportunity }: {
     if (
       opportunity.flierUrl !== undefined &&
       opportunity.flierUrl !== null &&
-      opportunity.flierUrl !== '') {
+      opportunity.flierUrl !== "") {
       return opportunity.flierUrl;
     }
 
-    return '/images/performance_placeholder.png';
+    return "/images/performance_placeholder.png";
   })();
 
   return <>

@@ -1,124 +1,76 @@
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
+  @tailwind components;
+  @tailwind utilities;
 
-@supports (font: -apple-system-body) and (-webkit-appearance: none) {
-  img[loading='lazy'] {
-    clip-path: inset(0.6px);
+  @layer base {
+    :root {
+      --background: 0 0% 100%;
+      --foreground: 222.2 84% 4.9%;
+
+      --card: 0 0% 100%;
+      --card-foreground: 222.2 84% 4.9%;
+
+      --popover: 0 0% 100%;
+      --popover-foreground: 222.2 84% 4.9%;
+
+      --primary: 222.2 47.4% 11.2%;
+      --primary-foreground: 210 40% 98%;
+
+      --secondary: 210 40% 96.1%;
+      --secondary-foreground: 222.2 47.4% 11.2%;
+
+      --muted: 210 40% 96.1%;
+      --muted-foreground: 215.4 16.3% 46.9%;
+
+      --accent: 210 40% 96.1%;
+      --accent-foreground: 222.2 47.4% 11.2%;
+
+      --destructive: 0 84.2% 60.2%;
+      --destructive-foreground: 210 40% 98%;
+
+      --border: 214.3 31.8% 91.4%;
+      --input: 214.3 31.8% 91.4%;
+      --ring: 222.2 84% 4.9%;
+
+      --radius: 0.5rem;
+    }
+
+    .dark {
+      --background: 222.2 84% 4.9%;
+      --foreground: 210 40% 98%;
+
+      --card: 222.2 84% 4.9%;
+      --card-foreground: 210 40% 98%;
+
+      --popover: 222.2 84% 4.9%;
+      --popover-foreground: 210 40% 98%;
+
+      --primary: 210 40% 98%;
+      --primary-foreground: 222.2 47.4% 11.2%;
+
+      --secondary: 217.2 32.6% 17.5%;
+      --secondary-foreground: 210 40% 98%;
+
+      --muted: 217.2 32.6% 17.5%;
+      --muted-foreground: 215 20.2% 65.1%;
+
+      --accent: 217.2 32.6% 17.5%;
+      --accent-foreground: 210 40% 98%;
+
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 210 40% 98%;
+
+      --border: 217.2 32.6% 17.5%;
+      --input: 217.2 32.6% 17.5%;
+      --ring: 212.7 26.8% 83.9%;
+    }
   }
-}
 
-.google_btn {
-  @apply text-black w-full bg-white hover:bg-black/90 hover:text-white focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2;
-}
-
-.tapped_btn {
-  margin: 1rem;
-  @apply text-black min-w-[30%] bg-[#42A5F5] hover:bg-[#42A5F5]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-2 mb-2;
-}
-
-.tapped_btn_rounded {
-  margin: 1rem;
-  @apply text-black min-w-[35%] bg-white hover:bg-white/90 focus:ring-4 focus:outline-none focus:ring-[#42a5f5]/50 font-medium rounded-full text-sm px-5 py-2.5 text-center items-center mr-2 mb-2;
-}
-
-.tapped_btn_rounded_black {
-  margin: 1rem;
-  @apply text-white min-w-[35%] bg-black hover:bg-black/90 focus:ring-4 focus:outline-none focus:ring-[#42a5f5]/50 font-medium rounded-full text-sm px-5 py-2.5 text-center items-center mr-2 mb-2;
-}
-
-.tapped_signup_btn {
-  @apply text-[#42A5F5] hover:text-[#42A5F5]/90 bg-transparent whitespace-nowrap focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-2 mb-2;
-}
-
-.base-input {
-  width: 100%;
-  appearance: none;
-  border-radius: 0.25rem;
-  border: 2px solid #63b2fd;
-  background-color: #63b2fd;
-  padding: 0.5rem 1rem;
-  line-height: 1.5;
-  color: white;
-}
-
-.base-input:focus {
-  background-color: #63b2fd;
-  outline: none;
-}
-
-.input-error {
-  border-color: #f87171;
-}
-
-.error-text {
-  margin-top: 0.5rem;
-  color: #f87171;
-}
-
-.white_placeholder::placeholder {
-  color: white;
-  font-weight: semibold;
-  opacity: 1;
-}
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-body {
-  color: #fff;
-  /* background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
-  /* color: 'white'; */
-  background-color: #010F16;
-}
-
-#by-tapped {
-  padding: 0.7rem;
-  color: #4A5E68;
-  background-color: #fff;
-}
-
-#learn-more {
-  padding: 0.7rem;
-  color: #fff;
-  background-color: #4c4c4c00;
-}
-
-.button-container {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  gap: 10px;
-  cursor: pointer;
-
-  border: 2px solid var(--primary-color);
-  border-radius: 10px;
-}
-
-.button-container-dark {
-  background-color: #202020;
-  color: #fff;
-}
-
-.button-text-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.button-store-name {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.button-title {
-  font-size: 12px;
-}
+  @layer base {
+    * {
+      @apply border-border;
+    }
+    body {
+      @apply bg-background text-foreground;
+    }
+  }

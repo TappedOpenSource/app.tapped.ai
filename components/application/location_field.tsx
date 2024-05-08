@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const LocationField = ({ formData, updateFormData, onValidation }) => {
   const [error, setError] = useState<string | null>(null);
 
   const validateForUI = (value) => {
-    if (value.trim() === '') {
-      setError('Field cannot be empty');
+    if (value.trim() === "") {
+      setError("Field cannot be empty");
       onValidation(false);
     } else {
       setError(null);
@@ -14,7 +14,7 @@ const LocationField = ({ formData, updateFormData, onValidation }) => {
   };
 
   const justValidate = (value) => {
-    if (value.trim() === '') {
+    if (value.trim() === "") {
       onValidation(false);
     } else {
       onValidation(true);
@@ -22,8 +22,8 @@ const LocationField = ({ formData, updateFormData, onValidation }) => {
   };
 
   useEffect(() => {
-    justValidate(formData['location'] || '');
-  }, [formData['location']]);
+    justValidate(formData["location"] || "");
+  }, [formData["location"]]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,10 +45,10 @@ const LocationField = ({ formData, updateFormData, onValidation }) => {
             type="text"
             name="location"
             placeholder="type here..."
-            value={formData['location'] || ''}
+            value={formData["location"] || ""}
             onChange={handleInputChange}
             className={`white_placeholder w-full appearance-none rounded ${
-              error ? 'border-2 border-red-500' : ''
+              error ? "border-2 border-red-500" : ""
             } bg-[#63b2fd] px-4 py-2 leading-tight text-white focus:bg-white focus:text-black font-semibold focus:outline-none`}
           />
         </div>

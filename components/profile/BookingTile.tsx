@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { Booking, bookingImage } from '@/domain/types/booking';
-import { UserModel, profileImage } from '@/domain/types/user_model';
-import { getServiceById, getUserById } from '@/data/database';
-import { Service } from '@/domain/types/service';
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { Booking, bookingImage } from "@/domain/types/booking";
+import { UserModel, profileImage } from "@/domain/types/user_model";
+import { getServiceById, getUserById } from "@/data/database";
+import { Service } from "@/domain/types/service";
 
 export default function BookingTile({ booking, user }: {
     booking: Booking;
@@ -75,13 +75,13 @@ export default function BookingTile({ booking, user }: {
             <p className='text-xs font-thin text-gray-300'>{booking.timestamp.toDateString()}</p>
           </div>
           <p className='break-word'>
-            {booker?.artistName ?? 'someone'}
-            {' '}
+            {booker?.artistName ?? "someone"}
+            {" "}
           booked
-            {' '}
-            {performer?.artistName ?? 'someone'}
-            {' for '}
-            {service?.title ?? 'a show'}
+            {" "}
+            {performer?.artistName ?? "someone"}
+            {" for "}
+            {service?.title ?? "a show"}
           </p>
         </div>
       </div>

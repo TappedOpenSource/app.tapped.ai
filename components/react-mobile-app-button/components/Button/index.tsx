@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
-import classNames from 'classnames';
-import Link from 'next/link';
+import React, { FC } from "react";
+import classNames from "classnames";
+import Link from "next/link";
 
 type ButtonProps = {
-  theme?: 'dark' | 'light';
+  theme?: "dark" | "light";
   height?: number;
   width?: number;
   logo: string;
@@ -15,7 +15,7 @@ type ButtonProps = {
 };
 
 const Button: FC<ButtonProps> = ({
-  theme = 'light',
+  theme = "light",
   height = 60,
   width = 200,
   border,
@@ -36,7 +36,7 @@ const Button: FC<ButtonProps> = ({
         borderRadius: border,
       }}
       className={classNames(
-        'button-container',
+        "button-container",
         `button-container-${theme}`,
         className
       )}

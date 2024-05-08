@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const EmailField = ({ formData, updateFormData, onValidation }) => {
   const [error, setError] = useState<string | null>(null);
@@ -6,11 +6,11 @@ const EmailField = ({ formData, updateFormData, onValidation }) => {
   const validateForUI = (value) => {
     const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
-    if (value.trim() === '') {
-      setError('Email cannot be empty');
+    if (value.trim() === "") {
+      setError("Email cannot be empty");
       onValidation(false);
     } else if (!emailPattern.test(value)) {
-      setError('Invalid email address');
+      setError("Invalid email address");
       onValidation(false);
     } else {
       setError(null);
@@ -21,7 +21,7 @@ const EmailField = ({ formData, updateFormData, onValidation }) => {
   const justValidate = (value) => {
     const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
-    if (value.trim() === '' || !emailPattern.test(value)) {
+    if (value.trim() === "" || !emailPattern.test(value)) {
       onValidation(false);
     } else {
       onValidation(true);
@@ -29,8 +29,8 @@ const EmailField = ({ formData, updateFormData, onValidation }) => {
   };
 
   useEffect(() => {
-    justValidate(formData['email'] || '');
-  }, [formData['email']]);
+    justValidate(formData["email"] || "");
+  }, [formData["email"]]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,10 +50,10 @@ const EmailField = ({ formData, updateFormData, onValidation }) => {
             type="email"
             name="email"
             placeholder='type here...'
-            value={formData['email'] || ''}
+            value={formData["email"] || ""}
             onChange={handleInputChange}
             className={`white_placeholder w-full appearance-none rounded ${
-              error ? 'border-2 border-red-500' : ''
+              error ? "border-2 border-red-500" : ""
             } bg-[#63b2fd] px-4 py-2 leading-tight text-white focus:bg-white focus:text-black font-semibold focus:outline-none`}
           />
         </div>

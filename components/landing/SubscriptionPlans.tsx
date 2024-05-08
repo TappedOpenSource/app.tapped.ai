@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import Image from 'next/image';
+import Link from "next/link";
+import Image from "next/image";
 
 const SubscriptionPlans = () => {
   return (
@@ -25,8 +25,8 @@ const SubscriptionPlans = () => {
             width={400}
             height={400}
             style={{
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }} />
         </div>
       </div>

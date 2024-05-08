@@ -1,15 +1,15 @@
 
-'use client';
+"use client";
 
-import { UserModel, profileImage } from '@/domain/types/user_model';
+import { UserModel, profileImage } from "@/domain/types/user_model";
 import {
   InstantSearch,
   Hits,
-} from 'react-instantsearch';
-import Image from 'next/image';
-import Link from 'next/link';
-import CustomSearchBox from '@/components/searchbox';
-import { searchClient } from '@/data/search';
+} from "react-instantsearch";
+import Image from "next/image";
+import Link from "next/link";
+import CustomSearchBox from "@/components/searchbox";
+import { searchClient } from "@/data/search";
 
 function Hit({ hit }: { hit: UserModel }) {
   const imageSrc = profileImage(hit);
@@ -27,7 +27,7 @@ function Hit({ hit }: { hit: UserModel }) {
           height={50}
           className="rounded-full"
           objectFit='cover'
-          style={{ objectFit: 'cover', overflow: 'hidden' }}
+          style={{ objectFit: "cover", overflow: "hidden" }}
         />
         <div className="w-4" />
         <div>

@@ -1,6 +1,6 @@
 
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 const FeaturedIn = () => {
   return (
@@ -18,8 +18,8 @@ const FeaturedIn = () => {
               height={124}
               className='rounded-lg'
               style={{
-                maxWidth: '100%',
-                height: 'auto',
+                maxWidth: "100%",
+                height: "auto",
               }} />
           </Link>
         </div>
@@ -34,8 +34,8 @@ const FeaturedIn = () => {
               height={124}
               className='rounded-lg'
               style={{
-                maxWidth: '100%',
-                height: 'auto',
+                maxWidth: "100%",
+                height: "auto",
               }} />
           </Link>
         </div>
@@ -50,8 +50,8 @@ const FeaturedIn = () => {
               height={124}
               className='rounded-lg'
               style={{
-                maxWidth: '100%',
-                height: 'auto',
+                maxWidth: "100%",
+                height: "auto",
               }} />
           </Link>
         </div>

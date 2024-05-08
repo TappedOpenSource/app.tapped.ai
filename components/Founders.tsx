@@ -1,4 +1,4 @@
-import Member, { MemberProps } from './TeamMember';
+import Member, { MemberProps } from "./TeamMember";
 
 export default function Founders() {
   return (
@@ -20,18 +20,18 @@ export default function Founders() {
 
 const founders: MemberProps[] = [
   {
-    image: '/images/masters/johannes.png',
-    name: 'johannes naylor',
-    title: 'founder',
-    subtitle: 'prev. audius, capital one',
-    url: 'https://twitter.com/jonaylor89',
+    image: "/images/masters/johannes.png",
+    name: "johannes naylor",
+    title: "founder",
+    subtitle: "prev. audius, capital one",
+    url: "https://twitter.com/jonaylor89",
   },
   {
-    image: '/images/masters/ilias.jpeg',
-    name: 'ilias anwar',
-    title: 'founder',
-    subtitle: 'prev. tcc entertainment, gold media agency',
-    url: 'https://www.linkedin.com/in/iliasanwar/',
+    image: "/images/masters/ilias.jpeg",
+    name: "ilias anwar",
+    title: "founder",
+    subtitle: "prev. tcc entertainment, gold media agency",
+    url: "https://www.linkedin.com/in/iliasanwar/",
   },
 ];
 

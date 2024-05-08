@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const FollowingField = ({ formData, updateFormData, onValidation }) => {
   const [error, setError] = useState<string | null>(null);
@@ -8,14 +8,14 @@ const FollowingField = ({ formData, updateFormData, onValidation }) => {
     setHasInteracted(true);
 
     const { value } = e.target;
-    updateFormData({ ...formData, ['following_field']: value });
+    updateFormData({ ...formData, ["following_field"]: value });
     validateForUI(value);
   };
 
   const validateForUI = (value) => {
     if (hasInteracted) {
       if (!value) {
-        setError('Please select your social media following range.');
+        setError("Please select your social media following range.");
         onValidation(false);
       } else {
         setError(null);
@@ -36,10 +36,10 @@ const FollowingField = ({ formData, updateFormData, onValidation }) => {
   };
 
   useEffect(() => {
-    justValidate(formData['following_field']);
-  }, [formData['following_field']]);
+    justValidate(formData["following_field"]);
+  }, [formData["following_field"]]);
 
-  const options = ['0-100', '100-1K', '1-10K', '10-100K', '100K-1M', '1M+'];
+  const options = ["0-100", "100-1K", "1-10K", "10-100K", "100K-1M", "1M+"];
 
   return (
     <div className="page flex h-full flex-col items-center justify-center">
@@ -55,14 +55,14 @@ const FollowingField = ({ formData, updateFormData, onValidation }) => {
                 id={option}
                 name="following_field"
                 value={option}
-                checked={formData['following_field'] === option}
+                checked={formData["following_field"] === option}
                 onChange={handleInputChange}
                 className="sr-only"
               />
               <label
                 htmlFor={option}
                 className={`w-full text-center px-4 py-2 rounded-xl cursor-pointer transition duration-200 ease-in-out 
-                ${formData['following_field'] === option ? 'bg-white font-bold text-black' : 'bg-[#63b2fd] font-bold text-white'}`}
+                ${formData["following_field"] === option ? "bg-white font-bold text-black" : "bg-[#63b2fd] font-bold text-white"}`}
               >
                 {option}
               </label>

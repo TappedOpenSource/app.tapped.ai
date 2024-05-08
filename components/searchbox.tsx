@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import {
 //   useInstantSearch,
   useSearchBox,
   UseSearchBoxProps,
-} from 'react-instantsearch';
+} from "react-instantsearch";
 
 export default function CustomSearchBox(props: UseSearchBoxProps) {
   const { query, refine } = useSearchBox(props);
@@ -39,7 +39,7 @@ export default function CustomSearchBox(props: UseSearchBoxProps) {
           event.preventDefault();
           event.stopPropagation();
 
-          setQuery('');
+          setQuery("");
 
           if (inputRef.current) {
             inputRef.current.focus();

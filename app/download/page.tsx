@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import { AppStoreButton, GooglePlayButton } from '@/components/react-mobile-app-button';
+import Image from "next/image";
+import { AppStoreButton, GooglePlayButton } from "@/components/react-mobile-app-button";
 
 export default function Download() {
-  const appleUrl = 'https://apps.apple.com/us/app/tapped-network/id1574937614';
-  const googleUrl = 'https://play.google.com/store/apps/details?id=com.intheloopstudio';
+  const appleUrl = "https://apps.apple.com/us/app/tapped-network/id1574937614";
+  const googleUrl = "https://play.google.com/store/apps/details?id=com.intheloopstudio";
 
   return <>
     <div
@@ -18,18 +18,18 @@ export default function Download() {
           width={150}
           height={150}
           style={{
-            maxWidth: '100%',
-            height: 'auto',
+            maxWidth: "100%",
+            height: "auto",
           }} />
       </div>
       <div className="flex justify-center items-center flex-col md:flex-row gap-4">
         <GooglePlayButton
           url={googleUrl}
-          theme={'dark'}
+          theme={"dark"}
         />
         <AppStoreButton
           url={appleUrl}
-          theme={'dark'}
+          theme={"dark"}
         />
       </div>
     </div>

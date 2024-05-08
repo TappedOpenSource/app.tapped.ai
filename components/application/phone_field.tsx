@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const PhoneField = ({ formData, updateFormData, onValidation }) => {
   const [error, setError] = useState<string | null>(null);
@@ -7,11 +7,11 @@ const PhoneField = ({ formData, updateFormData, onValidation }) => {
   const validateForUI = (value) => {
     if (!touched) return;
 
-    if (value === undefined || value === null || value.trim() === '') {
-      setError('Phone cannot be empty');
+    if (value === undefined || value === null || value.trim() === "") {
+      setError("Phone cannot be empty");
       onValidation(false);
     } else if (!/^\d+$/.test(value)) {
-      setError('Invalid phone number');
+      setError("Invalid phone number");
       onValidation(false);
     } else {
       setError(null);
@@ -20,7 +20,7 @@ const PhoneField = ({ formData, updateFormData, onValidation }) => {
   };
 
   const justValidate = (value) => {
-    if (value === undefined || value === null || value.trim() === '') {
+    if (value === undefined || value === null || value.trim() === "") {
       onValidation(false);
     } else if (!/^\d+$/.test(value)) {
       onValidation(false);
@@ -30,17 +30,17 @@ const PhoneField = ({ formData, updateFormData, onValidation }) => {
   };
 
   const handleInputChange = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, '');
+    const value = e.target.value.replace(/[^0-9]/g, "");
     setTouched(true);
     updateFormData({
       ...formData,
-      ['phone']: value,
+      ["phone"]: value,
     });
     validateForUI(value);
   };
 
   useEffect(() => {
-    justValidate(formData.phone || '');
+    justValidate(formData.phone || "");
   }, [formData.phone]);
 
   return (
@@ -54,10 +54,10 @@ const PhoneField = ({ formData, updateFormData, onValidation }) => {
             type="tel"
             name="phone"
             placeholder="(000) 000-0000"
-            value={formData.phone || ''}
+            value={formData.phone || ""}
             onChange={handleInputChange}
             className={`white_placeholder w-full appearance-none rounded ${
-              error ? 'border-2 border-red-500' : ''
+              error ? "border-2 border-red-500" : ""
             } bg-[#63b2fd] px-4 py-2 leading-tight text-white focus:bg-white focus:text-black font-semibold focus:outline-none`}
           />
         </div>

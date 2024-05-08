@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const SegmentedLine = ({ totalPages, currentIndex }) => {
   return (
@@ -6,7 +6,7 @@ const SegmentedLine = ({ totalPages, currentIndex }) => {
       {Array.from({ length: totalPages }).map((_, index) => (
         <div
           key={index}
-          className={`w-8 md:w-36 rounded-full h-1 md:h-2 bg-[#8ac3f8] mr-1 md:mr-3 ${currentIndex >= index ? 'bg-[#fff]' : ''}`}
+          className={`w-8 md:w-36 rounded-full h-1 md:h-2 bg-[#8ac3f8] mr-1 md:mr-3 ${currentIndex >= index ? "bg-[#fff]" : ""}`}
         ></div>
       ))}
     </div>

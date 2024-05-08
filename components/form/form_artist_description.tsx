@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const FormArtistDescription = ({ formData, updateFormData }) => {
   const handleInputChange = (e) => {
     const { value } = e.target;
-    const updatedValues = formData['artistDescription'] || [];
+    const updatedValues = formData["artistDescription"] || [];
 
     if (updatedValues.includes(value)) {
       const index = updatedValues.indexOf(value);
@@ -12,19 +12,19 @@ const FormArtistDescription = ({ formData, updateFormData }) => {
       updatedValues.push(value);
     }
 
-    updateFormData({ ...formData, ['artistDescription']: updatedValues });
+    updateFormData({ ...formData, ["artistDescription"]: updatedValues });
   };
 
   const options = [
-    'mysterious',
-    'dark',
-    'soulful',
-    'colorful',
-    'energetic',
-    'elegant',
-    'clean cut',
-    'exotic',
-    'experimental',
+    "mysterious",
+    "dark",
+    "soulful",
+    "colorful",
+    "energetic",
+    "elegant",
+    "clean cut",
+    "exotic",
+    "experimental",
   ];
 
   return (
@@ -47,7 +47,7 @@ const FormArtistDescription = ({ formData, updateFormData }) => {
                 id={option}
                 name="artistDescription"
                 value={option}
-                checked={(formData['artistDescription'] || []).includes(option)}
+                checked={(formData["artistDescription"] || []).includes(option)}
                 onChange={handleInputChange}
                 className="mr-2"
               />

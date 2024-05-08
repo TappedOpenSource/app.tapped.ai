@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const FormSocialFollowing = ({ formData, updateFormData }) => {
   const handleInputChange = (e) => {
     const { value } = e.target;
-    updateFormData({ ...formData, ['socialFollowing']: value });
+    updateFormData({ ...formData, ["socialFollowing"]: value });
   };
 
   return (
@@ -13,7 +13,7 @@ const FormSocialFollowing = ({ formData, updateFormData }) => {
           How big is your social media following?
         </h1>
         <div className="flex h-full w-full flex-wrap items-center justify-center">
-          {['0-100', '100-1k', '1k-10k', '10k-100k', '100k-1m', '1m+'].map(
+          {["0-100", "100-1k", "1k-10k", "10k-100k", "100k-1m", "1m+"].map(
             (option, index) => (
               <div
                 key={index}
@@ -24,7 +24,7 @@ const FormSocialFollowing = ({ formData, updateFormData }) => {
                   id={option}
                   name="socialFollowing"
                   value={option}
-                  checked={(formData['socialFollowing'] || '') === option}
+                  checked={(formData["socialFollowing"] || "") === option}
                   onChange={handleInputChange}
                   className="mr-2"
                 />

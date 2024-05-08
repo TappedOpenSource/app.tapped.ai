@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useState, useMemo, useCallback } from 'react';
+import Image from "next/image";
+import { useState, useMemo, useCallback } from "react";
 import {
   Map,
   FullscreenControl,
@@ -11,15 +11,15 @@ import {
   Popup,
   ScaleControl,
   MapboxEvent,
-} from 'react-map-gl';
-import { BoundingBox } from '@/data/search';
-import { useDebounce } from '@/context/debounce';
-import { useSearch } from '@/context/search';
-import { profileImage } from '@/domain/types/user_model';
-import { useRouter } from 'next/navigation';
+} from "react-map-gl";
+import { BoundingBox } from "@/data/search";
+import { useDebounce } from "@/context/debounce";
+import { useSearch } from "@/context/search";
+import { profileImage } from "@/domain/types/user_model";
+import { useRouter } from "next/navigation";
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-const mapboxDarkStyle = 'mapbox/dark-v11';
+const mapboxDarkStyle = "mapbox/dark-v11";
 // const mapboxLightStyle = 'mapbox/light-v10';
 
 export default function VenueMap() {
@@ -78,7 +78,7 @@ export default function VenueMap() {
                   src={imageSrc}
                   alt="venue profile picture"
                   className="rounded-full"
-                  style={{ objectFit: 'cover', overflow: 'hidden' }}
+                  style={{ objectFit: "cover", overflow: "hidden" }}
                   fill
                 />
               </div>
@@ -123,7 +123,7 @@ export default function VenueMap() {
             onClose={() => setPopupInfo(null)}
           >
             <div>
-              {popupInfo.city}, {popupInfo.state} |{' '}
+              {popupInfo.city}, {popupInfo.state} |{" "}
               <a
                 target="_new"
                 href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=${popupInfo.city}, ${popupInfo.state}`}

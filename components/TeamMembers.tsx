@@ -1,4 +1,4 @@
-import Member, { MemberProps } from './TeamMember';
+import Member, { MemberProps } from "./TeamMember";
 
 export default function TeamMembers() {
   return (
@@ -20,30 +20,30 @@ export default function TeamMembers() {
 
 const teamMembers: MemberProps[] = [
   {
-    image: '/images/masters/armaanomar.png',
-    name: 'armaan omarzai',
-    title: 'fortran engineer',
+    image: "/images/masters/armaanomar.png",
+    name: "armaan omarzai",
+    title: "fortran engineer",
     subtitle: null,
     url: null,
   },
   {
-    image: '/images/masters/avidshotz.jpeg',
-    name: 'charles legard',
-    title: 'engineer + dj extraordinaire',
+    image: "/images/masters/avidshotz.jpeg",
+    name: "charles legard",
+    title: "engineer + dj extraordinaire",
     subtitle: null,
     url: null,
   },
   {
-    image: '/images/masters/phil.png',
-    name: 'phil osae',
-    title: 'data analyst',
+    image: "/images/masters/phil.png",
+    name: "phil osae",
+    title: "data analyst",
     subtitle: null,
     url: null,
   },
   {
-    image: '/images/masters/bryan.png',
-    name: 'bryan frumkin',
-    title: 'data entry',
+    image: "/images/masters/bryan.png",
+    name: "bryan frumkin",
+    title: "data entry",
     subtitle: null,
     url: null,
   },

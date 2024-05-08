@@ -1,17 +1,20 @@
-import { createCheckoutSession, getActiveProducts } from '@/data/database';
-import auth from '@/data/auth';
+import {
+  // createCheckoutSession,
+  getActiveProducts,
+} from "@/data/database";
+// import * as auth from "@/data/auth";
 
-export const subscribe = async ({ priceId }: { priceId: string; }): Promise<void> => {
-  const currentUser = auth.getCurrentUserId();
-  if (!currentUser) {
-    return;
-  }
+// export const subscribe = async ({ priceId }: { priceId: string; }): Promise<void> => {
+//   const currentUser = auth.getCurrentUserId();
+//   if (!currentUser) {
+//     return;
+//   }
 
-  await createCheckoutSession({
-    userId: currentUser.uid,
-    priceId: priceId,
-  });
-};
+//   await createCheckoutSession({
+//     userId: currentUser.uid,
+//     priceId: priceId,
+//   });
+// };
 
 export const getProductAndPriceData = async (): Promise<any[]> => {
   return await getActiveProducts();

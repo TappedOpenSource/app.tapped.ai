@@ -1,4 +1,4 @@
-import Rive from '@rive-app/react-canvas';
+import Rive from "@rive-app/react-canvas";
 
 const LoadingIcon = () => {
   return (

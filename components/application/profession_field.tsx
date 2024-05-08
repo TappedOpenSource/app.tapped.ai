@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const ArtistProfessionField = ({ formData, updateFormData, onValidation }) => {
   const [error, setError] = useState<string | null>(null);
@@ -8,14 +8,14 @@ const ArtistProfessionField = ({ formData, updateFormData, onValidation }) => {
     setHasInteracted(true);
 
     const { value } = e.target;
-    updateFormData({ ...formData, ['profession_field']: value });
+    updateFormData({ ...formData, ["profession_field"]: value });
     validateForUI(value);
   };
 
   const validateForUI = (value) => {
     if (hasInteracted) {
       if (!value) {
-        setError('Please select your profession.');
+        setError("Please select your profession.");
         onValidation(false);
       } else {
         setError(null);
@@ -36,19 +36,19 @@ const ArtistProfessionField = ({ formData, updateFormData, onValidation }) => {
   };
 
   useEffect(() => {
-    justValidate(formData['profession_field']);
-  }, [formData['profession_field']]);
+    justValidate(formData["profession_field"]);
+  }, [formData["profession_field"]]);
 
   const options = [
-    'artist',
-    'producer',
-    'promoter',
-    'DJ',
-    'A&R',
-    'marketer',
-    'publicist',
-    'booking agent',
-    'other',
+    "artist",
+    "producer",
+    "promoter",
+    "DJ",
+    "A&R",
+    "marketer",
+    "publicist",
+    "booking agent",
+    "other",
   ];
 
   return (
@@ -65,14 +65,14 @@ const ArtistProfessionField = ({ formData, updateFormData, onValidation }) => {
                 id={option}
                 name="profession_field"
                 value={option}
-                checked={formData['profession_field'] === option}
+                checked={formData["profession_field"] === option}
                 onChange={handleInputChange}
                 className="sr-only"
               />
               <label
                 htmlFor={option}
                 className={`w-full text-center px-4 py-2 rounded-xl cursor-pointer transition duration-200 ease-in-out 
-                ${formData['profession_field'] === option ? 'bg-white font-bold text-black' : 'bg-[#63b2fd] font-bold text-white'}`}
+                ${formData["profession_field"] === option ? "bg-white font-bold text-black" : "bg-[#63b2fd] font-bold text-white"}`}
               >
                 {option}
               </label>

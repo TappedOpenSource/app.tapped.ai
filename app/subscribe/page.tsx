@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import type { NextPage } from 'next';
-import ProductCard from '@/components/ProductCard';
+import type { NextPage } from "next";
+import ProductCard from "@/components/ProductCard";
 // import withAuth from '@/domain/auth/withAuth';
-import { getProductAndPriceData } from '@/domain/usecases/payments';
-import { useEffect, useState } from 'react';
-import auth from '@/data/auth';
-import { redirect, usePathname, useRouter } from 'next/navigation';
+import { getProductAndPriceData } from "@/domain/usecases/payments";
+import { useEffect, useState } from "react";
+import * as auth from "@/data/auth";
+import { redirect, usePathname } from "next/navigation";
 
 const subscriptionPlansIds = [
-  'prod_PDFgqCLcjDQpP9', // premium
+  "prod_PDFgqCLcjDQpP9", // premium
 ];
 
 const Pricing: NextPage = () => {
@@ -35,7 +35,7 @@ const Pricing: NextPage = () => {
         return;
       }
 
-      const claim = claims['stripeRole'] as string | null;
+      const claim = claims["stripeRole"] as string | null;
       console.log({ claim });
       // if (claim !== undefined && claim !== null) {
       //   api.createPortalLink({ returnUrl: `${window.location.origin}/pricing` }).then(({ url }) => {

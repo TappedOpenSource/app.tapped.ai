@@ -1,11 +1,11 @@
 //  Q3
-import React from 'react';
+import React from "react";
 
 const FormGender = ({ formData, updateFormData }) => {
   const genders = {
-    Male: 'Man',
-    Female: 'Woman',
-    Other: 'Person',
+    Male: "Man",
+    Female: "Woman",
+    Other: "Person",
   };
 
   const handleInputChange = (e) => {
@@ -29,7 +29,7 @@ const FormGender = ({ formData, updateFormData }) => {
                 type="radio"
                 name="gender"
                 value={gender}
-                checked={formData['gender'] === genders[gender]}
+                checked={formData["gender"] === genders[gender]}
                 onChange={handleInputChange}
                 className="mr-2 "
               />

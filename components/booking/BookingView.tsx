@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { getBookingById, getUserById } from '@/data/database';
-import { Booking } from '@/domain/types/booking';
-import UserTile from '../UserTile';
-import { UserModel } from '@/domain/types/user_model';
-import Nav from '../landing/Nav';
-import { LoadingSpinner } from '../LoadingSpinner';
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { getBookingById, getUserById } from "@/data/database";
+import { Booking } from "@/domain/types/booking";
+import UserTile from "../UserTile";
+import { UserModel } from "@/domain/types/user_model";
+import Nav from "../landing/Nav";
+import { LoadingSpinner } from "../LoadingSpinner";
 
 export default function BookingView({ bookingId }: {
     bookingId: string;

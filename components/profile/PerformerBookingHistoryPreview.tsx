@@ -1,6 +1,6 @@
-import { Booking } from '@/domain/types/booking';
-import { UserModel } from '@/domain/types/user_model';
-import BookingCard from './BookingCard';
+import { Booking } from "@/domain/types/booking";
+import { UserModel } from "@/domain/types/user_model";
+import BookingCard from "./BookingCard";
 
 export default function PerformerBookingHistoryPreview({ user, bookings }: {
   user: UserModel;

@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const FormPostFreq = ({ formData, updateFormData }) => {
   const handleInputChange = (e) => {
     const { value } = e.target;
-    updateFormData({ ...formData, ['postFreq']: value });
+    updateFormData({ ...formData, ["postFreq"]: value });
   };
 
   return (
@@ -13,7 +13,7 @@ const FormPostFreq = ({ formData, updateFormData }) => {
           How often do you post on social media?
         </h1>
         <div className="flex h-full w-full flex-wrap items-center justify-center">
-          {['1-2x a month', '1-2x a week', '3-10x a week', '10-20x a week'].map(
+          {["1-2x a month", "1-2x a week", "3-10x a week", "10-20x a week"].map(
             (option, index) => (
               <div
                 key={index}
@@ -24,7 +24,7 @@ const FormPostFreq = ({ formData, updateFormData }) => {
                   id={option}
                   name="postFreq"
                   value={option}
-                  checked={(formData['postFreq'] || '') === option}
+                  checked={(formData["postFreq"] || "") === option}
                   onChange={handleInputChange}
                   className="mr-2"
                 />

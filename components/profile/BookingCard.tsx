@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import type { Option } from '@/domain/types/option';
-import type { UserModel } from '@/domain/types/user_model';
-import type { Service } from '@/domain/types/service';
-import { type Booking, bookingImage } from '@/domain/types/booking';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { getServiceById, getUserById } from '@/data/database';
+import type { Option } from "@/domain/types/option";
+import type { UserModel } from "@/domain/types/user_model";
+import type { Service } from "@/domain/types/service";
+import { type Booking, bookingImage } from "@/domain/types/booking";
+import Link from "next/link";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { getServiceById, getUserById } from "@/data/database";
 
 export default function BookingCard({ booking, user }: {
     booking: Booking;
@@ -72,7 +72,7 @@ export default function BookingCard({ booking, user }: {
         <div className='relative w-[300px] h-[300px]'>
           <Image
             src={bookerImageSrc}
-            alt={'booking image'}
+            alt={"booking image"}
             className='rounded-lg'
             objectFit='cover'
             fill
@@ -80,7 +80,7 @@ export default function BookingCard({ booking, user }: {
         </div>
         <div className='w-6' />
         <p className='font-bold line-clamp-2 text-ellipsis'>{
-          booking.name ?? 'live performance'
+          booking.name ?? "live performance"
         }</p>
         <div className='w-3' />
         <div>

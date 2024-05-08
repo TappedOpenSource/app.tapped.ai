@@ -1,6 +1,6 @@
 
-import Link from 'next/link';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import Link from "next/link";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 export default function InstagramButton({ instagramHandle }: {
     instagramHandle: string;

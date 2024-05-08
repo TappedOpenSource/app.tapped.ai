@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const FormSellingPoint = ({ formData, updateFormData }) => {
   const handleInputChange = (e) => {
@@ -20,7 +20,7 @@ const FormSellingPoint = ({ formData, updateFormData }) => {
           <input
             type="text"
             name="sellingPoint"
-            value={formData['sellingPoint'] || ''}
+            value={formData["sellingPoint"] || ""}
             onChange={handleInputChange}
             className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:bg-white focus:outline-none"
           />

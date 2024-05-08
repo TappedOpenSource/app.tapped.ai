@@ -1,6 +1,6 @@
 
-import Link from 'next/link';
-import Image from 'next/image';
+import Link from "next/link";
+import Image from "next/image";
 
 export default function PartneredWith() {
   return <>
@@ -17,8 +17,8 @@ export default function PartneredWith() {
             height={100}
             alt='Death row records logo'
             style={{
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }} />
         </Link>
         <Link
@@ -32,8 +32,8 @@ export default function PartneredWith() {
             height={100}
             alt='Black canvaz logo'
             style={{
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }} />
         </Link>
         <Link
@@ -46,8 +46,8 @@ export default function PartneredWith() {
             alt='rac'
             className='rounded-full'
             style={{
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }}
           />
         </Link>
@@ -61,8 +61,8 @@ export default function PartneredWith() {
             alt='rac'
             className='rounded-xl'
             style={{
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }}
           />
         </Link>
@@ -76,8 +76,8 @@ export default function PartneredWith() {
             alt='roc nation'
             className='rounded-xl'
             style={{
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }}
           />
         </Link>
@@ -93,8 +93,8 @@ export default function PartneredWith() {
             alt='TCC entertainment logo'
             className='rounded-full'
             style={{
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }} />
         </Link>
         <Link
@@ -108,8 +108,8 @@ export default function PartneredWith() {
             alt='Unison logo'
             className=''
             style={{
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }} />
         </Link>
 
@@ -124,8 +124,8 @@ export default function PartneredWith() {
             alt='rac'
             className='rounded-full'
             style={{
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }}
           />
         </Link>
@@ -139,8 +139,8 @@ export default function PartneredWith() {
             alt='rac'
             className='rounded-xl'
             style={{
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }}
           />
         </Link>
@@ -154,8 +154,8 @@ export default function PartneredWith() {
             alt='Playmakrs entertainment logo'
             className='rounded-full'
             style={{
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }} />
         </Link>
 

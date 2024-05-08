@@ -1,10 +1,10 @@
 
-import Link from 'next/link';
+import Link from "next/link";
 import {
   AiFillInstagram,
-} from 'react-icons/ai';
+} from "react-icons/ai";
 
-import { FaTiktok } from 'react-icons/fa';
+import { FaTiktok } from "react-icons/fa";
 
 
 const Footer = () => {

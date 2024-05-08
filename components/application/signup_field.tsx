@@ -1,12 +1,12 @@
 // import SignInWithGoogleButton from '@/components/signin_with_google_button';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { LoadingSpinner } from '../LoadingSpinner';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { LoadingSpinner } from "../LoadingSpinner";
 // import database from '@/data/database';
 // import { LoginResult } from '@/data/auth';
 // import { loginWithGoogle } from '@/domain/usecases/login';
 
-const functionURL = 'https://us-central1-in-the-loop-306520.cloudfunctions.net/createLabelApplication';
+const functionURL = "https://us-central1-in-the-loop-306520.cloudfunctions.net/createLabelApplication";
 
 
 const SignUpField = ({ formData, updateFormData, onValidation }) => {
@@ -26,9 +26,9 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
       setLoading(true);
       console.log({ formData });
       await fetch(functionURL, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -40,7 +40,7 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
       //   },
       // });
       setLoading(false);
-      router.push('/signup_complete');
+      router.push("/signup_complete");
     } catch (err) {
       console.error(err);
       setLoading(false);
@@ -61,7 +61,7 @@ const SignUpField = ({ formData, updateFormData, onValidation }) => {
   }
 
   return (
-    <div style={{ backgroundColor: '#15242d', height: '100vh' }} className="flex items-center justify-center">
+    <div style={{ backgroundColor: "#15242d", height: "100vh" }} className="flex items-center justify-center">
       <div className="text-center">
         <div>
           <p className="text-lg font-bold text-white mb-4">

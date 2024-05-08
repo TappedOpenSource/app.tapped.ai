@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const FormTheme = ({ formData, updateFormData }) => {
   const handleInputChange = (e) => {
     const { value } = e.target;
-    updateFormData({ ...formData, ['theme']: value });
+    updateFormData({ ...formData, ["theme"]: value });
   };
 
   return (
@@ -14,12 +14,12 @@ const FormTheme = ({ formData, updateFormData }) => {
         </h1>
         <div className="flex h-full w-full flex-wrap items-center justify-center">
           {[
-            'Professional',
-            'Cute',
-            'Anime',
-            'Cyberpunk',
-            'Isometric Diorama',
-            'Vintage',
+            "Professional",
+            "Cute",
+            "Anime",
+            "Cyberpunk",
+            "Isometric Diorama",
+            "Vintage",
           ].map((option, index) => (
             <div
               key={index}
@@ -30,7 +30,7 @@ const FormTheme = ({ formData, updateFormData }) => {
                 id={option}
                 name="theme"
                 value={option}
-                checked={(formData['theme'] || '') === option}
+                checked={(formData["theme"] || "") === option}
                 onChange={handleInputChange}
                 className="mr-2"
               />

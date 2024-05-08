@@ -1,7 +1,7 @@
-import Nav from '@/components/landing/Nav';
-import ProfileView from '@/components/ProfileView';
-import { UserModel, profileImage } from '@/domain/types/user_model';
-import { Metadata, ResolvingMetadata } from 'next';
+import Nav from "@/components/landing/Nav";
+import ProfileView from "@/components/ProfileView";
+import { UserModel, profileImage } from "@/domain/types/user_model";
+import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
   params: { username: string }
@@ -23,20 +23,20 @@ export async function generateMetadata(
     const imageSrc = profileImage(user);
 
     return {
-      metadataBase: new URL('http://localhost:3000'),
+      metadataBase: new URL("http://localhost:3000"),
       title: `${username}`,
       description: `${username} on tapped`,
       openGraph: {
-        type: 'website',
+        type: "website",
         url: `https://tapped.ai/${username}`,
         title: `${username}`,
         description: `${username} on tapped`,
-        siteName: 'Tapped Ai',
+        siteName: "Tapped Ai",
         images: [{ url: imageSrc }],
       },
       twitter: {
-        card: 'summary_large_image',
-        site: '@tappedai',
+        card: "summary_large_image",
+        site: "@tappedai",
         title: `${username}`,
         description: `${username} on tapped`,
         images: imageSrc,
@@ -45,23 +45,23 @@ export async function generateMetadata(
   } catch (e) {
     console.log(e);
     return {
-      metadataBase: new URL('http://localhost:3000'),
-      title: 'Tapped',
-      description: 'Tapped',
+      metadataBase: new URL("http://localhost:3000"),
+      title: "Tapped",
+      description: "Tapped",
       openGraph: {
-        type: 'website',
-        url: 'https://tapped.ai',
-        title: 'Tapped',
-        description: 'Tapped',
-        siteName: 'Tapped Ai',
-        images: [{ url: 'https://tapped.ai/og.png' }],
+        type: "website",
+        url: "https://tapped.ai",
+        title: "Tapped",
+        description: "Tapped",
+        siteName: "Tapped Ai",
+        images: [{ url: "https://tapped.ai/og.png" }],
       },
       twitter: {
-        card: 'summary_large_image',
-        site: '@tappedai',
-        title: 'Tapped',
-        description: 'Tapped',
-        images: 'https://tapped.ai/og.png',
+        card: "summary_large_image",
+        site: "@tappedai",
+        title: "Tapped",
+        description: "Tapped",
+        images: "https://tapped.ai/og.png",
       },
     };
   }

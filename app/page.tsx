@@ -1,23 +1,23 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 // import Image from 'next/image';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Rubik } from 'next/font/google';
+import Link from "next/link";
+import Image from "next/image";
+import { Rubik } from "next/font/google";
 
-import { shuffle } from '@/utils/shuffle';
-import Footer from '@/components/landing/Footer';
-import SignedArtistCard from '@/components/landing/SignedArtistCard';
-import Nav from '@/components/landing/Nav';
-import PartneredWith from '@/components/landing/PartneredWith';
+import { shuffle } from "@/utils/shuffle";
+import Footer from "@/components/landing/Footer";
+import SignedArtistCard from "@/components/landing/SignedArtistCard";
+import Nav from "@/components/landing/Nav";
+import PartneredWith from "@/components/landing/PartneredWith";
 // import Snowfall from 'react-snowfall';
-import SupportJourney from '@/components/landing/SupportJourney';
+import SupportJourney from "@/components/landing/SupportJourney";
 // import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
-import YourJourney from '@/components/landing/YourJourney';
-import Team from '@/components/landing/Team';
+import YourJourney from "@/components/landing/YourJourney";
+import Team from "@/components/landing/Team";
 
 const rubik = Rubik({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 // const isWinter = [12, 1, 2].includes(new Date().getMonth());
@@ -128,14 +128,14 @@ export default async function Home() {
         <h2 className="text-center text-4xl">discover over 10,000 venues</h2>
         <div className="h-4" />
         <Link
-          href={'/map'}
+          href={"/map"}
           className='relative w-[50vw] h-[50vw] md:h-[50vh] hover:scale-105 transform transition-all duration-200 ease-in-out overflow-hidden rounded-lg shadow-lg'
         >
           <Image
             src="/images/map_preview.png"
             alt="Tapped Ai Map Preview"
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
           />
         </Link>
       </div>
@@ -186,15 +186,15 @@ const getData = async () => {
     signed?: boolean;
   }[] = [
     {
-      name: 'maria alexa',
-      photo: '/images/512x512/maria.512x512.png',
-      username: 'marialexa',
-      url: 'https://music.apple.com/us/artist/maria-alexa/1526235494',
+      name: "maria alexa",
+      photo: "/images/512x512/maria.512x512.png",
+      username: "marialexa",
+      url: "https://music.apple.com/us/artist/maria-alexa/1526235494",
     },
     {
-      name: 'funk flex',
-      photo: '/images/512x512/512.funkflex.jpeg',
-      url: 'https://music.apple.com/us/artist/funk-flex/130882',
+      name: "funk flex",
+      photo: "/images/512x512/512.funkflex.jpeg",
+      url: "https://music.apple.com/us/artist/funk-flex/130882",
     },
     // {
     //   name: 'manidabrat',
@@ -208,35 +208,35 @@ const getData = async () => {
     //   url: 'https://music.apple.com/us/artist/nle-choppa/1449052753',
     // },
     {
-      name: 'seelife',
-      photo: '/images/512x512/seelife.512x512.png',
-      url: 'https://music.apple.com/us/artist/seelife/1493214282',
-      username: 'seelife',
+      name: "seelife",
+      photo: "/images/512x512/seelife.512x512.png",
+      url: "https://music.apple.com/us/artist/seelife/1493214282",
+      username: "seelife",
     },
     {
-      name: 'rysovalid',
-      photo: '/images/512x512/rysovalid.512x512.png',
-      url: 'https://music.apple.com/us/artist/rysovalid/1140332949',
-      username: 'rysovalid',
+      name: "rysovalid",
+      photo: "/images/512x512/rysovalid.512x512.png",
+      url: "https://music.apple.com/us/artist/rysovalid/1140332949",
+      username: "rysovalid",
     },
     {
-      name: 'niral desai',
-      photo: '/images/512x512/niral.512x512.png',
-      url: 'https://music.apple.com/us/artist/niral-desai/1682714169',
-      username: 'niral_desai',
+      name: "niral desai",
+      photo: "/images/512x512/niral.512x512.png",
+      url: "https://music.apple.com/us/artist/niral-desai/1682714169",
+      username: "niral_desai",
       signed: true,
     },
     {
-      name: 'fe_lie the god',
-      photo: '/images/512x512/felie.512x512.png',
-      url: 'https://music.apple.com/us/artist/fe-lie-the-god/1090646827',
-      username: 'fe_lie540',
+      name: "fe_lie the god",
+      photo: "/images/512x512/felie.512x512.png",
+      url: "https://music.apple.com/us/artist/fe-lie-the-god/1090646827",
+      username: "fe_lie540",
     },
     {
-      name: 'yung smilez',
-      photo: '/images/512x512/yungsmilez.512x512.png',
-      url: 'https://music.apple.com/us/artist/yung-smilez/1228940318',
-      username: 'yungsmilez',
+      name: "yung smilez",
+      photo: "/images/512x512/yungsmilez.512x512.png",
+      url: "https://music.apple.com/us/artist/yung-smilez/1228940318",
+      username: "yungsmilez",
     },
     // {
     //   name: 'bobby shmurda',
@@ -244,22 +244,22 @@ const getData = async () => {
     //   url: 'https://music.apple.com/us/artist/bobby-shmurda/902809133',
     // },
     {
-      name: 'andrew rohlk',
-      photo: '/images/512x512/andrew.512x512.png',
-      url: 'https://music.apple.com/us/artist/andrew-rohlk/592655140',
-      username: 'arohlk',
+      name: "andrew rohlk",
+      photo: "/images/512x512/andrew.512x512.png",
+      url: "https://music.apple.com/us/artist/andrew-rohlk/592655140",
+      username: "arohlk",
     },
     {
-      name: 'rein',
-      photo: '/images/512x512/rein.512x512.png',
-      url: 'https://music.apple.com/us/artist/rein/1590397406',
-      username: 'rein',
+      name: "rein",
+      photo: "/images/512x512/rein.512x512.png",
+      url: "https://music.apple.com/us/artist/rein/1590397406",
+      username: "rein",
     },
     {
-      name: 'frankie biggz',
-      photo: '/images/512x512/frankie.512x512.png',
-      url: 'https://music.apple.com/us/artist/frankie-biggz/191277376',
-      username: 'frankiebiggz',
+      name: "frankie biggz",
+      photo: "/images/512x512/frankie.512x512.png",
+      url: "https://music.apple.com/us/artist/frankie-biggz/191277376",
+      username: "frankiebiggz",
     },
     // {
     //   name: 'meek mill',
@@ -272,76 +272,76 @@ const getData = async () => {
     //   url: 'https://music.apple.com/us/artist/rick-ross/4022281',
     // },
     {
-      name: 'chloe battelle',
-      photo: '/images/512x512/512.chloe.jpg',
-      url: 'https://soundcloud.com/chloebattelle',
-      username: 'chloebattelle',
+      name: "chloe battelle",
+      photo: "/images/512x512/512.chloe.jpg",
+      url: "https://soundcloud.com/chloebattelle",
+      username: "chloebattelle",
     },
     {
-      name: 'midnite taxi',
-      photo: '/images/masters/midnitetaxi.png',
-      url: 'https://open.spotify.com/artist/4FSFJPU7qvgicPKVlAeB9A',
-      username: 'midnitetaxi',
+      name: "midnite taxi",
+      photo: "/images/masters/midnitetaxi.png",
+      url: "https://open.spotify.com/artist/4FSFJPU7qvgicPKVlAeB9A",
+      username: "midnitetaxi",
     },
     {
-      name: 'nadia aram',
-      photo: '/images/512x512/512.nadia.png',
-      url: 'https://www.instagram.com/macnadiacheese',
-      username: 'macnadiacheese',
+      name: "nadia aram",
+      photo: "/images/512x512/512.nadia.png",
+      url: "https://www.instagram.com/macnadiacheese",
+      username: "macnadiacheese",
     },
     {
-      name: 'kang',
-      photo: '/images/512x512/512.kang.png',
-      url: 'https://open.spotify.com/artist/3Co2OcoVMpSvY6l1JdZUbT',
-      username: 'kang',
+      name: "kang",
+      photo: "/images/512x512/512.kang.png",
+      url: "https://open.spotify.com/artist/3Co2OcoVMpSvY6l1JdZUbT",
+      username: "kang",
     },
     {
-      name: 'marly xlla',
-      photo: '/images/512x512/512.marly.png',
-      url: 'https://www.instagram.com/marlyxlla/',
-      username: 'marlyxlla',
+      name: "marly xlla",
+      photo: "/images/512x512/512.marly.png",
+      url: "https://www.instagram.com/marlyxlla/",
+      username: "marlyxlla",
     },
     {
-      name: 'normn',
-      photo: '/images/512x512/512.normn.png',
-      url: 'https://www.instagram.com/iamnormn/',
-      username: 'iamnormn',
+      name: "normn",
+      photo: "/images/512x512/512.normn.png",
+      url: "https://www.instagram.com/iamnormn/",
+      username: "iamnormn",
     },
     {
-      name: 'kenny',
-      photo: '/images/512x512/512.kenny.png',
-      url: 'https://kennethlartey.xyz/',
-      username: 'kenny',
+      name: "kenny",
+      photo: "/images/512x512/512.kenny.png",
+      url: "https://kennethlartey.xyz/",
+      username: "kenny",
     },
     {
-      name: 'zoe gabrielle',
-      photo: '/images/512x512/512.zoe.png',
-      url: 'https://www.instagram.com/izoegabrielle',
-      username: 'zoegabrielle',
+      name: "zoe gabrielle",
+      photo: "/images/512x512/512.zoe.png",
+      url: "https://www.instagram.com/izoegabrielle",
+      username: "zoegabrielle",
     },
     {
-      name: 'seckofinesse',
-      photo: '/images/512x512/512.secko.png',
-      url: 'https://www.instagram.com/seckofinesse/',
-      username: 'seckofinesse',
+      name: "seckofinesse",
+      photo: "/images/512x512/512.secko.png",
+      url: "https://www.instagram.com/seckofinesse/",
+      username: "seckofinesse",
     },
     {
-      name: 'ffeel',
-      photo: '/images/512x512/512.ffeel.png',
-      url: 'https://www.instagram.com/ffeel/',
-      username: 'ffeel',
+      name: "ffeel",
+      photo: "/images/512x512/512.ffeel.png",
+      url: "https://www.instagram.com/ffeel/",
+      username: "ffeel",
     },
     {
-      name: 'alpharaulphy',
-      photo: '/images/512x512/512.raulphy.png',
-      url: 'https://www.instagram.com/alpharaulphy/',
-      username: 'alpharaulphy',
+      name: "alpharaulphy",
+      photo: "/images/512x512/512.raulphy.png",
+      url: "https://www.instagram.com/alpharaulphy/",
+      username: "alpharaulphy",
     },
     {
-      name: 'chandler',
-      photo: '/images/512x512/512.chandler.jpg',
-      url: 'https://www.instagram.com/chandlermatkins/',
-      username: 'chandler',
+      name: "chandler",
+      photo: "/images/512x512/512.chandler.jpg",
+      url: "https://www.instagram.com/chandlermatkins/",
+      username: "chandler",
     },
   ];
   const shuffledArtists = shuffle(signedArtists);

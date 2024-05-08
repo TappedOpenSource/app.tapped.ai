@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const AreYouSigned = ({ formData, updateFormData, onValidation }) => {
   const [error, setError] = useState<string | null>(null);
@@ -10,15 +10,15 @@ const AreYouSigned = ({ formData, updateFormData, onValidation }) => {
     const { value } = e.target;
     updateFormData({
       ...formData,
-      artistLabel: value === 'yes' ? true : false,
+      artistLabel: value === "yes" ? true : false,
     });
-    validateForUI(value === 'yes' ? true : false);
+    validateForUI(value === "yes" ? true : false);
   };
 
   const validateForUI = (value) => {
     if (hasInteracted) {
       if (value === undefined) {
-        setError('Please select an option.');
+        setError("Please select an option.");
         onValidation(false);
       } else {
         setError(null);
@@ -42,7 +42,7 @@ const AreYouSigned = ({ formData, updateFormData, onValidation }) => {
     justValidate(formData.artistLabel);
   }, [formData.artistLabel]);
 
-  const options = ['yes', 'no'];
+  const options = ["yes", "no"];
 
   return (
     <div className="page flex h-full flex-col items-center justify-center">
@@ -58,14 +58,14 @@ const AreYouSigned = ({ formData, updateFormData, onValidation }) => {
                 id={option}
                 name="artistLabel"
                 value={option}
-                checked={formData['artistLabel'] === (option === 'yes')}
+                checked={formData["artistLabel"] === (option === "yes")}
                 onChange={handleInputChange}
                 className="sr-only"
               />
               <label
                 htmlFor={option}
                 className={`w-full text-center px-4 py-2 rounded-xl cursor-pointer transition duration-200 ease-in-out 
-                ${formData['artistLabel'] === (option === 'yes') ? 'bg-white font-bold text-black' : 'bg-[#63b2fd] font-bold text-white'}`}
+                ${formData["artistLabel"] === (option === "yes") ? "bg-white font-bold text-black" : "bg-[#63b2fd] font-bold text-white"}`}
               >
                 {option}
               </label>

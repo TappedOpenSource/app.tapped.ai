@@ -1,9 +1,7 @@
-import auth, {
-  type LoginResult,
-} from '@/data/auth';
+import * as auth from "@/data/auth";
 
 export default function ContinueWithGoogleButton({ onClick }: {
-    onClick: (loginResult: LoginResult) => void,
+    onClick: (loginResult) => void,
   }) {
   const handleLogin = async () => {
     // e.preventDefault();

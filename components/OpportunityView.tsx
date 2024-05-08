@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { getOpportunityById, getUserById } from '@/data/database';
-import { Opportunity, opImage } from '@/domain/types/opportunity';
-import Link from 'next/link';
-import Image from 'next/image';
-import UserTile from '@/components/UserTile';
-import { UserModel } from '@/domain/types/user_model';
-import { FaMoneyBill } from 'react-icons/fa';
-import { getPlaceById } from '@/data/places';
-import { Fab } from '@mui/material';
-import { LoadingSpinner } from './LoadingSpinner';
+import React, { useEffect, useState } from "react";
+import { getOpportunityById, getUserById } from "@/data/database";
+import { Opportunity, opImage } from "@/domain/types/opportunity";
+import Link from "next/link";
+import Image from "next/image";
+import UserTile from "@/components/UserTile";
+import { UserModel } from "@/domain/types/user_model";
+import { FaMoneyBill } from "react-icons/fa";
+import { getPlaceById } from "@/data/places";
+import { Fab } from "@mui/material";
+import { LoadingSpinner } from "./LoadingSpinner";
 
 export default function OpportunityView({
   opportunityId,
@@ -22,7 +22,7 @@ export default function OpportunityView({
 
   useEffect(() => {
     const getOpportunity = async () => {
-      if (!opportunityId || typeof opportunityId !== 'string') {
+      if (!opportunityId || typeof opportunityId !== "string") {
         return;
       }
 
@@ -68,7 +68,7 @@ export default function OpportunityView({
   return (
     <>
       <div className="fixed right-8 bottom-8">
-        <Link href={'https://tapped.ai/download'}>
+        <Link href={"https://tapped.ai/download"}>
           <Fab color="primary" aria-label="add" variant="extended">
             apply in the app
           </Fab>
@@ -83,8 +83,8 @@ export default function OpportunityView({
             fill
             className="rounded-xl"
             style={{
-              objectFit: 'cover',
-              objectPosition: 'center',
+              objectFit: "cover",
+              objectPosition: "center",
             }}
           />
         </div>
@@ -115,7 +115,7 @@ export default function OpportunityView({
             <h3 className="text-3xl font-bold">date</h3>
             <div className="h-2" />
             <p className="text-xl">
-              {opportunity.startTime.toLocaleDateString('en-US')}
+              {opportunity.startTime.toLocaleDateString("en-US")}
             </p>
           </div>
           <div className="h-4" />

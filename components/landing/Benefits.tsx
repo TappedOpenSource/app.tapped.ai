@@ -1,6 +1,6 @@
 
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 type ProductSectionProps = {
   title: string;
@@ -8,7 +8,7 @@ type ProductSectionProps = {
   image: string;
   link: string;
   alt: string;
-  color?: 'blue' | 'red'
+  color?: "blue" | "red"
   reverse?: boolean;
   buttonText?: string;
 };
@@ -21,28 +21,28 @@ function ProductSection({
   alt,
   color,
   reverse,
-  buttonText = 'try now',
+  buttonText = "try now",
 }: ProductSectionProps) {
-  const red = 'bg-gradient-to-br from-red-600 to-pink-600 py-24';
-  const blue = 'bg-gradient-to-br from-blue-600 to-sky-400 py-24';
+  const red = "bg-gradient-to-br from-red-600 to-pink-600 py-24";
+  const blue = "bg-gradient-to-br from-blue-600 to-sky-400 py-24";
   const flexDirection = reverse ?
-    'md:flex-row-reverse' :
-    'md:flex-row';
+    "md:flex-row-reverse" :
+    "md:flex-row";
 
   const backgroundColor = (() => {
     switch (color) {
-    case 'blue':
+    case "blue":
       return blue;
-    case 'red':
+    case "red":
       return red;
     default:
-      return '';
+      return "";
     }
   })();
 
-  const border = backgroundColor !== '' ?
-    'border-2 border-gray-200' :
-    '';
+  const border = backgroundColor !== "" ?
+    "border-2 border-gray-200" :
+    "";
 
 
   return <>
@@ -71,8 +71,8 @@ function ProductSection({
             height={500}
             className={`rounded-xl ${border}`}
             style={{
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }} />
         </Link>
       </div>

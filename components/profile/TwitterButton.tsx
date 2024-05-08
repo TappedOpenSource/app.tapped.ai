@@ -1,6 +1,6 @@
 
-import Link from 'next/link';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import Link from "next/link";
+import TwitterIcon from "@mui/icons-material/Twitter";
 
 export default function TwitterButton({ twitterHandle }: {
     twitterHandle: string;

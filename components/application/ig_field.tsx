@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const IgField = ({ formData, updateFormData, onValidation }) => {
   const [error, setError] = useState<string | null>(null);
@@ -16,8 +16,8 @@ const IgField = ({ formData, updateFormData, onValidation }) => {
 
   const validateForUI = (value) => {
     if (hasInteracted) {
-      if (!value || value.trim() === '') {
-        setError('Please enter your Instagram handle.');
+      if (!value || value.trim() === "") {
+        setError("Please enter your Instagram handle.");
         onValidation(false);
       } else {
         setError(null);
@@ -30,7 +30,7 @@ const IgField = ({ formData, updateFormData, onValidation }) => {
   };
 
   const justValidate = (value) => {
-    if (!value || value.trim() === '') {
+    if (!value || value.trim() === "") {
       onValidation(false);
     } else {
       onValidation(true);
@@ -38,8 +38,8 @@ const IgField = ({ formData, updateFormData, onValidation }) => {
   };
 
   useEffect(() => {
-    justValidate(formData['instagramHandle']);
-  }, [formData['instagramHandle']]);
+    justValidate(formData["instagramHandle"]);
+  }, [formData["instagramHandle"]]);
 
   return (
     <div className="page flex h-full flex-col items-center justify-center">
@@ -52,10 +52,10 @@ const IgField = ({ formData, updateFormData, onValidation }) => {
             type="text"
             name="instagramHandle"
             placeholder='type here...'
-            value={formData['instagramHandle'] || ''}
+            value={formData["instagramHandle"] || ""}
             onChange={handleInputChange}
             className={`white_placeholder w-full appearance-none rounded ${
-              error ? 'border-2 border-red-500' : ''
+              error ? "border-2 border-red-500" : ""
             } bg-[#63b2fd] px-4 py-2 leading-tight text-white focus:bg-white focus:text-black font-semibold focus:outline-none`}
           />
         </div>

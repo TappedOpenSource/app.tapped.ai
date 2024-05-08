@@ -1,4 +1,4 @@
-import BookingView from '@/components/booking/BookingView';
+import BookingView from "@/components/booking/BookingView";
 
 export default function Page({ params }: {
     params: { bookingId: string };

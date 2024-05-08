@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
-import classNames from 'classnames';
-import Image from 'next/image';
-import { Outfit } from 'next/font/google';
+import React, { FC } from "react";
+import classNames from "classnames";
+import Image from "next/image";
+import { Outfit } from "next/font/google";
 
 type ButtonProps = {
-  theme?: 'dark' | 'light';
+  theme?: "dark" | "light";
   height?: number;
   width?: number;
   logo: string;
@@ -16,11 +16,11 @@ type ButtonProps = {
 };
 
 const outfit = Outfit({
-  subsets: ['latin'],
+  subsets: ["latin"],
 });
 
 const Button: FC<ButtonProps> = ({
-  theme = 'light',
+  theme = "light",
   height = 60,
   width = 200,
   border,
@@ -33,14 +33,14 @@ const Button: FC<ButtonProps> = ({
   return (
     <div>
       <button
-        onClick={() => url && window.open(url, '_blank')}
+        onClick={() => url && window.open(url, "_blank")}
         style={{
           height: height,
           width: width,
           borderRadius: border,
         }}
         className={classNames(
-          'button-container',
+          "button-container",
           `button-container-${theme}`,
           className
         )}
@@ -51,10 +51,10 @@ const Button: FC<ButtonProps> = ({
           height={36}
           width={36}
           style={{
-            maxWidth: '100%',
-            height: 'auto',
+            maxWidth: "100%",
+            height: "auto",
           }} />
-        <div className={outfit.className + ' flex flex-col items-start'}>
+        <div className={outfit.className + " flex flex-col items-start"}>
           <span className="button-title">{title}</span>
           <span className="button-store-name">{storeName}</span>
         </div>

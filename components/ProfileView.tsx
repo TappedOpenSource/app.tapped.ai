@@ -1,25 +1,37 @@
-'use client';
+"use client";
 
-import type { Review } from '@/domain/types/review';
-import type { Booking } from '@/domain/types/booking';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { UserModel, audienceSize, profileImage, reviewCount } from '@/domain/types/user_model';
-import PerformerBookingHistoryPreview from '@/components/profile/PerformerBookingHistoryPreview';
+import type { Review } from "@/domain/types/review";
+import type { Booking } from "@/domain/types/booking";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Manrope } from "next/font/google";
+import {
+  type UserModel,
+  audienceSize,
+  profileImage,
+  reviewCount,
+} from "@/domain/types/user_model";
+import PerformerBookingHistoryPreview from "@/components/profile/PerformerBookingHistoryPreview";
 import {
   getBookingsByRequestee,
   getUserByUsername,
   getLatestPerformerReviewByPerformerId,
   getBookingsByRequester,
-} from '@/data/database';
-import InstagramButton from '@/components/profile/InstagramButton';
-import TwitterButton from '@/components/profile/TwitterButton';
-import TiktokButton from '@/components/profile/TiktokButton';
-import SpotifyButton from '@/components/profile/SpotifyButton';
-import ReviewTile from '@/components/profile/ReviewTile';
-import UserInfoSection from './UserInfoSection';
+} from "@/data/database";
+import InstagramButton from "@/components/profile/InstagramButton";
+import TwitterButton from "@/components/profile/TwitterButton";
+import TiktokButton from "@/components/profile/TiktokButton";
+import SpotifyButton from "@/components/profile/SpotifyButton";
+import ReviewTile from "@/components/profile/ReviewTile";
+import UserInfoSection from "./UserInfoSection";
+import { cn } from "@/lib/utils";
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+});
 
 export default function ProfileView({ username }: { username: string }) {
   const router = useRouter();
@@ -29,14 +41,14 @@ export default function ProfileView({ username }: { username: string }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (typeof username !== 'string') {
+      if (typeof username !== "string") {
         return;
       }
 
       // get user by username
       const user = await getUserByUsername(username);
       if (user === undefined || user === null) {
-        router.push('/404');
+        router.push("/404");
         return;
       }
 
@@ -119,16 +131,15 @@ function BuildHeader({ user }: { user: UserModel }) {
             alt={`${user.artistName} profile picture`}
             fill
             style={{
-              objectFit: 'cover',
-              objectPosition: 'center',
+              objectFit: "cover",
+              objectPosition: "center",
             }} />
         </div>
         <div className="w-4 lg:h-6" />
         <div className=''>
           <h1
-            className='text-4xl lg:text-4xl font-extrabold'
-          >{user.artistName}</h1>
-          <p className='text-sm lg:text-xl text-gray-500'>@{user.username}</p>
+            className={cn("text-4xl lg:text-4xl font-extrabold", manrope.className)}
+          >{user.artistName ?? user.username}</h1>
         </div>
       </div>
       <div className='h-4' />
@@ -142,7 +153,7 @@ function BuildHeader({ user }: { user: UserModel }) {
           <p className='text-xs text-font text-gray-500'>reviews</p>
         </div>
         <div className='flex flex-col justify-center items-center'>
-          <h3 className='text-2xl font-bold'>{user.performerInfo?.rating ? `${user.performerInfo?.rating}/5` : 'N/A'}</h3>
+          <h3 className='text-2xl font-bold'>{user.performerInfo?.rating ? `${user.performerInfo?.rating}/5` : "N/A"}</h3>
           <p className='text-sm text-gray-400'>rating</p>
         </div>
       </div>

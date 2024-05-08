@@ -1,7 +1,7 @@
 
-import type { Metadata, ResolvingMetadata } from 'next/types';
-import OpportunityView from '@/components/OpportunityView';
-import { Opportunity, opImage } from '@/domain/types/opportunity';
+import type { Metadata, ResolvingMetadata } from "next/types";
+import OpportunityView from "@/components/OpportunityView";
+import { Opportunity, opImage } from "@/domain/types/opportunity";
 
 type Props = {
   params: { opportunityId: string }
@@ -22,20 +22,20 @@ export async function generateMetadata(
     const imageSrc = opImage(opportunity);
 
     return {
-      metadataBase: new URL('http://localhost:3000'),
+      metadataBase: new URL("http://localhost:3000"),
       title: opportunity.title,
       description: `${opportunity.title} on tapped`,
       openGraph: {
-        type: 'website',
+        type: "website",
         url: `https://tapped.ai/opportunity/${opportunityId}`,
         title: opportunity.title,
         description: `${opportunity.title} on tapped`,
-        siteName: 'Tapped Ai',
+        siteName: "Tapped Ai",
         images: [{ url: imageSrc }],
       },
       twitter: {
-        card: 'summary_large_image',
-        site: '@tappedai',
+        card: "summary_large_image",
+        site: "@tappedai",
         title: opportunity.title,
         description: `${opportunity.title} on tapped`,
         images: imageSrc,
@@ -44,8 +44,8 @@ export async function generateMetadata(
   } catch (e) {
     console.log(e);
     return {
-      title: 'Tapped Ai',
-      description: 'apply to perform for FREE',
+      title: "Tapped Ai",
+      description: "apply to perform for FREE",
     };
   }
 }

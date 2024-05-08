@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import Button from '../Button';
+import React, { FC } from "react";
+import Button from "../Button";
 
 type AppStoreButtonProps = {
-  theme?: 'dark' | 'light';
+  theme?: "dark" | "light";
   height?: number;
   width?: number;
   className?: string;
@@ -10,7 +10,7 @@ type AppStoreButtonProps = {
 };
 
 const AppStoreButton: FC<AppStoreButtonProps> = ({
-  theme = 'light',
+  theme = "light",
   height,
   width,
   className,
@@ -22,10 +22,10 @@ const AppStoreButton: FC<AppStoreButtonProps> = ({
       height={height}
       width={width}
       url={url}
-      storeName={'App Store'}
-      logo={theme === 'dark' ? '/icons/Apple-light.svg' : '/icons/Apple.svg'}
+      storeName={"App Store"}
+      logo={theme === "dark" ? "/icons/Apple-light.svg" : "/icons/Apple.svg"}
       className={className}
-      title={'Download on the'}
+      title={"Download on the"}
     />
   );
 };

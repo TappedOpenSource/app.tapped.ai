@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const FormArtistProfession = ({ formData, updateFormData }) => {
   const handleInputChange = (e) => {
     const { value } = e.target;
-    updateFormData({ ...formData, ['artistProfession']: value });
+    updateFormData({ ...formData, ["artistProfession"]: value });
   };
 
   return (
@@ -14,15 +14,15 @@ const FormArtistProfession = ({ formData, updateFormData }) => {
         </h1>
         <div className="flex h-full w-full flex-wrap items-center justify-center">
           {[
-            'Artist',
-            'Producer',
-            'Promoter',
-            'DJ',
-            'A&R',
-            'Marketer',
-            'Publicist',
-            'Booking Agent',
-            'Other',
+            "Artist",
+            "Producer",
+            "Promoter",
+            "DJ",
+            "A&R",
+            "Marketer",
+            "Publicist",
+            "Booking Agent",
+            "Other",
           ].map((option, index) => (
             <div
               key={index}
@@ -33,7 +33,7 @@ const FormArtistProfession = ({ formData, updateFormData }) => {
                 id={option}
                 name="artistProfession"
                 value={option}
-                checked={(formData['artistProfession'] || '') === option}
+                checked={(formData["artistProfession"] || "") === option}
                 onChange={handleInputChange}
                 className="mr-2"
               />

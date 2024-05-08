@@ -1,4 +1,4 @@
-import { loginWithGoogle } from '@/domain/usecases/login';
+import { loginWithGoogle } from "@/data/auth";
 
 export default function SignInWithGoogleButton({ onClick }: {
   onClick: () => void;

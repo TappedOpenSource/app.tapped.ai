@@ -1,12 +1,12 @@
-import { Icon } from '@mui/material';
-import Link from 'next/link';
+import { Icon } from "@mui/material";
+import Link from "next/link";
 
 const MarketplaceProductCard = () => {
   const features: string[] = [
-    'access to the tapped booking platform',
-    'community of music professionals',
-    'exclusive access to tapped events',
-    'exclusive access to promoters in our network',
+    "access to the tapped booking platform",
+    "community of music professionals",
+    "exclusive access to tapped events",
+    "exclusive access to promoters in our network",
   ];
 
   return (

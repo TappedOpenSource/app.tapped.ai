@@ -1,6 +1,6 @@
 
-import Link from 'next/link';
-import { FaTiktok } from 'react-icons/fa';
+import Link from "next/link";
+import { FaTiktok } from "react-icons/fa";
 
 export default function TiktokButton({ tiktokHandle }: {
     tiktokHandle: string;

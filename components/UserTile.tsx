@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import { UserModel, profileImage } from '@/domain/types/user_model';
-import Link from 'next/link';
+import Image from "next/image";
+import { UserModel, profileImage } from "@/domain/types/user_model";
+import Link from "next/link";
 
 export default function UserTile({ user }: {
     user: UserModel | null;
@@ -24,8 +24,8 @@ export default function UserTile({ user }: {
             alt={`${user.artistName} profile picture`}
             fill
             style={{
-              objectFit: 'cover',
-              objectPosition: 'center',
+              objectFit: "cover",
+              objectPosition: "center",
             }} />
         </div>
         <div className='ml-4'>
