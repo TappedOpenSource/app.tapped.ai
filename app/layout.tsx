@@ -9,7 +9,7 @@ import { AuthProvider } from "@/context/auth";
 import { PurchasesProvider } from "@/context/purchases";
 
 const title = "tapped ai : create world tour from your iphone";
-const description = "live music data with superpowers";
+const description = "live music data with superpowers - Tapped Ai predicts the future of the live performance industry and gives performers the means of creating a world tour from their phone. We use new tech to gather data across the US to analyze/predict trends in the live performance space to ultimately increase bookings and ticket sales";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tapped.ai"),
