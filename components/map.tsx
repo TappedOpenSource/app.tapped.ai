@@ -110,8 +110,8 @@ export default function VenueMap() {
       >
         <GeolocateControl position="bottom-right" showUserHeading trackUserLocation />
         <FullscreenControl position="bottom-right" />
-        <NavigationControl position="bottom-right" />
-        <ScaleControl />
+        {/* <NavigationControl position="bottom-right" /> */}
+        {/* <ScaleControl /> */}
 
         {markers}
 

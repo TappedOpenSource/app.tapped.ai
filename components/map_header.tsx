@@ -9,6 +9,15 @@ import { useDebounce } from "@/context/debounce";
 import { useRouter, usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useAuth } from "@/context/auth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { LogOut } from "lucide-react";
+import { logout } from "@/data/auth";
 
 function getSubtitle(hit: UserModel): string {
   const capacity = hit.venueInfo?.capacity ?? null;
@@ -110,20 +119,31 @@ export default function MapHeader() {
             </Link>
           </>
         ) : (
-
-          <Link
-            href={"/"}
-          >
-            <Avatar
-              className="ml-2 bg-background"
-            >
-              <AvatarImage
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar
+                className="ml-2 bg-background"
+              >
+                <AvatarImage
                 // src="/images/instagram.png"
-                style={{ objectFit: "cover", overflow: "hidden" }}
-              />
-              <AvatarFallback>JN</AvatarFallback>
-            </Avatar>
-          </Link>
+                  style={{ objectFit: "cover", overflow: "hidden" }}
+                />
+                <AvatarFallback>JN</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="w-48 bg-background border-0 shadow-xl rounded-xl p-2"
+            >
+              <DropdownMenuLabel>my account</DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() => logout()}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>log out</span>
+                {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         )}
       </div>
       <div className='flex flex-col'>

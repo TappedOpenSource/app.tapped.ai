@@ -27,17 +27,17 @@ export default function Page() {
       >
           Login
       </Link>
-      <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
-        <div className="absolute inset-0 bg-zinc-900" />
-        <div className="relative z-20 flex items-center text-lg font-medium">
+      <div className="relative hidden h-full flex-col bg-muted text-white dark:border-r lg:flex">
+        {/* <div className="absolute inset-0 bg-zinc-900" /> */}
+        <div className="relative z-20 w-full h-full">
           <Image
-            src={"/images/icon_1024.png"}
-            alt="Tapped Logo"
-            height={64}
-            width={64}
+            src={"/gifs/splash.gif"}
+            alt="splash animation"
+            fill
+            style={{ objectFit: "cover" }}
           />
         </div>
-        <div className="relative z-20 mt-auto">
+        <div className="relative z-20 mt-auto p-10">
           <blockquote className="space-y-2">
             <p className="text-lg">
                 &ldquo;First you learn the instrument, then you learn the music, then you forget all that s**t and just play.&rdquo;
