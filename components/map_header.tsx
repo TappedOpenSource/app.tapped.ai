@@ -16,8 +16,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Download, LogOut, UserCheck } from "lucide-react";
+import { Download, Gem, LogOut, UserCheck } from "lucide-react";
 import { logout } from "@/data/auth";
+import { usePurchases } from "@/context/purchases";
 
 function getSubtitle(hit: UserModel): string {
   const capacity = hit.venueInfo?.capacity ?? null;
@@ -76,6 +77,7 @@ function Hit({ hit, onClick }: { hit: UserModel, onClick: () => void}) {
 
 export default function MapHeader() {
   const { state } = useAuth();
+  const { state: subscribed } = usePurchases();
   const { useSearchData } = useSearch();
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebounce<string>(query, 250);
@@ -148,6 +150,14 @@ export default function MapHeader() {
                   <span>get app</span>
                 </DropdownMenuItem>
               </Link>
+              <DropdownMenuItem>
+                <Gem className="mr-2 h-4 w-4" />
+                {subscribed ? (
+                  <span>subscribed</span>
+                ) : (
+                  <span>not subscribed</span>
+                )}
+              </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => logout()}
               >

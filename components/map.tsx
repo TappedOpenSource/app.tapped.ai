@@ -17,6 +17,10 @@ import { useDebounce } from "@/context/debounce";
 import { useSearch } from "@/context/search";
 import { profileImage } from "@/domain/types/user_model";
 import { useRouter } from "next/navigation";
+import { usePurchases } from "@/context/purchases";
+import { isVenueGoodFit } from "@/utils/good_fit";
+import { useAuth } from "@/context/auth";
+import classNames from "classnames";
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
@@ -30,11 +34,14 @@ export default function VenueMap() {
         state: string;
         image: string;
     } | null>(null);
-
-  const { useVenueData } = useSearch();
   const [bounds, setBounds] = useState<null | BoundingBox>(null);
+  const { useVenueData } = useSearch();
   const debouncedBounds = useDebounce<null | BoundingBox>(bounds, 250);
   const router = useRouter();
+  const { state: authState } = useAuth();
+  const { state: subscribed } = usePurchases();
+
+  const currentUser = authState?.currentUser ?? null;
 
   const { data } = useVenueData(debouncedBounds);
 
@@ -64,6 +71,11 @@ export default function VenueMap() {
 
         const venueCapacity = venue.venueInfo?.capacity ?? 0;
         const imageSrc = profileImage(venue);
+
+        const goodFit = (currentUser !== null && subscribed === true) ? isVenueGoodFit({
+          user: currentUser,
+          venue,
+        }) : false;
         return (
           <Marker
             key={venue.id}
@@ -84,7 +96,7 @@ export default function VenueMap() {
               </div>
               {venueCapacity !== 0 && (
                 <>
-                  <p className="pl-1 pr-1">{venueCapacity}</p>
+                  <p className={classNames("pl-1 pr-1", goodFit ? "text-green-500" : "text-white")}>{venueCapacity}</p>
                 </>
               )}
             </div>

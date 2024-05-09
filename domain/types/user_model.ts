@@ -1,10 +1,10 @@
-import type { Option } from './option';
+import type { Option } from "./option";
 import {
   DocumentData,
   QueryDocumentSnapshot,
   SnapshotOptions,
   Timestamp,
-} from 'firebase/firestore';
+} from "firebase/firestore";
 
 export type Location = {
   lat: number;
@@ -36,6 +36,7 @@ export type BookerInfo = {
   reviewCount: number;
 };
 
+type PerformerCategory = "undiscovered" | "emerging" | "hometownHero" | "mainstream" | "legendary";
 export type PerformerInfo = {
   pressKitUrl?: Option<string>;
   genres: string[];
@@ -43,8 +44,21 @@ export type PerformerInfo = {
   reviewCount: number;
   label: string;
   spotifyId?: Option<string>;
-  category: 'undiscovered' | 'emerging' | 'hometownHero' | 'mainstream' | 'legendary';
+  category: PerformerCategory;
 };
+
+export function suggestMaxCapacity(category: PerformerCategory): number {
+  const mapping = {
+    undiscovered: 300,
+    emerging: 700,
+    hometownHero: 1500,
+    mainstream: 100000,
+    legendary: 1000000,
+  };
+
+  return mapping[category];
+}
+
 
 export type VenueInfo = {
   genres?: string[];
@@ -123,7 +137,7 @@ export const audienceSize = (user: UserModel): number => (user.socialFollowing?.
 
 export const profileImage = (user: UserModel): string => {
   if (user.profilePicture === undefined || user.profilePicture === null) {
-    return '/images/default_avatar.png';
+    return "/images/default_avatar.png";
   }
 
   return user.profilePicture;
