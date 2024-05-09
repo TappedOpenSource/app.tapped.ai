@@ -125,7 +125,7 @@ export default function MapHeader() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar
-                className="ml-2 bg-background"
+                className="ml-2 bg-background hover:cursor-pointer hover:shadow-xl"
               >
                 {state.currentUser.profilePicture !== null && (
                   <AvatarImage
