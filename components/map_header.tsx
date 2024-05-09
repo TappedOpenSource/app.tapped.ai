@@ -16,7 +16,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { LogOut, UserCheck } from "lucide-react";
+import { Download, LogOut, UserCheck } from "lucide-react";
 import { logout } from "@/data/auth";
 
 function getSubtitle(hit: UserModel): string {
@@ -140,6 +140,14 @@ export default function MapHeader() {
               className="w-48 bg-background border-0 shadow-xl rounded-xl p-2"
             >
               <DropdownMenuLabel>my account</DropdownMenuLabel>
+              <Link
+                href={"/download"}
+              >
+                <DropdownMenuItem>
+                  <Download className="mr-2 h-4 w-4" />
+                  <span>get app</span>
+                </DropdownMenuItem>
+              </Link>
               <DropdownMenuItem
                 onClick={() => logout()}
               >
