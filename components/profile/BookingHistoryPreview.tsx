@@ -2,7 +2,7 @@ import { Booking } from "@/domain/types/booking";
 import { UserModel } from "@/domain/types/user_model";
 import BookingCard from "./BookingCard";
 
-export default function BookererBookingHistoryPreview({ user, bookings }: {
+export default function BookingHistoryPreview({ user, bookings }: {
   user: UserModel;
   bookings: Booking[];
 }) {
@@ -15,11 +15,11 @@ export default function BookererBookingHistoryPreview({ user, bookings }: {
   return (
     <>
       <div className='flex justify-start items-center'>
-        <div className="flex flex-row items-center just-fy-center overflow-x-auto space-x-5 snap-x">
+        <div className="flex flex-row items-start justify-start overflow-x-auto space-x-5 snap-x">
           {bookings.map((booking, index) => (
             <div key={index}>
               <div
-                className='snap-center'
+                className='snap-start'
               >
                 <BookingCard booking={booking} user={user} />
               </div>

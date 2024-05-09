@@ -1,32 +1,32 @@
 "use client";
 
-import type { Review } from "@/domain/types/review";
-import type { Booking } from "@/domain/types/booking";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Manrope } from "next/font/google";
+import BookingHistoryPreview from "@/components/profile/BookingHistoryPreview";
+import InstagramButton from "@/components/profile/InstagramButton";
+import ReviewTile from "@/components/profile/ReviewTile";
+import SpotifyButton from "@/components/profile/SpotifyButton";
+import TiktokButton from "@/components/profile/TiktokButton";
+import TwitterButton from "@/components/profile/TwitterButton";
 import {
-  type UserModel,
+  getBookingsByRequestee,
+  getBookingsByRequester,
+  getLatestPerformerReviewByPerformerId,
+  getUserByUsername,
+} from "@/data/database";
+import type { Booking } from "@/domain/types/booking";
+import type { Review } from "@/domain/types/review";
+import {
   audienceSize,
   profileImage,
   reviewCount,
+  type UserModel,
 } from "@/domain/types/user_model";
-import PerformerBookingHistoryPreview from "@/components/profile/PerformerBookingHistoryPreview";
-import {
-  getBookingsByRequestee,
-  getUserByUsername,
-  getLatestPerformerReviewByPerformerId,
-  getBookingsByRequester,
-} from "@/data/database";
-import InstagramButton from "@/components/profile/InstagramButton";
-import TwitterButton from "@/components/profile/TwitterButton";
-import TiktokButton from "@/components/profile/TiktokButton";
-import SpotifyButton from "@/components/profile/SpotifyButton";
-import ReviewTile from "@/components/profile/ReviewTile";
-import UserInfoSection from "./UserInfoSection";
 import { cn } from "@/lib/utils";
+import { Manrope } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import UserInfoSection from "./UserInfoSection";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -203,7 +203,7 @@ function BuildRows({ user, bookings, latestReview }: {
             </Link>
           </div>
           <div className="h-2" />
-          <PerformerBookingHistoryPreview user={user} bookings={bookings} />
+          <BookingHistoryPreview user={user} bookings={bookings} />
         </div>
       )}
       <div className='h-8' />

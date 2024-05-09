@@ -1,10 +1,10 @@
-import type { Option } from "./option";
 import {
   DocumentData,
   QueryDocumentSnapshot,
   SnapshotOptions,
   Timestamp,
 } from "firebase/firestore";
+import type { Option } from "./option";
 
 export type Location = {
   lat: number;
@@ -48,7 +48,7 @@ export type PerformerInfo = {
 };
 
 export function suggestMaxCapacity(category: PerformerCategory): number {
-  const mapping = {
+  const mapping: Record<PerformerCategory, number> = {
     undiscovered: 300,
     emerging: 700,
     hometownHero: 1500,
