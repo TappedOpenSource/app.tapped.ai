@@ -30,8 +30,12 @@ export default function UserTile({ user }: {
             }} />
         </div>
         <div className='ml-4'>
-          <h3 className='text-xl font-bold'>{user.artistName}</h3>
-          <p className='text-sm text-gray-500'>@{user.username}</p>
+          <h3 className='text-xl font-bold line-clamp-1 text-ellipsis overflow-hidden'>
+            {user.artistName}
+          </h3>
+          <p className='text-sm text-gray-500 line-clamp-1 text-ellipsis overflow-hidden'>
+            @{user.username}
+          </p>
         </div>
       </div>
     </Link>

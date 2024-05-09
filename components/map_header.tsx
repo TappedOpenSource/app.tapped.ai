@@ -52,19 +52,20 @@ function Hit({ hit, onClick }: { hit: UserModel, onClick: () => void}) {
         <div
           className='w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 flex flex-row items-center justify-start bg-background rounded-full py-3 my-1 hover:scale-105 transition-all duration-150 ease-in-out'
         >
-          <div className='relative w-[42px] h-[42px]'>
-            <Image
-              src={imageSrc}
-              alt="user profile picture"
-              fill
-              className="rounded-full"
-              style={{ objectFit: "cover", overflow: "hidden" }}
-            />
+          <div className="pl-1 pr-2">
+            <div className='relative w-[42px] h-[42px]'>
+              <Image
+                src={imageSrc}
+                alt="user profile picture"
+                fill
+                className="rounded-full"
+                style={{ objectFit: "cover", overflow: "hidden" }}
+              />
+            </div>
           </div>
-          <div className="w-4" />
-          <div className='flex flex-col justify-start items-start'>
-            <h1 className="font-bold text-xl line-clamp-1">{hit.artistName ?? hit.username}</h1>
-            <p className="text-sm text-gray-400 line-clamp-1">{subtitle}</p>
+          <div className='flex flex-col justify-center items-start w-full flex-1 overflow-hidden'>
+            <h1 className="text-start font-bold text-xl line-clamp-1 text-ellipsis overflow-hidden">{(hit.artistName ?? hit.username)?.trim()}</h1>
+            <p className="text-start text-sm text-gray-400 line-clamp-1 text-ellipsis overflow-hidden">{subtitle}</p>
           </div>
         </div>
       </div>
