@@ -16,7 +16,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { LogOut } from "lucide-react";
+import { LogOut, UserCheck } from "lucide-react";
 import { logout } from "@/data/auth";
 
 function getSubtitle(hit: UserModel): string {
@@ -128,7 +128,9 @@ export default function MapHeader() {
                 // src="/images/instagram.png"
                   style={{ objectFit: "cover", overflow: "hidden" }}
                 />
-                <AvatarFallback>JN</AvatarFallback>
+                <AvatarFallback>
+                  <UserCheck className="h-4 w-4" />
+                </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent
