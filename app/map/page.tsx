@@ -11,7 +11,7 @@ import { Suspense, useEffect, useState } from "react";
 import { UserModel } from "@/domain/types/user_model";
 import { getUserByUsername } from "@/data/database";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { AuthContext, AuthProvider } from "@/context/auth";
+import { AuthProvider } from "@/context/auth";
 
 const queryClient = new QueryClient();
 

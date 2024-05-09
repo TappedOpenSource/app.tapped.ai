@@ -60,13 +60,13 @@ const Footer = () => {
               <h2 className="mb-6 text-sm font-semibold uppercase text-white">legal</h2>
               <ul className="text-gray-400 font-medium">
                 <li className="mb-4">
-                  <Link href="https://app.tapped.ai/privacy" className="hover:underline">privacy policy</Link>
+                  <Link href="https://tapped.ai/privacy" className="hover:underline">privacy policy</Link>
                 </li>
                 {/* <li className="mb-4">
                   <Link href="/" className="hover:underline">Licensing</Link>
                 </li> */}
                 <li className="mb-4">
-                  <Link href="https://app.tapped.ai/terms" className="hover:underline">terms &amp; conditions</Link>
+                  <Link href="https://tapped.ai/terms" className="hover:underline">terms &amp; conditions</Link>
                 </li>
               </ul>
             </div>

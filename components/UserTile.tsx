@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { UserModel, profileImage } from "@/domain/types/user_model";
 import Link from "next/link";
+import { Skeleton } from "./ui/skeleton";
 
 export default function UserTile({ user }: {
     user: UserModel | null;
 }) {
   if (user === null) {
     return (
-      <p>loading...</p>
+      <Skeleton />
     );
   }
 

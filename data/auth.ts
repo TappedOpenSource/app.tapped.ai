@@ -3,8 +3,8 @@ import { auth } from "@/utils/firebase";
 import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
-  signInWithPopup,
   createUserWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
 
 
@@ -40,8 +40,8 @@ export async function signupWithCredentials({ email, password }: {
 export async function loginWithGoogle() {
   console.debug("loginWithGoogle");
   const provider = new GoogleAuthProvider();
-  const loginResult = await signInWithPopup(auth, provider);
-  return { uid: loginResult.user.uid };
+  const userCred = await signInWithPopup(auth, provider);
+  return { uid: userCred.user.uid };
 }
 
 export async function logout() {

@@ -1,15 +1,18 @@
-import * as auth from "@/data/auth";
+"use client";
+
+import { loginWithGoogle } from "@/data/auth";
 
 export default function ContinueWithGoogleButton({ onClick }: {
-    onClick: (loginResult) => void,
+    onClick: () => void,
   }) {
   const handleLogin = async () => {
     // e.preventDefault();
     try {
-      const response = await auth.loginWithGoogle();
-      onClick(response);
+      await loginWithGoogle();
+      onClick();
     } catch (err) {
       console.error(err);
+      throw new Error("failed to login with google", { cause: err });
     }
   };
 

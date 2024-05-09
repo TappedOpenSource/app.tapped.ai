@@ -223,12 +223,16 @@ function BuildRows({ user, bookings, latestReview }: {
           <ReviewTile review={latestReview} />
         </div>
       )}
-      <div className='h-8' />
-      <div>
-        <h2 className='text-2xl font-bold'>About</h2>
-        <div className="h-2" />
-        <p>{user.bio}</p>
-      </div>
+      {user.bio !== "" && (
+        <>
+          <div className='h-8' />
+          <div>
+            <h2 className='text-2xl font-bold'>about</h2>
+            <div className="h-2" />
+            <p>{user.bio}</p>
+          </div>
+        </>
+      )}
     </div>
   );
 }

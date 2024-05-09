@@ -5,6 +5,7 @@ import { Arimo as FontSans } from "next/font/google";
 
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { AuthProvider } from "@/context/auth";
 
 const title = "tapped ai : create world tour from your iphone";
 const description = "live music data with superpowers";
@@ -53,7 +54,9 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
         <Analytics />
       </body>
     </html>

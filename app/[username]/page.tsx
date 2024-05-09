@@ -23,7 +23,7 @@ export async function generateMetadata(
     const imageSrc = profileImage(user);
 
     return {
-      metadataBase: new URL("http://localhost:3000"),
+      metadataBase: new URL("https://tapped.ai"),
       title: `${username}`,
       description: `${username} on tapped`,
       openGraph: {
@@ -45,7 +45,7 @@ export async function generateMetadata(
   } catch (e) {
     console.log(e);
     return {
-      metadataBase: new URL("http://localhost:3000"),
+      metadataBase: new URL("https:tapped.ai"),
       title: "Tapped",
       description: "Tapped",
       openGraph: {
