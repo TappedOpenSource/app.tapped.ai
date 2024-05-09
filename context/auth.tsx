@@ -1,11 +1,13 @@
 "use client";
 
+import { getUserById } from "@/data/database";
+import { UserModel } from "@/domain/types/user_model";
 import { auth } from "@/utils/firebase";
 import { type ReactNode, createContext, useContext, useReducer } from "react";
 
-export type Action = {type: "LOGIN"; uid: string;} | {type: "LOGOUT"}
+export type Action = {type: "LOGIN"; currentUser: UserModel;} | {type: "LOGOUT"}
 export type Dispatch = (action: Action) => void
-export type State = { uid: string } | null
+export type State = { currentUser: UserModel } | null
 
 export const AuthContext = createContext<{
     state: State;
@@ -23,25 +25,32 @@ export function useAuth() {
 }
 
 export function initAuthListener(state: State, dispatch: Dispatch) {
-  return auth.onAuthStateChanged((user) => {
-    const curUid = state?.uid;
+  return auth.onAuthStateChanged(async (user) => {
+    const curUid = state?.currentUser?.id;
     const uid = user?.uid;
     if (uid === curUid) {
       return;
     }
 
-    if (user) {
-      dispatch({ type: "LOGIN", uid: user.uid });
-    } else {
+    if (!user) {
       dispatch({ type: "LOGOUT" });
+      return;
     }
+
+    const currentUser = await getUserById(user.uid);
+    if (!currentUser) {
+      dispatch({ type: "LOGOUT" });
+      return;
+    }
+
+    dispatch({ type: "LOGIN", currentUser: currentUser });
   });
 }
 
 function authReducer(state: State, action: Action): State {
   switch (action.type) {
   case "LOGIN": {
-    return { uid: action.uid };
+    return { currentUser: action.currentUser };
   }
   case "LOGOUT": {
     return null;

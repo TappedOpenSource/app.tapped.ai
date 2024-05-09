@@ -125,10 +125,12 @@ export default function MapHeader() {
               <Avatar
                 className="ml-2 bg-background"
               >
-                <AvatarImage
-                // src="/images/instagram.png"
-                  style={{ objectFit: "cover", overflow: "hidden" }}
-                />
+                {state.currentUser.profilePicture !== null && (
+                  <AvatarImage
+                    src={state.currentUser.profilePicture}
+                    style={{ objectFit: "cover", overflow: "hidden" }}
+                  />
+                )}
                 <AvatarFallback>
                   <UserCheck className="h-4 w-4" />
                 </AvatarFallback>
