@@ -1,14 +1,17 @@
 "use client";
 
+import { useAuth } from "@/context/auth";
+import { useDebounce } from "@/context/debounce";
+import { usePurchases } from "@/context/purchases";
+import { useSearch } from "@/context/search";
+import { logout } from "@/data/auth";
+import { audienceSize, profileImage, type UserModel } from "@/domain/types/user_model";
+import { Download, Gem, LogOut, UserCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { type UserModel, audienceSize, profileImage } from "@/domain/types/user_model";
+import { usePathname, useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { useSearch } from "@/context/search";
-import { useDebounce } from "@/context/debounce";
-import { useRouter, usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { useAuth } from "@/context/auth";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,9 +19,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Download, Gem, LogOut, UserCheck } from "lucide-react";
-import { logout } from "@/data/auth";
-import { usePurchases } from "@/context/purchases";
 
 function getSubtitle(hit: UserModel): string {
   const capacity = hit.venueInfo?.capacity ?? null;
@@ -155,7 +155,11 @@ export default function MapHeader() {
                 {subscribed ? (
                   <span>subscribed</span>
                 ) : (
-                  <span>not subscribed</span>
+                  <Link
+                    href={"/subscribe"}
+                  >
+                    <span>subscribe</span>
+                  </Link>
                 )}
               </DropdownMenuItem>
               <DropdownMenuItem

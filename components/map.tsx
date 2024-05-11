@@ -1,26 +1,26 @@
 "use client";
 
+import { useAuth } from "@/context/auth";
+import { useDebounce } from "@/context/debounce";
+import { usePurchases } from "@/context/purchases";
+import { useSearch } from "@/context/search";
+import { BoundingBox } from "@/data/search";
+import { profileImage } from "@/domain/types/user_model";
+import { isVenueGoodFit } from "@/utils/good_fit";
+import classNames from "classnames";
 import Image from "next/image";
-import { useState, useMemo, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useMemo, useState } from "react";
 import {
-  Map,
   FullscreenControl,
   GeolocateControl,
-  Marker,
-  NavigationControl,
-  Popup,
-  ScaleControl,
+  Map,
+  // NavigationControl,
+  // ScaleControl,
   MapboxEvent,
+  Marker,
+  Popup,
 } from "react-map-gl";
-import { BoundingBox } from "@/data/search";
-import { useDebounce } from "@/context/debounce";
-import { useSearch } from "@/context/search";
-import { profileImage } from "@/domain/types/user_model";
-import { useRouter } from "next/navigation";
-import { usePurchases } from "@/context/purchases";
-import { isVenueGoodFit } from "@/utils/good_fit";
-import { useAuth } from "@/context/auth";
-import classNames from "classnames";
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";

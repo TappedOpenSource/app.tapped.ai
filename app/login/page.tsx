@@ -1,12 +1,12 @@
 "use client";
 
+import { LoadingSpinner } from "@/components/LoadingSpinner";
+import AuthForm from "@/components/login/AuthForm";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import Image from "next/image";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
+import Link from "next/link";
 import { Suspense } from "react";
-import AuthForm from "@/components/login/AuthForm";
 
 export default function Page() {
   return (
@@ -30,6 +30,7 @@ export default function Page() {
               src={"/gifs/splash.gif"}
               alt="splash animation"
               fill
+              priority
               style={{ objectFit: "cover" }}
             />
           </div>

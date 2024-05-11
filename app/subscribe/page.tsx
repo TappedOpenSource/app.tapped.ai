@@ -1,90 +1,22 @@
-"use client";
 
-import type { NextPage } from "next";
-import ProductCard from "@/components/ProductCard";
-// import withAuth from '@/domain/auth/withAuth';
-import { getProductAndPriceData } from "@/domain/usecases/payments";
-import { useEffect, useState } from "react";
-import * as auth from "@/data/auth";
-import { redirect, usePathname } from "next/navigation";
-
-const subscriptionPlansIds = [
-  "prod_PDFgqCLcjDQpP9", // premium
-];
-
-const Pricing: NextPage = () => {
-  const pathname = usePathname();
-  const [billingPortal, setBillingPortal] = useState<string | null>(null);
-  const [products, setProducts] = useState<any[]>([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const products = await getProductAndPriceData();
-      console.log({ products });
-      setProducts(products);
-    };
-    fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    auth.getCustomClaims().then((claims) => {
-      console.log({ claims });
-
-      if (claims === undefined || claims === null) {
-        redirect(`/login?returnUrl=${pathname}`);
-        return;
-      }
-
-      const claim = claims["stripeRole"] as string | null;
-      console.log({ claim });
-      // if (claim !== undefined && claim !== null) {
-      //   api.createPortalLink({ returnUrl: `${window.location.origin}/pricing` }).then(({ url }) => {
-      //     console.log({ url });
-      //     setBillingPortal(url);
-      //   });
-      // }
-    });
-  }, [pathname]);
-
-  if (billingPortal) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <a
-          href={billingPortal}
-          className="px-5 py-2 text-white bg-[#42A5F5] rounded-md"
-        >
-        manage subscription
-        </a>
-      </div>
-    );
+// If using TypeScript, add the following snippet to your file as well.
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "stripe-pricing-table": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+    }
   }
+}
 
+export default function Page() {
   return (
     <>
-      <h1 className="px-5 pt-10 text-left text-5xl font-bold text-white">
-        pricing plans
-      </h1>
-      <p className="px-5 pb-10 pt-6 text-left text-lg text-white text-center">
-        choose how long you want to subscribe for
-      </p>
-      <div className="flex flex-col md:flex-row justify-center">
-        {products.filter(({ product }) => {
-          console.log(product.name);
-          return subscriptionPlansIds.includes(product.id);
-        }).map(({ product, prices }) => {
-          return (
-            <div className="px-5 py-2 flex flex-col md:flex-row gap-4" key={product.name}>
-              {prices.map((price: any) => {
-                return (
-                  <ProductCard product={product} price={price} key={price.id} />
-                );
-              })}
-            </div>
-          );
-        })}
+      <div className="min-h-screen bg-white flex justify-center items-center">
+        <stripe-pricing-table pricing-table-id="prctbl_1PFJ5XDYybu1wznE3NpaCEH4"
+          publishable-key="pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil">
+        </stripe-pricing-table>
       </div>
     </>
   );
-};
-
-export default Pricing;
+}

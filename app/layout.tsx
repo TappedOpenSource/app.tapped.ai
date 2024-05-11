@@ -1,12 +1,13 @@
-import React from "react";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Arimo as FontSans } from "next/font/google";
+import React from "react";
 
-import "./globals.css";
-import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/auth";
 import { PurchasesProvider } from "@/context/purchases";
+import { cn } from "@/lib/utils";
+import "./globals.css";
 
 const title = "tapped ai : create world tour from your iphone";
 const description = "live music data with superpowers - Tapped Ai predicts the future of the live performance industry and gives performers the means of creating a world tour from their phone. We use new tech to gather data across the US to analyze/predict trends in the live performance space to ultimately increase bookings and ticket sales";
@@ -48,6 +49,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link href='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
+        <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
       </head>
       <body
         className={cn(
@@ -60,6 +62,7 @@ export default function RootLayout({
             {children}
           </PurchasesProvider>
         </AuthProvider>
+        <Toaster />
         <Analytics />
       </body>
     </html>
