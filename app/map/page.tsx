@@ -109,43 +109,45 @@ function SideSheet() {
 
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
-      <SheetContent>
-        <SheetHeader>
-          <div className='flex justify-start'>
+      <SheetContent
+        className="overflow-y-scroll"
+      >
+        <div className='flex justify-start'>
+          <Button
+            variant="outline"
+            onClick={
+              () => {
+                navigator.clipboard.writeText(
+                  `${window.location.origin}/${username}`
+                );
+
+                toast({
+                  description: "link copied!",
+                });
+              }
+            }>
+          copy link
+          </Button>
+          <div className='w-2' />
+          <Link
+            href={`/${username}`}
+          >
             <Button
               variant="outline"
-              onClick={
-                () => {
-                  navigator.clipboard.writeText(
-                    `${window.location.origin}/${username}`
-                  );
-
-                  toast({
-                    description: "link copied!",
-                  });
-                }
-              }>
-          copy link
-            </Button>
-            <div className='w-2' />
-            <Link
-              href={`/${username}`}
             >
-              <Button
-                variant="outline"
-              >
-                <p>open profile</p>
-              </Button>
-            </Link>
-          </div>
-        </SheetHeader>
+              <p>open profile</p>
+            </Button>
+          </Link>
+        </div>
         <div className='flex justify-center'>
           {selectedUser === null ? (
             <div className="min-h-screen flex justify-center items-center">
               <LoadingSpinner />
             </div>
           ) : (
-            <ProfileHeader user={selectedUser} />
+            <div className="overflow-y-scroll">
+              <ProfileHeader user={selectedUser} />
+            </div>
           )}
         </div>
       </SheetContent>
