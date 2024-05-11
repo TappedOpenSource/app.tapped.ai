@@ -32,15 +32,17 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
   return (
     <div className='py-6 md:py-12 px-6 w-full'>
       <div className='flex flex-row md:flex-col justify-start items-center'>
-        <div className='z-1 relative w-[128px] h-[128px] md:h-[256px] md:w-[256px] overflow-hidden rounded-full'>
-          <Image
-            src={imageSrc}
-            alt={`${user.artistName} profile picture`}
-            fill
-            style={{
-              objectFit: "cover",
-              objectPosition: "center",
-            }} />
+        <div className="flex flex-col justify-center items-center">
+          <div className='z-1 relative w-[128px] h-[128px] md:h-[256px] md:w-[256px] overflow-hidden rounded-full'>
+            <Image
+              src={imageSrc}
+              alt={`${user.artistName} profile picture`}
+              fill
+              style={{
+                objectFit: "cover",
+                objectPosition: "center",
+              }} />
+          </div>
         </div>
         <div className="w-4 md:h-6" />
         <div className=''>
