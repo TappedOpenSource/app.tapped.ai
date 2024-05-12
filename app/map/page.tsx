@@ -6,19 +6,17 @@ import VenueMap from "@/components/map";
 import MapHeader from "@/components/map_header";
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
 } from "@/components/ui/sheet";
-import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import { AuthProvider } from "@/context/auth";
 import { getUserByUsername } from "@/data/database";
 import { UserModel } from "@/domain/types/user_model";
 import useWindowDimensions from "@/utils/window_dimensions";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ArrowUpRight, Copy } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -126,16 +124,24 @@ function SideSheet() {
                 });
               }
             }>
-          copy link
+            <div className="flex flex-row justify-center">
+              <p>copy link</p>
+              <Copy className="w-4 h-4 ml-2" />
+            </div>
           </Button>
           <div className='w-2' />
           <Link
             href={`/${username}`}
+            target="_blank"
+            rel="noreferrer noopener"
           >
             <Button
               variant="outline"
             >
-              <p>open profile</p>
+              <div className="flex flex-row justify-center">
+                <p>open profile</p>
+                <ArrowUpRight className="w-4 h-4 ml-2" />
+              </div>
             </Button>
           </Link>
         </div>
