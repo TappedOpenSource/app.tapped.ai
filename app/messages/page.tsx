@@ -2,7 +2,8 @@
 
 import { useAuth } from "@/context/auth";
 import { getStreamToken } from "@/data/messaging";
-import { redirect, usePathname } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   Channel,
@@ -46,9 +47,17 @@ export default function Page() {
 
   if (currentUser === null) {
     const encodedPathname = encodeURIComponent(pathname);
-    redirect(`/login?return_url=${encodedPathname}`);
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <Link
+          href={`/login?return_url=${encodedPathname}`}
+          className="underline text-blue">
+          login
+        </Link>
+        to access DMs
+      </div>
+    );
   }
-  if (currentUser === null) return <div>loading...</div>;
   if (!client) return <div>loading...</div>;
 
   const filters = { members: { $in: [currentUser.id] }, type: "messaging" };
