@@ -1,19 +1,19 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 // import Image from 'next/image';
-import Link from "next/link";
-import Image from "next/image";
 import { Rubik } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
 
-import { shuffle } from "@/utils/shuffle";
 import Footer from "@/components/landing/Footer";
-import SignedArtistCard from "@/components/landing/SignedArtistCard";
 import Nav from "@/components/landing/Nav";
 import PartneredWith from "@/components/landing/PartneredWith";
+import SignedArtistCard from "@/components/landing/SignedArtistCard";
+import { shuffle } from "@/utils/shuffle";
 // import Snowfall from 'react-snowfall';
 import SupportJourney from "@/components/landing/SupportJourney";
 // import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
-import YourJourney from "@/components/landing/YourJourney";
 import Team from "@/components/landing/Team";
+import YourJourney from "@/components/landing/YourJourney";
 
 const rubik = Rubik({
   subsets: ["latin"],
@@ -68,50 +68,45 @@ export default async function Home() {
 
           <div className="flex flex-col place-items-center md:pt-20">
             <Link
-              href='https://tapped.ai/download'
-              className="bg-white/20 rounded-full">
-              <p
-                className="text-center text-white py-4 px-8"
-              >
+              href="https://tapped.ai/download"
+              className="rounded-full bg-white/20"
+            >
+              <p className="px-8 py-4 text-center">
                 join over 100,000+ performers on the app.
               </p>
             </Link>
             <div className="h-8"></div>
-            <h1
-              className="text-5xl md:w-1/2 font-extrabold text-center text-white lg:text-6xl"
-            >
-            create a world tour from your iPhone
+            <h1 className="text-center text-5xl font-extrabold md:w-1/2 lg:text-6xl">
+              create a world tour from your iPhone
             </h1>
-            <div className="pt-2 pb-2"></div>
-            <h2
-              className="text-2xl font-thin text-center text-gray-200"
-            >
-            live music data with superpowers
+            <div className="pb-2 pt-2"></div>
+            <h2 className="text-center text-2xl font-thin text-gray-200">
+              live music data with superpowers
             </h2>
-            <div className="flex flex-col md:flex-row justify-center mt-8 mb-4 py-2 px-4 gap-4">
+            <div className="mb-4 mt-8 flex flex-col justify-center gap-4 px-4 py-2 md:flex-row">
               <Link
                 href="/download"
-                className="text-lg font-bold bg-white text-black text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
-              >get started</Link>
+                className="transform rounded-full bg-white px-6 py-3 text-center text-lg font-bold text-black transition-all duration-200 ease-in-out hover:scale-105"
+              >
+                get started
+              </Link>
               {/* <Link
                 href="/venue"
                 className="text-lg font-black text-white bg-white/25 text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
               >for bookers</Link> */}
             </div>
             <div className="pb-12 lg:pb-2"></div>
-            <div className="overflow-hidden w-screen">
+            <div className="w-screen overflow-hidden">
               <div className="relative flex flex-row">
-                <div className="flex flex-row animate-marquee whitespace-nowrap">
-                  {shuffledArtists.map((userInfo, i) => <SignedArtistCard
-                    key={i}
-                    {...userInfo}
-                  />)}
+                <div className="animate-marquee flex flex-row whitespace-nowrap">
+                  {shuffledArtists.map((userInfo, i) => (
+                    <SignedArtistCard key={i} {...userInfo} />
+                  ))}
                 </div>
-                <div className="absolute flex flex-row animate-marquee2 whitespace-nowrap">
-                  {shuffledArtists.map((userInfo, i) => <SignedArtistCard
-                    key={i}
-                    {...userInfo}
-                  />)}
+                <div className="animate-marquee2 absolute flex flex-row whitespace-nowrap">
+                  {shuffledArtists.map((userInfo, i) => (
+                    <SignedArtistCard key={i} {...userInfo} />
+                  ))}
                 </div>
               </div>
             </div>
@@ -124,12 +119,12 @@ export default async function Home() {
       <SupportJourney />
       <div className="h-12 md:h-36"></div>
       {/* <SubscriptionPlans /> */}
-      <div className='flex flex-col justify-center items-center'>
+      <div className="flex flex-col items-center justify-center">
         <h2 className="text-center text-4xl">discover over 10,000 venues</h2>
         <div className="h-4" />
         <Link
           href={"/map"}
-          className='relative w-[50vw] h-[50vw] md:h-[50vh] hover:scale-105 transform transition-all duration-200 ease-in-out overflow-hidden rounded-lg shadow-lg'
+          className="relative h-[50vw] w-[50vw] transform overflow-hidden rounded-lg shadow-lg transition-all duration-200 ease-in-out hover:scale-105 md:h-[50vh]"
         >
           <Image
             src="/images/map_preview.png"
@@ -145,28 +140,36 @@ export default async function Home() {
       <div className="h-12 md:h-36"></div>
       <Team />
       <div className="h-12 md:h-36"></div>
-      <div className='flex justify-center items-center'>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/iWDIax023zQ?si=-oJhhqdaGXZymTSI" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+      <div className="flex items-center justify-center">
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/iWDIax023zQ?si=-oJhhqdaGXZymTSI"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
       </div>
       <div className="h-12 md:h-36"></div>
-      <div
-        className='px-2 py-24 my-12 md:my-0 md:min-h-screen flex flex-col justify-center items-center bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-green-300 via-blue-500 to-purple-600'
-      >
-        <h1
-          className='uppercase text-5xl md:text-9xl font-extrabold text-center text-white lg:text-6xl'
-        >want to get booked more?</h1>
-        <h1
-          className='uppercase text-5xl md:text-9xl font-extrabold text-center text-white lg:text-6xl'
-        >we can help</h1>
+      <div className="my-12 flex flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-green-300 via-blue-500 to-purple-600 px-2 py-24 md:my-0 md:min-h-screen">
+        <h1 className="text-center text-5xl font-extrabold uppercase text-white md:text-9xl lg:text-6xl">
+          want to get booked more?
+        </h1>
+        <h1 className="text-center text-5xl font-extrabold uppercase text-white md:text-9xl lg:text-6xl">
+          we can help
+        </h1>
         <div className="h-12"></div>
-        <div className="flex justify-center py-2 px-4">
+        <div className="flex justify-center px-4 py-2">
           <Link
             href="https://tapped.ai/download"
             target="_blank"
             title="app download"
             rel="noreferrer"
-            className="bg-white text-black text-lg font-black text-center rounded-full px-6 py-3 hover:scale-105 transform transition-all duration-200 ease-in-out"
-          >get started</Link>
+            className="transform rounded-full bg-white px-6 py-3 text-center text-lg font-black text-black transition-all duration-200 ease-in-out hover:scale-105"
+          >
+            get started
+          </Link>
         </div>
       </div>
       <div className="h-12"></div>
@@ -347,4 +350,3 @@ const getData = async () => {
   const shuffledArtists = shuffle(signedArtists);
   return { shuffledArtists };
 };
-
