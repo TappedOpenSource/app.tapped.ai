@@ -10,7 +10,15 @@ import {
   profileImage,
   type UserModel,
 } from "@/domain/types/user_model";
-import { Download, Gem, LogOut, Moon, Sun, UserCheck } from "lucide-react";
+import {
+  Download,
+  Gem,
+  LogOut,
+  MessageCircle,
+  Moon,
+  Sun,
+  UserCheck,
+} from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
@@ -174,6 +182,12 @@ export default function MapHeader() {
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
               </DropdownMenuSub>
+              <DropdownMenuItem>
+                <MessageCircle className="mr-2 h-4 w-4" />
+                <Link href={"/messages"}>
+                  <span>messages</span>
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuItem>
                 <Gem className="mr-2 h-4 w-4" />
                 {subscribed ? (
