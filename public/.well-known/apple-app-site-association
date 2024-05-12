@@ -1,7 +1,7 @@
 {
    "applinks":{
      "apps":[
-        
+
      ],
      "details":[
        {
@@ -40,6 +40,11 @@
            },
            {
              "/":"/team",
+             "exclude":true,
+             "comment":"Matches URL with a path /about and instructs the system not to open it as a universal link."
+           },
+           {
+             "/":"/subscribe",
              "exclude":true,
              "comment":"Matches URL with a path /about and instructs the system not to open it as a universal link."
            }

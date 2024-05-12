@@ -48,21 +48,23 @@ export default function Page() {
 
   const filters = { members: { $in: [currentUser.id] }, type: "messaging" };
   return (
-    <Chat client={client}>
-      <ChannelList
-        sort={{ last_message_at: -1 }}
-        filters={filters}
-        // options={options}
-        showChannelSearch
-      />
-      <Channel>
-        <Window>
-          <ChannelHeader />
-          <MessageList />
-          <MessageInput focus />
-        </Window>
-        <Thread />
-      </Channel>
-    </Chat>
+    <>
+      <Chat client={client}>
+        <ChannelList
+          sort={{ last_message_at: -1 }}
+          filters={filters}
+          // options={options}
+          showChannelSearch
+        />
+        <Channel>
+          <Window>
+            <ChannelHeader />
+            <MessageList />
+            <MessageInput focus />
+          </Window>
+          <Thread />
+        </Channel>
+      </Chat>
+    </>
   );
 }
