@@ -110,9 +110,9 @@ function SideSheet() {
       <SheetContent
         className="overflow-y-scroll"
       >
-        <div className='flex justify-start'>
+        <div className='flex justify-start bg-background/10'>
           <Button
-            variant="outline"
+            variant="secondary"
             onClick={
               () => {
                 navigator.clipboard.writeText(
@@ -136,7 +136,7 @@ function SideSheet() {
             rel="noreferrer noopener"
           >
             <Button
-              variant="outline"
+              variant="secondary"
             >
               <div className="flex flex-row justify-center">
                 <p>open profile</p>

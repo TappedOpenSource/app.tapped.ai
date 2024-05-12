@@ -30,7 +30,7 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
   const hasReviews = numReviews > 0;
 
   return (
-    <div className='py-6 md:py-12 px-6 w-full'>
+    <div className='py-6 md:py-12 px-6 md:px-0 w-full'>
       <div className='flex flex-row md:flex-col justify-start items-center'>
         <div className="flex flex-col justify-center items-center">
           <div className='z-1 relative w-[128px] h-[128px] md:h-[256px] md:w-[256px] overflow-hidden rounded-full'>

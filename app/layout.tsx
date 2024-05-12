@@ -6,11 +6,13 @@ import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/auth";
 import { PurchasesProvider } from "@/context/purchases";
+import { ThemeProvider } from "@/context/themes";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
 const title = "tapped ai : create world tour from your iphone";
-const description = "live music data with superpowers - Tapped Ai predicts the future of the live performance industry and gives performers the means of creating a world tour from their phone. We use new tech to gather data across the US to analyze/predict trends in the live performance space to ultimately increase bookings and ticket sales";
+const description =
+  "live music data with superpowers - Tapped Ai predicts the future of the live performance industry and gives performers the means of creating a world tour from their phone. We use new tech to gather data across the US to analyze/predict trends in the live performance space to ultimately increase bookings and ticket sales";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tapped.ai"),
@@ -43,23 +45,33 @@ export default function RootLayout({
   // This will be populated with nested layouts or pages
   children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <head>
-        <link href='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
+        <link
+          href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
+          rel="stylesheet"
+        />
         <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
       </head>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "bg-background min-h-screen font-sans antialiased",
           fontSans.variable
         )}
       >
         <AuthProvider>
           <PurchasesProvider>
-            {children}
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="light"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
           </PurchasesProvider>
         </AuthProvider>
         <Toaster />

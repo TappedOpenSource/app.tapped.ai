@@ -97,7 +97,7 @@ export default function ProfileView({ username }: { username: string }) {
   return (
     <>
       <div className='lg:flex lg:justify-center'>
-        <div className="lg:w-[30vw]">
+        <div className="lg:w-[30vw] lg:px-6">
           <ProfileHeader user={user} />
         </div>
         <BuildRows user={user} bookings={bookings} latestReview={latestReview} />

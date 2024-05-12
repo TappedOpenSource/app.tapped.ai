@@ -28,12 +28,12 @@ const mapboxDarkStyle = "mapbox/dark-v11";
 
 export default function VenueMap() {
   const [popupInfo, setPopupInfo] = useState<{
-        longitude: number;
-        latitude: number;
-        city: string;
-        state: string;
-        image: string;
-    } | null>(null);
+    longitude: number;
+    latitude: number;
+    city: string;
+    state: string;
+    image: string;
+  } | null>(null);
   const [bounds, setBounds] = useState<null | BoundingBox>(null);
   const { useVenueData } = useSearch();
   const debouncedBounds = useDebounce<null | BoundingBox>(bounds, 250);
@@ -61,53 +61,65 @@ export default function VenueMap() {
 
   const markers = useMemo(
     () =>
-      (data ?? []).map((venue) => {
-        const lat = venue.location?.lat ?? null;
-        const lng = venue.location?.lng ?? null;
+      (data ?? [])
+        .map((venue) => {
+          const lat = venue.location?.lat ?? null;
+          const lng = venue.location?.lng ?? null;
 
-        if (lat === null || lng === null) {
-          return null;
-        }
+          if (lat === null || lng === null) {
+            return null;
+          }
 
-        const venueCapacity = venue.venueInfo?.capacity ?? 0;
-        const imageSrc = profileImage(venue);
+          const venueCapacity = venue.venueInfo?.capacity ?? 0;
+          const imageSrc = profileImage(venue);
 
-        const goodFit = (currentUser !== null && subscribed === true) ? isVenueGoodFit({
-          user: currentUser,
-          venue,
-        }) : false;
-        return (
-          <Marker
-            key={venue.id}
-            longitude={lng}
-            latitude={lat}
-            anchor="center"
-            onClick={() => router.push(`/map?username=${venue.username}`)}
-          >
-            <div className='flex flex-row justify-center items-center rounded-xl px-1 py-1 bg-background shadow-xl hover:cursor-pointer hover:scale-105 transform transition-all duration-200 ease-in-out'>
-              <div className="relative h-[22px] w-[22px]">
-                <Image
-                  src={imageSrc}
-                  alt="venue profile picture"
-                  className="rounded-full"
-                  style={{ objectFit: "cover", overflow: "hidden" }}
-                  fill
-                />
+          const goodFit =
+            currentUser !== null && subscribed === true ?
+              isVenueGoodFit({
+                user: currentUser,
+                venue,
+              }) :
+              false;
+          return (
+            <Marker
+              key={venue.id}
+              longitude={lng}
+              latitude={lat}
+              anchor="center"
+              onClick={() => router.push(`/map?username=${venue.username}`)}
+            >
+              <div className="bg-background flex transform flex-row items-center justify-center rounded-xl px-1 py-1 shadow-xl transition-all duration-200 ease-in-out hover:scale-105 hover:cursor-pointer">
+                <div className="relative h-[22px] w-[22px]">
+                  <Image
+                    src={imageSrc}
+                    alt="venue profile picture"
+                    className="rounded-full"
+                    style={{ objectFit: "cover", overflow: "hidden" }}
+                    fill
+                  />
+                </div>
+                {venueCapacity !== 0 && (
+                  <>
+                    <p
+                      className={classNames(
+                        "pl-1 pr-1",
+                        goodFit ? "text-green-500" : ""
+                      )}
+                    >
+                      {venueCapacity.toLocaleString()}
+                    </p>
+                  </>
+                )}
               </div>
-              {venueCapacity !== 0 && (
-                <>
-                  <p className={classNames("pl-1 pr-1", goodFit ? "text-green-500" : "text-white")}>{venueCapacity}</p>
-                </>
-              )}
-            </div>
-          </Marker>
-        );
-      }).filter((x) => x !== null) as JSX.Element[],
-    [data, router]
+            </Marker>
+          );
+        })
+        .filter((x) => x !== null) as JSX.Element[],
+    [data, router, currentUser, subscribed]
   );
 
   return (
-    <div className='w-screen h-screen m-0'>
+    <div className="m-0 h-screen w-screen">
       <Map
         initialViewState={{
           latitude: 38.895,
@@ -120,7 +132,11 @@ export default function VenueMap() {
         mapboxAccessToken={defaultMapboxToken}
         onRender={onRender}
       >
-        <GeolocateControl position="bottom-right" showUserHeading trackUserLocation />
+        <GeolocateControl
+          position="bottom-right"
+          showUserHeading
+          trackUserLocation
+        />
         <FullscreenControl position="bottom-right" />
         {/* <NavigationControl position="bottom-right" /> */}
         {/* <ScaleControl /> */}
@@ -140,7 +156,7 @@ export default function VenueMap() {
                 target="_new"
                 href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=${popupInfo.city}, ${popupInfo.state}`}
               >
-                 Wikipedia
+                Wikipedia
               </a>
             </div>
             <img width="100%" src={popupInfo.image} />
@@ -149,6 +165,6 @@ export default function VenueMap() {
       </Map>
 
       {/* <ControlPanel /> */}
-    </div >
+    </div>
   );
 }
