@@ -69,7 +69,7 @@ export default async function Home() {
           <div className="flex flex-col place-items-center md:pt-20">
             <Link
               href="https://tapped.ai/download"
-              className="rounded-full bg-white/20"
+              className="bg-foreground/20 rounded-full"
             >
               <p className="px-8 py-4 text-center">
                 join over 100,000+ performers on the app.
@@ -80,7 +80,7 @@ export default async function Home() {
               create a world tour from your iPhone
             </h1>
             <div className="pb-2 pt-2"></div>
-            <h2 className="text-center text-2xl font-thin text-gray-200">
+            <h2 className="text-foreground/50 text-center text-2xl font-thin">
               live music data with superpowers
             </h2>
             <div className="mb-4 mt-8 flex flex-col justify-center gap-4 px-4 py-2 md:flex-row">
