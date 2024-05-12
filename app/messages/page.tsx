@@ -44,10 +44,10 @@ export default function Page() {
     fetchToken();
   }, [currentUser]);
 
-  // if (currentUser === null) {
-  //   const encodedPathname = encodeURIComponent(pathname);
-  //   redirect(`/login?return_url=${encodedPathname}`);
-  // }
+  if (currentUser === null) {
+    const encodedPathname = encodeURIComponent(pathname);
+    redirect(`/login?return_url=${encodedPathname}`);
+  }
   if (currentUser === null) return <div>loading...</div>;
   if (!client) return <div>loading...</div>;
 
