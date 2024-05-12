@@ -42,7 +42,6 @@ export default function Nav() {
           }   w-full lg:inline-flex lg:w-auto lg:flex-grow`}
         >
           <div className="flex w-full flex-col items-start lg:ml-auto lg:inline-flex lg:h-auto lg:w-auto lg:flex-row lg:items-center">
-            <DarkModeToggle />
             <Link
               onClick={() => track("nav-click", { item: "for-venues" })}
               href="/venue"
