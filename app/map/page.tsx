@@ -6,10 +6,7 @@ import VenueMap from "@/components/map";
 import MapHeader from "@/components/map_header";
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useToast } from "@/components/ui/use-toast";
 import { AuthProvider } from "@/context/auth";
 import { getUserByUsername } from "@/data/database";
@@ -27,7 +24,7 @@ const queryClient = new QueryClient();
 
 const UserSheet = styled(BSheet)`
   .react-modal-sheet-container {
-    background-color: #010F16FF !important;
+    background-color: #010f16ff !important;
   }
 
   .react-modal-sheet-backdrop {
@@ -68,9 +65,9 @@ function BottomSheet() {
         <BSheet.Header />
         <BSheet.Content>
           <BSheet.Scroller>
-
-            {selectedUser === null ? null :
-              <ProfileView username={selectedUser.username} />}
+            {selectedUser === null ? null : (
+              <ProfileView username={selectedUser.username} />
+            )}
           </BSheet.Scroller>
         </BSheet.Content>
       </BSheet.Container>
@@ -107,51 +104,42 @@ function SideSheet() {
 
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
-      <SheetContent
-        className="overflow-y-scroll"
-      >
-        <div className='flex justify-start bg-background/10'>
+      <SheetContent className="overflow-y-scroll">
+        <div className="bg-background/10 flex justify-start">
           <Button
             variant="secondary"
-            onClick={
-              () => {
-                navigator.clipboard.writeText(
-                  `${window.location.origin}/${username}`
-                );
+            onClick={() => {
+              navigator.clipboard.writeText(
+                `${window.location.origin}/${username}`
+              );
 
-                toast({
-                  description: "link copied!",
-                });
-              }
-            }>
+              toast({
+                description: "link copied!",
+              });
+            }}
+          >
             <div className="flex flex-row justify-center">
               <p>copy link</p>
-              <Copy className="w-4 h-4 ml-2" />
+              <Copy className="ml-2 h-4 w-4" />
             </div>
           </Button>
-          <div className='w-2' />
-          <Link
-            href={`/${username}`}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            <Button
-              variant="secondary"
-            >
+          <div className="w-2" />
+          <Link href={`/${username}`} target="_blank" rel="noreferrer noopener">
+            <Button variant="secondary">
               <div className="flex flex-row justify-center">
                 <p>open profile</p>
-                <ArrowUpRight className="w-4 h-4 ml-2" />
+                <ArrowUpRight className="ml-2 h-4 w-4" />
               </div>
             </Button>
           </Link>
         </div>
-        <div className='flex justify-center'>
+        <div className="flex justify-center">
           {selectedUser === null ? (
-            <div className="min-h-screen flex justify-center items-center">
+            <div className="flex min-h-screen items-center justify-center">
               <LoadingSpinner />
             </div>
           ) : (
-            <div className="overflow-y-scroll">
+            <div className="w-full overflow-y-scroll">
               <ProfileHeader user={selectedUser} />
             </div>
           )}
@@ -169,15 +157,19 @@ export default function Page() {
     <>
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<div className='min-h-screen w-screen flex justify-center items-center'>
-            <LoadingSpinner />
-          </div>}>
+          <Suspense
+            fallback={
+              <div className="flex min-h-screen w-screen items-center justify-center">
+                <LoadingSpinner />
+              </div>
+            }
+          >
             {screenIsSmall ? <BottomSheet /> : <SideSheet />}
           </Suspense>
-          <div className='absolute z-10'>
+          <div className="absolute z-10">
             <MapHeader />
           </div>
-          <div className='z-0'>
+          <div className="z-0">
             <VenueMap />
           </div>
         </QueryClientProvider>
