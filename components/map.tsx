@@ -8,6 +8,7 @@ import { BoundingBox } from "@/data/search";
 import { profileImage } from "@/domain/types/user_model";
 import { isVenueGoodFit } from "@/utils/good_fit";
 import classNames from "classnames";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
@@ -24,7 +25,7 @@ import {
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
-// const mapboxLightStyle = 'mapbox/light-v10';
+const mapboxLightStyle = "mapbox/light-v10";
 
 export default function VenueMap() {
   const [popupInfo, setPopupInfo] = useState<{
@@ -40,6 +41,7 @@ export default function VenueMap() {
   const router = useRouter();
   const { state: authState } = useAuth();
   const { state: subscribed } = usePurchases();
+  const { theme } = useTheme();
 
   const currentUser = authState?.currentUser ?? null;
 
@@ -118,6 +120,7 @@ export default function VenueMap() {
     [data, router, currentUser, subscribed]
   );
 
+  const mapTheme = theme === "light" ? mapboxLightStyle : mapboxDarkStyle;
   return (
     <div className="m-0 h-screen w-screen">
       <Map
@@ -128,7 +131,7 @@ export default function VenueMap() {
           bearing: 0,
           pitch: 0,
         }}
-        mapStyle={`mapbox://styles/${mapboxDarkStyle}`}
+        mapStyle={`mapbox://styles/${mapTheme}`}
         mapboxAccessToken={defaultMapboxToken}
         onRender={onRender}
       >

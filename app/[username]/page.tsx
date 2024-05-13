@@ -1,24 +1,24 @@
-import Nav from "@/components/landing/Nav";
 import ProfileView from "@/components/ProfileView";
+import MapHeader from "@/components/map_header";
 import { UserModel, profileImage } from "@/domain/types/user_model";
 import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
-  params: { username: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+  params: { username: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 const getUserByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/getUserByUsername`;
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvingMetadata,
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
   try {
     const username = params.username;
 
     const res = await fetch(`${getUserByIdUrl}?username=${username}`);
-    const user = await res.json() as UserModel;
+    const user = (await res.json()) as UserModel;
 
     const imageSrc = profileImage(user);
 
@@ -71,7 +71,7 @@ export default function Page({ params }: Props) {
   const username = params.username;
   return (
     <>
-      <Nav />
+      <MapHeader />
       <ProfileView username={username} />
     </>
   );

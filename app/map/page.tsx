@@ -8,7 +8,6 @@ import ProfileHeader from "@/components/profile/ProfileHeader";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useToast } from "@/components/ui/use-toast";
-import { AuthProvider } from "@/context/auth";
 import { getUserByUsername } from "@/data/database";
 import { UserModel } from "@/domain/types/user_model";
 import useWindowDimensions from "@/utils/window_dimensions";
@@ -155,25 +154,23 @@ export default function Page() {
 
   return (
     <>
-      <AuthProvider>
+      <Suspense
+        fallback={
+          <div className="flex min-h-screen w-screen items-center justify-center">
+            <LoadingSpinner />
+          </div>
+        }
+      >
+        {screenIsSmall ? <BottomSheet /> : <SideSheet />}
+      </Suspense>
+      <div className="absolute z-10">
+        <MapHeader />
+      </div>
+      <div className="z-0">
         <QueryClientProvider client={queryClient}>
-          <Suspense
-            fallback={
-              <div className="flex min-h-screen w-screen items-center justify-center">
-                <LoadingSpinner />
-              </div>
-            }
-          >
-            {screenIsSmall ? <BottomSheet /> : <SideSheet />}
-          </Suspense>
-          <div className="absolute z-10">
-            <MapHeader />
-          </div>
-          <div className="z-0">
-            <VenueMap />
-          </div>
+          <VenueMap />
         </QueryClientProvider>
-      </AuthProvider>
+      </div>
     </>
   );
 }

@@ -10,9 +10,11 @@ import {
   profileImage,
   type UserModel,
 } from "@/domain/types/user_model";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Download,
   Gem,
+  Home,
   LogOut,
   MessageCircle,
   Moon,
@@ -37,6 +39,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+
+const queryClient = new QueryClient();
 
 function getSubtitle(hit: UserModel): string {
   const capacity = hit.venueInfo?.capacity ?? null;
@@ -93,7 +97,7 @@ function Hit({ hit, onClick }: { hit: UserModel; onClick: () => void }) {
   );
 }
 
-export default function MapHeader() {
+function MapHeaderUi() {
   const { state } = useAuth();
   const { state: subscribed } = usePurchases();
   const { useSearchData } = useSearch();
@@ -127,7 +131,7 @@ export default function MapHeader() {
             <input
               type="text"
               placeholder="search tapped..."
-              className="bg-background w-full rounded-full px-6 py-4 shadow-xl md:w-1/2 lg:w-1/3 xl:w-1/4"
+              className="bg-card w-full rounded-full px-6 py-4 shadow-xl md:w-1/2 lg:w-1/3 xl:w-1/4"
               onChange={(e) => setQuery(e.target.value)}
             />
           </div>
@@ -156,10 +160,10 @@ export default function MapHeader() {
             <DropdownMenuContent className="bg-background w-48 rounded-xl border-0 p-2 shadow-xl">
               <DropdownMenuLabel>my account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <Link href={"/download"}>
+              <Link href={"/map"}>
                 <DropdownMenuItem>
-                  <Download className="mr-2 h-4 w-4" />
-                  <span>get app</span>
+                  <Home className="mr-2 h-4 w-4" />
+                  <span>home</span>
                 </DropdownMenuItem>
               </Link>
               <DropdownMenuSub>
@@ -198,6 +202,12 @@ export default function MapHeader() {
                   </Link>
                 )}
               </DropdownMenuItem>
+              <Link href={"/download"}>
+                <DropdownMenuItem>
+                  <Download className="mr-2 h-4 w-4" />
+                  <span>get app</span>
+                </DropdownMenuItem>
+              </Link>
               <DropdownMenuItem onClick={() => logout()}>
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>log out</span>
@@ -209,5 +219,13 @@ export default function MapHeader() {
       </div>
       <div className="flex flex-col">{userTiles}</div>
     </>
+  );
+}
+
+export default function MapHeader() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <MapHeaderUi />
+    </QueryClientProvider>
   );
 }
