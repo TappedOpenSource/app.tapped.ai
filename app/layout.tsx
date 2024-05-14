@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
-import { Arimo as FontSans } from "next/font/google";
+import { Titillium_Web as FontSans } from "next/font/google";
 import React from "react";
 
 import { Toaster } from "@/components/ui/toaster";
@@ -38,6 +38,7 @@ export const metadata: Metadata = {
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ["200", "300", "400", "600", "700", "900"],
 });
 
 export default function RootLayout({

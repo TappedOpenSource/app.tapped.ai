@@ -10,10 +10,9 @@ import PartneredWith from "@/components/landing/PartneredWith";
 import SignedArtistCard from "@/components/landing/SignedArtistCard";
 import { shuffle } from "@/utils/shuffle";
 // import Snowfall from 'react-snowfall';
-// import SupportJourney from "@/components/landing/SupportJourney";
+import SupportJourney from "@/components/landing/SupportJourney";
 // import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
 import Team from "@/components/landing/Team";
-import YourJourney from "@/components/landing/YourJourney";
 
 const rubik = Rubik({
   subsets: ["latin"],
@@ -116,8 +115,8 @@ export default async function Home() {
       <div className="h-12 md:h-36"></div>
       <PartneredWith />
       <div className="h-12 md:h-36"></div>
-      {/* <SupportJourney /> */}
-      {/* <div className="h-12 md:h-36"></div> */}
+      <SupportJourney />
+      <div className="h-12 md:h-36"></div>
       {/* <SubscriptionPlans /> */}
       <div className="flex flex-col items-center justify-center">
         <h2 className="text-center text-4xl">discover over 10,000 venues</h2>
@@ -136,8 +135,8 @@ export default async function Home() {
       </div>
 
       <div className="h-12 md:h-36"></div>
-      <YourJourney />
-      <div className="h-12 md:h-36"></div>
+      {/* <YourJourney /> */}
+      {/* <div className="h-12 md:h-36"></div> */}
       <Team />
       <div className="h-12 md:h-36"></div>
       <div className="flex items-center justify-center">

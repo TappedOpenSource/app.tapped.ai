@@ -14,8 +14,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Download,
   Gem,
-  Home,
   LogOut,
+  Map,
   MessageCircle,
   Moon,
   Search,
@@ -175,8 +175,8 @@ function MapHeaderUi() {
                 <DropdownMenuSeparator />
                 <Link href={"/map"}>
                   <DropdownMenuItem>
-                    <Home className="mr-2 h-4 w-4" />
-                    <span>home</span>
+                    <Map className="mr-2 h-4 w-4" />
+                    <span>map</span>
                   </DropdownMenuItem>
                 </Link>
                 <DropdownMenuSub>
