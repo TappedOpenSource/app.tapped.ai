@@ -1,8 +1,8 @@
-
 import InstagramButton from "@/components/profile/InstagramButton";
 import SpotifyButton from "@/components/profile/SpotifyButton";
 import TiktokButton from "@/components/profile/TiktokButton";
 import TwitterButton from "@/components/profile/TwitterButton";
+import { Button } from "@/components/ui/button";
 import UserInfoSection from "@/components/UserInfoSection";
 import {
   audienceSize,
@@ -30,10 +30,10 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
   const hasReviews = numReviews > 0;
 
   return (
-    <div className='py-6 md:py-12 px-6 md:px-0 w-full'>
-      <div className='flex flex-row md:flex-col justify-start items-center'>
-        <div className="flex flex-col justify-center items-center">
-          <div className='z-1 relative w-[128px] h-[128px] md:h-[256px] md:w-[256px] overflow-hidden rounded-full'>
+    <div className="w-full px-6 py-6 md:px-0 md:py-12">
+      <div className="flex flex-row items-center justify-start md:flex-col">
+        <div className="flex flex-col items-center justify-center md:aspect-square md:w-full">
+          <div className="z-1 relative h-[128px] w-[128px] overflow-hidden rounded-full md:h-full md:w-full md:rounded-xl">
             <Image
               src={imageSrc}
               alt={`${user.artistName} profile picture`}
@@ -41,55 +41,73 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
               style={{
                 objectFit: "cover",
                 objectPosition: "center",
-              }} />
+              }}
+            />
           </div>
         </div>
         <div className="w-4 md:h-6" />
-        <div className=''>
+        <div className="">
           <h1
-            className={cn("text-4xl md:text-4xl font-extrabold", manrope.className)}
-          >{user.artistName ?? user.username}</h1>
+            className={cn(
+              "text-4xl font-extrabold md:text-4xl",
+              manrope.className
+            )}
+          >
+            {user.artistName ?? user.username}
+          </h1>
         </div>
       </div>
-      <div className='h-4' />
+      <div className="h-4" />
       {hasReviews && (
         <>
-          <div className='flex flex-row items-center justify-around'>
-            <div className='flex flex-col justify-center items-center'>
-              <h3 className='text-2xl font-bold'>{firstValue.toLocaleString()}</h3>
-              <p className='text-xs text-font text-gray-500'>{firstLabel}</p>
+          <div className="flex flex-row items-center justify-around">
+            <div className="flex flex-col items-center justify-center">
+              <h3 className="text-2xl font-bold">
+                {firstValue.toLocaleString()}
+              </h3>
+              <p className="text-font text-xs text-gray-500">{firstLabel}</p>
             </div>
-            <div className='flex flex-col justify-center items-center'>
-              <h3 className='text-2xl font-bold'>{numReviews}</h3>
-              <p className='text-xs text-font text-gray-500'>reviews</p>
+            <div className="flex flex-col items-center justify-center">
+              <h3 className="text-2xl font-bold">{numReviews}</h3>
+              <p className="text-font text-xs text-gray-500">reviews</p>
             </div>
-            <div className='flex flex-col justify-center items-center'>
-              <h3 className='text-2xl font-bold'>{user.performerInfo?.rating ? `${user.performerInfo?.rating}/5` : "N/A"}</h3>
-              <p className='text-sm text-gray-400'>rating</p>
+            <div className="flex flex-col items-center justify-center">
+              <h3 className="text-2xl font-bold">
+                {user.performerInfo?.rating ?
+                  `${user.performerInfo?.rating}/5` :
+                  "N/A"}
+              </h3>
+              <p className="text-sm text-gray-400">rating</p>
             </div>
           </div>
-          <div className='h-4' />
+          <div className="h-4" />
         </>
       )}
       {user.venueInfo !== null && (
-
-        <div className='flex justify-center items-center w-full'>
-          <Link
-            href='/download'
-            className='w-full rounded-full bg-blue-500 px-4 py-2 text-center text-white font-bold cursor-pointer hover:bg-blue-600 transition duration-300 ease-in-out'
-          >
-            request to perform
+        <div className="flex w-full items-center justify-center">
+          <Link href="/download" className="w-full">
+            <Button className="w-full font-bold">request to perform</Button>
           </Link>
         </div>
       )}
-      <div className='h-4' />
+      <div className="h-4" />
       <UserInfoSection user={user} />
-      <div className='h-4' />
-      <div className='flex flex-row items-center justify-around'>
-        {user.socialFollowing?.instagramHandle && <InstagramButton instagramHandle={user.socialFollowing.instagramHandle} />}
-        {user.socialFollowing?.twitterHandle && <TwitterButton twitterHandle={user.socialFollowing.twitterHandle} />}
-        {user.socialFollowing?.tiktokHandle && <TiktokButton tiktokHandle={user.socialFollowing.tiktokHandle} />}
-        {user.performerInfo?.spotifyId && <SpotifyButton spotifyId={user.performerInfo.spotifyId} />}
+      <div className="h-4" />
+      <div className="flex flex-row items-center justify-around">
+        {user.socialFollowing?.instagramHandle && (
+          <InstagramButton
+            instagramHandle={user.socialFollowing.instagramHandle}
+          />
+        )}
+        {user.socialFollowing?.twitterHandle && (
+          <TwitterButton twitterHandle={user.socialFollowing.twitterHandle} />
+        )}
+        {user.socialFollowing?.tiktokHandle && (
+          <TiktokButton tiktokHandle={user.socialFollowing.tiktokHandle} />
+        )}
+        {user.performerInfo?.spotifyId && (
+          <SpotifyButton spotifyId={user.performerInfo.spotifyId} />
+        )}
       </div>
     </div>
   );

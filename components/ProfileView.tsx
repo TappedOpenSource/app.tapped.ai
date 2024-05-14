@@ -1,6 +1,7 @@
 "use client";
 
 import BookingHistoryPreview from "@/components/profile/BookingHistoryPreview";
+import DownloadTheAppSection from "@/components/profile/DownloadTheAppSection";
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import ReviewTile from "@/components/profile/ReviewTile";
 import {
@@ -11,9 +12,7 @@ import {
 } from "@/data/database";
 import type { Booking } from "@/domain/types/booking";
 import type { Review } from "@/domain/types/review";
-import {
-  type UserModel,
-} from "@/domain/types/user_model";
+import { type UserModel } from "@/domain/types/user_model";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -51,9 +50,11 @@ export default function ProfileView({ username }: { username: string }) {
       // fetch latest booking
       const latestRequesteeBookings = await getBookingsByRequestee(user.id);
       const latestRequesterBookings = await getBookingsByRequester(user.id);
-      const latestBookings = latestRequesteeBookings.concat(latestRequesterBookings).sort((a, b) => {
-        return b.startTime.getTime() - a.startTime.getTime();
-      });
+      const latestBookings = latestRequesteeBookings
+        .concat(latestRequesterBookings)
+        .sort((a, b) => {
+          return b.startTime.getTime() - a.startTime.getTime();
+        });
 
       setBookings(latestBookings);
     };
@@ -65,8 +66,12 @@ export default function ProfileView({ username }: { username: string }) {
       }
 
       // get latest review
-      const latestPerformerReview = await getLatestPerformerReviewByPerformerId(user.id);
-      const latestBookerReview = await getLatestPerformerReviewByPerformerId(user.id);
+      const latestPerformerReview = await getLatestPerformerReviewByPerformerId(
+        user.id
+      );
+      const latestBookerReview = await getLatestPerformerReviewByPerformerId(
+        user.id
+      );
 
       const latestReview = latestPerformerReview ?? latestBookerReview ?? null;
       setLatestReview(latestReview);
@@ -87,7 +92,7 @@ export default function ProfileView({ username }: { username: string }) {
   if (user === null) {
     return (
       <>
-        <div className='min-h-screen flex justify-center items-center'>
+        <div className="flex min-h-screen items-center justify-center">
           <p>fetching {username}... </p>
         </div>
       </>
@@ -96,51 +101,59 @@ export default function ProfileView({ username }: { username: string }) {
 
   return (
     <>
-      <div className='lg:flex lg:justify-center'>
+      <div className="lg:flex lg:justify-center">
         <div className="lg:w-[30vw] lg:px-6">
           <ProfileHeader user={user} />
         </div>
-        <BuildRows user={user} bookings={bookings} latestReview={latestReview} />
+        <BuildRows
+          user={user}
+          bookings={bookings}
+          latestReview={latestReview}
+        />
       </div>
     </>
   );
 }
 
-function BuildRows({ user, bookings, latestReview }: {
+function BuildRows({
+  user,
+  bookings,
+  latestReview,
+}: {
   user: UserModel;
   bookings: Booking[];
   latestReview: Review | null;
 }) {
   return (
-    <div className='lg:w-[70vw] py-6 lg:py-12 px-3'>
-      <div className='h-4' />
+    <div className="px-3 py-6 lg:w-[70vw] lg:px-24 lg:py-12">
+      <div className="h-4" />
       {bookings.length !== 0 && (
         <div>
-          <div className='flex flex-row items-center'>
-            <h2 className='text-2xl font-bold'>Booking History</h2>
-            <div className='w-2' />
+          <div className="flex flex-row items-center">
+            <h2 className="text-2xl font-bold">booking history</h2>
+            <div className="w-2" />
             <Link
               href={`/history/${user.id}`}
-              className='text-sm text-blue-500'
+              className="text-sm text-blue-500"
             >
-        see all
+              see all
             </Link>
           </div>
           <div className="h-2" />
           <BookingHistoryPreview user={user} bookings={bookings} />
         </div>
       )}
-      <div className='h-8' />
+      <div className="h-8" />
       {latestReview && (
         <div>
-          <div className='flex flex-row items-center'>
-            <h2 className='text-2xl font-bold'>Reviews</h2>
-            <div className='w-2' />
+          <div className="flex flex-row items-center">
+            <h2 className="text-2xl font-bold">Reviews</h2>
+            <div className="w-2" />
             <Link
               href={`/reviews/${user.id}`}
-              className='text-sm text-blue-500'
+              className="text-sm text-blue-500"
             >
-        see all
+              see all
             </Link>
           </div>
           <div className="h-2" />
@@ -149,14 +162,16 @@ function BuildRows({ user, bookings, latestReview }: {
       )}
       {user.bio !== "" && (
         <>
-          <div className='h-8' />
+          <div className="h-8" />
           <div>
-            <h2 className='text-2xl font-bold'>about</h2>
+            <h2 className="text-2xl font-bold">about</h2>
             <div className="h-2" />
             <p>{user.bio}</p>
           </div>
         </>
       )}
+      <div className="h-8" />
+      <DownloadTheAppSection />
     </div>
   );
 }

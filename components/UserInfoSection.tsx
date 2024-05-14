@@ -3,6 +3,7 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import StarIcon from "@mui/icons-material/Star";
+import { AtSign } from "lucide-react";
 
 export default function UserInfoSection({ user }: { user: UserModel }) {
   const genres = (
@@ -16,9 +17,13 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
 
   return (
     <div className="bg-secondary flex w-full flex-col items-start justify-start rounded-xl px-8 py-4 shadow-lg">
-      <p className="line-clamp-1 w-full overflow-hidden text-ellipsis">
-        @{user.username}
-      </p>
+      <div className="flex w-full flex-row">
+        <AtSign />
+        <div className="w-2" />
+        <p className="line-clamp-1 w-full overflow-hidden text-ellipsis">
+          {user.username}
+        </p>
+      </div>
       <div className="my-1 h-px w-full bg-gray-200/20" />
       {venueType && (
         <>
