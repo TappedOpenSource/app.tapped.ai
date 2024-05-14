@@ -27,6 +27,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -139,7 +140,7 @@ function MapHeaderUi() {
         {state === null ? (
           <>
             <Link href={`/login?return_url=${encodeURIComponent(pathname)}`}>
-              login
+              <Button className="ml-2">login</Button>
             </Link>
           </>
         ) : (
