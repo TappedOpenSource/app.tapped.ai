@@ -10,7 +10,7 @@ import PartneredWith from "@/components/landing/PartneredWith";
 import SignedArtistCard from "@/components/landing/SignedArtistCard";
 import { shuffle } from "@/utils/shuffle";
 // import Snowfall from 'react-snowfall';
-import SupportJourney from "@/components/landing/SupportJourney";
+// import SupportJourney from "@/components/landing/SupportJourney";
 // import SubscriptionPlans from '@/components/landing/SubscriptionPlans';
 import Team from "@/components/landing/Team";
 import YourJourney from "@/components/landing/YourJourney";
@@ -116,8 +116,8 @@ export default async function Home() {
       <div className="h-12 md:h-36"></div>
       <PartneredWith />
       <div className="h-12 md:h-36"></div>
-      <SupportJourney />
-      <div className="h-12 md:h-36"></div>
+      {/* <SupportJourney /> */}
+      {/* <div className="h-12 md:h-36"></div> */}
       {/* <SubscriptionPlans /> */}
       <div className="flex flex-col items-center justify-center">
         <h2 className="text-center text-4xl">discover over 10,000 venues</h2>
