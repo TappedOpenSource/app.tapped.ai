@@ -18,6 +18,7 @@ import {
   LogOut,
   MessageCircle,
   Moon,
+  Search,
   Sun,
   UserCheck,
 } from "lucide-react";
@@ -129,94 +130,106 @@ function MapHeaderUi() {
       <div className="flex w-screen flex-row items-center px-4 pb-1 pt-8 md:px-8">
         <div className="flex-1">
           <div>
-            <input
-              type="text"
-              placeholder="search tapped..."
-              className="bg-card w-full rounded-full px-6 py-4 shadow-xl md:w-1/2 lg:w-1/3 xl:w-1/4"
-              onChange={(e) => setQuery(e.target.value)}
-            />
+            <div className="relative mb-6">
+              <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
+                <Search className="h-4 w-4 text-gray-400" />
+              </div>
+              <input
+                type="text"
+                placeholder="search tapped..."
+                className="bg-card w-full rounded-full p-2.5 px-6 py-4 ps-10 shadow-xl md:w-1/2 lg:w-1/3 xl:w-1/4"
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </div>
           </div>
         </div>
-        {state === null ? (
-          <>
-            <Link href={`/login?return_url=${encodeURIComponent(pathname)}`}>
-              <Button className="ml-2">login</Button>
+        <div className="flex flex-row">
+          <div className="hidden md:block">
+            <Link href="/download">
+              <Button variant="link">get the app</Button>
             </Link>
-          </>
-        ) : (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Avatar className="bg-background ml-2 hover:cursor-pointer hover:shadow-xl">
-                {state.currentUser.profilePicture !== null && (
-                  <AvatarImage
-                    src={state.currentUser.profilePicture}
-                    style={{ objectFit: "cover", overflow: "hidden" }}
-                  />
-                )}
-                <AvatarFallback>
-                  <UserCheck className="h-4 w-4" />
-                </AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-background w-48 rounded-xl border-0 p-2 shadow-xl">
-              <DropdownMenuLabel>my account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <Link href={"/map"}>
-                <DropdownMenuItem>
-                  <Home className="mr-2 h-4 w-4" />
-                  <span>home</span>
-                </DropdownMenuItem>
+          </div>
+          {state === null ? (
+            <>
+              <Link href={`/login?return_url=${encodeURIComponent(pathname)}`}>
+                <Button className="ml-2">login</Button>
               </Link>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                  <Sun className="mr-2 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                  <Moon className="absolute mr-2 h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                  <span>toggle theme</span>
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuItem onClick={() => setTheme("light")}>
-                      light
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTheme("dark")}>
-                      dark
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTheme("system")}>
-                      system
-                    </DropdownMenuItem>
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-              <DropdownMenuItem>
-                <MessageCircle className="mr-2 h-4 w-4" />
-                <Link href={"/messages"}>
-                  <span>messages</span>
+            </>
+          ) : (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="bg-background ml-2 hover:cursor-pointer hover:shadow-xl">
+                  {state.currentUser.profilePicture !== null && (
+                    <AvatarImage
+                      src={state.currentUser.profilePicture}
+                      style={{ objectFit: "cover", overflow: "hidden" }}
+                    />
+                  )}
+                  <AvatarFallback>
+                    <UserCheck className="h-4 w-4" />
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-background w-48 rounded-xl border-0 p-2 shadow-xl">
+                <DropdownMenuLabel>my account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <Link href={"/map"}>
+                  <DropdownMenuItem>
+                    <Home className="mr-2 h-4 w-4" />
+                    <span>home</span>
+                  </DropdownMenuItem>
                 </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Gem className="mr-2 h-4 w-4" />
-                {subscribed ? (
-                  <span>subscribed</span>
-                ) : (
-                  <Link href={"/subscribe"}>
-                    <span>subscribe</span>
-                  </Link>
-                )}
-              </DropdownMenuItem>
-              <Link href={"/download"}>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>
+                    <Sun className="mr-2 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                    <Moon className="absolute mr-2 h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                    <span>toggle theme</span>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent>
+                      <DropdownMenuItem onClick={() => setTheme("light")}>
+                        light
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme("dark")}>
+                        dark
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme("system")}>
+                        system
+                      </DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
                 <DropdownMenuItem>
-                  <Download className="mr-2 h-4 w-4" />
-                  <span>get app</span>
+                  <MessageCircle className="mr-2 h-4 w-4" />
+                  <Link href={"/messages"}>
+                    <span>messages</span>
+                  </Link>
                 </DropdownMenuItem>
-              </Link>
-              <DropdownMenuItem onClick={() => logout()}>
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>log out</span>
-                {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        )}
+                <DropdownMenuItem>
+                  <Gem className="mr-2 h-4 w-4" />
+                  {subscribed ? (
+                    <span>subscribed</span>
+                  ) : (
+                    <Link href={"/subscribe"}>
+                      <span>subscribe</span>
+                    </Link>
+                  )}
+                </DropdownMenuItem>
+                <Link href={"/download"}>
+                  <DropdownMenuItem>
+                    <Download className="mr-2 h-4 w-4" />
+                    <span>get app</span>
+                  </DropdownMenuItem>
+                </Link>
+                <DropdownMenuItem onClick={() => logout()}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>log out</span>
+                  {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+        </div>
       </div>
       <div className="flex flex-col">{userTiles}</div>
     </>
