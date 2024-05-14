@@ -11,7 +11,7 @@ import {
   type UserModel,
 } from "@/domain/types/user_model";
 import { cn } from "@/lib/utils";
-import { Link2 } from "lucide-react";
+import { Facebook, Link2 } from "lucide-react";
 import { Manrope } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -103,6 +103,17 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
         {user.socialFollowing?.twitterHandle && (
           <TwitterButton twitterHandle={user.socialFollowing.twitterHandle} />
         )}
+        {user.socialFollowing?.facebookHandle && (
+          <Link
+            href={`https://facebook.com/${user.socialFollowing.facebookHandle}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant={"outline"} size={"icon"}>
+              <Facebook />
+            </Button>
+          </Link>
+        )}
         {user.socialFollowing?.tiktokHandle && (
           <TiktokButton tiktokHandle={user.socialFollowing.tiktokHandle} />
         )}
@@ -110,7 +121,7 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
           <SpotifyButton spotifyId={user.performerInfo.spotifyId} />
         )}
         {user.venueInfo?.websiteUrl && (
-          <a
+          <Link
             href={user.venueInfo.websiteUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -118,7 +129,7 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
             <Button variant={"outline"} size={"icon"}>
               <Link2 />
             </Button>
-          </a>
+          </Link>
         )}
       </div>
     </div>
