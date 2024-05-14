@@ -130,7 +130,7 @@ function MapHeaderUi() {
       <div className="flex w-screen flex-row items-center px-4 pb-1 pt-8 md:px-8">
         <div className="flex-1">
           <div>
-            <div className="relative mb-6">
+            <div className="relative">
               <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
                 <Search className="h-4 w-4 text-gray-400" />
               </div>
