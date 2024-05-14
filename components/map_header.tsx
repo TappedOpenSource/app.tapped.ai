@@ -73,7 +73,7 @@ function Hit({ hit, onClick }: { hit: UserModel; onClick: () => void }) {
   return (
     <button onClick={onClick}>
       <div className="w-screen px-4 py-px md:px-8">
-        <div className="bg-background my-1 flex w-full flex-row items-center justify-start rounded-full px-4 py-3 transition-all duration-150 ease-in-out hover:scale-105 md:w-1/2 lg:w-1/3 xl:w-1/4">
+        <div className="bg-card my-1 flex w-full flex-row items-center justify-start rounded-full px-4 py-3 transition-all duration-150 ease-in-out hover:scale-105 md:w-1/2 lg:w-1/3 xl:w-1/4">
           <div className="pl-1 pr-2">
             <div className="relative h-[42px] w-[42px]">
               <Image

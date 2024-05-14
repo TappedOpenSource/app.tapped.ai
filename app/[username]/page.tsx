@@ -22,24 +22,25 @@ export async function generateMetadata(
     const user = (await res.json()) as UserModel;
 
     const imageSrc = profileImage(user);
+    const displayName = user.artistName || user.username;
 
     return {
       metadataBase: new URL("https://tapped.ai"),
-      title: `${username}`,
-      description: `${username} on tapped`,
+      title: `${displayName}`,
+      description: `${displayName} on tapped`,
       openGraph: {
         type: "website",
         url: `https://tapped.ai/${username}`,
-        title: `${username}`,
-        description: `${username} on tapped`,
+        title: `${displayName}`,
+        description: `${displayName} on tapped`,
         siteName: "Tapped Ai",
         images: [{ url: imageSrc }],
       },
       twitter: {
         card: "summary_large_image",
         site: "@tappedai",
-        title: `${username}`,
-        description: `${username} on tapped`,
+        title: `${displayName}`,
+        description: `${displayName} on tapped`,
         images: imageSrc,
       },
     };

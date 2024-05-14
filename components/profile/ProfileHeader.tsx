@@ -11,6 +11,7 @@ import {
   type UserModel,
 } from "@/domain/types/user_model";
 import { cn } from "@/lib/utils";
+import { Link2 } from "lucide-react";
 import { Manrope } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -107,6 +108,17 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
         )}
         {user.performerInfo?.spotifyId && (
           <SpotifyButton spotifyId={user.performerInfo.spotifyId} />
+        )}
+        {user.venueInfo?.websiteUrl && (
+          <a
+            href={user.venueInfo.websiteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant={"outline"} size={"icon"}>
+              <Link2 />
+            </Button>
+          </a>
         )}
       </div>
     </div>
