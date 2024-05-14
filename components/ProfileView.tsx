@@ -147,7 +147,7 @@ function BuildRows({
       {latestReview && (
         <div>
           <div className="flex flex-row items-center">
-            <h2 className="text-2xl font-bold">Reviews</h2>
+            <h2 className="text-2xl font-bold">reviews</h2>
             <div className="w-2" />
             <Link
               href={`/reviews/${user.id}`}
