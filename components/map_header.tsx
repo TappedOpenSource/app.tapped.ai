@@ -127,7 +127,7 @@ function MapHeaderUi() {
 
   return (
     <>
-      <div className="flex w-screen flex-row items-center px-4 pb-1 pt-8 md:px-8">
+      <div className="peer flex w-screen flex-row items-center px-4 pb-1 pt-8 md:px-8">
         <div className="flex-1">
           <div>
             <div className="relative">
@@ -231,6 +231,14 @@ function MapHeaderUi() {
           )}
         </div>
       </div>
+      {/* <div className="hidden items-center justify-center pt-4 ease-in-out peer-has-[:focus-within]:flex">
+        <Button
+          className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4"
+          onClick={() => router.push("/mass-outreach")}
+        >
+          mass outreach
+        </Button>
+      </div> */}
       <div className="flex flex-col">{userTiles}</div>
     </>
   );

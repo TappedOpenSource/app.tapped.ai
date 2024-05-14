@@ -41,7 +41,7 @@ export default function VenueMap() {
   const router = useRouter();
   const { state: authState } = useAuth();
   const { state: subscribed } = usePurchases();
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   const currentUser = authState?.currentUser ?? null;
 
@@ -120,7 +120,8 @@ export default function VenueMap() {
     [data, router, currentUser, subscribed]
   );
 
-  const mapTheme = theme === "light" ? mapboxLightStyle : mapboxDarkStyle;
+  const mapTheme =
+    resolvedTheme === "light" ? mapboxLightStyle : mapboxDarkStyle;
   return (
     <div className="m-0 h-screen w-screen">
       <Map
