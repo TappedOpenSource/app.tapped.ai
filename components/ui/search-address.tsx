@@ -65,12 +65,12 @@ const SearchAddress: React.FC<SearchAddressProps> = ({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-80 justify-between truncate"
+          className="w-full justify-between truncate"
         >
           <p className="truncate">
             {selectedItem ?
               `${selectedItem.formattedAddress}` :
-              "select place..."}
+              "select city..."}
           </p>
 
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

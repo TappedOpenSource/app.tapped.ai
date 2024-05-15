@@ -20,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { LoadingSpinner } from "../LoadingSpinner";
 
 const optionSchema = z.object({
   label: z.string(),
@@ -57,7 +58,7 @@ export default function VenueSearchForm() {
   if (authState === null) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        loading...
+        <LoadingSpinner />
       </div>
     );
   }

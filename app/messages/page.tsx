@@ -20,6 +20,7 @@ import {
 import "stream-chat-react/dist/css/v2/index.css";
 import "stream-chat-react/dist/css/v2/index.layout.css";
 import "./layout.css";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY ?? "";
 
@@ -58,7 +59,7 @@ export default function Page() {
       </div>
     );
   }
-  if (!client) return <div>loading...</div>;
+  if (!client) return <LoadingSpinner />;
 
   const filters = { members: { $in: [currentUser.id] }, type: "messaging" };
   return (
