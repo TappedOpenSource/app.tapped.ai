@@ -26,7 +26,8 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
@@ -73,7 +74,7 @@ function Hit({ hit, onClick }: { hit: UserModel; onClick: () => void }) {
   return (
     <button onClick={onClick}>
       <div className="w-screen px-4 py-px md:px-8">
-        <div className="bg-card my-1 flex w-full flex-row items-center justify-start rounded-full px-4 py-3 transition-all duration-150 ease-in-out hover:scale-105 md:w-1/2 lg:w-1/3 xl:w-1/4">
+        <div className="bg-card my-1 flex w-full flex-row items-center justify-start rounded-xl px-4 py-3 transition-all duration-150 ease-in-out hover:scale-105 md:w-1/2 lg:w-1/3 xl:w-1/4">
           <div className="pl-1 pr-2">
             <div className="relative h-[42px] w-[42px]">
               <Image
@@ -108,8 +109,13 @@ function MapHeaderUi() {
   const router = useRouter();
   const pathname = usePathname();
   const { setTheme } = useTheme();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { data } = useSearchData(debouncedQuery, { hitsPerPage: 5 });
+  useHotkeys("/", (e) => {
+    e.preventDefault();
+    inputRef.current?.focus();
+  });
 
   const userTiles = useMemo(
     () =>
@@ -129,18 +135,17 @@ function MapHeaderUi() {
     <>
       <div className="peer flex w-screen flex-row items-center px-4 pb-1 pt-8 md:px-8">
         <div className="flex-1">
-          <div>
-            <div className="relative">
-              <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
-                <Search className="h-4 w-4 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                placeholder="search tapped..."
-                className="bg-card w-full rounded-full p-2.5 px-6 py-4 ps-10 shadow-xl md:w-1/2 lg:w-1/3 xl:w-1/4"
-                onChange={(e) => setQuery(e.target.value)}
-              />
+          <div className="relative">
+            <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
+              <Search className="h-4 w-4 text-gray-400" />
             </div>
+            <input
+              ref={inputRef}
+              type="text"
+              placeholder="search tapped..."
+              className="bg-card w-full rounded-full p-2.5 px-6 py-4 ps-10 shadow-xl md:w-1/2 lg:w-1/3 xl:w-1/4"
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
         </div>
         <div className="flex flex-row">
@@ -232,10 +237,7 @@ function MapHeaderUi() {
         </div>
       </div>
       {/* <div className="hidden items-center justify-center pt-4 ease-in-out peer-has-[:focus-within]:flex">
-        <Button
-          className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4"
-          onClick={() => router.push("/mass-outreach")}
-        >
+        <Button className="" onClick={() => router.push("/mass-outreach")}>
           mass outreach
         </Button>
       </div> */}

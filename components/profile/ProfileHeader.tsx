@@ -50,7 +50,7 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
         <div className="">
           <h1
             className={cn(
-              "text-4xl font-extrabold md:text-4xl",
+              "line-clamp-3 overflow-ellipsis text-4xl font-extrabold md:text-5xl",
               manrope.className
             )}
           >
@@ -86,7 +86,10 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
       )}
       {user.venueInfo !== null && (
         <div className="flex w-full items-center justify-center">
-          <Link href="/download" className="w-full">
+          <Link
+            href={`/request_to_perform?venue_id=${user.id}`}
+            className="w-full"
+          >
             <Button className="w-full font-bold">request to perform</Button>
           </Link>
         </div>
