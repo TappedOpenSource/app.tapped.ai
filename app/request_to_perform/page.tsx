@@ -1,19 +1,17 @@
-import RequestToPerformForm from "@/components/request_to_perform/RequestToPerformForm";
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string };
-}) {
-  const venueId = searchParams["venueId"];
+import { Button } from "@/components/ui/button";
 
-  if (!venueId) {
-    return <div>Invalid venue ID</div>;
-  }
-
+export default function Page() {
   return (
     <>
-      <RequestToPerformForm venueId={venueId} />
+      <div className="min-h-screen flex flex-col gap-4 justify-center items-center">
+        <p>
+            coming to desktop soon
+        </p>
+        <Button>
+            get the app
+        </Button>
+      </div>
     </>
   );
 }
