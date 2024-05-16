@@ -1,5 +1,11 @@
 import { UserModel } from "@/domain/types/user_model";
-import { Castle, UsersRound, Music4, AtSign, Star } from "lucide-react";
+import {
+  Castle,
+  UsersRound,
+  Disc3,
+  AtSign,
+  Star,
+} from "lucide-react";
 
 export default function UserInfoSection({ user }: { user: UserModel }) {
   const genres = (
@@ -44,16 +50,16 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
       {genres && genres.length > 0 && (
         <>
           <div className="flex flex-row">
-            <Music4 />
+            <Disc3 />
             <div className="w-2" />
-            <p className="overflow-hidden text-ellipsis">{genres.join(", ")}</p>
+            <p className="flex-1 overflow-hidden text-ellipsis">{genres.join(", ")}</p>
           </div>
           <div className="my-1 h-px w-full bg-gray-200/20" />
         </>
       )}
       {rating && (
         <div className="flex flex-row">
-          <Star size={21} color="#ffffff" strokeWidth={2.2} absoluteStrokeWidth />
+          <Star />
           <div className="w-2" />
           <p>{rating} stars</p>
         </div>
