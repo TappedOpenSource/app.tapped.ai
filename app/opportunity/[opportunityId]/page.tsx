@@ -2,6 +2,8 @@
 import type { Metadata, ResolvingMetadata } from "next/types";
 import OpportunityView from "@/components/OpportunityView";
 import { Opportunity, opImage } from "@/domain/types/opportunity";
+import MapHeader from "@/components/map_header";
+import Footer from "@/components/landing/Footer";
 
 type Props = {
   params: { opportunityId: string }
@@ -55,7 +57,9 @@ export default function Page({ params }: Props) {
   const { opportunityId } = params;
   return (
     <>
+      <MapHeader />
       <OpportunityView opportunityId={opportunityId} />
+      <Footer />
     </>
   );
 }

@@ -57,9 +57,9 @@ export default function OpportunityView({
 
   if (!opportunity) {
     return (
-      <>
+      <div className="min-h-screen flex justify-center items-center">
         <LoadingSpinner />
-      </>
+      </div>
     );
   }
 
@@ -67,6 +67,7 @@ export default function OpportunityView({
 
   return (
     <>
+
       <div className="fixed right-8 bottom-8">
         <Link href={"https://tapped.ai/download"}>
           <Fab color="primary" aria-label="add" variant="extended">

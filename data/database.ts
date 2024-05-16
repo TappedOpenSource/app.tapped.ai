@@ -10,24 +10,27 @@ import {
   onSnapshot,
   orderBy,
   limit,
-} from 'firebase/firestore';
+  Timestamp,
+} from "firebase/firestore";
 import {
   LabelApplication,
   labelApplicationConverter,
-} from '@/domain/types/label_application';
-import { db } from '@/utils/firebase';
-import type { UserModel } from '@/domain/types/user_model';
-import type { Option } from '@/domain/types/option';
-import { type Booking, bookingConverter } from '@/domain/types/booking';
-import { type Review, reviewConverter } from '@/domain/types/review';
-import { type Service, serviceConverter } from '@/domain/types/service';
-import { type Opportunity, opportunityConverter } from '@/domain/types/opportunity';
+} from "@/domain/types/label_application";
+import { analytics, db } from "@/utils/firebase";
+import type { UserModel } from "@/domain/types/user_model";
+import type { Option } from "@/domain/types/option";
+import { type Booking, bookingConverter } from "@/domain/types/booking";
+import { type Review, reviewConverter } from "@/domain/types/review";
+import { type Service, serviceConverter } from "@/domain/types/service";
+import { type Opportunity, opportunityConverter } from "@/domain/types/opportunity";
+import { logEvent } from "firebase/analytics";
+import { ContactVenueRequest } from "@/domain/types/contact_venue_request";
 
 export async function getUserById(userId: string): Promise<Option<UserModel>> {
-  const docRef = doc(db, 'users', userId);
+  const docRef = doc(db, "users", userId);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
-    console.log('user doesnt exist');
+    console.log("user doesnt exist");
     return null;
   }
 
@@ -37,12 +40,12 @@ export async function getUserById(userId: string): Promise<Option<UserModel>> {
 export async function getUserByUsername(
   username: string
 ): Promise<Option<UserModel>> {
-  const usersCollection = collection(db, 'users');
-  const q = query(usersCollection, where('username', '==', username), limit(1));
+  const usersCollection = collection(db, "users");
+  const q = query(usersCollection, where("username", "==", username), limit(1));
 
   const querySnapshot = await getDocs(q);
   if (querySnapshot.empty) {
-    console.log('No user found!');
+    console.log("No user found!");
     return null;
   }
 
@@ -51,18 +54,18 @@ export async function getUserByUsername(
 export async function getLatestBookingByRequestee(
   userId: string
 ): Promise<Option<Booking>> {
-  const bookingsCollection = collection(db, 'bookings');
+  const bookingsCollection = collection(db, "bookings");
   const querySnapshot = query(
     bookingsCollection,
-    where('requesteeId', '==', userId),
-    where('status', '==', 'confirmed'),
-    orderBy('timestamp', 'desc'),
+    where("requesteeId", "==", userId),
+    where("status", "==", "confirmed"),
+    orderBy("timestamp", "desc"),
     limit(1)
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
 
   if (queryDocs.empty) {
-    console.log('No booking found!');
+    console.log("No booking found!");
     return null;
   }
 
@@ -72,18 +75,18 @@ export async function getLatestBookingByRequestee(
 export async function getLatestBookingByRequester(
   userId: string
 ): Promise<Option<Booking>> {
-  const bookingsCollection = collection(db, 'bookings');
+  const bookingsCollection = collection(db, "bookings");
   const querySnapshot = query(
     bookingsCollection,
-    where('requesterId', '==', userId),
-    where('status', '==', 'confirmed'),
-    orderBy('timestamp', 'desc'),
+    where("requesterId", "==", userId),
+    where("status", "==", "confirmed"),
+    orderBy("timestamp", "desc"),
     limit(1)
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
 
   if (queryDocs.empty) {
-    console.log('No booking found!');
+    console.log("No booking found!");
     return null;
   }
 
@@ -99,14 +102,14 @@ export async function getLatestPerformerReviewByPerformerId(
   );
   const querySnapshot = query(
     reviewsCollection,
-    orderBy('timestamp', 'desc'),
+    orderBy("timestamp", "desc"),
     limit(1)
   ).withConverter(reviewConverter);
 
   const queryDocs = await getDocs(querySnapshot);
 
   if (queryDocs.empty) {
-    console.log('No review found!');
+    console.log("No review found!");
     return null;
   }
 
@@ -119,14 +122,14 @@ export async function getLatestBookerReviewByBookerId(
   const reviewsCollection = collection(db, `reviews/${userId}/bookerReviews`);
   const querySnapshot = query(
     reviewsCollection,
-    orderBy('timestamp', 'desc'),
+    orderBy("timestamp", "desc"),
     limit(1)
   ).withConverter(reviewConverter);
 
   const queryDocs = await getDocs(querySnapshot);
 
   if (queryDocs.empty) {
-    console.log('No review found!');
+    console.log("No review found!");
     return null;
   }
 
@@ -136,13 +139,13 @@ export async function getLatestBookerReviewByBookerId(
 export async function getUserOpportunities(
   userId: string
 ): Promise<Opportunity[]> {
-  const opportunitiesCollection = collection(db, 'opportunities');
+  const opportunitiesCollection = collection(db, "opportunities");
   const querySnapshot = query(
     opportunitiesCollection,
-    orderBy('startTime', 'desc'),
-    where('startTime', '>', new Date()),
-    where('deleted', '==', false),
-    where('userId', '==', userId)
+    orderBy("startTime", "desc"),
+    where("startTime", ">", new Date()),
+    where("deleted", "==", false),
+    where("userId", "==", userId)
   ).withConverter(opportunityConverter);
 
   const queryDocs = await getDocs(querySnapshot);
@@ -155,12 +158,12 @@ export async function getUserOpportunities(
 }
 
 export async function getOpportunityById(opportunityId: string) {
-  const docRef = doc(db, 'opportunities', opportunityId).withConverter(
+  const docRef = doc(db, "opportunities", opportunityId).withConverter(
     opportunityConverter
   );
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
-    console.log('No such document!');
+    console.log("No such document!");
     return null;
   }
 
@@ -168,20 +171,20 @@ export async function getOpportunityById(opportunityId: string) {
 }
 
 export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
-  const opportunitiesRef = collection(db, 'opportunities');
+  const opportunitiesRef = collection(db, "opportunities");
   const tccOpsQuery = query(
     opportunitiesRef,
-    where('userId', '==', 'yfjw9oCMwPVzAxgENxGxecPcNym1'),
-    where('deleted', '==', false),
-    where('startTime', '>', new Date()),
-    orderBy('startTime', 'desc'),
+    where("userId", "==", "yfjw9oCMwPVzAxgENxGxecPcNym1"),
+    where("deleted", "==", false),
+    where("startTime", ">", new Date()),
+    orderBy("startTime", "desc"),
     limit(3),
   ).withConverter(opportunityConverter);
   const tccOpsSnap = await getDocs(tccOpsQuery);
   const tccOps = tccOpsSnap.docs.map((doc) => doc.data());
 
-  const leadersRef = collection(db, 'leaderboard');
-  const leadersSnap = doc(leadersRef, 'leaders');
+  const leadersRef = collection(db, "leaderboard");
+  const leadersSnap = doc(leadersRef, "leaders");
   const leadersDoc = await getDoc(leadersSnap);
   const { featuredOpportunities } = leadersDoc.data() as {
     featuredOpportunities: string[];
@@ -223,7 +226,7 @@ export async function getReviewsByPerformerId(
   );
   const querySnapshot = query(
     reviewsCollection,
-    orderBy('timestamp', 'desc')
+    orderBy("timestamp", "desc")
   ).withConverter(reviewConverter);
 
   const queryDocs = await getDocs(querySnapshot);
@@ -235,7 +238,7 @@ export async function getReviewsByBookerId(userId: string): Promise<Review[]> {
   const reviewsCollection = collection(db, `reviews/${userId}/bookerReviews`);
   const querySnapshot = query(
     reviewsCollection,
-    orderBy('timestamp', 'desc')
+    orderBy("timestamp", "desc")
   ).withConverter(reviewConverter);
 
   const queryDocs = await getDocs(querySnapshot);
@@ -246,12 +249,12 @@ export async function getReviewsByBookerId(userId: string): Promise<Review[]> {
 export async function getBookingsByRequestee(
   userId: string
 ): Promise<Booking[]> {
-  const bookingsCollection = collection(db, 'bookings');
+  const bookingsCollection = collection(db, "bookings");
   const querySnapshot = query(
     bookingsCollection,
-    where('requesteeId', '==', userId),
-    where('status', '==', 'confirmed'),
-    orderBy('timestamp', 'desc')
+    where("requesteeId", "==", userId),
+    where("status", "==", "confirmed"),
+    orderBy("timestamp", "desc")
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
 
@@ -261,12 +264,12 @@ export async function getBookingsByRequestee(
 export async function getBookingsByRequester(
   userId: string
 ): Promise<Booking[]> {
-  const bookingsCollection = collection(db, 'bookings');
+  const bookingsCollection = collection(db, "bookings");
   const querySnapshot = query(
     bookingsCollection,
-    where('requesterId', '==', userId),
-    where('status', '==', 'confirmed'),
-    orderBy('timestamp', 'desc')
+    where("requesterId", "==", userId),
+    where("status", "==", "confirmed"),
+    orderBy("timestamp", "desc")
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
 
@@ -276,10 +279,10 @@ export async function getBookingsByRequester(
 export async function getBookingById(
   bookingId: string
 ): Promise<Option<Booking>> {
-  const docRef = doc(db, 'bookings', bookingId).withConverter(bookingConverter);
+  const docRef = doc(db, "bookings", bookingId).withConverter(bookingConverter);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
-    console.log('No such document!');
+    console.log("No such document!");
     return null;
   }
 
@@ -299,7 +302,7 @@ export async function createCheckoutSession({
     success_url: `${window.location.origin}/signup_complete`,
     cancel_url: window.location.origin,
     allow_promotion_codes: true,
-    mode: 'subscription',
+    mode: "subscription",
   });
 
   // Wait for the CheckoutSession to get attached by the extension
@@ -308,7 +311,7 @@ export async function createCheckoutSession({
     if (error) {
       // Show an error to your customer and then inspect your function logs.
       alert(`An error occured: ${error.message}`);
-      document.querySelectorAll('button').forEach((b) => (b.disabled = false));
+      document.querySelectorAll("button").forEach((b) => (b.disabled = false));
     }
     if (url) {
       window.location.assign(url);
@@ -319,8 +322,8 @@ export async function getActiveProducts(): Promise<
   { product: any; prices: any }[]
   > {
   const productsQuery = query(
-    collection(db, 'products'),
-    where('active', '==', true)
+    collection(db, "products"),
+    where("active", "==", true)
   );
   const products = await getDocs(productsQuery);
 
@@ -329,8 +332,8 @@ export async function getActiveProducts(): Promise<
       const priceRef = collection(db, `products/${product.id}/prices`);
       const pricesQuery = query(
         priceRef,
-        where('active', '==', true),
-        orderBy('unit_amount')
+        where("active", "==", true),
+        orderBy("unit_amount")
       );
       const prices = await getDocs(pricesQuery);
 
@@ -353,7 +356,7 @@ export async function addCustomerSubscriptionListener(userId, callback) {
   const subscriptionsRef = collection(db, `customers/${userId}/subscriptions`);
   const queryRef = query(
     subscriptionsRef,
-    where('status', 'in', ['trialing', 'active'])
+    where("status", "in", ["trialing", "active"])
   );
   return onSnapshot(queryRef, callback);
 }
@@ -371,4 +374,82 @@ export async function createNewApplicationResponse({
   });
 
   return docRef.id;
+}
+
+export async function hasUserSentContactRequest({ userId, venueId }: {
+  userId: string;
+  venueId: string;
+}) {
+  try {
+    const contactVenuesRef = collection(db, "contactVenues");
+    const userCollection = collection(contactVenuesRef, `${userId}/venuesContacted`);
+    const venueDoc = doc(userCollection, venueId);
+
+    const docSnap = await getDoc(venueDoc);
+    return docSnap.exists();
+  } catch (e) {
+    console.error(
+      "can't check if user has sent contact request", { cause: e }
+    );
+    return false;
+  }
+}
+
+export async function contactVenue({
+  currentUser,
+  venue,
+  note,
+  bookingEmail,
+}: {
+  currentUser: UserModel;
+    venue: UserModel;
+    note: string;
+    bookingEmail: string;
+  }) {
+  try {
+    // already contacted?
+    const hasSentContactRequest = await hasUserSentContactRequest({
+      userId: currentUser.id,
+      venueId: venue.id,
+    });
+
+    if (hasSentContactRequest) {
+      return;
+    }
+
+    await logEvent(
+      analytics,
+      "contact_venue",
+      {
+        "user_id": currentUser.id,
+        "venue_id": venue.id,
+        "booking_email": bookingEmail,
+        "note": note,
+      },
+    );
+
+    const contactVenueRequest: ContactVenueRequest = {
+      venue: venue,
+      user: currentUser,
+      bookingEmail: bookingEmail,
+      allEmails: [bookingEmail],
+      note: note,
+      timestamp: Timestamp.now(),
+      originalMessageId: null,
+      latestMessageId: null,
+      subject: null,
+      collaborators: [],
+    };
+
+    console.info("contactVenueRequest $contactVenueRequest");
+
+    const contactVenuesRef = collection(db, "contactVenues");
+    const userCollection = collection(contactVenuesRef, `${currentUser.id}/venuesContacted`);
+    const venueDoc = doc(userCollection, venue.id);
+    await setDoc(venueDoc, contactVenueRequest);
+  } catch (e) {
+    console.error(
+      "can't contact venue", { cause: e }
+    );
+  }
 }
