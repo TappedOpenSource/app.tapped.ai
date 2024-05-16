@@ -1,5 +1,5 @@
 import type { UserModel } from "@/domain/types/user_model";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 
 export default function UserAvatarList({ users }: {
@@ -18,10 +18,11 @@ export default function UserAvatarList({ users }: {
             target="_blank"
             rel="noreferrer noopener"
             href={`/${user.username}`}
-            className="flex items-center justify-center"
+            className="flex items-center justify-center rounded-full"
           >
             <Avatar key={user.id}>
-              <AvatarImage src={user.profilePicture ?? undefined} />
+              <AvatarImage src={user.profilePicture ?? undefined} alt={user.username} />
+              <AvatarFallback>JN</AvatarFallback>
             </Avatar>
           </Link>
         ))}

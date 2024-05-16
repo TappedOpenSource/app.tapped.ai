@@ -87,10 +87,21 @@ export default function RequestToPerformForm({ venueIds }: {
 
   if (authState === null) {
     return (
-      <div className="min-h-screen flex justify-center items-center">
-        <p>please log in to send a request</p>
+      <div className="min-h-screen flex flex-col justify-center items-center">
+        <p>log in to send a request</p>
         <Link href="/login">
           <Button>login</Button>
+        </Link>
+      </div>
+    );
+  }
+
+  if (!subscribed) {
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center">
+        <p>subscribe to send a request</p>
+        <Link href="/subscribe">
+          <Button>see pricing</Button>
         </Link>
       </div>
     );
