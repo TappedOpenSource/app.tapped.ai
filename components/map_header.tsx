@@ -53,7 +53,7 @@ function getSubtitle(hit: UserModel): string {
   if (capacity === null && category === null) {
     return totalFollowing === 0 ?
       `@${hit.username}` :
-      `${totalFollowing} followers`;
+      `${totalFollowing.toLocaleString()} followers`;
   }
 
   if (capacity === null && category !== null) {
@@ -64,7 +64,7 @@ function getSubtitle(hit: UserModel): string {
     return `@${hit.username}`;
   }
 
-  return `${capacity} capacity venue`;
+  return `${capacity.toLocaleString()} capacity venue`;
 }
 
 function Hit({ hit, onClick }: { hit: UserModel; onClick: () => void }) {
