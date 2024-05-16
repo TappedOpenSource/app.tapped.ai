@@ -25,7 +25,7 @@ import {
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
-const mapboxLightStyle = "mapbox/light-v10";
+const mapboxLightStyle = "mapbox/light-v11";
 
 export default function VenueMap() {
   const [popupInfo, setPopupInfo] = useState<{

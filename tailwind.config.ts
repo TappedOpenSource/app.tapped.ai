@@ -91,6 +91,10 @@ const config = {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        "shine": {
+          from: { backgroundPosition: "200% 0" },
+          to: { backgroundPosition: "-200% 0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -98,6 +102,7 @@ const config = {
         "marquee": "marquee 25s linear infinite",
         "marquee2": "marquee2 25s linear infinite",
         "fade-in": "fadeIn 1s",
+        "shine": "shine 8s ease-in-out infinite",
       },
     },
   },
