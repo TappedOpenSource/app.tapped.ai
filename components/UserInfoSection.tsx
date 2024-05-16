@@ -1,9 +1,5 @@
 import { UserModel } from "@/domain/types/user_model";
-import ApartmentIcon from "@mui/icons-material/Apartment";
-import MusicNoteIcon from "@mui/icons-material/MusicNote";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import StarIcon from "@mui/icons-material/Star";
-import { AtSign } from "lucide-react";
+import { Castle, UsersRound, Music4, AtSign, Star } from "lucide-react";
 
 export default function UserInfoSection({ user }: { user: UserModel }) {
   const genres = (
@@ -28,7 +24,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
       {venueType && (
         <>
           <div className="flex flex-row">
-            <ApartmentIcon />
+            <Castle />
             <div className="w-2" />
             <p>{venueType}</p>
           </div>
@@ -38,7 +34,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
       {capacity && (
         <>
           <div className="flex flex-row">
-            <PeopleAltIcon />
+            <UsersRound />
             <div className="w-2" />
             <p>{capacity} capacity</p>
           </div>
@@ -48,7 +44,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
       {genres && genres.length > 0 && (
         <>
           <div className="flex flex-row">
-            <MusicNoteIcon />
+            <Music4 />
             <div className="w-2" />
             <p className="overflow-hidden text-ellipsis">{genres.join(", ")}</p>
           </div>
@@ -57,7 +53,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
       )}
       {rating && (
         <div className="flex flex-row">
-          <StarIcon />
+          <Star size={21} color="#ffffff" strokeWidth={2.2} absoluteStrokeWidth />
           <div className="w-2" />
           <p>{rating} stars</p>
         </div>
