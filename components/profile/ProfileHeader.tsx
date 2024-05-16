@@ -84,7 +84,7 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
           <div className="h-4" />
         </>
       )}
-      {user.venueInfo !== null && (
+      {(user.venueInfo !== null && user.venueInfo !== undefined) && (
         <div className="flex w-full items-center justify-center">
           <Link
             href={`/request_to_perform?venue_ids=${user.id}`}

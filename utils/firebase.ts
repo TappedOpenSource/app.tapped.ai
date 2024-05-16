@@ -25,8 +25,10 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 // const analytics = getAnalytics(app);
 let analytics: Analytics | null = null;
-isSupported().then((_)=>{
-  analytics = getAnalytics(app);
+isSupported().then((supported)=>{
+  if (supported) {
+    analytics = getAnalytics(app);
+  }
 }).catch((e) => console.warn("analytics is not supported in this environment.", e.message));
 
 
