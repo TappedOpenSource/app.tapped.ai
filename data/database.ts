@@ -417,16 +417,18 @@ export async function contactVenue({
       return;
     }
 
-    await logEvent(
-      analytics,
-      "contact_venue",
-      {
-        "user_id": currentUser.id,
-        "venue_id": venue.id,
-        "booking_email": bookingEmail,
-        "note": note,
-      },
-    );
+    if (analytics !== null) {
+      await logEvent(
+        analytics,
+        "contact_venue",
+        {
+          "user_id": currentUser.id,
+          "venue_id": venue.id,
+          "booking_email": bookingEmail,
+          "note": note,
+        },
+      );
+    }
 
     const contactVenueRequest: ContactVenueRequest = {
       venue: venue,
