@@ -13,9 +13,9 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
     user.venueInfo?.genres ??
     []
   ).map((g) => g.toLowerCase());
-  const capacity = user.venueInfo?.capacity;
+  const capacity = user.venueInfo?.capacity ?? null;
   const rating = user.performerInfo?.rating ?? user.bookerInfo?.rating ?? null;
-  const venueType = user.venueInfo?.type;
+  const venueType = user.venueInfo?.type?.toLowerCase() ?? null;
 
   return (
     <div className="bg-secondary flex w-full flex-col items-start justify-start rounded-xl px-8 py-4 shadow-lg">
