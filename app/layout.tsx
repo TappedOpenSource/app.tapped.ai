@@ -56,6 +56,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+        <script async src="https://cdn.tolt.io/tolt.js" data-tolt="c77a5dc4-85f0-4852-9474-d07e64a12ace"></script>
       </head>
       <body
         className={cn(

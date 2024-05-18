@@ -1,6 +1,7 @@
 "use client";
 
 import { loginWithGoogle } from "@/data/auth";
+import { Button } from "@/components/ui/button";
 
 export default function ContinueWithGoogleButton({ onClick }: {
     onClick: () => void,
@@ -8,7 +9,13 @@ export default function ContinueWithGoogleButton({ onClick }: {
   const handleLogin = async () => {
     // e.preventDefault();
     try {
-      await loginWithGoogle();
+      const creds = await loginWithGoogle();
+      const { email } = creds;
+
+      if (window["tolt_referral"] && email != null) {
+        window["tolt"].signup(email);
+      }
+
       onClick();
     } catch (err) {
       console.error(err);
@@ -17,10 +24,9 @@ export default function ContinueWithGoogleButton({ onClick }: {
   };
 
   return (
-    <button
+    <Button
       onClick={handleLogin}
       type="button"
-      className="flex flex-row justify-center text-black bg-white hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 text-center rounded-full text-sm px-5 py-2.5 inline-flex items-center mr-2 mb-2"
     >
       <svg
         className="ml-1 mr-2 h-4 w-4"
@@ -40,7 +46,7 @@ export default function ContinueWithGoogleButton({ onClick }: {
       <p className='font-bold'>
           continue with google
       </p>
-    </button>
+    </Button>
   );
 }
 

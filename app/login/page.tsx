@@ -23,7 +23,7 @@ export default function Page() {
         >
           Login
         </Link>
-        <div className="relative hidden h-full flex-col bg-muted text-white dark:border-r lg:flex">
+        <div className="relative hidden h-full flex-col bg-muted dark:border-r lg:flex">
           {/* <div className="absolute inset-0 bg-zinc-900" /> */}
           <div className="relative z-20 w-full h-full">
             <Image

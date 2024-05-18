@@ -41,7 +41,7 @@ export async function loginWithGoogle() {
   console.debug("loginWithGoogle");
   const provider = new GoogleAuthProvider();
   const userCred = await signInWithPopup(auth, provider);
-  return { uid: userCred.user.uid };
+  return { uid: userCred.user.uid, email: userCred.user.email };
 }
 
 export async function logout() {

@@ -55,7 +55,7 @@ export default function Page() {
           className="underline text-blue">
           login
         </Link>
-        to access DMs
+        {" "}to access DMs
       </div>
     );
   }
