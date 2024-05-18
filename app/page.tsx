@@ -84,7 +84,7 @@ export default async function Home() {
             </h2>
             <div className="mb-4 mt-8 flex flex-col justify-center gap-4 px-4 py-2 md:flex-row">
               <Link
-                href="/download"
+                href="/login"
                 className="transform rounded-full bg-white px-6 py-3 text-center text-lg font-bold text-black transition-all duration-200 ease-in-out hover:scale-105"
               >
                 get started
