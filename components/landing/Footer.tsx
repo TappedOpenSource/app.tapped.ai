@@ -19,10 +19,10 @@ const Footer = () => {
                 </li>
                 <li className="mb-4">
                   <Link
-                    href="https://linktree.tapped.ai"
+                    href="https://tapped.tolt.io"
                     className=" hover:underline"
                   >
-                    linktree
+                    become affiliate
                   </Link>
                 </li>
                 <li className="mb-4">
