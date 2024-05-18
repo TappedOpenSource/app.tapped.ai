@@ -156,7 +156,7 @@ function MapHeaderUi() {
           </div>
           {state === null ? (
             <>
-              <Link href={`/login?return_url=${encodeURIComponent(pathname)}`}>
+              <Link href={`/login?return_url=${encodeURIComponent("/download")}`}>
                 <Button className="ml-2">login</Button>
               </Link>
             </>
