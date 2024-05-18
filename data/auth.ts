@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPopup,
+  sendSignInLinkToEmail,
 } from "firebase/auth";
 
 
@@ -35,6 +36,30 @@ export async function signupWithCredentials({ email, password }: {
     password,
   );
   return { uid: loginResult.user.uid };
+}
+
+export async function sendPasswordlessEmail(email: string, {
+  returnUrl,
+}: {
+    returnUrl: string;
+}) {
+  const fullReturnUrl = `https://tapped.ai/${returnUrl}`;
+  await sendSignInLinkToEmail(auth, email, {
+    // URL you want to redirect back to. The domain (www.example.com) for this
+    // URL must be in the authorized domains list in the Firebase Console.
+    url: fullReturnUrl,
+    // This must be true.
+    handleCodeInApp: true,
+    iOS: {
+      bundleId: "com.intheloopstudio",
+    },
+    android: {
+      packageName: "com.intheloopstudio",
+      installApp: true,
+      minimumVersion: "12",
+    },
+    dynamicLinkDomain: "tapped.ai",
+  });
 }
 
 export async function loginWithGoogle() {

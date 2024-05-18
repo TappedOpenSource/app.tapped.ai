@@ -1,3 +1,4 @@
+import Footer from "@/components/landing/Footer";
 import Nav from "@/components/landing/Nav";
 import { NextPage } from "next";
 
@@ -35,6 +36,7 @@ const About: NextPage = () => {
         </section>
 
       </main>
+      <Footer />
     </>
   );
 };
