@@ -1,4 +1,5 @@
 import Script from "next/script";
+import Footer from "@/components/landing/Footer";
 
 // If using TypeScript, add the following snippet to your file as well.
 declare global {
@@ -37,6 +38,7 @@ if (window.tolt_referral) {
           publishable-key="pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil">
         </stripe-pricing-table>
       </div>
+      <Footer />
     </>
   );
 }
