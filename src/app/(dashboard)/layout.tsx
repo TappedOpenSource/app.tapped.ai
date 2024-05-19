@@ -3,6 +3,7 @@
 import { Sidebar } from "@/components/admin-panel/sidebar";
 import { useSidebarToggle } from "@/context/use-sidebar-toggle";
 import { Footer } from "@/components/admin-panel/footer";
+import FullFooter from "@/components/Footer";
 import { useStore } from "@/context/use-store";
 import { cn } from "@/lib/utils";
 import { SearchProvider } from "@/context/search";
@@ -14,6 +15,7 @@ import UserSideSheet from "@/components/UserSideSheet";
 import { useAuth } from "@/context/auth";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import OnboardingForm from "@/components/onboarding/OnboardingForm";
 
 
 export default function DashboardLayout({
@@ -27,6 +29,20 @@ export default function DashboardLayout({
 
   const { state: authState } = useAuth();
   const loggedIn = authState?.currentUserId !== undefined && authState?.currentUserId !== null;
+  const onboarded = authState?.currentUser !== undefined && authState?.currentUser !== null;
+
+  if (!onboarded) {
+    return (
+      <>
+        <main>
+          <OnboardingForm />
+        </main>
+        <footer>
+          <FullFooter />
+        </footer>
+      </>
+    );
+  }
 
   return (
     <>
