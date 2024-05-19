@@ -31,6 +31,25 @@ export default function DashboardLayout({
   const loggedIn = authState?.currentUserId !== undefined && authState?.currentUserId !== null;
   const onboarded = authState?.currentUser !== undefined && authState?.currentUser !== null;
 
+  if (!loggedIn) {
+    return (
+      <>
+        <main>
+          <div className="flex flex-col min-h-screen items-center justify-center">
+            <Button>
+              <Link href={`/login?return_url=${encodeURIComponent("/dashboard")}`}>
+                login
+              </Link>
+            </Button>
+          </div>
+        </main>
+        <footer>
+          <FullFooter />
+        </footer>
+      </>
+    );
+  }
+
   if (!onboarded) {
     return (
       <>
@@ -63,19 +82,7 @@ export default function DashboardLayout({
             sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
           )}
         >
-          {loggedIn ? (
-            children
-          ) : (
-            <div className="flex flex-col min-h-screen items-center justify-center">
-              <Button>
-                <Link
-                  href={`/login?return_url=${encodeURIComponent("/dashboard")}`}
-                >
-                login
-                </Link>
-              </Button>
-            </div>
-          )}
+          {children}
         </main>
         <footer
           className={cn(
