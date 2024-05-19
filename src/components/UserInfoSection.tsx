@@ -13,7 +13,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
     user.venueInfo?.genres ??
     []
   ).map((g) => g.toLowerCase());
-  const capacity = user.venueInfo?.capacity ?? null;
+  const capacity = user.venueInfo?.capacity?.toLocaleString() ?? null;
   const rating = user.performerInfo?.rating ?? user.bookerInfo?.rating ?? null;
   const venueType = user.venueInfo?.type?.toLowerCase() ?? null;
 
