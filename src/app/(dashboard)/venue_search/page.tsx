@@ -13,7 +13,7 @@ import Link from "next/link";
 export default function Page() {
   return (
     <>
-      <ContentLayout title="users">
+      <ContentLayout title="build a show">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -29,7 +29,7 @@ export default function Page() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>settings</BreadcrumbPage>
+              <BreadcrumbPage>build a show</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
