@@ -21,8 +21,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logout } from "@/data/auth";
+import { useAuth } from "@/context/auth";
 
 export function UserNav() {
+  const { state: { currentUser } } = useAuth();
+
   return (
     <DropdownMenu>
       <TooltipProvider disableHoverableContent>
@@ -34,22 +37,22 @@ export function UserNav() {
                 className="relative h-8 w-8 rounded-full"
               >
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src="#" alt="Avatar" />
-                  <AvatarFallback className="bg-transparent">JD</AvatarFallback>
+                  <AvatarImage src={currentUser?.profilePicture ?? undefined} alt="Avatar" />
+                  <AvatarFallback className="bg-transparent">{currentUser?.username.slice(0, 2) ?? "JD"}</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
           </TooltipTrigger>
-          <TooltipContent side="bottom">Profile</TooltipContent>
+          <TooltipContent side="bottom">profile</TooltipContent>
         </Tooltip>
       </TooltipProvider>
 
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">John Doe</p>
+            <p className="text-sm font-medium leading-none">{currentUser?.artistName ?? currentUser?.username ?? "John Doe"}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              johndoe@example.com
+              {currentUser?.email ?? "johndoe@email.com"}
             </p>
           </div>
         </DropdownMenuLabel>
@@ -62,9 +65,9 @@ export function UserNav() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem className="hover:cursor-pointer" asChild>
-            <Link href="/account" className="flex items-center">
+            <Link href="/settings" className="flex items-center">
               <User className="w-4 h-4 mr-3 text-muted-foreground" />
-              account
+              settings
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>

@@ -46,7 +46,7 @@ if (window.tolt_referral) {
 }
 })
 `}</Script>
-      <ContentLayout title="users">
+      <ContentLayout title="premium">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
