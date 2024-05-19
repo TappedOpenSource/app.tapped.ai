@@ -1,9 +1,9 @@
 "use client";
 
-import { useOnboarded } from "@/context/onboarded";
+import { useAuth } from "@/context/auth";
 
 export default function OnboardingForm() {
-  const { state } = useOnboarded();
+  const { state } = useAuth();
   console.log({ state });
 
   return (

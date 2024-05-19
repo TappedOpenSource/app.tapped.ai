@@ -63,11 +63,10 @@ export default function RequestToPerformForm({ venueIds }: {
       return;
     }
 
-    if (authState === null) {
+    const { currentUser } = authState;
+    if (currentUser === null) {
       return;
     }
-
-    const { currentUser } = authState;
 
     setLoading(true);
     try {

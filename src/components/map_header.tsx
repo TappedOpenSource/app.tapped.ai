@@ -25,7 +25,7 @@ import {
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -107,7 +107,6 @@ function MapHeaderUi() {
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebounce<string>(query, 250);
   const router = useRouter();
-  const pathname = usePathname();
   const { setTheme } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -164,9 +163,9 @@ function MapHeaderUi() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="bg-background ml-2 hover:cursor-pointer hover:shadow-xl">
-                  {state.currentUser.profilePicture !== null && (
+                  {state.currentUser?.profilePicture !== null && (
                     <AvatarImage
-                      src={state.currentUser.profilePicture}
+                      src={state.currentUser?.profilePicture}
                       style={{ objectFit: "cover", overflow: "hidden" }}
                     />
                   )}

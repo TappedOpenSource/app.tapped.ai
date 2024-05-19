@@ -26,8 +26,7 @@ export default function DashboardLayout({
   const sidebar = useStore(useSidebarToggle, (state) => state);
 
   const { state: authState } = useAuth();
-  const loggedIn = authState?.currentUser !== undefined && authState?.currentUser !== null;
-  // const { state: currentUser } = useOnboarding();
+  const loggedIn = authState?.currentUserId !== undefined && authState?.currentUserId !== null;
 
   return (
     <>

@@ -9,8 +9,6 @@ import { PurchasesProvider } from "@/context/purchases";
 import { ThemeProvider } from "@/context/themes";
 import { cn } from "@/lib/utils";
 import "./globals.css";
-import { OnboardProvider } from "@/context/onboarded";
-import { SearchProvider } from "@/context/search";
 
 const title = "tapped ai : create world tour from your iphone";
 const description =
@@ -68,16 +66,14 @@ export default function RootLayout({
       >
         <AuthProvider>
           <PurchasesProvider>
-            <OnboardProvider>
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="dark"
-                enableSystem
-                disableTransitionOnChange
-              >
-                {children}
-              </ThemeProvider>
-            </OnboardProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
           </PurchasesProvider>
         </AuthProvider>
         <Toaster />
