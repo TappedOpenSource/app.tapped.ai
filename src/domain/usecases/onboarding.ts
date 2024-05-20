@@ -4,7 +4,7 @@ import { User } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
 import { sleep } from "@/utils/promise";
 import { convertToNullableString } from "@/utils/strings";
-import { createUser } from "@/data/database";
+import { checkUsernameAvailability, createOrUpdateUser } from "@/data/database";
 
 type OnboardFormUser = {
     username: string;
@@ -24,6 +24,16 @@ export async function onboardNewUser(
   onboardFormUser: OnboardFormUser,
 ) {
   try {
+    const usernameAvailable = await checkUsernameAvailability(
+      authUser.uid,
+      onboardFormUser.username,
+    );
+
+    if (!usernameAvailable) {
+      throw new Error("username already taken");
+    }
+
+
     //   const profilePictureUrl = await switch (onboardFormUser.pickedPhoto) {
     //     Some(:const value) => () async {
     //         const url = await storageRepository.uploadProfilePicture(
@@ -91,12 +101,13 @@ export async function onboardNewUser(
       stripeCustomerId: null,
     };
 
-    await createUser(newUserObj);
+    await createOrUpdateUser(newUserObj);
     await sleep(2000);
 
     dispatch({ type: "ONBOARD", currentUser: newUserObj });
   } catch (e) {
     console.error(e);
+    throw e;
   }
 }
 
@@ -106,8 +117,17 @@ export async function updateOnboardedUser(
 ) {
   try {
   // check that username doesn't already exist on someone else
+    const usernameAvailable = await checkUsernameAvailability(
+      updatedUser.id,
+      updatedUser.username,
+    );
+
+    if (!usernameAvailable) {
+      throw new Error("username already taken");
+    }
 
     // update user in DB
+    await createOrUpdateUser(updatedUser);
 
     dispatch({ type: "ONBOARD", currentUser: updatedUser });
   } catch (e) {

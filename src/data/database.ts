@@ -11,6 +11,7 @@ import {
   orderBy,
   limit,
   Timestamp,
+  updateDoc,
 } from "firebase/firestore";
 import {
   LabelApplication,
@@ -26,7 +27,26 @@ import { type Opportunity, opportunityConverter } from "@/domain/types/opportuni
 import { logEvent } from "firebase/analytics";
 import { ContactVenueRequest } from "@/domain/types/contact_venue_request";
 
-export async function createUser(user: UserModel): Promise<void> {
+
+export async function checkUsernameAvailability(
+  userId: string,
+  username: string,
+): Promise<boolean> {
+  const blacklist = ["anonymous", "*deleted*"];
+
+  if (blacklist.includes(username)) {
+    return false;
+  }
+
+  const usersRef = collection(db, "users");
+  const userQuery = query(usersRef, where("username", "==", username), limit(1));
+  const userQuerySnapshot = await getDocs(userQuery);
+  const userQueryDocs = userQuerySnapshot.docs;
+
+  return !(userQueryDocs.length > 0 && userQueryDocs[0].id !== userId);
+}
+
+export async function createOrUpdateUser(user: UserModel): Promise<void> {
   const docRef = doc(db, "users", user.id);
   await setDoc(docRef, user, { merge: true });
 }
