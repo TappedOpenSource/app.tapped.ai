@@ -19,10 +19,10 @@ import { ContentLayout } from "@/components/admin-panel/content-layout";
 
 
 export default function Page() {
-  const { state: { currentUserId } } = useAuth();
+  const { state: { authUser } } = useAuth();
   const pathname = usePathname();
 
-  if (currentUserId === null) {
+  if (authUser === null) {
     const encodedPathname = encodeURIComponent(pathname);
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -35,6 +35,7 @@ export default function Page() {
       </div>
     );
   }
+  const currentUserId = authUser.uid;
 
   const filters = { members: { $in: [currentUserId] }, type: "messaging" };
   return (
@@ -64,7 +65,7 @@ export default function Page() {
             sort={{ last_message_at: -1 }}
             filters={filters}
             // options={options}
-            // Paginator={InfiniteScroll}
+            Paginator={InfiniteScroll}
             showChannelSearch
           />
         </div>

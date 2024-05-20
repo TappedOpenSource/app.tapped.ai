@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Map, LogOut, User } from "lucide-react";
+import { Map, LogOut, User, Settings } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -64,12 +64,23 @@ export function UserNav() {
               map
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem className="hover:cursor-pointer" asChild>
-            <Link href="/settings" className="flex items-center">
-              <User className="w-4 h-4 mr-3 text-muted-foreground" />
-              settings
-            </Link>
-          </DropdownMenuItem>
+          {
+            currentUser?.username !== undefined && (
+              <>
+                <DropdownMenuItem className="hover:cursor-pointer" asChild>
+                  <Link href={`/${currentUser?.username ?? ""}`} className="flex items-center">
+                    <User className="w-4 h-4 mr-3 text-muted-foreground" />
+              profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="hover:cursor-pointer" asChild>
+                  <Link href="/settings" className="flex items-center">
+                    <Settings className="w-4 h-4 mr-3 text-muted-foreground" />
+                      settings
+                  </Link>
+                </DropdownMenuItem>
+              </>
+            )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="hover:cursor-pointer" onClick={logout}>

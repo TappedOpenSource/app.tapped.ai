@@ -2,7 +2,6 @@
 
 import { Sidebar } from "@/components/admin-panel/sidebar";
 import { useSidebarToggle } from "@/context/use-sidebar-toggle";
-import { Footer } from "@/components/admin-panel/footer";
 import FullFooter from "@/components/Footer";
 import { useStore } from "@/context/use-store";
 import { cn } from "@/lib/utils";
@@ -18,6 +17,7 @@ import Link from "next/link";
 import OnboardingForm from "@/components/onboarding/OnboardingForm";
 import { Chat, useCreateChatClient } from "stream-chat-react";
 import { getStreamToken } from "@/data/messaging";
+import { useTheme } from "next-themes";
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY ?? "";
 export default function DashboardLayout({
@@ -25,13 +25,14 @@ export default function DashboardLayout({
 }: {
     children: React.ReactNode;
   }) {
+  const { resolvedTheme } = useTheme();
   const { width } = useWindowDimensions();
   const screenIsSmall = width < 640;
   const sidebar = useStore(useSidebarToggle, (state) => state);
   const { state: authState } = useAuth();
-  const currentUserId = authState?.currentUserId;
+  const currentUserId = authState?.authUser?.uid;
 
-  const loggedIn = authState?.currentUserId !== undefined && authState?.currentUserId !== null;
+  const loggedIn = currentUserId !== undefined && currentUserId !== null;
   const onboarded = authState?.currentUser !== undefined && authState?.currentUser !== null;
   const [token, setToken] = useState<string | null>(null);
   const client = useCreateChatClient({
@@ -103,6 +104,7 @@ export default function DashboardLayout({
       <SearchProvider>
         <Chat
           client={client}
+          theme={`str-chat__theme-${resolvedTheme === "dark" ? "dark" : "light"}`}
         >
           <Sidebar />
           <main
@@ -113,14 +115,14 @@ export default function DashboardLayout({
           >
             {children}
           </main>
-          <footer
+          {/* <footer
             className={cn(
               "transition-[margin-left] ease-in-out duration-300",
               sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
             )}
           >
             <Footer />
-          </footer>
+          </footer> */}
         </Chat>
       </SearchProvider>
     </>

@@ -9,31 +9,65 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { onboardNewUser } from "@/domain/usecases/onboarding";
+import { useState } from "react";
+import { LoadingSpinner } from "../LoadingSpinner";
 
 const formSchema = z.object({
   username: z.string().min(3).max(20),
   profilePicture: z.custom<File>(),
   instagramHandle: z.string().min(3).max(20).optional(),
-  instagramFollowers: z.number().int().positive().optional(),
+  instagramFollowers: z.number().int().positive(),
   twitterHandle: z.string().min(3).max(20).optional(),
-  twitterFollowers: z.number().int().positive().optional(),
+  twitterFollowers: z.number().int().positive(),
   tiktokHandle: z.string().min(3).max(20).optional(),
-  tiktokFollowers: z.number().int().positive().optional(),
+  tiktokFollowers: z.number().int().positive(),
   eula: z.boolean(),
 });
 
 
 export default function OnboardingForm() {
-  const { state } = useAuth();
+  const { state: { authUser }, dispatch } = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      twitterFollowers: 0,
+      instagramFollowers: 0,
+      tiktokFollowers: 0,
+    },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  const [loading, setLoading] = useState(false);
+
+  if (authUser === null) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p>you must be logged in to access this page.</p>
+      </div>
+    );
   }
 
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    setLoading(true);
+    console.log(values);
+
+    if (!authUser) {
+      throw new Error("cannot onboard without an auth user");
+    }
+
+    await onboardNewUser(dispatch, authUser, values);
+    setLoading(true);
+  }
 
   return (
     <>

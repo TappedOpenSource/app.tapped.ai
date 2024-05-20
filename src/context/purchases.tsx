@@ -42,11 +42,11 @@ export function PurchasesProvider({ children }: {
     children: ReactNode;
 }) {
   const { state: authState } = useAuth();
-  const { currentUserId } = authState;
+  const { authUser } = authState;
   const [state, dispatch] = useReducer(purchasesReducer, null);
 
-  if (state === null && currentUserId !== null) {
-    initPurchases(currentUserId, state, dispatch);
+  if (state === null && authUser !== null) {
+    initPurchases(authUser.uid, state, dispatch);
   }
 
   return (
