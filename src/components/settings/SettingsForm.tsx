@@ -11,6 +11,7 @@ import { genres } from "@/domain/types/genre";
 import MultipleSelector from "../ui/multiple-selector";
 import { useAuth } from "@/context/auth";
 import { LoadingSpinner } from "../LoadingSpinner";
+import { updateOnboardedUser } from "@/domain/usecases/onboarding";
 
 
 const optionSchema = z.object({
@@ -48,7 +49,7 @@ const formSchema = z.object({
 
 
 export default function SettingsForm() {
-  const { state: { currentUser } } = useAuth();
+  const { state: { currentUser }, dispatch } = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -79,8 +80,17 @@ export default function SettingsForm() {
     );
   }
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log({ data });
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
+      console.log({ data });
+
+      // const newUserObj = {};
+
+      // await updateOnboardedUser(dispatch, newUserObj);
+    } catch (e) {
+      console.error(e);
+      alert(e.message);
+    }
   };
 
   return (

@@ -56,16 +56,22 @@ export default function OnboardingForm() {
   }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
     // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    setLoading(true);
-    console.log(values);
+      // ✅ This will be type-safe and validated.
+      setLoading(true);
+      console.log(values);
 
-    if (!authUser) {
-      throw new Error("cannot onboard without an auth user");
+      if (!authUser) {
+        throw new Error("cannot onboard without an auth user");
+      }
+
+      await onboardNewUser(dispatch, authUser, values);
+    } catch (e) {
+      console.error(e);
+      alert(e.message);
     }
 
-    await onboardNewUser(dispatch, authUser, values);
     setLoading(true);
   }
 
