@@ -101,15 +101,19 @@ export default function ProfileView({ username }: { username: string }) {
 
   return (
     <>
-      <div className="lg:flex lg:justify-center">
-        <div className="lg:w-[30vw] lg:px-6">
-          <ProfileHeader user={user} />
+      <div className="md:flex md:justify-center md:relative">
+        <div className="md:w-[30vw] md:px-6">
+          <div className="md:sticky md:top-0">
+            <ProfileHeader user={user} />
+          </div>
         </div>
-        <BuildRows
-          user={user}
-          bookings={bookings}
-          latestReview={latestReview}
-        />
+        <div className="lg:grow">
+          <BuildRows
+            user={user}
+            bookings={bookings}
+            latestReview={latestReview}
+          />
+        </div>
       </div>
     </>
   );
@@ -125,7 +129,7 @@ function BuildRows({
   latestReview: Review | null;
 }) {
   return (
-    <div className="px-3 py-6 lg:w-[70vw] lg:px-24 lg:py-12">
+    <div className="px-3 py-6 md:w-[70vw] md:px-24 md:py-12">
       <div className="h-4" />
       {bookings.length !== 0 && (
         <div>
