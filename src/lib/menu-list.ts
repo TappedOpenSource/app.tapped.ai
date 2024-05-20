@@ -11,12 +11,14 @@ import {
 
 type Submenu = {
   href: string;
+  external?: boolean;
   label: string;
   active: boolean;
 };
 
 type Menu = {
   href: string;
+  external?: boolean;
   label: string;
   active: boolean;
   icon: any;
@@ -86,6 +88,7 @@ export function getMenuList(pathname: string): Group[] {
         },
         {
           href: "https://tapped.tolt.io",
+          external: true,
           label: "join the team",
           active: pathname.includes("/affiliate"),
           icon: Handshake,
@@ -93,6 +96,7 @@ export function getMenuList(pathname: string): Group[] {
         },
         {
           href: "https://tapped.canny.io/ideas-bugs",
+          external: true,
           label: "bugs & ideas",
           active: pathname.includes("/bugsandideas"),
           icon: Bug,

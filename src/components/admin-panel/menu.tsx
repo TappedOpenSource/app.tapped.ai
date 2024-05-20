@@ -53,7 +53,7 @@ export function Menu({ isOpen }: MenuProps) {
                   <p className="pb-2"></p>
                 )}
                 {menus.map(
-                  ({ href, label, icon: Icon, active, submenus }, index) =>
+                  ({ href, external, label, icon: Icon, active, submenus }, index) =>
                     submenus.length === 0 ? (
                       <div className="w-full" key={index}>
                         <TooltipProvider disableHoverableContent>
@@ -64,7 +64,11 @@ export function Menu({ isOpen }: MenuProps) {
                                 className="w-full justify-start h-10 mb-1"
                                 asChild
                               >
-                                <Link href={href}>
+                                <Link
+                                  href={href}
+                                  target={external ? "_blank" : undefined}
+                                  referrerPolicy={external ? "no-referrer" : undefined}
+                                >
                                   <span
                                     className={cn(isOpen === false ? "" : "mr-4")}
                                   >
