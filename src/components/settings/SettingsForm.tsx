@@ -6,16 +6,78 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import SearchAddress from "../ui/search-address";
+import { genres } from "@/domain/types/genre";
+import MultipleSelector from "../ui/multiple-selector";
+import { useAuth } from "@/context/auth";
+import { LoadingSpinner } from "../LoadingSpinner";
+
+
+const optionSchema = z.object({
+  label: z.string(),
+  value: z.string(),
+  disable: z.boolean().optional(),
+});
+
+const genreOptions = genres.map((genre) => ({
+  label: genre.toLowerCase(),
+  value: genre,
+}));
 
 const formSchema = z.object({
-  username: z.string().min(3).max(20),
+  profilePicture: z.custom<File>(),
+  username: z.string().min(3).max(25),
+  artistName: z.string().min(3).max(25),
+  bio: z.string().max(1024),
+  location: z.object({
+    placeId: z.string(),
+    lat: z.number(),
+    lng: z.number(),
+  }),
+  twitterHandle: z.string().optional(),
+  twitterFollowers: z.number().optional(),
+  instagramHandle: z.string().min(3).max(20).optional(),
+  instagramFollowers: z.number().int().positive(),
+  tiktokHandle: z.string().min(3).max(20).optional(),
+  tiktokFollowers: z.number().int().positive(),
+  // youtubeHandle: z.string().min(3).max(20).optional(),
+  spotifyUrl: z.string().url().optional(),
+  label: z.string().optional(),
+  genres: z.array(optionSchema),
 });
 
 
 export default function SettingsForm() {
+  const { state: { currentUser } } = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: currentUser?.username,
+      artistName: currentUser?.artistName,
+      bio: currentUser?.bio,
+      twitterHandle: currentUser?.socialFollowing.twitchHandle ?? undefined,
+      twitterFollowers: currentUser?.socialFollowing.twitchFollowers ?? 0,
+      instagramHandle: currentUser?.socialFollowing.instagramHandle ?? undefined,
+      instagramFollowers: currentUser?.socialFollowing.instagramFollowers ?? 0,
+      tiktokHandle: currentUser?.socialFollowing.tiktokHandle ?? undefined,
+      tiktokFollowers: currentUser?.socialFollowing.tiktokFollowers ?? 0,
+      // youtubeHandle: currentUser?.socialFollowing.youtubeHandle ?? undefined,
+      spotifyUrl: currentUser?.socialFollowing.spotifyUrl ?? undefined,
+      label: currentUser?.performerInfo?.label ?? undefined,
+      genres: currentUser?.performerInfo?.genres.map((genre) => ({
+        label: genre.toLowerCase(),
+        value: genre,
+      })) ?? [],
+    },
   });
+
+  if (currentUser === null) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     console.log({ data });
@@ -24,9 +86,36 @@ export default function SettingsForm() {
   return (
     <>
       <div className="space-y-6 p-6">
-        <h1 className="text-3xl font-bold">settings</h1>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <div className="flex flex-row justify-between">
+              <h1 className="text-3xl font-bold">settings</h1>
+              <Button type="submit">
+              save
+              </Button>
+            </div>
+            <FormField
+              control={form.control}
+              name="profilePicture"
+              render={({ field: { value, onChange, ...fieldProps } }) => (
+                <FormItem>
+                  <FormLabel>profile picture</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...fieldProps}
+                      placeholder="profile picture"
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) =>
+                        onChange(event.target.files && event.target.files[0])
+                      }
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="username"
@@ -43,9 +132,203 @@ export default function SettingsForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
-              search
-            </Button>
+            <FormField
+              control={form.control}
+              name="artistName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>username</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="artistName"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="bio"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>username</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="bio"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="location"
+              render={({ field: { onChange } }) => (
+                <FormItem>
+                  <FormLabel>city</FormLabel>
+                  <FormControl>
+                    <SearchAddress onSelectLocation={
+                      (location) => {
+                        console.log(location);
+                        if (location === null) {
+                          return;
+                        }
+
+                        onChange({
+                          placeId: location.id,
+                          lat: location.latitude,
+                          lng: location.longitude,
+                        });
+                      }
+                    } />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="instagramHandle"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>instagram handle</FormLabel>
+                    <FormControl>
+                      <Input id="instagram_handle" placeholder="@champagnepapi" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="instagramFollowers"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>instagram followers</FormLabel>
+                    <FormControl>
+                      <Input id="instagram_followers" type="number" placeholder="0" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="twitterHandle"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>twitter handle</FormLabel>
+                    <FormControl>
+                      <Input id="twitter_handle" placeholder="@taylorswift13" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="twitterFollowers"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>twitter followers</FormLabel>
+                    <FormControl>
+                      <Input id="twitter_followers" type="number" placeholder="0" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="tiktokHandle"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>tiktok handle</FormLabel>
+                    <FormControl>
+                      <Input id="tiktok_handle" placeholder="@chandlermatkins" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="tiktokFollowers"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>tiktok followers</FormLabel>
+                    <FormControl>
+                      <Input id="tiktok_followers" type="number" placeholder="0" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <FormField
+              control={form.control}
+              name="spotifyUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>spotify url</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="https://open.spotify.com/artist/..."
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="label"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>label</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Interscope Records"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="genres"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>genres</FormLabel>
+                  <FormControl>
+                    <MultipleSelector
+                      {...field}
+                      defaultOptions={genreOptions}
+                      placeholder="select genres you like..."
+                      emptyIndicator={
+                        <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                          no results found.
+                        </p>
+                      }
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
           </form>
         </Form>
       </div>
