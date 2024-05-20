@@ -21,6 +21,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { LoadingSpinner } from "../LoadingSpinner";
+import { useRouter } from "next/navigation";
 
 const optionSchema = z.object({
   label: z.string(),
@@ -47,6 +48,7 @@ const genreOptions = genres.map((genre) => ({
 export default function VenueSearchForm() {
   const { state: authState } = useAuth();
   const { state: subscribed } = usePurchases();
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -77,11 +79,21 @@ export default function VenueSearchForm() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+
+    const queryParams = new URLSearchParams({
+      capacity: values.capacity.toString(),
+      genres: values.genres.map((genre) => genre.value).join(","),
+      lat: values.location.lat.toString(),
+      lng: values.location.lng.toString(),
+      radius: "250",
+    });
+
+    router.push(`/venue_search/results?${queryParams.toString()}`);
   }
 
   return (
     <>
-      <div className="mx-auto max-w-2xl space-y-6 p-6">
+      <div className="space-y-6 p-6">
         <h1 className="text-3xl font-bold">find the right venues</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
