@@ -1,10 +1,24 @@
+import { Map } from "lucide-react";
+import Component from "../../components/ui/toggle";
 const Settings = () => {
   return (
     <div className="min-h-screen p-8">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-[700px] mx-auto">
         <h1 className="text-3xl mb-8 text-center">Settings</h1>
-
+        <div className="flex flex-col items-center mb-8">
+          <div className="relative">
+            <img style={{ marginLeft: "27%" }} src="https://via.placeholder.com/150" alt="Profile" className="w-32 h-32 rounded-full object-cover" />
+            <input
+              type="file"
+              id="profilePic"
+              name="profilePic"
+            />
+          </div>
+        </div>
         <h2 className="text-xl mb-4">Preferences</h2>
+        <button style={{ marginLeft: "85%", width: "5rem" }} className="p-2 bg-blue-500 rounded-md text-white cursor-pointer hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            Save
+        </button>
         <div className="mb-6">
           <label htmlFor="username" className="block text-gray-400 mb-2">Username</label>
           <input type="text" id="username" name="username" defaultValue="mdotr" className="w-full p-3 bg-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500" required />
@@ -14,8 +28,18 @@ const Settings = () => {
           <input type="text" id="bio" name="bio" placeholder="Enter your bio" className="w-full p-3 bg-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
         <div className="mb-6">
-          <label htmlFor="city" className="block text-gray-400 mb-2">City</label>
-          <input type="text" id="city" name="city" placeholder="Select a city" className="w-full p-3 bg-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <a style={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            color: "inherit",
+            padding: "0.5rem",
+            borderRadius: "0.375rem",
+            transition: "background-color 0.3s, color 0.3s",
+          }}>
+            <Map style={{ marginRight: "0.5rem" }} />
+            tap to select a city
+          </a>
         </div>
         <div className="mb-6">
           <label htmlFor="twitter" className="block text-gray-400 mb-2">Twitter Link</label>
@@ -56,10 +80,7 @@ const Settings = () => {
 
         <h2 className="text-xl mb-4">Preferences</h2>
         <div className="flex items-center justify-between mb-6">
-          <label htmlFor="darkMode" className="text-gray-400">Dark Mode</label>
-          <input type="checkbox" id="darkMode" name="darkMode" />
-          <span className="slider round"></span>
-          <label htmlFor="darkMode" className="text-gray-400">Light Mode</label>
+          <Component />
         </div>
 
         <div className="mb-6">
@@ -68,11 +89,11 @@ const Settings = () => {
           <div className="mt-4">
             <div className="mb-4">
               <label htmlFor="independent" className="block text-gray-400 mb-2">Independent</label>
-              <input type="text" id="independent" name="independent" placeholder="Independent" className="w-full p-3 bg-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <select id="independent" name="independent" placeholder="Independent" className="w-full p-3 bg-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500" ></select>
             </div>
             <div className="mb-4">
               <label htmlFor="genre" className="block text-gray-400 mb-2">Select Genre</label>
-              <input type="text" id="genre" name="genre" placeholder="Genre" className="w-full p-3 bg-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <select id="genre" name="genre" placeholder="Genre" className="w-full p-3 bg-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></select>
             </div>
           </div>
         </div>
@@ -102,6 +123,7 @@ const Settings = () => {
           <button className="w-full p-3 bg-blue-500 rounded-md text-white cursor-pointer hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">Terms of Service</button>
           <button className="w-full p-3 bg-red-500 rounded-md text-white cursor-pointer hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Sign Out</button>
         </div>
+        <a style={{ color: "red", fontSize: "small", marginLeft: "auto" }}>Delete Account</a>
       </div>
     </div>
   );
