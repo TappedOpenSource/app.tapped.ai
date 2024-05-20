@@ -1,9 +1,14 @@
+"use client";
+
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 import { columns } from "@/components/venue_search/columns";
 import { DataTable } from "@/components/venue_search/data_table";
 import { useSearch } from "@/context/search";
+import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Page({ searchParams }: {
     searchParams: { [key: string]: string };
@@ -15,14 +20,28 @@ export default function Page({ searchParams }: {
   const radius = searchParams["radius"];
   const { useSearchData } = useSearch();
 
+  console.log({ capacity, genres, lat, lng, radius });
+
   const { data } = useSearchData("", {
-    hitsPerPage: 50,
-    minCapacity: parseInt(capacity),
-    genres: genres.split(","),
+    hitsPerPage: 30,
+    maxCapacity: parseInt(capacity),
+    venueGenres: genres.split(","),
     lat: parseFloat(lat),
     lng: parseFloat(lng),
     radius: parseInt(radius),
   });
+  const [rowSelection, setRowSelection] = useState({});
+  const table = useReactTable({
+    data: data ?? [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    onRowSelectionChange: setRowSelection,
+    state: {
+      rowSelection,
+    },
+  });
+
+  const venueIds = table.getFilteredRowModel().rows.map((row) => row.original.id);
 
   return (
     <>
@@ -46,8 +65,19 @@ export default function Page({ searchParams }: {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <div className="container mx-auto py-10">
-          <DataTable columns={columns} data={data ?? []} />
+        <div className="container mx-auto py-10 overflow-y-scroll">
+          <div className="flex justify-end py-3">
+            <Button
+              disabled={table.getFilteredSelectedRowModel().rows.length === 0}
+            >
+              <Link
+                href={`/build_a_show/request_to_perform?venue_ids=${venueIds.join(",")}`}
+              >
+            request to perform
+              </Link>
+            </Button>
+          </div>
+          <DataTable table={table} />
         </div>
       </ContentLayout>
     </>

@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 export default function Page() {
   return (
     <>
-      <MapHeader />
       <div className="flex flex-col justify-center items-center mx-auto max-w-2xl space-y-6 p-6">
         <h1 className="text-3xl font-bold">your request has been sent</h1>
         <p className="">

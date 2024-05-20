@@ -6,8 +6,5 @@ export async function getStreamToken(userId: string): Promise<string> {
   console.debug("getting stream token");
   const callable = httpsCallable(functions, "ext-auth-chat-getStreamUserToken");
   const res = await callable({ userId });
-  const token = res.data as string;
-  console.debug("TOKEN " + token);
-
-  return token;
+  return res.data as string;
 }

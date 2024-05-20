@@ -85,10 +85,10 @@ export default function VenueSearchForm() {
       genres: values.genres.map((genre) => genre.value).join(","),
       lat: values.location.lat.toString(),
       lng: values.location.lng.toString(),
-      radius: "250",
+      radius: "250000",
     });
 
-    router.push(`/venue_search/results?${queryParams.toString()}`);
+    router.push(`/build_a_show/results?${queryParams.toString()}`);
   }
 
   return (

@@ -6,6 +6,7 @@ import {
   MessageCircle,
   Award,
   Theater,
+  Bug,
 } from "lucide-react";
 
 type Submenu = {
@@ -63,9 +64,9 @@ export function getMenuList(pathname: string): Group[] {
         //   ],
         // },
         {
-          href: "/venue_search",
+          href: "/build_a_show",
           label: "build a show",
-          active: pathname.includes("/venue_search"),
+          active: pathname.includes("/build_a_show"),
           icon: Theater,
           submenus: [],
         },
@@ -88,6 +89,13 @@ export function getMenuList(pathname: string): Group[] {
           label: "join the team",
           active: pathname.includes("/affiliate"),
           icon: Handshake,
+          submenus: [],
+        },
+        {
+          href: "https://tapped.canny.io/ideas-bugs",
+          label: "bugs & ideas",
+          active: pathname.includes("/bugsandideas"),
+          icon: Bug,
           submenus: [],
         },
       ],

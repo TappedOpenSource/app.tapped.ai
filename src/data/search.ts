@@ -95,6 +95,8 @@ export async function queryUsers(query: string, {
       numbericFilters.push(`venueInfo.capacity<=${maxCapacity}`);
     }
 
+    console.log({ query, filtersStr, hitsPerPage, radius, formattedLocationFilter, numbericFilters });
+
     const response = await usersIndex.search<UserModel>(query, {
       filters: filtersStr,
       hitsPerPage: hitsPerPage ?? 10,
