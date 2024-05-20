@@ -1,10 +1,12 @@
 import {
-  Tag,
+  Handshake,
   Users,
   Settings,
-  Bookmark,
-  SquarePen,
-  LayoutGrid,
+  Map,
+  MessageCircle,
+  Award,
+  Theater,
+  Bug,
 } from "lucide-react";
 
 type Submenu = {
@@ -35,7 +37,7 @@ export function getMenuList(pathname: string): Group[] {
           href: "/dashboard",
           label: "map",
           active: pathname.includes("/dashboard"),
-          icon: LayoutGrid,
+          icon: Map,
           submenus: [],
         },
       ],
@@ -43,54 +45,75 @@ export function getMenuList(pathname: string): Group[] {
     {
       groupLabel: "contents",
       menus: [
+        // {
+        //   href: "",
+        //   label: "posts",
+        //   active: pathname.includes("/posts"),
+        //   icon: SquarePen,
+        //   submenus: [
+        //     {
+        //       href: "/posts",
+        //       label: "all posts",
+        //       active: pathname === "/posts",
+        //     },
+        //     {
+        //       href: "/posts/new",
+        //       label: "new post",
+        //       active: pathname === "/posts/new",
+        //     },
+        //   ],
+        // },
         {
-          href: "",
-          label: "posts",
-          active: pathname.includes("/posts"),
-          icon: SquarePen,
-          submenus: [
-            {
-              href: "/posts",
-              label: "all posts",
-              active: pathname === "/posts",
-            },
-            {
-              href: "/posts/new",
-              label: "new post",
-              active: pathname === "/posts/new",
-            },
-          ],
-        },
-        {
-          href: "/categories",
-          label: "categories",
-          active: pathname.includes("/categories"),
-          icon: Bookmark,
+          href: "/build_a_show",
+          label: "build a show",
+          active: pathname.includes("/build_a_show"),
+          icon: Theater,
           submenus: [],
         },
         {
-          href: "/tags",
-          label: "tags",
-          active: pathname.includes("/tags"),
-          icon: Tag,
+          href: "/messages",
+          label: "messages",
+          active: pathname.includes("/messages"),
+          icon: MessageCircle,
+          submenus: [],
+        },
+        {
+          href: "/premium",
+          label: "premium",
+          active: pathname.includes("/premium"),
+          icon: Award,
+          submenus: [],
+        },
+        {
+          href: "https://tapped.tolt.io",
+          label: "join the team",
+          active: pathname.includes("/affiliate"),
+          icon: Handshake,
+          submenus: [],
+        },
+        {
+          href: "https://tapped.canny.io/ideas-bugs",
+          label: "bugs & ideas",
+          active: pathname.includes("/bugsandideas"),
+          icon: Bug,
           submenus: [],
         },
       ],
     },
     {
-      groupLabel: "settings",
+      groupLabel: "account",
       menus: [
+        // {
+        //   href: "/profile",
+        //   label: "me",
+        //   active: pathname.includes("/profile"),
+        //   icon: Users,
+        //   submenus: [],
+        // },
         {
-          href: "/users",
-          label: "users",
-          active: pathname.includes("/users"),
-          icon: Users,
-          submenus: [],
-        },
-        {
-          href: "/account",
-          label: "account",
-          active: pathname.includes("/account"),
+          href: "/settings",
+          label: "settings",
+          active: pathname.includes("/settings"),
           icon: Settings,
           submenus: [],
         },

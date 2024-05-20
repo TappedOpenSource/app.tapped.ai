@@ -1,5 +1,14 @@
-import { BoundingBox, queryVenuesInBoundedBox, queryUsers } from "@/data/search";
-import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import {
+  BoundingBox,
+  queryVenuesInBoundedBox,
+  queryUsers,
+  UserSearchOptions,
+} from "@/data/search";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 import { ReactNode } from "react";
 
 
@@ -14,16 +23,14 @@ export const useSearch = () => {
       },
     });
 
-  const useSearchData = (query: string, { hitsPerPage }: {
-    hitsPerPage: number;
-  }) => useQuery({
+  const useSearchData = (query: string, options: UserSearchOptions) => useQuery({
     queryKey: ["users", query],
     queryFn: async () => {
-      if (query === "") {
+      if (query === "" && options.lat === undefined && options.lng === undefined && options.minCapacity === undefined && options.genres === undefined && options.maxCapacity === undefined) {
         return [];
       }
 
-      return await queryUsers(query, { hitsPerPage });
+      return await queryUsers(query, options);
     },
   });
 

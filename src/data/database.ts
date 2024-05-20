@@ -26,6 +26,11 @@ import { type Opportunity, opportunityConverter } from "@/domain/types/opportuni
 import { logEvent } from "firebase/analytics";
 import { ContactVenueRequest } from "@/domain/types/contact_venue_request";
 
+export async function createUser(user: UserModel): Promise<void> {
+  const docRef = doc(db, "users", user.id);
+  await setDoc(docRef, user, { merge: true });
+}
+
 export async function getUserById(userId: string): Promise<Option<UserModel>> {
   const docRef = doc(db, "users", userId);
   const docSnap = await getDoc(docRef);

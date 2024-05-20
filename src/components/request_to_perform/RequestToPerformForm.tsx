@@ -63,17 +63,16 @@ export default function RequestToPerformForm({ venueIds }: {
       return;
     }
 
-    if (authState === null) {
+    const { currentUser } = authState;
+    if (currentUser === null) {
       return;
     }
-
-    const { currentUser } = authState;
 
     setLoading(true);
     try {
       await requestToPerform(currentUser, venues, note);
       //   nav.push(RequestToPerformConfirmationPage(venues: _venues));
-      router.push("/request_to_perform_confirmation");
+      router.push("/build_a_show/request_to_perform_confirmation");
     } catch (e) {
       console.error(
         "error sending the request", { cause: e }
@@ -100,7 +99,7 @@ export default function RequestToPerformForm({ venueIds }: {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center">
         <p>subscribe to send a request</p>
-        <Link href="/subscribe">
+        <Link href="/premium">
           <Button>see pricing</Button>
         </Link>
       </div>
@@ -109,7 +108,7 @@ export default function RequestToPerformForm({ venueIds }: {
 
   return (
     <>
-      <div className="mx-auto max-w-2xl space-y-6 p-6">
+      <div className="space-y-6 p-6">
         <UserAvatarList users={venues} />
         <h1 className="text-3xl font-bold">send them a note</h1>
         <Form {...form}>

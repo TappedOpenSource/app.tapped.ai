@@ -1,52 +1,28 @@
 "use client";
 
 import { useAuth } from "@/context/auth";
-import { getStreamToken } from "@/data/messaging";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import {
   Channel,
   ChannelHeader,
   ChannelList,
-  Chat,
   InfiniteScroll,
   MessageInput,
   MessageList,
   Thread,
   Window,
-  useCreateChatClient,
 } from "stream-chat-react";
 import "stream-chat-react/dist/css/v2/index.css";
 import "stream-chat-react/dist/css/v2/index.layout.css";
-import "./layout.css";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { ContentLayout } from "@/components/admin-panel/content-layout";
 
-const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY ?? "";
 
-const options = { presence: true, state: true };
 export default function Page() {
-  const { state } = useAuth();
+  const { state: { authUser } } = useAuth();
   const pathname = usePathname();
-  const currentUser = state?.currentUser ?? null;
-  const [token, setToken] = useState<string | null>(null);
 
-  const client = useCreateChatClient({
-    apiKey,
-    tokenOrProvider: token,
-    userData: { id: currentUser?.id ?? "" },
-  });
-
-  useEffect(() => {
-    const fetchToken = async () => {
-      if (!currentUser) return;
-      const token = await getStreamToken(currentUser.id);
-      setToken(token);
-    };
-    fetchToken();
-  }, [currentUser]);
-
-  if (currentUser === null) {
+  if (authUser === null) {
     const encodedPathname = encodeURIComponent(pathname);
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -59,12 +35,31 @@ export default function Page() {
       </div>
     );
   }
-  if (!client) return <LoadingSpinner />;
+  const currentUserId = authUser.uid;
 
-  const filters = { members: { $in: [currentUser.id] }, type: "messaging" };
+  const filters = { members: { $in: [currentUserId] }, type: "messaging" };
   return (
-    <div id="root">
-      <Chat client={client}>
+    <ContentLayout title="messages" noPadding>
+      {/* <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/">home</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/dashboard">map</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>messages</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb> */}
+      <div id="root">
         <div className="channel-list-container">
           <ChannelList
             sort={{ last_message_at: -1 }}
@@ -82,7 +77,7 @@ export default function Page() {
           </Window>
           <Thread />
         </Channel>
-      </Chat>
-    </div>
+      </div>
+    </ContentLayout>
   );
 }

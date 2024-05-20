@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-nested-template-literals */
 import { UserModel } from "@/domain/types/user_model";
 import algoliasearch from "algoliasearch";
 
@@ -26,13 +27,87 @@ export async function queryVenuesInBoundedBox(bounds: BoundingBox | null, { hits
   return response.hits;
 }
 
-export async function queryUsers(query: string, { hitsPerPage }: {
+export type UserSearchOptions = {
   hitsPerPage: number;
-}): Promise<UserModel[]> {
-  const response = await usersIndex.search<UserModel>(query, {
-    filters: "deleted:false",
-    hitsPerPage: hitsPerPage ?? 10,
-  });
+  labels?: string[];
+  genres?: string[];
+  occupations?: string[];
+  venueGenres?: string[];
+  unclaimed?: boolean;
+  lat?: number;
+  lng?: number;
+  radius?: number;
+  minCapacity?: number;
+  maxCapacity?: number;
+};
 
-  return response.hits;
+export async function queryUsers(query: string, {
+  hitsPerPage,
+  labels,
+  genres,
+  occupations,
+  venueGenres,
+  unclaimed,
+  lat,
+  lng,
+  radius = 50_000,
+  minCapacity,
+  maxCapacity,
+}: UserSearchOptions): Promise<UserModel[]> {
+  const formattedIsDeletedFilter = "deleted:false";
+  const formattedLabelFilter = labels != null ?
+    `(${labels.map((e) => `performerInfo.label:'${e}'`).join(" OR ")})` :
+    null;
+  const formattedGenreFilter = genres != null ?
+    `(${genres.map((e) => `performerInfo.genres:'${e}'`).join(" OR ")})` :
+    null;
+  const formattedOccupationFilter = occupations != null ?
+    `(${occupations.map((e) => `occupations:'${e}'`).join(" OR ")})` :
+    null;
+  const formattedVenueGenreFilter = venueGenres != null ?
+    `(${venueGenres.map((e) => `venueInfo.genres:'${e}'`).join(" OR ")})` :
+    null;
+  const formattedUnclaimedFilter = unclaimed != null ?
+    `unclaimed:${unclaimed}` :
+    null;
+
+  const filters = [
+    formattedIsDeletedFilter,
+    formattedLabelFilter,
+    formattedGenreFilter,
+    formattedOccupationFilter,
+    formattedVenueGenreFilter,
+    formattedUnclaimedFilter,
+  ].filter((element) => element !== null);
+  const filtersStr = filters.join(" AND ");
+
+  const formattedLocationFilter =
+    (lat != null && lng != null) ? `${lat}, ${lng}` : undefined;
+
+  try {
+    const numbericFilters: string[] = [];
+
+    if (minCapacity != null) {
+      numbericFilters.push(`venueInfo.capacity>=${minCapacity}`);
+    }
+
+    if (maxCapacity != null) {
+      numbericFilters.push(`venueInfo.capacity<=${maxCapacity}`);
+    }
+
+    console.log({ query, filtersStr, hitsPerPage, radius, formattedLocationFilter, numbericFilters });
+
+    const response = await usersIndex.search<UserModel>(query, {
+      filters: filtersStr,
+      hitsPerPage: hitsPerPage ?? 10,
+      aroundRadius: radius,
+      aroundLatLng: formattedLocationFilter,
+      numericFilters: numbericFilters,
+    });
+
+    return response.hits;
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
 }

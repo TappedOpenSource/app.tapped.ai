@@ -32,7 +32,7 @@ if (window.tolt_referral) {
 }
 })
 `}</Script>
-      <div className="min-h-screen bg-white flex justify-center items-center">
+      <div className="bg-white flex justify-center items-center">
         <stripe-pricing-table
           pricing-table-id="prctbl_1PFJ5XDYybu1wznE3NpaCEH4"
           publishable-key="pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil">
