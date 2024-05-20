@@ -99,3 +99,19 @@ export async function onboardNewUser(
     console.error(e);
   }
 }
+
+export async function updateOnboardedUser(
+  dispatch: Dispatch,
+  updatedUser: UserModel,
+) {
+  try {
+  // check that username doesn't already exist on someone else
+
+    // update user in DB
+
+    dispatch({ type: "ONBOARD", currentUser: updatedUser });
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}

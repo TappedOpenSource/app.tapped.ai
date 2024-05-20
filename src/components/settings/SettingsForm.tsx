@@ -126,6 +126,7 @@ export default function SettingsForm() {
                     <Input
                       {...field}
                       placeholder="username"
+                      className="lowercase"
                     />
                   </FormControl>
                   <FormMessage />

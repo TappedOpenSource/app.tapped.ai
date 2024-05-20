@@ -101,7 +101,7 @@ function Hit({ hit, onClick }: { hit: UserModel; onClick: () => void }) {
 }
 
 function MapHeaderUi() {
-  const { state } = useAuth();
+  const { state: { currentUser } } = useAuth();
   const { state: subscribed } = usePurchases();
   const { useSearchData } = useSearch();
   const [query, setQuery] = useState<string>("");
@@ -149,13 +149,17 @@ function MapHeaderUi() {
         </div>
         <div className="flex flex-row">
           <div className="hidden md:block">
-            <Link href="/download">
+            <Link
+              href="https://tapped.ai/download"
+              target="_blank"
+              referrerPolicy="no-referrer"
+            >
               <Button variant="link">get the app</Button>
             </Link>
           </div>
-          {state === null ? (
+          {currentUser === null ? (
             <>
-              <Link href={`/login?return_url=${encodeURIComponent("/download")}`}>
+              <Link href={`/login?return_url=${encodeURIComponent("/dashboard")}`}>
                 <Button className="ml-2">login</Button>
               </Link>
             </>
@@ -163,9 +167,9 @@ function MapHeaderUi() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="bg-background ml-2 hover:cursor-pointer hover:shadow-xl">
-                  {state.currentUser?.profilePicture !== null && (
+                  {currentUser?.profilePicture !== null && (
                     <AvatarImage
-                      src={state.currentUser?.profilePicture}
+                      src={currentUser?.profilePicture}
                       style={{ objectFit: "cover", overflow: "hidden" }}
                     />
                   )}
