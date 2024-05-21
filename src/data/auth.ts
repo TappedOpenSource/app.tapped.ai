@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   sendSignInLinkToEmail,
+  fetchSignInMethodsForEmail,
 } from "firebase/auth";
 
 

@@ -1,45 +1,63 @@
 "use client";
 
-import { useState } from "react";
 import ContinueWithGoogleButton from "@/components/login/ContinueWithGoogleButton";
-import { useRouter, useSearchParams } from "next/navigation";
-import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { signupWithCredentials } from "@/data/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginWithCredentials } from "@/data/auth";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const formSchema = z.object({
   email: z.string().email({ message: "enter a valid email address" }),
-  password: z.string(),
+  password: z.string().min(8, { message: "password must be at least 8 characters" }),
+  confirmPassword: z.string(),
 });
 
-type UserFormValue = z.infer<typeof formSchema>;
+type SignUpFormValue = z.infer<typeof formSchema>;
 
-export default function AuthForm() {
+export default function SignUpForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const returnUrl = searchParams.get("return_url");
-  const form = useForm<UserFormValue>({
+  const returnUrl = searchParams.get("return_url") ?? "/dashboard";
+  const form = useForm<SignUpFormValue>({
     resolver: zodResolver(formSchema),
   });
   const [loading, setLoading] = useState(false);
 
   const onGoogleLogin = () => {
-    router.push(returnUrl || "/dashboard");
+    router.push(returnUrl);
   };
 
-  const onSubmit = async (data: UserFormValue) => {
+  const onSubmit = async (data: SignUpFormValue) => {
     try {
-      setLoading(true);
-      await loginWithCredentials(data);
+      if (data.password !== data.confirmPassword) {
+        throw new Error("passwords do not match");
+      }
 
-      router.push(returnUrl || "/dashboard");
+      setLoading(true);
+      const { email } = data;
+      await signupWithCredentials(data);
+
+      if (window["tolt_referral"] && email != null) {
+        window["tolt"].signup(email);
+      }
+
+      router.push(returnUrl ?? "/dashboard");
     } catch (err) {
       console.error(err);
-      throw new Error("failed to login", { cause: err });
+      alert(err.message);
     } finally {
       setLoading(false);
     }
@@ -88,10 +106,37 @@ export default function AuthForm() {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>confirm password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="********"
+                    disabled={loading}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-          <Button disabled={loading} className="ml-auto w-full" type="submit">
-            continue with email
-          </Button>
+          <div className="flex flex-row gap-4">
+            <Button variant={"secondary"}>
+              <Link
+                href={`/login?return_url=${encodeURIComponent(returnUrl)}`}
+              >
+                already have an account?
+              </Link>
+            </Button>
+            <Button disabled={loading} className="ml-auto w-full" type="submit">
+            sign up
+            </Button>
+          </div>
         </form>
       </Form>
       <div className="relative">
