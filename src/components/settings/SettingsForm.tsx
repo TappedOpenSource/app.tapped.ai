@@ -12,6 +12,8 @@ import MultipleSelector from "../ui/multiple-selector";
 import { useAuth } from "@/context/auth";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { updateOnboardedUser } from "@/domain/usecases/onboarding";
+import * as _ from "lodash";
+import { uploadProfilePicture } from "@/data/storage";
 
 
 const optionSchema = z.object({
@@ -84,9 +86,40 @@ export default function SettingsForm() {
     try {
       console.log({ data });
 
-      // const newUserObj = {};
+      const profilePictureUrl = await (async () => {
+        if (data.profilePicture) {
+          return await uploadProfilePicture(
+            currentUser.id,
+            data.profilePicture,
+          );
+        } else {
+          return currentUser.profilePicture;
+        }
+      })();
 
-      // await updateOnboardedUser(dispatch, newUserObj);
+      const newUserObj = _.merge(currentUser, {
+        username: data.username,
+        artistName: data.artistName,
+        bio: data.bio,
+        profilePicture: profilePictureUrl,
+        socialFollowing: {
+          instagramHandle: data.instagramHandle,
+          instagramFollowers: data.instagramFollowers,
+          twitterHandle: data.twitterHandle,
+          twitterFollowers: data.twitterFollowers,
+          tiktokHandle: data.tiktokHandle,
+          tiktokFollowers: data.tiktokFollowers,
+          // youtubeHandle: data.youtubeHandle,
+          spotifyUrl: data.spotifyUrl,
+        },
+        performerInfo: {
+          genres: data.genres.map((genre) => genre.value),
+          label: data.label,
+        },
+        location: data.location,
+      });
+
+      await updateOnboardedUser(dispatch, newUserObj);
     } catch (e) {
       console.error(e);
       alert(e.message);

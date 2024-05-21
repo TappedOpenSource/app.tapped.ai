@@ -1,10 +1,12 @@
-import type { UserModel } from "@/domain/types/user_model";
+import { type UserModel, emptyUserModel } from "@/domain/types/user_model";
 import { Dispatch } from "@/context/auth";
 import { User } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
 import { sleep } from "@/utils/promise";
 import { convertToNullableString } from "@/utils/strings";
 import { checkUsernameAvailability, createOrUpdateUser } from "@/data/database";
+import * as _ from "lodash";
+import { uploadProfilePicture } from "@/data/storage";
 
 type OnboardFormUser = {
     username: string;
@@ -33,31 +35,29 @@ export async function onboardNewUser(
       throw new Error("username already taken");
     }
 
-
-    //   const profilePictureUrl = await switch (onboardFormUser.pickedPhoto) {
-    //     Some(:const value) => () async {
-    //         const url = await storageRepository.uploadProfilePicture(
-    //           currentAuthUser.uid,
-    //           value,
-    //         );
-    //         return Option.of(url);
-    //       }(),
-    //     None() => Future.value(const None()),
-    //   };
+    const profilePictureUrl = await (async () => {
+      if (onboardFormUser.profilePicture) {
+        return await uploadProfilePicture(
+          authUser.uid,
+          onboardFormUser.profilePicture
+        ); // directly return the URL
+      } else {
+        return null; // return null if no photo is picked
+      }
+    })();
 
     const tiktokHandle = convertToNullableString(onboardFormUser.tiktokHandle);
     const instagramHandle = convertToNullableString(onboardFormUser.instagramHandle);
     const twitterHandle = convertToNullableString(onboardFormUser.twitterHandle);
 
-    const newUserObj: UserModel = {
+    const newUserObj = _.merge(emptyUserModel, {
       id: authUser.uid,
       email: authUser.email!,
       unclaimed: false,
       deleted: false,
-      timestamp: Timestamp.now(),
       username: onboardFormUser.username,
       artistName: authUser.displayName ?? onboardFormUser.username,
-      profilePicture: null,
+      profilePicture: profilePictureUrl,
       socialFollowing: {
         tiktokHandle,
         tiktokFollowers: onboardFormUser.tiktokFollowers,
@@ -65,16 +65,7 @@ export async function onboardNewUser(
         instagramFollowers: onboardFormUser.instagramFollowers,
         twitterHandle,
         twitterFollowers: onboardFormUser.twitterFollowers,
-        facebookHandle: null,
-        facebookFollowers: 0,
-        audiusHandle: null,
-        audiusFollowers: 0,
-        soundcloudHandle: null,
-        soundcloudFollowers: 0,
-        twitchHandle: null,
-        twitchFollowers: 0,
       },
-      bio: "",
       performerInfo: {
         genres: [],
         label: "Independent",
@@ -82,24 +73,7 @@ export async function onboardNewUser(
         rating: 0,
         category: "undiscovered",
       },
-      occupations: [],
-      location: null,
-      venueInfo: null,
-      bookerInfo: null,
-      emailNotifications: {
-        appReleases: true,
-        tappedUpdates: true,
-        bookingRequests: true,
-      },
-      pushNotifications: {
-        appReleases: true,
-        tappedUpdates: true,
-        bookingRequests: true,
-        directMessages: true,
-      },
-      stripeConnectedAccountId: null,
-      stripeCustomerId: null,
-    };
+    });
 
     await createOrUpdateUser(newUserObj);
     await sleep(2000);
@@ -126,7 +100,6 @@ export async function updateOnboardedUser(
       throw new Error("username already taken");
     }
 
-    // update user in DB
     await createOrUpdateUser(updatedUser);
 
     dispatch({ type: "ONBOARD", currentUser: updatedUser });

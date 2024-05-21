@@ -112,6 +112,45 @@ export type UserModel = {
   stripeCustomerId: Option<string>;
 };
 
+export const emptyUserModel: UserModel = {
+  id: "",
+  email: "",
+  unclaimed: false,
+  timestamp: Timestamp.now(),
+  username: "",
+  artistName: "",
+  bio: "",
+  occupations: [],
+  profilePicture: null,
+  location: null,
+  performerInfo: null,
+  venueInfo: null,
+  bookerInfo: null,
+  emailNotifications: {
+    appReleases: true,
+    tappedUpdates: true,
+    bookingRequests: true,
+  },
+  pushNotifications: {
+    appReleases: true,
+    tappedUpdates: true,
+    bookingRequests: true,
+    directMessages: true,
+  },
+  deleted: false,
+  socialFollowing: {
+    tiktokFollowers: 0,
+    instagramFollowers: 0,
+    twitterFollowers: 0,
+    facebookFollowers: 0,
+    soundcloudFollowers: 0,
+    audiusFollowers: 0,
+    twitchFollowers: 0,
+  },
+  stripeConnectedAccountId: null,
+  stripeCustomerId: null,
+};
+
 export const userModelConverter = {
   toFirestore(user: UserModel): DocumentData {
     return { ...user };
