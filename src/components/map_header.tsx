@@ -159,7 +159,7 @@ function MapHeaderUi() {
           </div>
           {currentUser === null ? (
             <>
-              <Link href={`/login?return_url=${encodeURIComponent("/dashboard")}`}>
+              <Link href={`/signup?return_url=${encodeURIComponent("/dashboard")}`}>
                 <Button className="ml-2">login</Button>
               </Link>
             </>

@@ -56,7 +56,7 @@ export default function DashboardLayout({
         <main>
           <div className="flex flex-col min-h-screen items-center justify-center">
             <Button>
-              <Link href={`/login?return_url=${encodeURIComponent("/dashboard")}`}>
+              <Link href={`/signup?return_url=${encodeURIComponent("/dashboard")}`}>
                 login
               </Link>
             </Button>

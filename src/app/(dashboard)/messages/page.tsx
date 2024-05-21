@@ -27,7 +27,7 @@ export default function Page() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <Link
-          href={`/login?return_url=${encodedPathname}`}
+          href={`/signup?return_url=${encodedPathname}`}
           className="underline text-blue">
           login
         </Link>

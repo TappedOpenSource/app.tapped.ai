@@ -10,6 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { PasswordInput } from "@/components/ui/password_input";
 import { Input } from "@/components/ui/input";
 import { signupWithCredentials } from "@/data/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -95,8 +96,7 @@ export default function SignUpForm() {
               <FormItem>
                 <FormLabel>password</FormLabel>
                 <FormControl>
-                  <Input
-                    type="password"
+                  <PasswordInput
                     placeholder="********"
                     disabled={loading}
                     {...field}
@@ -113,8 +113,7 @@ export default function SignUpForm() {
               <FormItem>
                 <FormLabel>confirm password</FormLabel>
                 <FormControl>
-                  <Input
-                    type="password"
+                  <PasswordInput
                     placeholder="********"
                     disabled={loading}
                     {...field}
