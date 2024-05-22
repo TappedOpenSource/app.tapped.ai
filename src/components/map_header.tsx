@@ -134,18 +134,16 @@ function MapHeaderUi() {
     <>
       <div className="peer flex w-screen flex-row items-center px-4 pb-1 pt-8 md:px-8">
         <div className="flex-1">
-          <div className="relative">
-            <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
-              <Search className="h-4 w-4 text-gray-400" />
-            </div>
-            <input
-              ref={inputRef}
-              type="text"
-              placeholder="search tapped..."
-              className="bg-card w-full rounded-full p-2.5 px-6 py-4 ps-10 shadow-xl md:w-1/2 lg:w-1/3 xl:w-1/4"
-              onChange={(e) => setQuery(e.target.value)}
-            />
+          <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
+            <Search className="h-4 w-4 text-gray-400" />
           </div>
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="search tapped..."
+            className="bg-card w-full rounded-full p-2.5 px-6 py-4 ps-10 shadow-xl md:w-1/2 lg:w-1/3 xl:w-1/4"
+            onChange={(e) => setQuery(e.target.value)}
+          />
         </div>
         <div className="flex flex-row">
           <div className="hidden md:block">

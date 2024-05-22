@@ -19,6 +19,10 @@ import { Chat, useCreateChatClient } from "stream-chat-react";
 import { getStreamToken } from "@/data/messaging";
 import { useTheme } from "next-themes";
 
+import { useHotkeys } from "react-hotkeys-hook";
+import { useSearchToggle } from "@/context/use-search-toggle";
+import SearchDialog from "@/components/admin-panel/search-dialog";
+
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY ?? "";
 export default function DashboardLayout({
   children,
@@ -29,6 +33,7 @@ export default function DashboardLayout({
   const { width } = useWindowDimensions();
   const screenIsSmall = width < 640;
   const sidebar = useStore(useSidebarToggle, (state) => state);
+  const searchBar = useStore(useSearchToggle, (state) => state);
   const { state: authState } = useAuth();
   const currentUserId = authState?.authUser?.uid;
 
@@ -48,6 +53,11 @@ export default function DashboardLayout({
     };
     fetchToken();
   }, [currentUserId]);
+
+  useHotkeys("/", (e) => {
+    e.preventDefault();
+    searchBar?.setIsOpen();
+  });
 
 
   if (!loggedIn) {
@@ -106,6 +116,7 @@ export default function DashboardLayout({
           client={client}
           theme={`str-chat__theme-${resolvedTheme === "dark" ? "dark" : "light"}`}
         >
+          <SearchDialog />
           <Sidebar />
           <main
             className={cn(

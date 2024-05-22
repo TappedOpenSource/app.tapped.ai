@@ -1,6 +1,5 @@
 import {
   Handshake,
-  Users,
   Settings,
   Map,
   MessageCircle,
