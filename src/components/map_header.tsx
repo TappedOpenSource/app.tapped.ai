@@ -25,7 +25,7 @@ import {
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -109,6 +109,7 @@ function MapHeaderUi() {
   const router = useRouter();
   const { setTheme } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
+  const pathname = usePathname();
 
   const { data } = useSearchData(debouncedQuery, { hitsPerPage: 5 });
   useHotkeys("/", (e) => {
@@ -123,11 +124,11 @@ function MapHeaderUi() {
           <Hit
             key={user.id}
             hit={user}
-            onClick={() => router.push(`/?username=${user.username}`)}
+            onClick={() => router.push(`${pathname}?username=${user.username}`)}
           />
         );
       }),
-    [data, router]
+    [data, router, pathname]
   );
 
   return (
