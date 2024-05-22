@@ -20,7 +20,6 @@ export const useSearchAddress = () => {
       if (debouncedQuery.length > 2) {
         try {
           const response = await searchPlaces(debouncedQuery);
-          console.log("setting data ", { response });
           setResults(response);
           setLoading(false);
         } catch (error) {

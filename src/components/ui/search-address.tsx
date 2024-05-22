@@ -42,7 +42,7 @@ const SearchAddress: React.FC<SearchAddressProps> = ({
     return results.map((result, index) => (
       <CommandItem
         key={index}
-        value={result.id}
+        value={result.formattedAddress}
         onSelect={(currentValue: string) => {
           setValue(currentValue === value ? "" : currentValue);
           setSelectedItem(result ?? null);
@@ -53,7 +53,7 @@ const SearchAddress: React.FC<SearchAddressProps> = ({
         <Check
           className={cn(
             "mr-2 h-4 w-4",
-            value === result.id ?
+            value === result.formattedAddress ?
               "opacity-100" :
               "opacity-0",
           )}
@@ -88,6 +88,7 @@ const SearchAddress: React.FC<SearchAddressProps> = ({
             onValueChange={(value) => handleSearch(value)}
             className="w-full"
           />
+
           <CommandList>
             {loading ? (
               <CommandLoading>
