@@ -1,6 +1,7 @@
 "use client";
+
 import { Check, ChevronsUpDown } from "lucide-react";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -15,11 +16,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { searchPlaces } from "@/data/places";
 import { cn } from "@/lib/utils";
 import { CommandLoading } from "cmdk";
 import { PlacePrediction } from "@/domain/types/place_data";
-import { useDebounce } from "@/context/debounce";
+import { useSearchAddress } from "@/context/search-address";
 
 interface SearchAddressProps {
   onSelectLocation: (item: PlacePrediction | null) => void;
@@ -27,36 +27,16 @@ interface SearchAddressProps {
 const SearchAddress: React.FC<SearchAddressProps> = ({
   onSelectLocation,
 }) => {
-  const [query, setQuery] = useState("");
-  const debouncedQuery = useDebounce<string>(query, 250);
-  const [results, setResults] = useState<PlacePrediction[]>([]);
-  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-  const [selectedItem, setSelectedItem] = useState<PlacePrediction | null>(null);
 
-  useEffect(() => {
-    const handleSearch = async () => {
-      setLoading(true);
-      if (debouncedQuery.length > 2) {
-        try {
-          const response = await searchPlaces(debouncedQuery);
-          console.log("setting data ", { response });
-          setResults(response);
-          setLoading(false);
-        } catch (error) {
-          console.error(
-            "there was a problem with your fetch operation:",
-            error,
-          );
-          setResults([]);
-        }
-      } else {
-        setResults([]);
-      }
-    };
-    handleSearch();
-  }, [debouncedQuery]);
+  const {
+    results,
+    loading,
+    handleSearch,
+    selectedItem,
+    setSelectedItem,
+  } = useSearchAddress();
 
   const resultsList = useMemo(() => {
     return results.map((result, index) => (
@@ -81,7 +61,7 @@ const SearchAddress: React.FC<SearchAddressProps> = ({
         {result.formattedAddress}
       </CommandItem>
     ));
-  }, [results, onSelectLocation, value]);
+  }, [results, onSelectLocation, value, setSelectedItem]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -105,7 +85,7 @@ const SearchAddress: React.FC<SearchAddressProps> = ({
         <Command>
           <CommandInput
             placeholder="search the city..."
-            onValueChange={(value) => setQuery(value)}
+            onValueChange={(value) => handleSearch(value)}
             className="w-full"
           />
           <CommandList>
