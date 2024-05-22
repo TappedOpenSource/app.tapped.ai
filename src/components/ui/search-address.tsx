@@ -1,7 +1,6 @@
 "use client";
 import { Check, ChevronsUpDown } from "lucide-react";
-import React, { useState } from "react";
-
+import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -20,6 +19,7 @@ import { searchPlaces } from "@/data/places";
 import { cn } from "@/lib/utils";
 import { CommandLoading } from "cmdk";
 import { PlacePrediction } from "@/domain/types/place_data";
+import { useDebounce } from "@/context/debounce";
 
 interface SearchAddressProps {
   onSelectLocation: (item: PlacePrediction | null) => void;
@@ -28,35 +28,60 @@ const SearchAddress: React.FC<SearchAddressProps> = ({
   onSelectLocation,
 }) => {
   const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce<string>(query, 250);
   const [results, setResults] = useState<PlacePrediction[]>([]);
-  const [loading, setLoading] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
   const [selectedItem, setSelectedItem] = useState<PlacePrediction | null>(null);
 
-  const handleSearch = async (value: string) => {
-    setQuery(value);
-    setLoading(true);
-    if (value.length > 2) {
-      setTimeout(() => {
-        const response = searchPlaces(value);
-        response
-          .then((data) => {
-            setResults(data);
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.error(
-              "there was a problem with your fetch operation:",
-              error,
-            );
-            setResults([]);
-          });
-      }, 300);
-    } else {
-      setResults([]);
-    }
-  };
+  useEffect(() => {
+    const handleSearch = async () => {
+      setLoading(true);
+      if (debouncedQuery.length > 2) {
+        try {
+          const response = await searchPlaces(debouncedQuery);
+          console.log("setting data ", { response });
+          setResults(response);
+          setLoading(false);
+        } catch (error) {
+          console.error(
+            "there was a problem with your fetch operation:",
+            error,
+          );
+          setResults([]);
+        }
+      } else {
+        setResults([]);
+      }
+    };
+    handleSearch();
+  }, [debouncedQuery]);
+
+  const resultsList = useMemo(() => {
+    return results.map((result, index) => (
+      <CommandItem
+        key={index}
+        value={result.id}
+        onSelect={(currentValue: string) => {
+          setValue(currentValue === value ? "" : currentValue);
+          setSelectedItem(result ?? null);
+          onSelectLocation(result ?? null);
+          setOpen(false);
+        }}
+      >
+        <Check
+          className={cn(
+            "mr-2 h-4 w-4",
+            value === result.id ?
+              "opacity-100" :
+              "opacity-0",
+          )}
+        />
+        {result.formattedAddress}
+      </CommandItem>
+    ));
+  }, [results, onSelectLocation, value]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -80,7 +105,7 @@ const SearchAddress: React.FC<SearchAddressProps> = ({
         <Command>
           <CommandInput
             placeholder="search the city..."
-            onValueChange={(value) => handleSearch(value)}
+            onValueChange={(value) => setQuery(value)}
             className="w-full"
           />
           <CommandList>
@@ -89,32 +114,14 @@ const SearchAddress: React.FC<SearchAddressProps> = ({
                 <CommandEmpty>type to search</CommandEmpty>
               </CommandLoading>
             ) : results.length > 0 ? (
-              <CommandGroup
-                heading="places"
-              >
-                {results.map((result, index) => (
-                  <CommandItem
-                    key={index}
-                    value={result.id}
-                    onSelect={(currentValue: string) => {
-                      setValue(currentValue === value ? "" : currentValue);
-                      setSelectedItem(result ?? null);
-                      onSelectLocation(result ?? null);
-                      setOpen(false);
-                    }}
-                  >
-                    <Check
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        value === result.id ?
-                          "opacity-100" :
-                          "opacity-0",
-                      )}
-                    />
-                    {result.formattedAddress}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
+              <>
+                <CommandGroup
+                  key="places"
+                  heading="places"
+                >
+                  {resultsList}
+                </CommandGroup>
+              </>
             ) : (
               <CommandEmpty>no results found.</CommandEmpty>
             )}

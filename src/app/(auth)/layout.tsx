@@ -1,7 +1,6 @@
 "use client";
 
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -24,6 +23,7 @@ export default function AuthLayout({
                 alt="splash animation"
                 fill
                 priority
+                unoptimized
                 style={{ objectFit: "cover" }}
               />
             </div>

@@ -123,7 +123,7 @@ export default function VenueMap() {
           );
         })
         .filter((x) => x !== null) as JSX.Element[],
-    [data, router, currentUser, subscribed]
+    [data, currentUser, subscribed, pathname, router]
   );
 
   const mapTheme =

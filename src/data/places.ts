@@ -114,8 +114,6 @@ export const searchPlaces = async (
     };
   };
 
-  console.log({ json });
-
   if (json.error !== undefined) {
     console.log({ error: json.error });
     return [];
