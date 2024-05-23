@@ -69,13 +69,13 @@ if (window.tolt_referral) {
         {subscribed ? (
           <div className="flex flex-col justify-center items-center mt-16">
             <p>you&apos;re already subscribed</p>
-            <Button variant="link">
+            <Button variant="secondary">
               <Link
                 href="https://tapped.tolt.io"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                refer a friend and get 51% of their subscription
+                share with a friend
               </Link>
             </Button>
           </div>
