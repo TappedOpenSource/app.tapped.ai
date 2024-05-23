@@ -96,8 +96,8 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "https://tapped.canny.io/ideas-bugs",
           external: true,
-          label: "bugs & ideas",
-          active: pathname.includes("/bugsandideas"),
+          label: "feedback",
+          active: pathname.includes("/feedback"),
           icon: Bug,
           submenus: [],
         },
