@@ -22,10 +22,12 @@ export default function Page({ searchParams }: {
 
   console.log({ capacity, genres, lat, lng, radius });
 
+  const performerGenres = genres.length > 0 ? genres.split(",") : [];
+
   const { data } = useSearchData("", {
     hitsPerPage: 30,
     maxCapacity: parseInt(capacity),
-    venueGenres: genres.split(","),
+    venueGenres: performerGenres,
     lat: parseFloat(lat),
     lng: parseFloat(lng),
     radius: parseInt(radius),
