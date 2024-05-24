@@ -15,6 +15,7 @@ import { updateOnboardedUser } from "@/domain/usecases/onboarding";
 import * as _ from "lodash";
 import { uploadProfilePicture } from "@/data/storage";
 import { useToast } from "../ui/use-toast";
+import { getInstagramHandle, getTiktokHandle, getTwitterHandle } from "@/utils/url_parsing";
 
 
 const optionSchema = z.object({
@@ -105,11 +106,11 @@ export default function SettingsForm() {
         bio: data.bio,
         profilePicture: profilePictureUrl,
         socialFollowing: {
-          instagramHandle: data.instagramHandle,
+          instagramHandle: getInstagramHandle(data.instagramHandle),
           instagramFollowers: data.instagramFollowers,
-          twitterHandle: data.twitterHandle,
+          twitterHandle: getTwitterHandle(data.twitterHandle),
           twitterFollowers: data.twitterFollowers,
-          tiktokHandle: data.tiktokHandle,
+          tiktokHandle: getTiktokHandle(data.tiktokHandle),
           tiktokFollowers: data.tiktokFollowers,
           // youtubeHandle: data.youtubeHandle,
           spotifyUrl: data.spotifyUrl,

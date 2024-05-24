@@ -128,7 +128,11 @@ export default function OnboardingForm() {
                   <FormItem>
                     <FormLabel>instagram handle</FormLabel>
                     <FormControl>
-                      <Input id="instagram_handle" placeholder="@champagnepapi" {...field} />
+                      <Input
+                        id="instagram_handle"
+                        placeholder="@champagnepapi"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

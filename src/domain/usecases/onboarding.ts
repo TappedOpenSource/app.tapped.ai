@@ -1,12 +1,12 @@
 import { type UserModel, emptyUserModel } from "@/domain/types/user_model";
 import { Dispatch } from "@/context/auth";
 import { User } from "firebase/auth";
-import { Timestamp } from "firebase/firestore";
 import { sleep } from "@/utils/promise";
 import { convertToNullableString } from "@/utils/strings";
 import { checkUsernameAvailability, createOrUpdateUser } from "@/data/database";
 import * as _ from "lodash";
 import { uploadProfilePicture } from "@/data/storage";
+import { getInstagramHandle, getTiktokHandle, getTwitterHandle } from "@/utils/url_parsing";
 
 type OnboardFormUser = {
     username: string;
@@ -59,11 +59,11 @@ export async function onboardNewUser(
       artistName: authUser.displayName ?? onboardFormUser.username,
       profilePicture: profilePictureUrl,
       socialFollowing: {
-        tiktokHandle,
+        tiktokHandle: getTiktokHandle(tiktokHandle),
         tiktokFollowers: onboardFormUser.tiktokFollowers,
-        instagramHandle,
+        instagramHandle: getInstagramHandle(instagramHandle),
         instagramFollowers: onboardFormUser.instagramFollowers,
-        twitterHandle,
+        twitterHandle: getTwitterHandle(twitterHandle),
         twitterFollowers: onboardFormUser.twitterFollowers,
       },
       performerInfo: {
