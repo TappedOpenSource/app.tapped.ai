@@ -11,7 +11,7 @@ export default function UserAvatarList({ users }: {
 
   return (
     <>
-      <div className="flex -space-x-3 *:ring *:ring-white">
+      <div className="flex -space-x-3 *:ring *:ring-white overflow-y-scroll">
         {users.map((user) => (
           <Link
             key={user.id}
