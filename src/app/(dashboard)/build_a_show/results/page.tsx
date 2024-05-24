@@ -13,11 +13,11 @@ import { useState } from "react";
 export default function Page({ searchParams }: {
     searchParams: { [key: string]: string };
 }) {
-  const capacity = searchParams["capacity"];
-  const genres = searchParams["genres"];
-  const lat = searchParams["lat"];
-  const lng = searchParams["lng"];
-  const radius = searchParams["radius"];
+  const capacity = searchParams["capacity"] ?? "500";
+  const genres = searchParams["genres"] ?? "";
+  const lat = searchParams["lat"] ?? "0";
+  const lng = searchParams["lng"] ?? "0";
+  const radius = searchParams["radius"] ?? "250";
   const { useSearchData } = useSearch();
 
   console.log({ capacity, genres, lat, lng, radius });
