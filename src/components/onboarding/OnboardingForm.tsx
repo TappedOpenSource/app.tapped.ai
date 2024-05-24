@@ -17,11 +17,11 @@ const formSchema = z.object({
   username: z.string().min(3).max(20),
   profilePicture: z.custom<File>(),
   instagramHandle: z.string().min(3).max(20).optional(),
-  instagramFollowers: z.coerce.number().int().positive(),
+  instagramFollowers: z.coerce.number().int().nonnegative(),
   twitterHandle: z.string().min(3).max(20).optional(),
-  twitterFollowers: z.coerce.number().int().positive(),
+  twitterFollowers: z.coerce.number().int().nonnegative(),
   tiktokHandle: z.string().min(3).max(20).optional(),
-  tiktokFollowers: z.coerce.number().int().positive(),
+  tiktokFollowers: z.coerce.number().int().nonnegative(),
   eula: z.boolean(),
 });
 

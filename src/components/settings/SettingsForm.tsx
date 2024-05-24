@@ -6,7 +6,7 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import SearchAddress from "../ui/search-address";
+// import SearchAddress from "../ui/search-address";
 import { genres } from "@/domain/types/genre";
 import MultipleSelector from "../ui/multiple-selector";
 import { useAuth } from "@/context/auth";
@@ -14,6 +14,7 @@ import { LoadingSpinner } from "../LoadingSpinner";
 import { updateOnboardedUser } from "@/domain/usecases/onboarding";
 import * as _ from "lodash";
 import { uploadProfilePicture } from "@/data/storage";
+import { useToast } from "../ui/use-toast";
 
 
 const optionSchema = z.object({
@@ -31,18 +32,18 @@ const formSchema = z.object({
   profilePicture: z.custom<File>(),
   username: z.string().min(3).max(25),
   artistName: z.string().min(3).max(25),
-  bio: z.string().max(1024),
-  location: z.object({
-    placeId: z.string(),
-    lat: z.number(),
-    lng: z.number(),
-  }),
+  bio: z.string().max(1024).optional(),
+  // location: z.object({
+  //   placeId: z.string(),
+  //   lat: z.number(),
+  //   lng: z.number(),
+  // }).optional(),
   twitterHandle: z.string().optional(),
-  twitterFollowers: z.coerce.number().optional(),
+  twitterFollowers: z.coerce.number().int().nonnegative(),
   instagramHandle: z.string().min(3).max(20).optional(),
-  instagramFollowers: z.coerce.number().int().positive(),
+  instagramFollowers: z.coerce.number().int().nonnegative(),
   tiktokHandle: z.string().min(3).max(20).optional(),
-  tiktokFollowers: z.coerce.number().int().positive(),
+  tiktokFollowers: z.coerce.number().int().nonnegative(),
   // youtubeHandle: z.string().min(3).max(20).optional(),
   spotifyUrl: z.string().url().optional(),
   label: z.string().optional(),
@@ -73,6 +74,7 @@ export default function SettingsForm() {
       })) ?? [],
     },
   });
+  const { toast } = useToast();
 
   if (currentUser === null) {
     return (
@@ -116,13 +118,21 @@ export default function SettingsForm() {
           genres: data.genres.map((genre) => genre.value),
           label: data.label,
         },
-        location: data.location,
+        // location: data.location,
       });
 
       await updateOnboardedUser(dispatch, newUserObj);
+      toast({
+        title: "success",
+        description: "profile saved!",
+      });
     } catch (e) {
       console.error(e);
-      alert(e.message);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
     }
   };
 
@@ -208,7 +218,7 @@ export default function SettingsForm() {
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name="location"
               render={({ field: { onChange } }) => (
@@ -233,7 +243,7 @@ export default function SettingsForm() {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
             <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
