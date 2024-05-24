@@ -9,7 +9,7 @@ interface useSearchToggleStore {
 export const useSearchToggle = create(
   persist<useSearchToggleStore>(
     (set, get) => ({
-      isOpen: true,
+      isOpen: false,
       setIsOpen: () => {
         set({ isOpen: !get().isOpen });
       },
