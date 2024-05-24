@@ -46,18 +46,23 @@ const genreOptions = genres.map((genre) => ({
 }));
 
 export default function VenueSearchForm() {
-  const { state: authState } = useAuth();
+  const { state: { currentUser } } = useAuth();
   const { state: subscribed } = usePurchases();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      genres: [],
+      genres: currentUser?.performerInfo?.genres.map((genre) => {
+        return {
+          label: genre.toLowerCase(),
+          value: genre,
+        };
+      }) ?? [],
       capacity: defaultCapacity,
     },
   });
 
-  if (authState === null) {
+  if (currentUser === null) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <LoadingSpinner />
