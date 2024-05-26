@@ -18,7 +18,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
   const venueType = user.venueInfo?.type?.toLowerCase() ?? null;
 
   return (
-    <div className="bg-secondary flex w-full flex-col items-start justify-start rounded-xl px-8 py-4 shadow-lg">
+    <div className="bg-card flex w-full flex-col items-start justify-start rounded-xl px-8 py-4 shadow-lg">
       <div className="flex w-full flex-row">
         <AtSign />
         <div className="w-2" />

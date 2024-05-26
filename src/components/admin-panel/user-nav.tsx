@@ -22,9 +22,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { logout } from "@/data/auth";
 import { useAuth } from "@/context/auth";
+import { useRouter } from "next/navigation";
 
 export function UserNav() {
   const { state: { currentUser } } = useAuth();
+  const router = useRouter();
 
   return (
     <DropdownMenu>
@@ -83,7 +85,10 @@ export function UserNav() {
             )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="hover:cursor-pointer" onClick={logout}>
+        <DropdownMenuItem className="hover:cursor-pointer" onClick={() => {
+          logout();
+          router.push("/");
+        }}>
           <LogOut className="w-4 h-4 mr-3 text-muted-foreground" />
           sign out
         </DropdownMenuItem>

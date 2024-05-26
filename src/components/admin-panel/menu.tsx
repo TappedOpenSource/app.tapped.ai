@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Ellipsis, LogOut } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { getMenuList } from "@/lib/menu-list";
@@ -22,6 +22,7 @@ interface MenuProps {
 }
 
 export function Menu({ isOpen }: MenuProps) {
+  const router = useRouter();
   const pathname = usePathname();
   const menuList = getMenuList(pathname);
 
@@ -114,7 +115,10 @@ export function Menu({ isOpen }: MenuProps) {
                 <Tooltip delayDuration={100}>
                   <TooltipTrigger asChild>
                     <Button
-                      onClick={logout}
+                      onClick={() => {
+                        logout();
+                        router.push("/");
+                      }}
                       variant="outline"
                       className="w-full justify-center h-10 mt-5"
                     >
