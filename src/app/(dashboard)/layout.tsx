@@ -9,7 +9,7 @@ import { SearchProvider } from "@/context/search";
 import useWindowDimensions from "@/utils/window_dimensions";
 import { Suspense, useEffect, useState } from "react";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import BottomSheet from "@/components/BottomSheet";
+import UserBottomSheet from "@/components/BottomSheet";
 import UserSideSheet from "@/components/UserSideSheet";
 import { useAuth } from "@/context/auth";
 import { Button } from "@/components/ui/button";
@@ -109,7 +109,7 @@ export default function DashboardLayout({
           </div>
         }
       >
-        {screenIsSmall ? <BottomSheet /> : <UserSideSheet />}
+        {screenIsSmall ? <UserBottomSheet /> : <UserSideSheet />}
       </Suspense>
       <SearchProvider>
         <Chat

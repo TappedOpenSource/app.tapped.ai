@@ -1,7 +1,7 @@
 import { getUserByUsername } from "@/data/database";
 import { UserModel } from "@/domain/types/user_model";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BSheet from "react-modal-sheet";
 import { styled } from "styled-components";
 import ProfileView from "./ProfileView";
@@ -21,7 +21,7 @@ const UserSheet = styled(BSheet)`
 `;
 
 
-export default function BottomSheet() {
+export default function UserBottomSheet() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
