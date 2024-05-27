@@ -25,15 +25,15 @@ export default function Page() {
         }
       >
         {screenIsSmall ? <BottomSheet /> : <UserSideSheet />}
+        <div className="absolute z-10">
+          <MapHeader />
+        </div>
+        <div className="z-0">
+          <QueryClientProvider client={queryClient}>
+            <VenueMap />
+          </QueryClientProvider>
+        </div>
       </Suspense>
-      <div className="absolute z-10">
-        <MapHeader />
-      </div>
-      <div className="z-0">
-        <QueryClientProvider client={queryClient}>
-          <VenueMap />
-        </QueryClientProvider>
-      </div>
     </>
   );
 }

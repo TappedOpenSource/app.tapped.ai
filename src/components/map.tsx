@@ -44,14 +44,14 @@ export default function VenueMap() {
   const { state: authState } = useAuth();
   const { state: subscribed } = usePurchases();
   const { resolvedTheme } = useTheme();
+  const currentUser = authState?.currentUser ?? null;
+
   const searchParams = useSearchParams();
   const lat = searchParams.get("lat") ?? "38.895";
   const lng = searchParams.get("lng") ?? "-77.0366";
   const minCapacity = searchParams.get("min_capacity") ?? null;
   const maxCapacity = searchParams.get("max_capacity") ?? null;
   const genres = searchParams.get("genres") ?? "";
-
-  const currentUser = authState?.currentUser ?? null;
 
   const intLat = parseFloat(lat);
   const intLng = parseFloat(lng);
