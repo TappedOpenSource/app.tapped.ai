@@ -70,9 +70,11 @@ export function UserNav() {
             currentUser?.username !== undefined && (
               <>
                 <DropdownMenuItem className="hover:cursor-pointer" asChild>
-                  <Link href={`/${currentUser?.username ?? ""}`} className="flex items-center">
+                  <Link
+                    href={`/u/${currentUser?.username ?? ""}`}
+                    className="flex items-center">
                     <User className="w-4 h-4 mr-3 text-muted-foreground" />
-              profile
+              account
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="hover:cursor-pointer" asChild>

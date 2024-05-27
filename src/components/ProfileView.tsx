@@ -16,6 +16,7 @@ import { type UserModel } from "@/domain/types/user_model";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { LoadingSpinner } from "./LoadingSpinner";
 
 export default function ProfileView({ username }: { username: string }) {
   const router = useRouter();
@@ -82,7 +83,8 @@ export default function ProfileView({ username }: { username: string }) {
   if (user === null) {
     return (
       <>
-        <div className="flex min-h-screen items-center justify-center">
+        <div className="flex flex-col min-h-screen items-center justify-center">
+          <LoadingSpinner />
           <p>fetching {username}... </p>
         </div>
       </>
@@ -92,7 +94,8 @@ export default function ProfileView({ username }: { username: string }) {
   if (user === null) {
     return (
       <>
-        <div className="flex min-h-screen items-center justify-center">
+        <div className="flex flex-col min-h-screen items-center justify-center">
+          <LoadingSpinner />
           <p>fetching {username}... </p>
         </div>
       </>

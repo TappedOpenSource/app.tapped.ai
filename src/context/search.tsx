@@ -13,13 +13,11 @@ import { ReactNode } from "react";
 
 
 export const useSearch = () => {
-  const useVenueData = (boundingBox: BoundingBox | null) =>
+  const useVenueData = (boundingBox: BoundingBox | null, options: UserSearchOptions) =>
     useQuery({
       queryKey: ["venues", boundingBox],
       queryFn: async () => {
-        return await queryVenuesInBoundedBox(boundingBox, {
-          hitsPerPage: 150,
-        });
+        return await queryVenuesInBoundedBox(boundingBox, options);
       },
     });
 

@@ -134,9 +134,9 @@ function MapHeaderUi() {
   return (
     <>
       <div className="peer flex w-screen flex-row items-center px-4 pb-1 pt-8 md:px-8">
-        <div className="flex-1">
-          <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
-            <Search className="h-4 w-4 text-gray-400" />
+        <div className="flex-1 relative">
+          <div className="pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-3">
+            <Search className="pointer-events-none h-4 w-4 text-gray-400" />
           </div>
           <input
             ref={inputRef}

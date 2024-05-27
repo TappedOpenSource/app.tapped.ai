@@ -61,7 +61,7 @@ export default function UserSideSheet() {
               </div>
             </Button>
             <div className="w-2" />
-            <Link href={`/${username}`} target="_blank" rel="noreferrer noopener">
+            <Link href={`/u/${username}`} target="_blank" rel="noreferrer noopener">
               <Button variant="secondary">
                 <div className="flex flex-row justify-center">
                   <p>open profile</p>

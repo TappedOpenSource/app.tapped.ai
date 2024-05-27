@@ -2,31 +2,6 @@
 import { UserModel } from "@/domain/types/user_model";
 import algoliasearch from "algoliasearch";
 
-export const searchClient = algoliasearch(
-  "GCNFAI2WB6",
-  "c89ebf37b46a3683405be3ed0901f217",
-);
-
-export const usersIndex = searchClient.initIndex("prod_users");
-
-// export type BoundingBox = [number, number, number, number]; //N, W, S, E
-export type BoundingBox = {
-    readonly sw: { lat: number, lng: number },
-    readonly ne: { lat: number, lng: number },
-};
-
-export async function queryVenuesInBoundedBox(bounds: BoundingBox | null, { hitsPerPage = 50 }: { hitsPerPage: number }): Promise<UserModel[]> {
-  const response = await usersIndex.search<UserModel>("", {
-    filters: "occupations:Venue OR occupations:venue AND deleted:false",
-    insideBoundingBox: bounds === null ?
-      undefined :
-      [[bounds.sw.lat, bounds.sw.lng, bounds.ne.lat, bounds.ne.lng]],
-    hitsPerPage: hitsPerPage,
-  });
-
-  return response.hits;
-}
-
 export type UserSearchOptions = {
   hitsPerPage: number;
   labels?: string[];
@@ -40,6 +15,71 @@ export type UserSearchOptions = {
   minCapacity?: number;
   maxCapacity?: number;
 };
+
+export const searchClient = algoliasearch(
+  "GCNFAI2WB6",
+  "c89ebf37b46a3683405be3ed0901f217",
+);
+
+export const usersIndex = searchClient.initIndex("prod_users");
+
+// export type BoundingBox = [number, number, number, number]; //N, W, S, E
+export type BoundingBox = {
+    readonly sw: { lat: number, lng: number },
+    readonly ne: { lat: number, lng: number },
+};
+
+export async function queryVenuesInBoundedBox(bounds: BoundingBox | null, {
+  hitsPerPage,
+  venueGenres,
+  unclaimed,
+  minCapacity,
+  maxCapacity,
+}: UserSearchOptions): Promise<UserModel[]> {
+  const formattedIsVenueFilter = "occupations:Venue OR occupations:venue";
+  const formattedIsDeletedFilter = "deleted:false";
+  const formattedVenueGenreFilter = venueGenres != null ?
+    `(${venueGenres.map((e) => `venueInfo.genres:'${e}'`).join(" OR ")})` :
+    null;
+  const formattedUnclaimedFilter = unclaimed != null ?
+    `unclaimed:${unclaimed}` :
+    null;
+
+  const filters = [
+    formattedIsVenueFilter,
+    formattedIsDeletedFilter,
+    formattedVenueGenreFilter,
+    formattedUnclaimedFilter,
+  ].filter((element) => element !== null);
+  const filtersStr = filters.join(" AND ");
+
+  try {
+    const numbericFilters: string[] = [];
+
+    if (minCapacity != null) {
+      numbericFilters.push(`venueInfo.capacity>=${minCapacity}`);
+    }
+
+    if (maxCapacity != null) {
+      numbericFilters.push(`venueInfo.capacity<=${maxCapacity}`);
+    }
+
+    const response = await usersIndex.search<UserModel>("", {
+      filters: filtersStr,
+      insideBoundingBox: bounds === null ?
+        undefined :
+        [[bounds.sw.lat, bounds.sw.lng, bounds.ne.lat, bounds.ne.lng]],
+      hitsPerPage: hitsPerPage,
+      numericFilters: numbericFilters,
+    });
+
+    return response.hits;
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+}
+
 
 export async function queryUsers(query: string, {
   hitsPerPage,

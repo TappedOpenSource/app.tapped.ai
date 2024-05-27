@@ -17,7 +17,7 @@ export default function UserAvatarList({ users }: {
             key={user.id}
             target="_blank"
             rel="noreferrer noopener"
-            href={`/${user.username}`}
+            href={`/u/${user.username}`}
             className="flex items-center justify-center rounded-full"
           >
             <Avatar key={user.id}>

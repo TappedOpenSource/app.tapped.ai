@@ -16,7 +16,7 @@ export default function UserTile({ user }: {
 
   return (
     <Link
-      href={`/${user.username}`}
+      href={`/u/${user.username}`}
     >
       <div className='flex flex-row items-center'>
         <div className='relative h-12 w-12 overflow-hidden rounded-full'>

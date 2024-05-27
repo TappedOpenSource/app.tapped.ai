@@ -11,7 +11,7 @@ import { isVenueGoodFit } from "@/utils/good_fit";
 import classNames from "classnames";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import {
   FullscreenControl,
@@ -44,10 +44,24 @@ export default function VenueMap() {
   const { state: authState } = useAuth();
   const { state: subscribed } = usePurchases();
   const { resolvedTheme } = useTheme();
+  const searchParams = useSearchParams();
+  const lat = searchParams.get("lat") ?? "38.895";
+  const lng = searchParams.get("lng") ?? "-77.0366";
+  const minCapacity = searchParams.get("min_capacity") ?? null;
+  const maxCapacity = searchParams.get("max_capacity") ?? null;
+  const genres = searchParams.get("genres") ?? "";
 
   const currentUser = authState?.currentUser ?? null;
 
-  const { data } = useVenueData(debouncedBounds);
+  const intLat = parseFloat(lat);
+  const intLng = parseFloat(lng);
+  const venueGenres = genres.length > 0 ? genres.split(",") : [];
+  const { data } = useVenueData(debouncedBounds, {
+    hitsPerPage: 100,
+    minCapacity: minCapacity !== null ? parseInt(minCapacity) : undefined,
+    maxCapacity: maxCapacity !== null ? parseInt(maxCapacity) : undefined,
+    venueGenres: venueGenres.length > 0 ? venueGenres : undefined,
+  });
 
   const onRender = useCallback((e: MapboxEvent) => {
     const currentMapBounds = e.target.getBounds();
@@ -126,14 +140,15 @@ export default function VenueMap() {
     [data, currentUser, subscribed, pathname, router]
   );
 
+
   const mapTheme =
     resolvedTheme === "light" ? mapboxLightStyle : mapboxDarkStyle;
   return (
     <div className="m-0 h-screen w-screen">
       <Map
         initialViewState={{
-          latitude: 38.895,
-          longitude: -77.0366,
+          latitude: intLat,
+          longitude: intLng,
           zoom: 5.5,
           bearing: 0,
           pitch: 0,
