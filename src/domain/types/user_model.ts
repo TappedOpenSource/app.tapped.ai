@@ -59,6 +59,30 @@ export function suggestMaxCapacity(category: PerformerCategory): number {
   return mapping[category];
 }
 
+export function suggestTicketPriceRange(category: PerformerCategory): [number, number] {
+  const mapping: Record<PerformerCategory, [number, number]> = {
+    undiscovered: [0, 10],
+    emerging: [10, 20],
+    hometownHero: [20, 40],
+    mainstream: [40, 75],
+    legendary: [75, 100],
+  };
+
+  return mapping[category];
+}
+
+export function formattedName(category: PerformerCategory): string {
+  const mapping: Record<PerformerCategory, string> = {
+    undiscovered: "Undiscovered",
+    emerging: "Emerging",
+    hometownHero: "Hometown Hero",
+    mainstream: "Mainstream",
+    legendary: "Legendary",
+  };
+
+  return mapping[category];
+}
+
 
 export type VenueInfo = {
   genres?: string[];
@@ -172,7 +196,6 @@ export const reviewCount = (user: UserModel): number => (user.bookerInfo?.review
 export const audienceSize = (user: UserModel): number => (user.socialFollowing?.twitterFollowers ?? 0) +
     (user.socialFollowing?.instagramFollowers ?? 0) +
     (user.socialFollowing?.tiktokFollowers ?? 0);
-
 
 export const profileImage = (user: UserModel): string => {
   if (user.profilePicture === undefined || user.profilePicture === null) {
