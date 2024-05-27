@@ -26,7 +26,7 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
@@ -154,11 +154,22 @@ function MapHeaderUi() {
   const pathname = usePathname();
 
   const searchParams = useSearchParams();
-  const rawSelectedGenres = searchParams.get("genres") ?? null;
-  const selectedGenres = (rawSelectedGenres === null || rawSelectedGenres === "") ? [] : rawSelectedGenres.split(",");
+  const rawSelectedGenres = searchParams.get("genres") ?? "";
+  const selectedGenres = (rawSelectedGenres === "") ? [] : rawSelectedGenres.split(",");
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   const setSelectedGenres = (genres: string[]) => {
-    const genreQuery = genres.join(",");
-    router.push(`${pathname}?genres=${genreQuery}`);
+    const newParams = createQueryString("genres", genres.join(","));
+    router.push(`${pathname}?${newParams}`);
   };
 
   const { data } = useSearchData(debouncedQuery, { hitsPerPage: 5 });
@@ -174,11 +185,11 @@ function MapHeaderUi() {
           <Hit
             key={user.id}
             hit={user}
-            onClick={() => router.push(`${pathname}?username=${user.username}`)}
+            onClick={() => router.push(`${pathname}?${createQueryString("username", user.username)}`)}
           />
         );
       }),
-    [data, router, pathname]
+    [data, router, pathname, createQueryString]
   );
 
   return (
