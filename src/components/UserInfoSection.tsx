@@ -15,7 +15,8 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
     user.venueInfo?.genres ??
     []
   ).map((g) => g.toLowerCase());
-  const isVenue = user.performerInfo === null && user.venueInfo !== null;
+  const isPerformer = user.performerInfo !== null && user.performerInfo !== undefined;
+  const isVenue = user.venueInfo !== null && user.venueInfo !== undefined;
   const category = user.performerInfo?.category ?? null;
   const capacity = user.venueInfo?.capacity?.toLocaleString() ?? null;
   const rating = user.performerInfo?.rating ?? user.bookerInfo?.rating ?? null;
@@ -91,7 +92,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
           <div className="my-1 h-px w-full bg-gray-200/20" />
         </>
       )}
-      {!isVenue && (
+      {isPerformer && (
         <>
           <div className="flex flex-row">
             <UsersRound />
