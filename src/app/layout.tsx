@@ -13,25 +13,26 @@ import "./globals.css";
 const title = "tapped ai : create world tour from your iphone";
 const description =
   "live music data with superpowers - Tapped Ai predicts the future of the live performance industry and gives performers the means of creating a world tour from their phone. We use new tech to gather data across the US to analyze/predict trends in the live performance space to ultimately increase bookings and ticket sales";
+const metadataBase = "https://app.tapped.ai";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tapped.ai"),
+  metadataBase: new URL(metadataBase),
   title,
   description,
   openGraph: {
     type: "website",
-    url: "https://tapped.ai",
+    url: metadataBase,
     title,
     description,
     siteName: "Tapped Ai",
-    images: [{ url: "https://tapped.ai/map-og.png" }],
+    images: [{ url: `${metadataBase}/map-og.png` }],
   },
   twitter: {
     card: "summary_large_image",
     site: "@tappedai",
     title,
     description,
-    images: "https://tapped.ai/map-og.png",
+    images: `${metadataBase}/map-og.png`,
   },
 };
 

@@ -44,7 +44,7 @@ export async function sendPasswordlessEmail(email: string, {
 }: {
     returnUrl: string;
 }) {
-  const fullReturnUrl = `https://tapped.ai/${returnUrl}`;
+  const fullReturnUrl = `https://app.tapped.ai/${returnUrl}`;
   await sendSignInLinkToEmail(auth, email, {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be in the authorized domains list in the Firebase Console.

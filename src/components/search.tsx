@@ -15,7 +15,7 @@ function Hit({ hit }: { hit: UserModel }) {
   const imageSrc = profileImage(hit);
   return (
     <Link
-      href={`https://tapped.ai/${hit.username}`}
+      href={`https://app.tapped.ai/u/${hit.username}`}
     >
       <div
         className='w-full flex flex-row items-center justify-start bg-gray-700 rounded-xl px-4 py-3 my-4 hover:scale-105 transition-all duration-150 ease-in-out'

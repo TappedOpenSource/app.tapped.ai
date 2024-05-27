@@ -15,6 +15,7 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
+  const metadataBase = "https://app.tapped.ai";
   try {
     const { opportunityId } = params;
 
@@ -24,12 +25,12 @@ export async function generateMetadata(
     const imageSrc = opImage(opportunity);
 
     return {
-      metadataBase: new URL("http://localhost:3000"),
+      metadataBase: new URL(metadataBase),
       title: opportunity.title,
       description: `${opportunity.title} on tapped`,
       openGraph: {
         type: "website",
-        url: `https://tapped.ai/opportunity/${opportunityId}`,
+        url: `${metadataBase}/opportunity/${opportunityId}`,
         title: opportunity.title,
         description: `${opportunity.title} on tapped`,
         siteName: "Tapped Ai",

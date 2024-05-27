@@ -15,6 +15,7 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const metadataBase = "https://app.tapped.ai";
   try {
     const username = params.username;
 
@@ -23,14 +24,13 @@ export async function generateMetadata(
 
     const imageSrc = profileImage(user);
     const displayName = user.artistName || user.username;
-
     return {
-      metadataBase: new URL("https://tapped.ai"),
-      title: `${displayName}`,
-      description: `${displayName} on tapped`,
+      metadataBase: new URL(metadataBase),
+      title: `${displayName} | Tapped`,
+      description: `${displayName} on tapped - create a world tour from your iPhone`,
       openGraph: {
         type: "website",
-        url: `https://tapped.ai/${username}`,
+        url: `${metadataBase}/${username}`,
         title: `${displayName}`,
         description: `${displayName} on tapped`,
         siteName: "Tapped Ai",
@@ -47,23 +47,23 @@ export async function generateMetadata(
   } catch (e) {
     console.log(e);
     return {
-      metadataBase: new URL("https:tapped.ai"),
+      metadataBase: new URL(metadataBase),
       title: "Tapped",
       description: "Tapped",
       openGraph: {
         type: "website",
-        url: "https://tapped.ai",
+        url: metadataBase,
         title: "Tapped",
         description: "Tapped",
         siteName: "Tapped Ai",
-        images: [{ url: "https://tapped.ai/og.png" }],
+        images: [{ url: `${metadataBase}/og.png` }],
       },
       twitter: {
         card: "summary_large_image",
         site: "@tappedai",
         title: "Tapped",
         description: "Tapped",
-        images: "https://tapped.ai/og.png",
+        images: `${metadataBase}/og.png`,
       },
     };
   }
