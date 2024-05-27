@@ -118,7 +118,7 @@ function GenreList({ genres, selectedGenres, setSelectedGenres }: {
 
   return (
     <div className="w-screen px-4 md:px-8">
-      <div className="my-1 flex w-full flex-row items-start justify-start rounded-xl px-4 transition-all duration-150 ease-in-out hover:scale-105 md:w-1/2 lg:w-1/3 xl:w-1/4">
+      <div className="my-1 flex w-full flex-row items-start justify-start rounded-xl px-4 md:w-1/2 lg:w-1/3 xl:w-1/4">
         <div className="flex flex-row items-center justify-start pt-4 ease-in-out peer-has-[:focus-within]:flex overflow-x-scroll no-scrollbarkj">
           {selectedGenresInFrom.map((genre) => (
             <Button
