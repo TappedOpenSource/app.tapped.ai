@@ -25,8 +25,8 @@ import {
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useMemo, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
@@ -42,7 +42,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { genres } from "@/domain/types/genre";
 
 const queryClient = new QueryClient();
 
@@ -101,48 +100,7 @@ function Hit({ hit, onClick }: { hit: UserModel; onClick: () => void }) {
   );
 }
 
-function GenreList({ genres, selectedGenres, setSelectedGenres }: {
-  genres: string[];
-  selectedGenres: string[];
-  setSelectedGenres: (genres: string[]) => void;
-}) {
-  const selectedGenresInFrom = genres.slice(0).sort((a, b) => {
-    const aSelected = selectedGenres.includes(a);
-    const bSelected = selectedGenres.includes(b);
-
-    if (aSelected && !bSelected) return -1;
-    if (!aSelected && bSelected) return 1;
-
-    return 0;
-  });
-
-  return (
-    <div className="w-screen px-4 md:px-8">
-      <div className="my-1 flex w-full flex-row items-start justify-start rounded-xl px-4 transition-all duration-150 ease-in-out hover:scale-105 md:w-1/2 lg:w-1/3 xl:w-1/4">
-        <div className="flex flex-row items-center justify-start pt-4 ease-in-out peer-has-[:focus-within]:flex overflow-x-scroll no-scrollbarkj">
-          {selectedGenresInFrom.map((genre) => (
-            <Button
-              key={genre}
-              variant={selectedGenres.includes(genre) ? "default" : "outline"}
-              onClick={() => {
-                if (selectedGenres.includes(genre)) {
-                  setSelectedGenres(selectedGenres.filter((g) => g !== genre));
-                } else {
-                  setSelectedGenres([...selectedGenres, genre]);
-                }
-              }}
-              className="m-1"
-            >
-              {genre.toLowerCase()}
-            </Button>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MapHeaderUi() {
+function HeaderUi() {
   const { state: { currentUser } } = useAuth();
   const { state: subscribed } = usePurchases();
   const { useSearchData } = useSearch();
@@ -152,14 +110,6 @@ function MapHeaderUi() {
   const { setTheme } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
   const pathname = usePathname();
-
-  const searchParams = useSearchParams();
-  const rawSelectedGenres = searchParams.get("genres") ?? null;
-  const selectedGenres = (rawSelectedGenres === null || rawSelectedGenres === "") ? [] : rawSelectedGenres.split(",");
-  const setSelectedGenres = (genres: string[]) => {
-    const genreQuery = genres.join(",");
-    router.push(`${pathname}?genres=${genreQuery}`);
-  };
 
   const { data } = useSearchData(debouncedQuery, { hitsPerPage: 5 });
   useHotkeys("/", (e) => {
@@ -293,22 +243,15 @@ function MapHeaderUi() {
           mass outreach
         </Button>
       </div> */}
-      <div>
-        <GenreList
-          genres={genres}
-          selectedGenres={selectedGenres}
-          setSelectedGenres={setSelectedGenres}
-        />
-      </div>
       <div className="flex flex-col">{userTiles}</div>
     </>
   );
 }
 
-export default function MapHeader() {
+export default function UnauthHeader() {
   return (
     <QueryClientProvider client={queryClient}>
-      <MapHeaderUi />
+      <HeaderUi />
     </QueryClientProvider>
   );
 }

@@ -9,6 +9,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     // formats: ['image/avif', 'image/webp', 'image/png', 'image/jpeg'],
+    dangerouslyAllowSVG: true,
     remotePatterns: [{
       protocol: "https",
       hostname: "firebasestorage.googleapis.com",

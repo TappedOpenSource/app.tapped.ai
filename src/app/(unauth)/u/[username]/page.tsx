@@ -26,21 +26,21 @@ export async function generateMetadata(
     const displayName = user.artistName || user.username;
     return {
       metadataBase: new URL(metadataBase),
-      title: `${displayName} | Tapped`,
-      description: `${displayName} on tapped - create a world tour from your iPhone`,
+      title: `${displayName} | tapped ai`,
+      description: `${displayName} on tapped ai | create a world tour from your iPhone`,
       openGraph: {
         type: "website",
         url: `${metadataBase}/${username}`,
         title: `${displayName}`,
-        description: `${displayName} on tapped`,
-        siteName: "Tapped Ai",
+        description: `${displayName} on tapped ai`,
+        siteName: "tapped ai",
         images: [{ url: imageSrc }],
       },
       twitter: {
         card: "summary_large_image",
         site: "@tappedai",
         title: `${displayName}`,
-        description: `${displayName} on tapped`,
+        description: `${displayName} on tapped ai | create a world tour from your iPhone`,
         images: imageSrc,
       },
     };
@@ -48,21 +48,21 @@ export async function generateMetadata(
     console.log(e);
     return {
       metadataBase: new URL(metadataBase),
-      title: "Tapped",
-      description: "Tapped",
+      title: "tapped ai",
+      description: "tapped ai",
       openGraph: {
         type: "website",
         url: metadataBase,
-        title: "Tapped",
-        description: "Tapped",
-        siteName: "Tapped Ai",
+        title: "tapped ai",
+        description: "tapped ai | create a world your from your iPhone",
+        siteName: "tapped ai",
         images: [{ url: `${metadataBase}/og.png` }],
       },
       twitter: {
         card: "summary_large_image",
         site: "@tappedai",
-        title: "Tapped",
-        description: "Tapped",
+        title: "tapped ai",
+        description: "tapped ai | create a world your from your iPhone",
         images: `${metadataBase}/og.png`,
       },
     };
