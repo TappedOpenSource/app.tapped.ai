@@ -1,8 +1,8 @@
 import ProfileView from "@/components/ProfileView";
 import Footer from "@/components/Footer";
-import MapHeader from "@/components/map_header";
 import { UserModel, profileImage } from "@/domain/types/user_model";
 import { Metadata, ResolvingMetadata } from "next";
+import UnauthHeader from "@/components/unauth_header";
 
 type Props = {
   params: { username: string };
@@ -74,7 +74,7 @@ export default function Page({ params }: Props) {
   return (
     <>
       <div className="landing">
-        <MapHeader />
+        <UnauthHeader />
         <ProfileView username={username} />
         <Footer />
       </div>
