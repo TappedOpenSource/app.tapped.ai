@@ -26,7 +26,7 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
@@ -43,6 +43,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { genres } from "@/domain/types/genre";
+import { animate } from "framer-motion";
 
 const queryClient = new QueryClient();
 
@@ -138,21 +139,29 @@ function GenreList({ genres, selectedGenres, setSelectedGenres }: {
   );
 }
 
-function MapHeaderUi() {
-  const { state: { currentUser } } = useAuth();
-  const { state: subscribed } = usePurchases();
+const phrases = [
+  "search tapped...",
+  "'Noah Kahan'",
+  "'Madison Square Garden'",
+];
+
+function SearchBar() {
   const { useSearchData } = useSearch();
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebounce<string>(query, 250);
   const router = useRouter();
-  const { setTheme } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
   const pathname = usePathname();
+
+  const { data } = useSearchData(debouncedQuery, { hitsPerPage: 5 });
+  useHotkeys("/", (e) => {
+    e.preventDefault();
+    inputRef.current?.focus();
+  });
 
   const searchParams = useSearchParams();
   const rawSelectedGenres = searchParams.get("genres") ?? "";
   const selectedGenres = (rawSelectedGenres === "") ? [] : rawSelectedGenres.split(",");
-
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -168,11 +177,28 @@ function MapHeaderUi() {
     router.push(`${pathname}?${newParams}`);
   };
 
-  const { data } = useSearchData(debouncedQuery, { hitsPerPage: 5 });
-  useHotkeys("/", (e) => {
-    e.preventDefault();
-    inputRef.current?.focus();
-  });
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [currentText, setCurrentText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  useEffect(() => {
+    const text = phrases[currentPhraseIndex];
+    if (currentIndex < text.length) {
+      const timeout = setTimeout(() => {
+        setCurrentText((prevText) => prevText + text[currentIndex]);
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+      }, 100);
+      return () => clearTimeout(timeout);
+    }
+
+    setTimeout(() => {
+      setCurrentPhraseIndex((prevIndex) => {
+        if (prevIndex === phrases.length - 1) return 0;
+        return prevIndex + 1;
+      });
+      setCurrentText("");
+      setCurrentIndex(0);
+    }, 1000);
+  }, [currentIndex, currentPhraseIndex]);
 
   const userTiles = useMemo(
     () =>
@@ -187,33 +213,43 @@ function MapHeaderUi() {
       }),
     [data, router, pathname, createQueryString]
   );
-
   return (
     <>
-      <div className="flex w-screen flex-row items-start px-4 pb-1 pt-8 md:px-8">
-        <div className="flex-1">
-          <div className="bg-card rounded-xl md:w-1/2 lg:w-1/3 xl:w-1/3">
-            <div className="relative">
-              <div className="pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-3">
-                <Search className="pointer-events-none h-4 w-4 text-gray-400" />
-              </div>
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="search tapped..."
-                className="bg-card w-full rounded-xl p-2.5 px-6 py-4 ps-10 shadow-xl"
-                onChange={(e) => setQuery(e.target.value)}
-              />
-            </div>
-            <div className="w-full flex flex-col">{userTiles}</div>
+      <div className="bg-card rounded-xl md:w-1/2 lg:w-1/3 xl:w-1/3">
+        <div className="relative">
+          <div className="pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-3">
+            <Search className="pointer-events-none h-4 w-4 text-gray-400" />
           </div>
-          {/* <div className="overflow-x-auto">
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder={currentText}
+            className="bg-card w-full rounded-xl p-2.5 px-6 py-4 ps-10 shadow-xl"
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+        <div className="w-full flex flex-col">{userTiles}</div>
+      </div>
+      {/* <div className="overflow-x-auto">
             <GenreList
               genres={genres}
               selectedGenres={selectedGenres}
               setSelectedGenres={setSelectedGenres}
             />
           </div> */}
+    </>
+  );
+}
+
+function MapHeaderUi() {
+  const { state: { currentUser } } = useAuth();
+  const { state: subscribed } = usePurchases();
+  const { setTheme } = useTheme();
+  return (
+    <>
+      <div className="flex w-screen flex-row items-start px-4 pb-1 pt-8 md:px-8">
+        <div className="flex-1">
+          <SearchBar />
         </div>
         <div className="flex flex-row">
           <div className="hidden md:block">
