@@ -253,6 +253,24 @@ export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
   return [...tccOps, ...leaderOps];
 }
 
+export async function getFeaturedPerformers(): Promise<UserModel[]> {
+  const leadersRef = collection(db, "leaderboard");
+  const leadersSnap = doc(leadersRef, "leaders");
+  const leadersDoc = await getDoc(leadersSnap);
+  const { featuredPerformers } = leadersDoc.data() as {
+    featuredPerformers: string[];
+  };
+  const featured = await Promise.all(
+    featuredPerformers
+      .map(getUserByUsername)
+      .filter(async (op) => (await op) !== null)
+  ) as UserModel[];
+
+  console.log({ featured });
+
+  return featured;
+}
+
 export async function getServiceById({
   userId,
   serviceId,

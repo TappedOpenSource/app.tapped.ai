@@ -659,3 +659,20 @@ code {
   --str-chat__box-shadow-color: rgba(0, 0, 0, 0.8);
   --str-chat__info-color: var(--str-chat__green500);
 }
+
+
+[data-theme='light'] .react-modal-sheet-container {
+  background-color: #fff !important;
+}
+
+[data-theme='dark'] .react-modal-sheet-container {
+  background-color: #010f16ff !important;
+}
+
+.react-modal-sheet-backdrop {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+.react-modal-sheet-drag-indicator {
+  background-color: #666 !important;
+}

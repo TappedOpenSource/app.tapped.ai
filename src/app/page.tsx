@@ -32,7 +32,7 @@ export default function Page() {
         </div>
         <div className="z-0">
           <QueryClientProvider client={queryClient}>
-            <VenueMap />
+            <VenueMap showFeaturedPerformers={true} />
           </QueryClientProvider>
         </div>
         <div className="absolute z-10 bottom-0 w-screen">

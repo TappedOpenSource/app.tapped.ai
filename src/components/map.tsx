@@ -6,7 +6,6 @@ import { usePurchases } from "@/context/purchases";
 import { useSearch } from "@/context/search";
 import { BoundingBox } from "@/data/search";
 import { profileImage } from "@/domain/types/user_model";
-import { cn } from "@/lib/utils";
 import { isVenueGoodFit } from "@/utils/good_fit";
 import classNames from "classnames";
 import { useTheme } from "next-themes";
@@ -29,7 +28,9 @@ const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
 const mapboxLightStyle = "mapbox/light-v11";
 
-export default function VenueMap() {
+export default function VenueMap({ showFeaturedPerformers = false }: {
+  showFeaturedPerformers?: boolean;
+}) {
   const [popupInfo, setPopupInfo] = useState<{
     longitude: number;
     latitude: number;
@@ -169,9 +170,11 @@ export default function VenueMap() {
 
         {markers}
 
-        <div className="absolute bottom-0 left-0">
-          <FeaturedPerformers />
-        </div>
+        {showFeaturedPerformers && (
+          <div className="absolute bottom-0 left-0">
+            <FeaturedPerformers />
+          </div>
+        )}
 
         {popupInfo && (
           <Popup
