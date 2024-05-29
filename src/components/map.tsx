@@ -23,6 +23,7 @@ import {
   Marker,
   Popup,
 } from "react-map-gl";
+import FeaturedPerformers from "./FeaturedPerformers";
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
@@ -167,6 +168,10 @@ export default function VenueMap() {
         {/* <ScaleControl /> */}
 
         {markers}
+
+        <div className="absolute bottom-0 left-0">
+          <FeaturedPerformers />
+        </div>
 
         {popupInfo && (
           <Popup

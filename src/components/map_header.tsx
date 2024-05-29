@@ -43,6 +43,15 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { genres } from "@/domain/types/genre";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
 const queryClient = new QueryClient();
 
@@ -269,20 +278,21 @@ function MapHeaderUi() {
             </Link>
           </div>
           <div className="hidden md:block">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="link">top lists</Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>top lists</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem disabled>top trending</DropdownMenuItem>
-                <DropdownMenuItem disabled>top performers</DropdownMenuItem>
-                <DropdownMenuItem disabled>top venues</DropdownMenuItem>
-                <DropdownMenuItem disabled>top genres</DropdownMenuItem>
-                <DropdownMenuItem disabled>top cities</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="top lists" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>top lists</SelectLabel>
+                  <SelectItem disabled value="trending">top trending</SelectItem>
+                  <SelectItem disabled value="performer">top performers</SelectItem>
+                  <SelectItem disabled value="venue">top venues</SelectItem>
+                  <SelectItem disabled value="genre">top genres</SelectItem>
+                  <SelectItem disabled value="city">top cities</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
           <div className="hidden md:block">
             <Button disabled variant="secondary">compare performers</Button>
