@@ -43,7 +43,6 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { genres } from "@/domain/types/genre";
-import { animate } from "framer-motion";
 
 const queryClient = new QueryClient();
 
@@ -140,9 +139,17 @@ function GenreList({ genres, selectedGenres, setSelectedGenres }: {
 }
 
 const phrases = [
+  // eslint-disable-next-line sonarjs/no-duplicate-string
   "search tapped...",
-  "'Noah Kahan'",
+  "'Bad Bunny'",
   "'Madison Square Garden'",
+  "search tapped...",
+  "'Drake'",
+  "'Elsewhere Brooklyn'",
+  "'Noah Kahan'",
+  "search tapped...",
+  "'9:30 Club'",
+  "'Chandler'",
 ];
 
 function SearchBar() {
@@ -197,7 +204,7 @@ function SearchBar() {
       });
       setCurrentText("");
       setCurrentIndex(0);
-    }, 1000);
+    }, 1500);
   }, [currentIndex, currentPhraseIndex]);
 
   const userTiles = useMemo(
@@ -215,7 +222,7 @@ function SearchBar() {
   );
   return (
     <>
-      <div className="bg-card rounded-xl md:w-1/2 lg:w-1/3 xl:w-1/3">
+      <div className="bg-card rounded-xl md:w-3/4 lg:w-3/4 xl:w-1/2">
         <div className="relative">
           <div className="pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-3">
             <Search className="pointer-events-none h-4 w-4 text-gray-400" />
@@ -251,7 +258,7 @@ function MapHeaderUi() {
         <div className="flex-1">
           <SearchBar />
         </div>
-        <div className="flex flex-row">
+        <div className="flex flex-row gap-3">
           <div className="hidden md:block">
             <Link
               href="https://tapped.ai/download"
@@ -261,10 +268,29 @@ function MapHeaderUi() {
               <Button variant="link">get the app</Button>
             </Link>
           </div>
+          <div className="hidden md:block">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="link">top lists</Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>top lists</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem disabled>top trending</DropdownMenuItem>
+                <DropdownMenuItem disabled>top performers</DropdownMenuItem>
+                <DropdownMenuItem disabled>top venues</DropdownMenuItem>
+                <DropdownMenuItem disabled>top genres</DropdownMenuItem>
+                <DropdownMenuItem disabled>top cities</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <div className="hidden md:block">
+            <Button disabled variant="secondary">compare performers</Button>
+          </div>
           {currentUser === null ? (
             <>
               <Link href={`/signup?return_url=${encodeURIComponent("/dashboard")}`}>
-                <Button className="ml-2">login</Button>
+                <Button className="ml-2">sign up</Button>
               </Link>
             </>
           ) : (

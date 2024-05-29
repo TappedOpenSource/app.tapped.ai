@@ -47,7 +47,7 @@ export default function UserSideSheet() {
               variant="secondary"
               onClick={() => {
                 navigator.clipboard.writeText(
-                  `${window.location.origin}/${username}`
+                  `${window.location.origin}/u/${username}`
                 );
 
                 toast({
