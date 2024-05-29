@@ -74,7 +74,6 @@ export default function Page({ params }: Props) {
   return (
     <>
       <div className="landing">
-        <UnauthHeader />
         <ProfileView username={username} />
         <Footer />
       </div>

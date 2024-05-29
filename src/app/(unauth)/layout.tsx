@@ -18,6 +18,7 @@ export default function UnauthLayout({ children }: {
       <div className="absolute z-10">
         <MapHeader />
       </div>
+      <div className="z-0 h-16" />
       {children}
     </>
   );

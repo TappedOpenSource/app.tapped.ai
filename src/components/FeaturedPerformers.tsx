@@ -31,7 +31,7 @@ function FeaturedCard({ performer }: { performer: UserModel }) {
             fill
           />
           <h1
-            className="absolute bottom-0 left-0 right-0 p-1 md:p-2 xl:p-4 text-white font-bold text-md md:text-lg xl:text-xl bg-gradient-to-t from-black to-transparent rounded-b-xl"
+            className="absolute bottom-0 left-0 right-0 p-1 md:p-2 xl:p-4 text-white font-bold text-md xl:text-xl bg-gradient-to-t from-black to-transparent rounded-b-xl"
           >{performer.artistName}</h1>
         </div>
       </button>
