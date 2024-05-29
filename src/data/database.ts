@@ -26,7 +26,9 @@ import { type Service, serviceConverter } from "@/domain/types/service";
 import { type Opportunity, opportunityConverter } from "@/domain/types/opportunity";
 import { logEvent } from "firebase/analytics";
 import { ContactVenueRequest } from "@/domain/types/contact_venue_request";
+import { LRUCache } from "lru-cache";
 
+const verifiedBadgeId = "0aa46576-1fbe-4312-8b69-e2fef3269083";
 
 export async function checkUsernameAvailability(
   userId: string,
@@ -76,6 +78,34 @@ export async function getUserByUsername(
 
   return querySnapshot.docs[0].data() as UserModel;
 }
+
+
+const verifiedCache = new LRUCache<string, boolean>({
+  max: 500,
+});
+export async function isVerified(userId: string): Promise<boolean> {
+  try {
+    const cached = verifiedCache.get(userId);
+    if (cached !== undefined) {
+      return cached;
+    }
+
+    const badgesSentRef = collection(db, "badgesSent");
+
+    const verifiedBadgeSentDoc = await getDoc(
+      doc(badgesSentRef, userId, "badges", verifiedBadgeId)
+    );
+
+    const verified = verifiedBadgeSentDoc.exists();
+    verifiedCache.set(userId, verified);
+
+    return verified;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+}
+
 export async function getLatestBookingByRequestee(
   userId: string
 ): Promise<Option<Booking>> {

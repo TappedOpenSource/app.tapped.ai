@@ -4,6 +4,7 @@ import TiktokButton from "@/components/profile/TiktokButton";
 import TwitterButton from "@/components/profile/TwitterButton";
 import { Button } from "@/components/ui/button";
 import UserInfoSection from "@/components/UserInfoSection";
+import { isVerified } from "@/data/database";
 import {
   audienceSize,
   profileImage,
@@ -11,10 +12,12 @@ import {
   type UserModel,
 } from "@/domain/types/user_model";
 import { cn } from "@/lib/utils";
-import { Facebook, Link2 } from "lucide-react";
+import { BadgeCheck, Facebook, Link2 } from "lucide-react";
 import { Manrope } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -29,6 +32,16 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
 
   const numReviews = reviewCount(user);
   const hasReviews = numReviews > 0;
+  const [verified, setVerified] = useState(false);
+  useEffect(() => {
+    const getIfVerified = async () => {
+      const res = await isVerified(user.id);
+      console.log({ res });
+      setVerified(res);
+    };
+
+    getIfVerified();
+  }, [user.id]);
 
   return (
     <div className="w-full px-6 py-6 md:px-0 md:py-12">
@@ -50,11 +63,26 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
         <div className="">
           <h1
             className={cn(
-              "line-clamp-3 overflow-ellipsis text-4xl font-extrabold md:text-5xl",
+              "flex-1 line-clamp-3 overflow-ellipsis text-4xl font-extrabold md:text-5xl",
               manrope.className
             )}
           >
             {user.artistName ?? user.username}
+            {verified && (
+              <span className="inline">
+                <TooltipProvider disableHoverableContent>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <BadgeCheck />
+                    </TooltipTrigger>
+                    <TooltipContent side="right" align="start" alignOffset={2}>
+                verified
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </span>
+
+            )}
           </h1>
         </div>
       </div>
