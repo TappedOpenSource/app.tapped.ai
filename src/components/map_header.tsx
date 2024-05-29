@@ -74,8 +74,8 @@ function Hit({ hit, onClick }: { hit: UserModel; onClick: () => void }) {
 
   return (
     <button onClick={onClick}>
-      <div className="w-screen px-4 py-px md:px-8">
-        <div className="bg-card my-1 flex w-full flex-row items-center justify-start rounded-xl px-4 py-3 transition-all duration-150 ease-in-out hover:scale-105 md:w-1/2 lg:w-1/3 xl:w-1/4">
+      <div className="py-px">
+        <div className="bg-card my-1 flex w-full flex-row items-center justify-start rounded-xl px-4 py-3 transition-all duration-150 ease-in-out hover:scale-105">
           <div className="pl-1 pr-2">
             <div className="relative h-[42px] w-[42px]">
               <Image
@@ -117,27 +117,23 @@ function GenreList({ genres, selectedGenres, setSelectedGenres }: {
   });
 
   return (
-    <div className="w-screen px-4 md:px-8">
-      <div className="my-1 flex w-full flex-row items-start justify-start rounded-xl px-4 md:w-1/2 lg:w-1/3 xl:w-1/4">
-        <div className="flex flex-row items-center justify-start pt-4 ease-in-out peer-has-[:focus-within]:flex overflow-x-scroll no-scrollbarkj">
-          {selectedGenresInFrom.map((genre) => (
-            <Button
-              key={genre}
-              variant={selectedGenres.includes(genre) ? "default" : "outline"}
-              onClick={() => {
-                if (selectedGenres.includes(genre)) {
-                  setSelectedGenres(selectedGenres.filter((g) => g !== genre));
-                } else {
-                  setSelectedGenres([...selectedGenres, genre]);
-                }
-              }}
-              className="m-1"
-            >
-              {genre.toLowerCase()}
-            </Button>
-          ))}
-        </div>
-      </div>
+    <div className="flex flex-row items-center justify-start ease-in-out peer-has-[:focus-within]:flex overflow-x-scroll no-scrollbar">
+      {selectedGenresInFrom.map((genre) => (
+        <Button
+          key={genre}
+          variant={selectedGenres.includes(genre) ? "default" : "outline"}
+          onClick={() => {
+            if (selectedGenres.includes(genre)) {
+              setSelectedGenres(selectedGenres.filter((g) => g !== genre));
+            } else {
+              setSelectedGenres([...selectedGenres, genre]);
+            }
+          }}
+          className="m-1"
+        >
+          {genre.toLowerCase()}
+        </Button>
+      ))}
     </div>
   );
 }
@@ -194,18 +190,30 @@ function MapHeaderUi() {
 
   return (
     <>
-      <div className="peer flex w-screen flex-row items-center px-4 pb-1 pt-8 md:px-8">
-        <div className="flex-1 relative">
-          <div className="pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-3">
-            <Search className="pointer-events-none h-4 w-4 text-gray-400" />
+      <div className="flex w-screen flex-row items-start px-4 pb-1 pt-8 md:px-8">
+        <div className="flex-1">
+          <div className="bg-card rounded-xl md:w-1/2 lg:w-1/3 xl:w-1/3">
+            <div className="relative">
+              <div className="pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-3">
+                <Search className="pointer-events-none h-4 w-4 text-gray-400" />
+              </div>
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder="search tapped..."
+                className="bg-card w-full rounded-xl p-2.5 px-6 py-4 ps-10 shadow-xl"
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </div>
+            <div className="w-full flex flex-col">{userTiles}</div>
           </div>
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="search tapped..."
-            className="bg-card w-full rounded-full p-2.5 px-6 py-4 ps-10 shadow-xl md:w-1/2 lg:w-1/3 xl:w-1/4"
-            onChange={(e) => setQuery(e.target.value)}
-          />
+          {/* <div className="overflow-x-auto">
+            <GenreList
+              genres={genres}
+              selectedGenres={selectedGenres}
+              setSelectedGenres={setSelectedGenres}
+            />
+          </div> */}
         </div>
         <div className="flex flex-row">
           <div className="hidden md:block">
@@ -299,19 +307,6 @@ function MapHeaderUi() {
           )}
         </div>
       </div>
-      {/* <div className="hidden items-center justify-center pt-4 ease-in-out peer-has-[:focus-within]:flex">
-        <Button className="" onClick={() => router.push("/mass-outreach")}>
-          mass outreach
-        </Button>
-      </div> */}
-      <div>
-        <GenreList
-          genres={genres}
-          selectedGenres={selectedGenres}
-          setSelectedGenres={setSelectedGenres}
-        />
-      </div>
-      <div className="flex flex-col">{userTiles}</div>
     </>
   );
 }
