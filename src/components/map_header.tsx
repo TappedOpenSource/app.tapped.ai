@@ -43,6 +43,8 @@ import SearchBar from "./SearchBar";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useScrollPosition } from "@/utils/use_scroll_position";
 import { cn } from "@/lib/utils";
+import { Suspense } from "react";
+import { LoadingSpinner } from "./LoadingSpinner";
 
 const queryClient = new QueryClient();
 
@@ -61,7 +63,14 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
         <div className="flex-1">
           {showSearch && (
             <div className="md:w-3/4 lg:w-3/4 xl:w-1/2">
-              <SearchBar />
+              <Suspense
+                fallback={
+                  <div className="flex items-center justify-center">
+                    <LoadingSpinner />
+                  </div>
+                }>
+                <SearchBar />
+              </Suspense>
             </div>
           )}
         </div>
