@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import SearchBar from "@/components/SearchBar";
 import TappedSheet from "@/components/TappedSheet";
+import BuyPremium from "@/components/landing/BuyPremium";
 // import BuyPremium from "@/components/landing/BuyPremium";
 import MapHeader from "@/components/map_header";
 import { Button } from "@/components/ui/button";
@@ -48,9 +49,9 @@ export default function Page() {
           </Link>
         </div>
         <FeaturedPerformers />
-        {/* <div className="w-full md:w-3/4 lg:w-1/2 xl:w-1/3">
-            <BuyPremium />
-          </div> */}
+        <div className="w-full md:w-3/4 lg:w-1/2 xl:w-1/3">
+          <BuyPremium />
+        </div>
       </div>
       <Footer />
     </>

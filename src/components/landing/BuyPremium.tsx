@@ -1,4 +1,5 @@
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function BuyPremium() {
   return (
@@ -9,12 +10,17 @@ export default function BuyPremium() {
                 tapped premium
           </h3>
           <p>
-            you should get tapped premium
+            get more shows with the best tools for like music
           </p>
         </div>
-        <Button>
+        <Link
+          href="/premium"
+        >
+          <Button
+          >
                 upgrade
-        </Button>
+          </Button>
+        </Link>
       </div>
     </>
   );
