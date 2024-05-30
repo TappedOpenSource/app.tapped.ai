@@ -35,7 +35,7 @@ export default function Page() {
             <VenueMap showFeaturedPerformers={true} />
           </QueryClientProvider>
         </div>
-        <div className="absolute z-10 bottom-0 w-screen">
+        <div className="hidden md:absolute z-10 bottom-0 w-screen">
           <div className="flex flex-row items-center justify-center">
             <p className="text-center text-sm">
               © {new Date().getFullYear()} Tapped Industries Inc. All rights reserved.
