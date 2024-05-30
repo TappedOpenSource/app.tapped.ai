@@ -36,7 +36,7 @@ export function getMenuList(pathname: string): Group[] {
       menus: [
         {
           href: "/dashboard",
-          label: "map",
+          label: "dashboard",
           active: pathname.includes("/dashboard"),
           icon: Map,
           submenus: [],
