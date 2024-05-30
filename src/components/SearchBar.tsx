@@ -11,6 +11,7 @@ import { useSearch } from "@/context/search";
 import { Button } from "./ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import { BadgeCheck, Search } from "lucide-react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function getSubtitle(hit: UserModel): string {
   const capacity = hit.venueInfo?.capacity ?? null;
@@ -143,7 +144,18 @@ const phrases = [
   "'Chandler'",
 ];
 
+const queryClient = new QueryClient();
 export default function SearchBar() {
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <_SearchBar />
+      </QueryClientProvider>
+    </>
+  );
+}
+
+function _SearchBar() {
   const { useSearchData } = useSearch();
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebounce<string>(query, 250);
