@@ -1,26 +1,19 @@
-"use client";
-
-import UserBottomSheet from "@/components/BottomSheet";
 import FeaturedPerformers from "@/components/FeaturedPerformers";
 import Footer from "@/components/Footer";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import SearchBar from "@/components/SearchBar";
-import UserSideSheet from "@/components/UserSideSheet";
+import TappedSheet from "@/components/TappedSheet";
 // import BuyPremium from "@/components/landing/BuyPremium";
 import MapHeader from "@/components/map_header";
 import { Button } from "@/components/ui/button";
-import useWindowDimensions from "@/utils/window_dimensions";
 import { Globe2 } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
 export default function Page() {
-  const { width } = useWindowDimensions();
-  const screenIsSmall = width < 640;
-
   return (
     <>
-      {screenIsSmall ? <UserBottomSheet /> : <UserSideSheet />}
+      <TappedSheet />
       <div className="fixed top-0 z-10">
         <Suspense
           fallback={
