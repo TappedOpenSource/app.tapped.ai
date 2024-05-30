@@ -6,11 +6,8 @@ import FullFooter from "@/components/Footer";
 import { useStore } from "@/context/use-store";
 import { cn } from "@/lib/utils";
 import { SearchProvider } from "@/context/search";
-import useWindowDimensions from "@/utils/window_dimensions";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import UserBottomSheet from "@/components/BottomSheet";
-import UserSideSheet from "@/components/UserSideSheet";
 import { useAuth } from "@/context/auth";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -22,6 +19,7 @@ import { useTheme } from "next-themes";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useSearchToggle } from "@/context/use-search-toggle";
 import SearchDialog from "@/components/admin-panel/search-dialog";
+import TappedSheet from "@/components/TappedSheet";
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY ?? "";
 export default function DashboardLayout({
@@ -30,8 +28,6 @@ export default function DashboardLayout({
     children: React.ReactNode;
   }) {
   const { resolvedTheme } = useTheme();
-  const { width } = useWindowDimensions();
-  const screenIsSmall = width < 640;
   const sidebar = useStore(useSidebarToggle, (state) => state);
   const searchBar = useStore(useSearchToggle, (state) => state);
   const { state: authState } = useAuth();
@@ -102,15 +98,7 @@ export default function DashboardLayout({
 
   return (
     <>
-      <Suspense
-        fallback={
-          <div className="flex min-h-screen w-screen items-center justify-center">
-            <LoadingSpinner />
-          </div>
-        }
-      >
-        {screenIsSmall ? <UserBottomSheet /> : <UserSideSheet />}
-      </Suspense>
+      <TappedSheet />
       <SearchProvider>
         <Chat
           client={client}
