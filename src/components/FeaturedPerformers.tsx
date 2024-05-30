@@ -21,7 +21,7 @@ function FeaturedCard({ performer }: { performer: UserModel }) {
         }}
       >
         <div
-          className="relative bg-card rounded-xl w-24 h-24 md:w-28 md:h-28 xl:w-48 xl:h-48 transition-all duration-150 ease-in-out hover:scale-105 overflow-hidden"
+          className="relative bg-card rounded-xl w-24 h-24 md:w-28 md:h-28 transition-all duration-150 ease-in-out hover:scale-105 overflow-hidden"
         >
           <Image
             src={imageSrc}
@@ -31,7 +31,7 @@ function FeaturedCard({ performer }: { performer: UserModel }) {
             fill
           />
           <h1
-            className="absolute bottom-0 left-0 right-0 p-1 md:p-2 xl:p-4 text-white font-bold text-md xl:text-xl bg-gradient-to-t from-black to-transparent rounded-b-xl"
+            className="absolute bottom-0 left-0 right-0 p-1 md:p-2 text-white font-bold text-md xl:text-xl bg-gradient-to-t from-black to-transparent rounded-b-xl"
           >{performer.artistName}</h1>
         </div>
       </button>
@@ -57,7 +57,7 @@ export default function FeaturedPerformers() {
       <h3
         className="mt-8"
       >popular performers</h3>
-      <div className="my-6 grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-1 overflow-y-scroll">
+      <div className="my-6 grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-1 overflow-y-scroll">
         {performers.map((performer) => (
           <FeaturedCard key={performer.id} performer={performer} />
         ))}
