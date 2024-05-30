@@ -22,15 +22,12 @@ import {
   Marker,
   Popup,
 } from "react-map-gl";
-import FeaturedPerformers from "./FeaturedPerformers";
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
 const mapboxLightStyle = "mapbox/light-v11";
 
-export default function VenueMap({ showFeaturedPerformers = false }: {
-  showFeaturedPerformers?: boolean;
-}) {
+export default function VenueMap() {
   const [popupInfo, setPopupInfo] = useState<{
     longitude: number;
     latitude: number;
@@ -169,12 +166,6 @@ export default function VenueMap({ showFeaturedPerformers = false }: {
         {/* <ScaleControl /> */}
 
         {markers}
-
-        {showFeaturedPerformers && (
-          <div className="absolute bottom-0 left-0">
-            <FeaturedPerformers />
-          </div>
-        )}
 
         {popupInfo && (
           <Popup

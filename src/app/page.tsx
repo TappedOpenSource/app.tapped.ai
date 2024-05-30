@@ -1,66 +1,51 @@
 "use client";
 
 import UserBottomSheet from "@/components/BottomSheet";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
+import FeaturedPerformers from "@/components/FeaturedPerformers";
+import Footer from "@/components/Footer";
+import SearchBar from "@/components/SearchBar";
 import UserSideSheet from "@/components/UserSideSheet";
-import VenueMap from "@/components/map";
+import BuyPremium from "@/components/landing/BuyPremium";
 import MapHeader from "@/components/map_header";
 import { Button } from "@/components/ui/button";
 import useWindowDimensions from "@/utils/window_dimensions";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Globe2 } from "lucide-react";
 import Link from "next/link";
-import { Suspense } from "react";
 
 const queryClient = new QueryClient();
-
 export default function Page() {
   const { width } = useWindowDimensions();
   const screenIsSmall = width < 640;
 
   return (
     <>
-      <Suspense
-        fallback={
-          <div className="flex min-h-screen w-screen items-center justify-center">
-            <LoadingSpinner />
+      {screenIsSmall ? <UserBottomSheet /> : <UserSideSheet />}
+      <div className="fixed top-0 z-10">
+        <MapHeader showSearch={false} />
+      </div>
+      <QueryClientProvider client={queryClient}>
+        <div className="px-4 pb-12 min-h-screen flex flex-col justify-start items-center">
+          <div className="w-full md:w-3/4 lg:w-1/2 xl:w-1/3 mt-40 md:mt-64 lg:mt-64 xl:mt-[175px]">
+            <h1 className="font-black text-5xl mb-4">
+              search performers
+            </h1>
+            <SearchBar />
+            <Link
+              href="/map"
+            >
+              <Button variant={"link"}>
+              view the map <span className="ml-2"><Globe2 className="h-4 w-4" /></span>
+              </Button>
+            </Link>
           </div>
-        }
-      >
-        {screenIsSmall ? <UserBottomSheet /> : <UserSideSheet />}
-        <div className="absolute z-10">
-          <MapHeader />
+          <FeaturedPerformers />
+          {/* <div className="w-full md:w-3/4 lg:w-1/2 xl:w-1/3">
+            <BuyPremium />
+          </div> */}
         </div>
-        <div className="z-0">
-          <QueryClientProvider client={queryClient}>
-            <VenueMap showFeaturedPerformers={true} />
-          </QueryClientProvider>
-        </div>
-        <div className="hidden md:absolute z-10 bottom-0 w-screen">
-          <div className="flex flex-row items-center justify-center">
-            <p className="text-center text-sm">
-              © {new Date().getFullYear()} Tapped Industries Inc. All rights reserved.
-            </p>
-            <Button variant="link">
-              <Link
-                href="https://tapped.ai/privacy"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                privacy policy
-              </Link>
-            </Button>
-            <Button variant="link">
-              <Link
-                href="https://tapped.ai/terms"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                terms of service
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </Suspense>
+        <Footer />
+      </QueryClientProvider>
     </>
   );
 }

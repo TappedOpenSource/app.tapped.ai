@@ -25,7 +25,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
   const ticketPriceRange = category !== null ? suggestTicketPriceRange(category) : null;
 
   const audience = audienceSize(user);
-  const avgAttendance = Math.min((audience / 250), 25_000).toFixed(0);
+  const avgAttendance = Math.min(Math.round(audience / 250), 25_000).toLocaleString();
 
   const currencyFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",

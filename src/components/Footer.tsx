@@ -13,7 +13,7 @@ const Footer = () => {
               <h2 className="mb-6 text-sm font-semibold uppercase">company</h2>
               <ul className="font-medium text-gray-400">
                 <li className="mb-4">
-                  <Link href="/about" className=" hover:underline">
+                  <Link href="https://tapped.ai/about" className=" hover:underline">
                     about
                   </Link>
                 </li>

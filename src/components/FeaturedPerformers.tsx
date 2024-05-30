@@ -21,7 +21,7 @@ function FeaturedCard({ performer }: { performer: UserModel }) {
         }}
       >
         <div
-          className="relative bg-card rounded-xl w-24 h-36 md:w-36 md:h-36 xl:w-64 xl:h-64 transition-all duration-150 ease-in-out hover:scale-105 overflow-hidden"
+          className="relative bg-card rounded-xl w-24 h-24 md:w-28 md:h-28 xl:w-48 xl:h-48 transition-all duration-150 ease-in-out hover:scale-105 overflow-hidden"
         >
           <Image
             src={imageSrc}
@@ -45,7 +45,8 @@ export default function FeaturedPerformers() {
   useEffect(() => {
     const getPerformers = async () => {
       const data = await getFeaturedPerformers();
-      setPerformers(data);
+      const randomPerformers = data.sort(() => 0.5 - Math.random()).slice(0, 15);
+      setPerformers(randomPerformers);
     };
 
     getPerformers();
@@ -53,7 +54,10 @@ export default function FeaturedPerformers() {
 
   return (
     <>
-      <div className="my-6 flex flex-row gap-4 w-screen overflow-y-scroll">
+      <h3
+        className="mt-8"
+      >popular performers</h3>
+      <div className="my-6 grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-1 overflow-y-scroll">
         {performers.map((performer) => (
           <FeaturedCard key={performer.id} performer={performer} />
         ))}

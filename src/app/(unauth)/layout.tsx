@@ -3,7 +3,6 @@
 import UserBottomSheet from "@/components/BottomSheet";
 import UserSideSheet from "@/components/UserSideSheet";
 import MapHeader from "@/components/map_header";
-// import UnauthHeader from "@/components/unauth_header";
 import useWindowDimensions from "@/utils/window_dimensions";
 
 export default function UnauthLayout({ children }: {
@@ -15,10 +14,9 @@ export default function UnauthLayout({ children }: {
   return (
     <>
       {screenIsSmall ? <UserBottomSheet /> : <UserSideSheet />}
-      <div className="absolute z-10">
+      <div className="fixed z-10">
         <MapHeader />
       </div>
-      <div className="z-0 h-16" />
       {children}
     </>
   );
