@@ -3,15 +3,17 @@
 import UserBottomSheet from "@/components/BottomSheet";
 import FeaturedPerformers from "@/components/FeaturedPerformers";
 import Footer from "@/components/Footer";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 import SearchBar from "@/components/SearchBar";
 import UserSideSheet from "@/components/UserSideSheet";
-import BuyPremium from "@/components/landing/BuyPremium";
+// import BuyPremium from "@/components/landing/BuyPremium";
 import MapHeader from "@/components/map_header";
 import { Button } from "@/components/ui/button";
 import useWindowDimensions from "@/utils/window_dimensions";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Globe2 } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 const queryClient = new QueryClient();
 export default function Page() {
@@ -22,7 +24,15 @@ export default function Page() {
     <>
       {screenIsSmall ? <UserBottomSheet /> : <UserSideSheet />}
       <div className="fixed top-0 z-10">
-        <MapHeader showSearch={false} />
+        <Suspense
+          fallback={
+            <div className="w-screen flex items-center justify-center">
+              <LoadingSpinner />
+            </div>
+          }
+        >
+          <MapHeader showSearch={false} />
+        </Suspense>
       </div>
       <QueryClientProvider client={queryClient}>
         <div className="px-4 pb-12 min-h-screen flex flex-col justify-start items-center">
@@ -30,7 +40,15 @@ export default function Page() {
             <h1 className="font-black text-5xl mb-4">
               search performers
             </h1>
-            <SearchBar />
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center">
+                  <LoadingSpinner />
+                </div>
+              }
+            >
+              <SearchBar />
+            </Suspense>
             <Link
               href="/map"
             >

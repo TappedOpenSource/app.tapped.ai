@@ -12,44 +12,44 @@ const queryClient = new QueryClient();
 export default function Page() {
   return (
     <>
-      <Suspense
-        fallback={
-          <div className="flex min-h-screen w-screen items-center justify-center">
-            <LoadingSpinner />
-          </div>
-        }
-      >
-        <div className="z-0">
+      <div className="z-0">
+        <Suspense
+          fallback={
+            <div className="flex min-h-screen w-screen items-center justify-center">
+              <LoadingSpinner />
+            </div>
+          }
+        >
           <QueryClientProvider client={queryClient}>
             <VenueMap />
           </QueryClientProvider>
-        </div>
-        <div className="hidden md:absolute z-10 bottom-0 w-screen">
-          <div className="flex flex-row items-center justify-center">
-            <p className="text-center text-sm">
+        </Suspense>
+      </div>
+      <div className="hidden md:absolute z-10 bottom-0 w-screen">
+        <div className="flex flex-row items-center justify-center">
+          <p className="text-center text-sm">
               © {new Date().getFullYear()} Tapped Industries Inc. All rights reserved.
-            </p>
-            <Button variant="link">
-              <Link
-                href="https://tapped.ai/privacy"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
+          </p>
+          <Button variant="link">
+            <Link
+              href="https://tapped.ai/privacy"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
                 privacy policy
-              </Link>
-            </Button>
-            <Button variant="link">
-              <Link
-                href="https://tapped.ai/terms"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
+            </Link>
+          </Button>
+          <Button variant="link">
+            <Link
+              href="https://tapped.ai/terms"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
                 terms of service
-              </Link>
-            </Button>
-          </div>
+            </Link>
+          </Button>
         </div>
-      </Suspense>
+      </div>
     </>
   );
 }
