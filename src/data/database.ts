@@ -53,7 +53,15 @@ export async function createOrUpdateUser(user: UserModel): Promise<void> {
   await setDoc(docRef, user, { merge: true });
 }
 
+const userByIdCache = new LRUCache<string, UserModel>({
+  max: 500,
+});
 export async function getUserById(userId: string): Promise<Option<UserModel>> {
+  const cached = userByIdCache.get(userId);
+  if (cached !== undefined) {
+    return cached;
+  }
+
   const docRef = doc(db, "users", userId);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
@@ -61,12 +69,24 @@ export async function getUserById(userId: string): Promise<Option<UserModel>> {
     return null;
   }
 
-  return docSnap.data() as UserModel;
+  const user = docSnap.data() as UserModel;
+  userByIdCache.set(userId, user);
+
+  return user;
 }
 
+
+const userByUsernameCache = new LRUCache<string, UserModel>({
+  max: 500,
+});
 export async function getUserByUsername(
   username: string
 ): Promise<Option<UserModel>> {
+  const cached = userByUsernameCache.get(username);
+  if (cached !== undefined) {
+    return cached;
+  }
+
   const usersCollection = collection(db, "users");
   const q = query(usersCollection, where("username", "==", username), limit(1));
 
@@ -76,7 +96,10 @@ export async function getUserByUsername(
     return null;
   }
 
-  return querySnapshot.docs[0].data() as UserModel;
+  const user = querySnapshot.docs[0].data() as UserModel;
+  userByUsernameCache.set(username, user);
+
+  return user;
 }
 
 

@@ -16,7 +16,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
     []
   ).map((g) => g.toLowerCase());
   const isPerformer = user.performerInfo !== null && user.performerInfo !== undefined;
-  const isVenue = user.venueInfo !== null && user.venueInfo !== undefined;
+  // const isVenue = user.venueInfo !== null && user.venueInfo !== undefined;
   const category = user.performerInfo?.category ?? null;
   const capacity = user.venueInfo?.capacity?.toLocaleString() ?? null;
   const rating = user.performerInfo?.rating ?? user.bookerInfo?.rating ?? null;
@@ -25,7 +25,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
   const ticketPriceRange = category !== null ? suggestTicketPriceRange(category) : null;
 
   const audience = audienceSize(user);
-  const avgAttendance = (audience / 250).toFixed(0);
+  const avgAttendance = Math.min((audience / 250), 25_000).toFixed(0);
 
   const currencyFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",

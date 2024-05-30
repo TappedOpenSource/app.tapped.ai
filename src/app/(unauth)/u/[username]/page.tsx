@@ -2,7 +2,7 @@ import ProfileView from "@/components/ProfileView";
 import Footer from "@/components/Footer";
 import { UserModel, profileImage } from "@/domain/types/user_model";
 import { Metadata, ResolvingMetadata } from "next";
-import UnauthHeader from "@/components/unauth_header";
+// import UnauthHeader from "@/components/unauth_header";
 
 type Props = {
   params: { username: string };
