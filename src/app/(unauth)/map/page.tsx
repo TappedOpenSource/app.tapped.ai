@@ -4,7 +4,21 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Suspense } from "react";
 
-export default function Page() {
+export default function Page({ searchParams }: {
+  searchParams: { [key: string]: string };
+}) {
+  const lat = searchParams["lat"] ?? "38.895";
+  const lng = searchParams["lng"] ?? "-77.0366";
+  const minCapacity = searchParams["min_capacity"] ?? null;
+  const maxCapacity = searchParams["max_capacity"] ?? null;
+  const genres = searchParams["genres"] ?? "";
+
+  const intMinCapacity = minCapacity ? parseInt(minCapacity) : null;
+  const intMaxCapacity = maxCapacity ? parseInt(maxCapacity) : null;
+  const intLat = parseFloat(lat);
+  const intLng = parseFloat(lng);
+  const venueGenres = genres.length > 0 ? genres.split(",") : [];
+
   return (
     <>
       <div className="z-0">
@@ -15,7 +29,13 @@ export default function Page() {
             </div>
           }
         >
-          <VenueMap />
+          <VenueMap
+            lat={intLat}
+            lng={intLng}
+            minCapacity={intMinCapacity}
+            maxCapacity={intMaxCapacity}
+            genres={venueGenres}
+          />
         </Suspense>
       </div>
       <div className="hidden md:absolute z-10 bottom-0 w-screen">

@@ -10,8 +10,8 @@ import { isVenueGoodFit } from "@/utils/good_fit";
 import classNames from "classnames";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { Suspense, useCallback, useMemo, useState } from "react";
 import {
   FullscreenControl,
   GeolocateControl,
@@ -23,23 +23,50 @@ import {
   Popup,
 } from "react-map-gl";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
 const mapboxLightStyle = "mapbox/light-v11";
 
 const queryClient = new QueryClient();
-export default function VenueMap() {
+export default function VenueMap(props: {
+  lat: number;
+  lng: number;
+  minCapacity: number | null;
+  maxCapacity: number | null;
+  genres: string[];
+}) {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <_VenueMap />
+        <Suspense
+          fallback={
+            <div className="flex min-h-screen w-screen items-center justify-center">
+              <LoadingSpinner />
+            </div>
+          }
+        >
+          <_VenueMap {...props} />
+        </Suspense>
       </QueryClientProvider>
     </>
   );
 }
 
-function _VenueMap() {
+function _VenueMap({
+  lat,
+  lng,
+  minCapacity,
+  maxCapacity,
+  genres,
+}: {
+  lat: number;
+  lng: number;
+  minCapacity: number | null;
+  maxCapacity: number | null;
+  genres: string[];
+}) {
   const [popupInfo, setPopupInfo] = useState<{
     longitude: number;
     latitude: number;
@@ -57,21 +84,11 @@ function _VenueMap() {
   const { resolvedTheme } = useTheme();
   const currentUser = authState?.currentUser ?? null;
 
-  const searchParams = useSearchParams();
-  const lat = searchParams.get("lat") ?? "38.895";
-  const lng = searchParams.get("lng") ?? "-77.0366";
-  const minCapacity = searchParams.get("min_capacity") ?? null;
-  const maxCapacity = searchParams.get("max_capacity") ?? null;
-  const genres = searchParams.get("genres") ?? "";
-
-  const intLat = parseFloat(lat);
-  const intLng = parseFloat(lng);
-  const venueGenres = genres.length > 0 ? genres.split(",") : [];
   const { data } = useVenueData(debouncedBounds, {
     hitsPerPage: 100,
-    minCapacity: minCapacity !== null ? parseInt(minCapacity) : undefined,
-    maxCapacity: maxCapacity !== null ? parseInt(maxCapacity) : undefined,
-    venueGenres: venueGenres.length > 0 ? venueGenres : undefined,
+    minCapacity: minCapacity ?? undefined,
+    maxCapacity: maxCapacity ?? undefined,
+    venueGenres: genres.length > 0 ? genres : undefined,
   });
 
   const onRender = useCallback((e: MapboxEvent) => {
@@ -158,8 +175,8 @@ function _VenueMap() {
     <div className="m-0 h-screen w-screen">
       <Map
         initialViewState={{
-          latitude: intLat,
-          longitude: intLng,
+          latitude: lat,
+          longitude: lng,
           zoom: 5.5,
           bearing: 0,
           pitch: 0,
