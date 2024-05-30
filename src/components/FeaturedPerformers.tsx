@@ -57,7 +57,7 @@ export default function FeaturedPerformers() {
       <h3
         className="mt-8"
       >popular performers</h3>
-      <div className="my-6 grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-1 overflow-y-scroll">
+      <div className="my-6 grid grid-cols-4 md:grid-cols-4 lg:grid-cols-5 gap-1 overflow-y-scroll">
         {performers.map((performer) => (
           <FeaturedCard key={performer.id} performer={performer} />
         ))}
