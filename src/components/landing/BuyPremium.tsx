@@ -10,7 +10,7 @@ export default function BuyPremium() {
                 tapped premium
           </h3>
           <p>
-            get more shows with the best tools for like music
+            get more shows with the best tools for live music
           </p>
         </div>
         <Link
