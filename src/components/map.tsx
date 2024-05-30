@@ -22,12 +22,24 @@ import {
   Marker,
   Popup,
 } from "react-map-gl";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
 const mapboxLightStyle = "mapbox/light-v11";
 
+const queryClient = new QueryClient();
 export default function VenueMap() {
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <_VenueMap />
+      </QueryClientProvider>
+    </>
+  );
+}
+
+function _VenueMap() {
   const [popupInfo, setPopupInfo] = useState<{
     longitude: number;
     latitude: number;

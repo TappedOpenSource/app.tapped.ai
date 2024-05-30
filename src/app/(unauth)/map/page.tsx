@@ -1,13 +1,8 @@
-"use client";
-
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import VenueMap from "@/components/map";
 import { Button } from "@/components/ui/button";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Link from "next/link";
 import { Suspense } from "react";
-
-const queryClient = new QueryClient();
 
 export default function Page() {
   return (
@@ -20,9 +15,7 @@ export default function Page() {
             </div>
           }
         >
-          <QueryClientProvider client={queryClient}>
-            <VenueMap />
-          </QueryClientProvider>
+          <VenueMap />
         </Suspense>
       </div>
       <div className="hidden md:absolute z-10 bottom-0 w-screen">
