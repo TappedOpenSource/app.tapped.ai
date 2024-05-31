@@ -12,6 +12,7 @@ import { Button } from "./ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import { BadgeCheck, Search } from "lucide-react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { track } from "@vercel/analytics/react";
 
 function getSubtitle(hit: UserModel): string {
   const capacity = hit.venueInfo?.capacity ?? null;
@@ -162,6 +163,10 @@ function _SearchBar() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const pathname = usePathname();
+  useEffect(() => {
+    if (debouncedQuery === "") return;
+    track("search", { query: debouncedQuery });
+  }, [debouncedQuery]);
 
   const { data } = useSearchData(debouncedQuery, { hitsPerPage: 5 });
   useHotkeys("/", (e) => {
