@@ -57,7 +57,9 @@ export default function Page() {
             </Link>
           </div>
         </div>
-        <FeaturedPerformers />
+        <div className="w-full md:w-3/4 lg:w-1/2 xl:w-1/3">
+          <FeaturedPerformers />
+        </div>
         <div className="w-full md:w-3/4 lg:w-1/2 xl:w-1/3">
           <BuyPremium />
         </div>
