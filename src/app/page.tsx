@@ -1,5 +1,5 @@
 import FeaturedPerformers from "@/components/FeaturedPerformers";
-import Footer from "@/components/Footer";
+import Footer from "@/components/admin-panel/footer";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import SearchBar from "@/components/SearchBar";
 import TappedSheet from "@/components/TappedSheet";

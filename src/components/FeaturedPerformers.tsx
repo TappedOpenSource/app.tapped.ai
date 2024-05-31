@@ -5,6 +5,9 @@ import { getFeaturedPerformers } from "@/data/database";
 import { profileImage, type UserModel } from "@/domain/types/user_model";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { Dices } from "lucide-react";
+import { Button } from "./ui/button";
+import { useHotkeys } from "react-hotkeys-hook";
 
 function FeaturedCard({ performer }: { performer: UserModel }) {
   const router = useRouter();
@@ -41,24 +44,28 @@ function FeaturedCard({ performer }: { performer: UserModel }) {
 
 export default function FeaturedPerformers() {
   const [performers, setPerformers] = useState<UserModel[]>([]);
+  const [sampledPerformers, setSampledPerformers] = useState<UserModel[]>([]);
 
   useEffect(() => {
     const getPerformers = async () => {
       const data = await getFeaturedPerformers();
+      setPerformers(data);
       const randomPerformers = data.sort(() => 0.5 - Math.random()).slice(0, 15);
-      setPerformers(randomPerformers);
+      setSampledPerformers(randomPerformers);
     };
 
     getPerformers();
   }, []);
 
+  useHotkeys("space", () => {
+    const newPerformers = performers.sort(() => 0.5 - Math.random()).slice(0, 15);
+    setSampledPerformers(newPerformers);
+  }, { preventDefault: true });
+
   return (
     <>
-      <h3
-        className="mt-8"
-      >popular performers</h3>
       <div className="my-6 grid grid-cols-4 md:grid-cols-4 lg:grid-cols-5 gap-1 overflow-y-scroll">
-        {performers.map((performer) => (
+        {sampledPerformers.map((performer) => (
           <FeaturedCard key={performer.id} performer={performer} />
         ))}
       </div>
