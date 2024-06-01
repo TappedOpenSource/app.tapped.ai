@@ -1,11 +1,11 @@
 "use client";
 
-import { columns } from "@/components/venue_search/columns";
 import { DataTable } from "@/components/data_table";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import { type UserModel } from "@/domain/types/user_model";
 import { getBookingLeaders, getFeaturedPerformers } from "@/data/database";
+import { columns } from "./columns";
 
 export type LeaderboardType = "trending" | "performer" | "venue" | "genre" | "city";
 export default function LeaderboardTable({ type }: { type: LeaderboardType }) {
@@ -19,6 +19,7 @@ export default function LeaderboardTable({ type }: { type: LeaderboardType }) {
     if (type === "trending" ) {
       const fetchLeaders = async () => {
         const leaders = await getBookingLeaders();
+        console.log({ leaders });
         setData(leaders);
       };
       fetchLeaders();
