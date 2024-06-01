@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { columns } from "@/components/venue_search/columns";
-import { DataTable } from "@/components/venue_search/data_table";
+import { DataTable } from "@/components/data_table";
 import { useSearch } from "@/context/search";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import Link from "next/link";

@@ -31,15 +31,7 @@ export default function Page() {
           <h1 className="font-black text-5xl mb-4">
               search performers
           </h1>
-          <Suspense
-            fallback={
-              <div className="flex items-center justify-center">
-                <LoadingSpinner />
-              </div>
-            }
-          >
-            <SearchBar />
-          </Suspense>
+          <SearchBar animatedPlaceholder />
           <div className="flex justify-center gap-4 mt-4">
             <Link
               href="/map"

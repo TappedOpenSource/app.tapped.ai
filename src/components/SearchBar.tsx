@@ -2,7 +2,7 @@
 
 import { isVerified } from "@/data/database";
 import { type UserModel, audienceSize, profileImage } from "@/domain/types/user_model";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useHotkeys } from "react-hotkeys-hook";
@@ -13,6 +13,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/t
 import { BadgeCheck, Search } from "lucide-react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { track } from "@vercel/analytics/react";
+import { LoadingSpinner } from "./LoadingSpinner";
 
 function getSubtitle(hit: UserModel): string {
   const capacity = hit.venueInfo?.capacity ?? null;
@@ -146,17 +147,28 @@ const phrases = [
 ];
 
 const queryClient = new QueryClient();
-export default function SearchBar() {
+export default function SearchBar(props: {
+  animatedPlaceholder?: boolean;
+}) {
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <_SearchBar />
-      </QueryClientProvider>
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center">
+            <LoadingSpinner />
+          </div>
+        }>
+        <QueryClientProvider client={queryClient}>
+          <_SearchBar {...props} />
+        </QueryClientProvider>
+      </Suspense>
     </>
   );
 }
 
-function _SearchBar() {
+function _SearchBar({ animatedPlaceholder = false }: {
+  animatedPlaceholder?: boolean;
+}) {
   const { useSearchData } = useSearch();
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebounce<string>(query, 250);
@@ -196,6 +208,8 @@ function _SearchBar() {
   const [currentText, setCurrentText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   useEffect(() => {
+    if (!animatedPlaceholder) return;
+
     const text = phrases[currentPhraseIndex];
     if (currentIndex < text.length) {
       const timeout = setTimeout(() => {
@@ -238,7 +252,7 @@ function _SearchBar() {
           <input
             ref={inputRef}
             type="text"
-            placeholder={currentText}
+            placeholder={animatedPlaceholder ? currentText : "search tapped..."}
             className="bg-card w-full rounded-xl p-2.5 px-6 py-4 ps-10 shadow-xl"
             onChange={(e) => setQuery(e.target.value)}
           />

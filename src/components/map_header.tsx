@@ -45,6 +45,7 @@ import { useScrollPosition } from "@/utils/use_scroll_position";
 import { cn } from "@/lib/utils";
 import { Suspense } from "react";
 import { LoadingSpinner } from "./LoadingSpinner";
+import { useRouter } from "next/navigation";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +54,7 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
   const { state: subscribed } = usePurchases();
   const { setTheme } = useTheme();
   const scrollPosition = useScrollPosition();
+  const router = useRouter();
 
   return (
     <>
@@ -85,18 +87,22 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
             </Link>
           </div>
           <div className="hidden md:block">
-            <Select>
+            <Select
+              onValueChange={(value) => {
+                router.push(`/leaderboards?type=${value}`);
+              }}
+            >
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="top lists" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>top lists</SelectLabel>
-                  <SelectItem disabled value="trending">top trending</SelectItem>
-                  <SelectItem disabled value="performer">top performers</SelectItem>
-                  <SelectItem disabled value="venue">top venues</SelectItem>
-                  <SelectItem disabled value="genre">top genres</SelectItem>
-                  <SelectItem disabled value="city">top cities</SelectItem>
+                  <SelectItem value="trending">top trending</SelectItem>
+                  <SelectItem value="performer">top performers</SelectItem>
+                  <SelectItem value="venue">top venues</SelectItem>
+                  <SelectItem value="genre">top genres</SelectItem>
+                  <SelectItem value="city">top cities</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
