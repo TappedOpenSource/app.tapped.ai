@@ -19,7 +19,6 @@ export default function LeaderboardTable({ type }: { type: LeaderboardType }) {
     if (type === "trending" ) {
       const fetchLeaders = async () => {
         const leaders = await getBookingLeaders();
-        console.log({ leaders });
         setData(leaders);
       };
       fetchLeaders();

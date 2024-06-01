@@ -267,11 +267,10 @@ export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
   const { featuredOpportunities } = leadersDoc.data() as {
     featuredOpportunities: string[];
   };
-  const leaderOps = await Promise.all(
+  const leaderOps = (await Promise.all(
     featuredOpportunities
       .map(getOpportunityById)
-      .filter(async (op) => (await op) !== null)
-  ) as Opportunity[];
+  )).filter((u) => u !== null) as Opportunity[];
 
   return [...tccOps, ...leaderOps];
 }
@@ -291,11 +290,10 @@ export async function getFeaturedPerformers(): Promise<UserModel[]> {
   const { featuredPerformers } = leadersDoc.data() as {
     featuredPerformers: string[];
   };
-  const featured = await Promise.all(
+  const featured = (await Promise.all(
     featuredPerformers
       .map(getUserByUsername)
-      .filter(async (op) => (await op) !== null)
-  ) as UserModel[];
+  )).filter((u) => u !== null) as UserModel[];
 
   featuredPerformersCache.set("featuredPerformers", featured);
   return featured;
@@ -316,11 +314,10 @@ export async function getBookingLeaders(): Promise<UserModel[]> {
   const { bookingLeaders } = leadersDoc.data() as {
     bookingLeaders: string[];
   };
-  const leaders = await Promise.all(
+  const leaders = (await Promise.all(
     bookingLeaders
       .map(getUserByUsername)
-      .filter(async (op) => (await op) !== null)
-  ) as UserModel[];
+  )).filter((u) => u !== null) as UserModel[];
 
   bookingLeadersCache.set("bookingLeaders", leaders);
   return leaders;
