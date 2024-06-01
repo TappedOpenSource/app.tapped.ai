@@ -167,18 +167,12 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
                   </DropdownMenuPortal>
                 </DropdownMenuSub>
                 <DropdownMenuItem>
-                  <MessageCircle className="mr-2 h-4 w-4" />
-                  <Link href={"/messages"}>
-                    <span>messages</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
                   <Gem className="mr-2 h-4 w-4" />
                   {subscribed ? (
                     <span>subscribed</span>
                   ) : (
                     <Link href={"/subscribe"}>
-                      <span>subscribe</span>
+                      <span>premium</span>
                     </Link>
                   )}
                 </DropdownMenuItem>

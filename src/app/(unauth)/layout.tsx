@@ -6,7 +6,7 @@ export default function UnauthLayout({ children }: {
     children: React.ReactNode;
 }) {
   const header = headers();
-  const pathname = header.get("next-url");
+  const pathname = header.get("x-pathname");
   const isMapPage = pathname?.includes("/map");
 
   return (
