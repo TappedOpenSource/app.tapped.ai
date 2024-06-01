@@ -276,7 +276,15 @@ export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
   return [...tccOps, ...leaderOps];
 }
 
+const featuredPerformersCache = new LRUCache<string, UserModel[]>({
+  max: 1,
+});
 export async function getFeaturedPerformers(): Promise<UserModel[]> {
+  const cached = featuredPerformersCache.get("featuredPerformers");
+  if (cached !== undefined) {
+    return cached;
+  }
+
   const leadersRef = collection(db, "leaderboard");
   const leadersSnap = doc(leadersRef, "leaders");
   const leadersDoc = await getDoc(leadersSnap);
@@ -289,10 +297,35 @@ export async function getFeaturedPerformers(): Promise<UserModel[]> {
       .filter(async (op) => (await op) !== null)
   ) as UserModel[];
 
-  console.log({ featured });
-
+  featuredPerformersCache.set("featuredPerformers", featured);
   return featured;
 }
+
+const bookingLeadersCache = new LRUCache<string, UserModel[]>({
+  max: 1,
+});
+export async function getBookingLeaders(): Promise<UserModel[]> {
+  const cached = bookingLeadersCache.get("bookingLeaders");
+  if (cached !== undefined) {
+    return cached;
+  }
+
+  const leadersRef = collection(db, "leaderboard");
+  const leadersSnap = doc(leadersRef, "leaders");
+  const leadersDoc = await getDoc(leadersSnap);
+  const { bookingLeaders } = leadersDoc.data() as {
+    bookingLeaders: string[];
+  };
+  const leaders = await Promise.all(
+    bookingLeaders
+      .map(getUserByUsername)
+      .filter(async (op) => (await op) !== null)
+  ) as UserModel[];
+
+  bookingLeadersCache.set("bookingLeaders", leaders);
+  return leaders;
+}
+
 
 export async function getServiceById({
   userId,

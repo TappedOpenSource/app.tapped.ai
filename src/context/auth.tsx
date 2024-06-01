@@ -77,7 +77,10 @@ function authReducer(state: State, action: Action): State {
 export function AuthProvider({ children }: {
     children: ReactNode;
  }) {
-  const [state, dispatch] = useReducer(authReducer, { authUser: null, currentUser: null });
+  const [state, dispatch] = useReducer(authReducer, {
+    authUser: null,
+    currentUser: null,
+  });
   initAuthListener(state, dispatch);
   // NOTE: you *might* need to memoize this value
   // Learn more in http://kcd.im/optimize-context
