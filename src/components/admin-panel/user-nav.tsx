@@ -63,6 +63,12 @@ export function UserNav() {
           <DropdownMenuItem className="hover:cursor-pointer" asChild>
             <Link href="/" className="flex items-center">
               <Map className="w-4 h-4 mr-3 text-muted-foreground" />
+              home
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="hover:cursor-pointer" asChild>
+            <Link href="/map" className="flex items-center">
+              <Map className="w-4 h-4 mr-3 text-muted-foreground" />
               map
             </Link>
           </DropdownMenuItem>
