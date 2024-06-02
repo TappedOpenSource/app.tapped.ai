@@ -34,7 +34,7 @@ export default function LeaderboardTable({ type }: { type: LeaderboardType }) {
 
     const fetchPerformers = async () => {
       const performers = await getFeaturedPerformers();
-      setTopPerformers(performers.sort((a, b) => userAudienceSize(a) - userAudienceSize(b)));
+      setTopPerformers(performers.sort((a, b) => userAudienceSize(b) - userAudienceSize(a)));
     };
     fetchPerformers();
 
