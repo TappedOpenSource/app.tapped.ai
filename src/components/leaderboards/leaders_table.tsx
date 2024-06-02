@@ -3,7 +3,7 @@
 import { DataTable } from "@/components/data_table";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
-import { type UserModel } from "@/domain/types/user_model";
+import { userAudienceSize, type UserModel } from "@/domain/types/user_model";
 import { getBookingLeaders, getFeaturedPerformers } from "@/data/database";
 import { columns } from "./columns";
 
@@ -34,7 +34,7 @@ export default function LeaderboardTable({ type }: { type: LeaderboardType }) {
 
     const fetchPerformers = async () => {
       const performers = await getFeaturedPerformers();
-      setTopPerformers(performers);
+      setTopPerformers(performers.sort((a, b) => userAudienceSize(a) - userAudienceSize(b)));
     };
     fetchPerformers();
 
