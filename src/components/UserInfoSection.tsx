@@ -1,4 +1,4 @@
-import { UserModel, audienceSize, suggestTicketPriceRange } from "@/domain/types/user_model";
+import { UserModel, userAudienceSize, suggestTicketPriceRange } from "@/domain/types/user_model";
 import {
   Castle,
   UsersRound,
@@ -24,7 +24,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
   const label = user.performerInfo?.label ?? null;
   const ticketPriceRange = category !== null ? suggestTicketPriceRange(category) : null;
 
-  const audience = audienceSize(user);
+  const audience = userAudienceSize(user);
   const avgAttendance = Math.min(Math.round(audience / 250), 25_000).toLocaleString();
 
   const currencyFormatter = new Intl.NumberFormat("en-US", {

@@ -7,32 +7,53 @@ import { type UserModel } from "@/domain/types/user_model";
 import { getBookingLeaders, getFeaturedPerformers } from "@/data/database";
 import { columns } from "./columns";
 
-export type LeaderboardType = "trending" | "performer" | "venue" | "genre" | "city";
+export type LeaderboardType = "trending" | "performer";
 export default function LeaderboardTable({ type }: { type: LeaderboardType }) {
   // trending = bookingLeaders
   // performer= featuredPerformers
   // venue = venuesSortByNumberOfBookings
   // genre = allBookings.map(b => b.genres).flat().reduce((acc, g) => acc.set(g, (acc.get(g) ?? 0) + 1), new Map())
   // city = allBookings.map(b => b.location).reduce((acc, c) => acc.set(c, (acc.get(c) ?? 0) + 1), new Map())
-  const [data, setData] = useState<UserModel[]>([]);
+
+  const [trending, setTrending] = useState<UserModel[]>([]);
+  const [topPerformers, setTopPerformers] = useState<UserModel[]>([]);
+  // const [topVenues, setTopVenues] = useState<UserModel[]>([]);
+  // const [topGenres, setTopGenres] = useState<Map<string, number>>(new Map());
+  // const [topCities, setTopCities] = useState<{
+  //   city: string;
+  //   numVenues: number;
+  //   topGenres: string[];
+  // }[]>([]);
+
   useEffect(() => {
-    if (type === "trending" ) {
-      const fetchLeaders = async () => {
-        const leaders = await getBookingLeaders();
-        setData(leaders);
-      };
-      fetchLeaders();
-    }
+    const fetchLeaders = async () => {
+      const leaders = await getBookingLeaders();
+      setTrending(leaders);
+    };
+    fetchLeaders();
 
-    if (type === "performer" ) {
-      const fetchPerformers = async () => {
-        const performers = await getFeaturedPerformers();
-        setData(performers);
-      };
-      fetchPerformers();
-    }
-  }, [type]);
+    const fetchPerformers = async () => {
+      const performers = await getFeaturedPerformers();
+      setTopPerformers(performers);
+    };
+    fetchPerformers();
 
+    // const fetchVenues = async () => {
+    //   const venues: UserModel[] = await getVenuesByBookings();
+    //   const venueGenres = venues.map((v) => v.venueInfo?.genres).flat().reduce((acc, g) => acc.set(g, (acc.get(g) ?? 0) + 1), new Map());
+    //   setTopVenues(venues);
+    //   setTopGenres(venueGenres);
+    // };
+    // fetchVenues();
+
+    // const fetchCities = async () => {
+    //   const cities = await getTopCities();
+    //   setTopCities(cities);
+    // };
+    // fetchCities();
+  }, []);
+
+  const data = type === "trending" ? trending : topPerformers;
   const table = useReactTable({
     data,
     columns,
@@ -43,7 +64,7 @@ export default function LeaderboardTable({ type }: { type: LeaderboardType }) {
   return (
     <>
       <div className="container mx-auto py-10 overflow-y-scroll">
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold py-6">
           {type}
         </h1>
         <DataTable table={table} />

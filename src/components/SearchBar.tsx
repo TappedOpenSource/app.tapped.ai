@@ -1,7 +1,7 @@
 "use client";
 
 import { isVerified } from "@/data/database";
-import { type UserModel, audienceSize, profileImage } from "@/domain/types/user_model";
+import { type UserModel, userAudienceSize, profileImage } from "@/domain/types/user_model";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -17,7 +17,7 @@ import { LoadingSpinner } from "./LoadingSpinner";
 
 function getSubtitle(hit: UserModel): string {
   const capacity = hit.venueInfo?.capacity ?? null;
-  const totalFollowing = audienceSize(hit);
+  const totalFollowing = userAudienceSize(hit);
   const category = hit.performerInfo?.category ?? null;
 
   if (capacity === null && category === null) {

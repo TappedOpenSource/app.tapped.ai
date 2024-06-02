@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import UserInfoSection from "@/components/UserInfoSection";
 import { isVerified } from "@/data/database";
 import {
-  audienceSize,
+  userAudienceSize,
   profileImage,
   reviewCount,
   type UserModel,
@@ -26,7 +26,7 @@ const manrope = Manrope({
 
 export default function ProfileHeader({ user }: { user: UserModel }) {
   const imageSrc = profileImage(user);
-  const audience = audienceSize(user);
+  const audience = userAudienceSize(user);
   const firstValue = user.venueInfo?.capacity ?? audience;
   const firstLabel = user.venueInfo?.capacity ? "capacity" : "audience";
 

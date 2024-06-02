@@ -4,9 +4,9 @@ const validatedType = (type: string): LeaderboardType => {
   switch (type) {
   case "trending":
   case "performer":
-  case "venue":
-  case "genre":
-  case "city":
+  // case "venue":
+  // case "genre":
+  // case "city":
     return type;
   default:
     return "trending";

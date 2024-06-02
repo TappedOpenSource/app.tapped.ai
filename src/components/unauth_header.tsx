@@ -6,7 +6,7 @@ import { usePurchases } from "@/context/purchases";
 import { useSearch } from "@/context/search";
 import { logout } from "@/data/auth";
 import {
-  audienceSize,
+  userAudienceSize,
   profileImage,
   type UserModel,
 } from "@/domain/types/user_model";
@@ -47,7 +47,7 @@ const queryClient = new QueryClient();
 
 function getSubtitle(hit: UserModel): string {
   const capacity = hit.venueInfo?.capacity ?? null;
-  const totalFollowing = audienceSize(hit);
+  const totalFollowing = userAudienceSize(hit);
   const category = hit.performerInfo?.category ?? null;
 
   if (capacity === null && category === null) {

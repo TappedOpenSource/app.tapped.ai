@@ -1,10 +1,32 @@
 "use client";
 
-import { UserModel } from "@/domain/types/user_model";
+import { UserModel, imageOrDefault, profileImage, totalSocialFollowing } from "@/domain/types/user_model";
 import { ColumnDef } from "@tanstack/react-table";
-import { Checkbox } from "../ui/checkbox";
+import Image from "next/image";
 
 export const columns: ColumnDef<UserModel>[] = [
+  {
+    id: "profilePicture",
+    accessorKey: "profilePicture",
+    header: "pfp",
+    cell: ({ row }) => {
+      const profilePicture = row.getValue("profilePicture") as UserModel["profilePicture"];
+
+      const profilePictureUrl = imageOrDefault(profilePicture);
+
+      return (
+        <div className="relative h-6 w-6 rounded-xl">
+          <Image
+            src={profilePictureUrl}
+            alt="profile picture"
+            fill
+            style={{ objectFit: "cover" }}
+            className="rounded-md"
+          />
+        </div>
+      );
+    },
+  },
   {
     accessorKey: "artistName",
     header: "name",
@@ -13,15 +35,17 @@ export const columns: ColumnDef<UserModel>[] = [
     accessorKey: "username",
     header: "username",
   },
-  // {
-  //   id: "",
-  //   accessorKey: "venueInfo.capacity",
-  //   header: "capacity",
-  //   cell: ({ row }) => {
-  //     const capacity = parseFloat(row.getValue("capacity"));
-  //     const formatted = capacity.toLocaleString("en-US");
+  {
+    id: "audience",
+    accessorKey: "socialFollowing",
+    header: "audience",
+    cell: ({ row }) => {
+      const socialFollowing = row.getValue("audience") as UserModel["socialFollowing"];
 
-  //     return <div className="text-right font-medium">{formatted}</div>;
-  //   },
-  // },
+      const audienceSize = totalSocialFollowing(socialFollowing);
+      const formatted = audienceSize === 0 ? "N/A" : audienceSize.toLocaleString();
+
+      return <div className="text-center font-medium">{formatted}</div>;
+    },
+  },
 ];

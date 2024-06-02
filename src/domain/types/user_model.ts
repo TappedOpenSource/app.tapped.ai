@@ -193,14 +193,18 @@ export const userModelConverter = {
 export const reviewCount = (user: UserModel): number => (user.bookerInfo?.reviewCount ?? 0) +
     (user.performerInfo?.reviewCount ?? 0);
 
-export const audienceSize = (user: UserModel): number => (user.socialFollowing?.twitterFollowers ?? 0) +
-    (user.socialFollowing?.instagramFollowers ?? 0) +
-    (user.socialFollowing?.tiktokFollowers ?? 0);
+export const userAudienceSize = (user: UserModel): number => totalSocialFollowing(user.socialFollowing);
 
-export const profileImage = (user: UserModel): string => {
-  if (user.profilePicture === undefined || user.profilePicture === null) {
+
+export const totalSocialFollowing = (socialFollowing: SocialFollowing | null): number => (socialFollowing?.twitterFollowers ?? 0) +
+  (socialFollowing?.instagramFollowers ?? 0) +
+  (socialFollowing?.tiktokFollowers ?? 0);
+
+export const profileImage = (user: UserModel): string => imageOrDefault(user.profilePicture);
+export const imageOrDefault = (url: string | null | undefined): string => {
+  if (url === undefined || url === null) {
     return "/images/default_avatar.png";
   }
 
-  return user.profilePicture;
+  return url;
 };
