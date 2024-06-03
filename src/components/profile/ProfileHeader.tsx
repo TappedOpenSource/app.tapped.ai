@@ -131,7 +131,7 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
       {category && (
         <>
           <div className="h-4" />
-          <Card className="flex w-full">
+          <Card className="flex w-full justify-center items-center">
             <GaugeComponent
               value={performerScore(category)}
               type="radial"
