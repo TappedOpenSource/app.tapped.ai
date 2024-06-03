@@ -92,7 +92,6 @@ export default function BookingView({ bookingId }: {
 
   return (
     <>
-      <UnauthHeader />
       <div className='flex justify-center'>
         <div className='px-6 pb-12 w-auto md:w-1/2'>
           {(booking.flierUrl !== null && booking.flierUrl !== undefined) && (

@@ -44,10 +44,10 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
   }, [user.id]);
 
   return (
-    <div className="w-full px-6 py-6 md:px-0 md:py-12">
-      <div className="flex flex-row items-center justify-start md:flex-col">
-        <div className="flex flex-col items-center justify-center md:aspect-square md:w-full">
-          <div className="z-1 relative h-[128px] w-[128px] overflow-hidden rounded-full md:h-full md:w-full md:rounded-xl">
+    <div className="w-full px-0 py-6 md:py-12">
+      <div className="flex flex-row items-center justify-start flex-col">
+        <div className="flex flex-col items-center justify-center aspect-square w-full">
+          <div className="z-1 relative h-full w-full overflow-hidden rounded-xl">
             <Image
               src={imageSrc}
               alt={`${user.artistName} profile picture`}

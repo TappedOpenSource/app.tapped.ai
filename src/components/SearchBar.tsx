@@ -149,6 +149,7 @@ const phrases = [
 const queryClient = new QueryClient();
 export default function SearchBar(props: {
   animatedPlaceholder?: boolean;
+  onSelect?: (user: UserModel) => void;
 }) {
   return (
     <>
@@ -166,8 +167,9 @@ export default function SearchBar(props: {
   );
 }
 
-function _SearchBar({ animatedPlaceholder = false }: {
+function _SearchBar({ animatedPlaceholder = false, onSelect }: {
   animatedPlaceholder?: boolean;
+  onSelect?: (user: UserModel) => void;
 }) {
   const { useSearchData } = useSearch();
   const [query, setQuery] = useState<string>("");
@@ -236,15 +238,23 @@ function _SearchBar({ animatedPlaceholder = false }: {
           <Hit
             key={user.id}
             hit={user}
-            onClick={() => router.push(`${pathname}?${createQueryString("username", user.username)}`)}
+            onClick={() => {
+              if (onSelect) {
+                setQuery("");
+                onSelect(user);
+                return;
+              }
+
+              router.push(`${pathname}?${createQueryString("username", user.username)}`);
+            }}
           />
         );
       }),
-    [data, router, pathname, createQueryString]
+    [data, router, pathname, createQueryString, onSelect]
   );
   return (
     <>
-      <div className="bg-card rounded-xl border border-input ring-offset-background">
+      <div className="bg-card z-50 rounded-xl border border-input ring-offset-background">
         <div className="relative">
           <div className="pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-3">
             <Search className="pointer-events-none h-4 w-4 text-gray-400" />
@@ -257,7 +267,9 @@ function _SearchBar({ animatedPlaceholder = false }: {
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
-        <div className="w-full flex flex-col">{userTiles}</div>
+        <div className="relative z-50">
+          <div className="absolute z-50 w-full flex flex-col">{userTiles}</div>
+        </div>
       </div>
       {/* <div className="overflow-x-auto">
               <GenreList

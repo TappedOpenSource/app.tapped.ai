@@ -108,7 +108,10 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
             </Select>
           </div>
           <div className="hidden md:block">
-            <Button disabled variant="secondary">compare performers</Button>
+            <Button
+              variant="secondary"
+              onClick={() => router.push("/compare")}
+            >compare performers</Button>
           </div>
           {currentUser === null ? (
             <>
