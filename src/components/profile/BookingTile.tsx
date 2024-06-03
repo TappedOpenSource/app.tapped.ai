@@ -1,14 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Booking, bookingImage } from "@/domain/types/booking";
-import { UserModel, profileImage } from "@/domain/types/user_model";
+import { UserModel } from "@/domain/types/user_model";
 import { getServiceById, getUserById } from "@/data/database";
 import { Service } from "@/domain/types/service";
+import { useRouter } from "next/navigation";
 
 export default function BookingTile({ booking, user }: {
     booking: Booking;
     user: UserModel;
  }) {
+  const router = useRouter();
   const [booker, setBooker] = useState<UserModel | null>(null);
   const [performer, setPerformer] = useState<UserModel | null>(null);
   const [service, setService] = useState<Service | null>(null); // TODO: [service, setService
@@ -57,34 +61,40 @@ export default function BookingTile({ booking, user }: {
 
   return (
     <>
-      <div className='flex flex-row'>
-        <div className='flex justify-center items-center'>
-          <Image
-            src={imageSrc}
-            alt='booking image'
-            width={50}
-            height={50}
-            objectFit='cover'
-          />
-        </div>
-        <div className='w-3' />
-        <div>
-          <div className='flex flex-row items-center'>
-            <p className='font-bold'>Performer</p>
-            <div className='w-3' />
-            <p className='text-xs font-thin text-gray-300'>{booking.timestamp.toDateString()}</p>
+      <button
+        onClick={() => {
+          router.push(`/booking/${booking.id}`);
+        }}
+      >
+        <div className='flex flex-row'>
+          <div className='flex justify-center items-center'>
+            <Image
+              src={imageSrc}
+              alt='booking image'
+              width={50}
+              height={50}
+              objectFit='cover'
+            />
           </div>
-          <p className='break-word'>
-            {booker?.artistName ?? "someone"}
-            {" "}
+          <div className='w-3' />
+          <div>
+            <div className='flex flex-row items-center'>
+              <p className='font-bold'>{booking.name ?? "live performance"}</p>
+              <div className='w-3' />
+              <p className='text-xs font-thin text-gray-300'>{booking.timestamp.toDateString()}</p>
+            </div>
+            <p className='break-word'>
+              {booker?.artistName ?? "someone"}
+              {" "}
           booked
-            {" "}
-            {performer?.artistName ?? "someone"}
-            {" for "}
-            {service?.title ?? "a show"}
-          </p>
+              {" "}
+              {performer?.artistName ?? "someone"}
+              {" for "}
+              {service?.title ?? "a show"}
+            </p>
+          </div>
         </div>
-      </div>
+      </button>
     </>
   );
 }
