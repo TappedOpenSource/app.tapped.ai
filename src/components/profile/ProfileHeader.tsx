@@ -10,6 +10,7 @@ import {
   profileImage,
   reviewCount,
   type UserModel,
+  performerScore,
 } from "@/domain/types/user_model";
 import { cn } from "@/lib/utils";
 import { BadgeCheck, Facebook, Link2 } from "lucide-react";
@@ -18,6 +19,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { Card } from "../ui/card";
+import GaugeComponent from "react-gauge-component";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -29,6 +32,7 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
   const audience = userAudienceSize(user);
   const firstValue = user.venueInfo?.capacity ?? audience;
   const firstLabel = user.venueInfo?.capacity ? "capacity" : "audience";
+  const category = user.performerInfo?.category;
 
   const numReviews = reviewCount(user);
   const hasReviews = numReviews > 0;
@@ -124,6 +128,34 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
       )}
       <div className="h-4" />
       <UserInfoSection user={user} />
+      {category && (
+        <>
+          <div className="h-4" />
+          <Card className="flex w-full">
+            <GaugeComponent
+              value={performerScore(category)}
+              type="radial"
+              labels={{
+                valueLabel: {
+                  formatTextValue: () => {
+                    return `${category}`;
+                  },
+                },
+              }}
+              arc={{
+                colorArray: ["#9E9E9E", "#40C4FF", "#FF9800", "#9C27B0", "#F44336"],
+                subArcs: [{ limit: 33 }, { limit: 66 }, { limit: 80 }, { limit: 95 }, { limit: 100 }],
+                padding: 0.02,
+                width: 0.3,
+              }}
+              pointer={{
+                elastic: true,
+                animationDelay: 0,
+              }}
+            />
+          </Card>
+        </>
+      )}
       <div className="h-4" />
       <div className="flex flex-row items-center justify-around">
         {user.socialFollowing?.instagramHandle && (

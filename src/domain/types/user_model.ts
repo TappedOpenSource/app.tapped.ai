@@ -190,6 +190,25 @@ export const userModelConverter = {
   },
 };
 
+export const performerScore = (category: PerformerCategory): number => {
+  const range = performerScoreRange(category);
+  return Math.round(((range[0] + range[0]) / 2));
+};
+
+export const performerScoreRange = (category: PerformerCategory): [number, number] => {
+  const mapping: {
+    [key in PerformerCategory]: [number, number];
+  } = {
+    "undiscovered": [0, 33],
+    "emerging": [33, 66],
+    "hometownHero": [66, 80],
+    "mainstream": [80, 95],
+    "legendary": [95, 100],
+  };
+
+  return mapping[category];
+};
+
 export const reviewCount = (user: UserModel): number => (user.bookerInfo?.reviewCount ?? 0) +
     (user.performerInfo?.reviewCount ?? 0);
 
