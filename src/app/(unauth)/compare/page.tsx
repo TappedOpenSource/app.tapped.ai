@@ -7,7 +7,7 @@ import { UserModel } from "@/domain/types/user_model";
 import { useState, useEffect } from "react";
 
 const defaultOneUsername = "noah_kahan";
-const defaultTwoUsername = "neyo";
+const defaultTwoUsername = "bad_bunny";
 export default function Page() {
   const [performerOne, setPerformerOne] = useState<UserModel | null>(null);
   const [performerTwo, setPerformerTwo] = useState<UserModel | null>(null);
