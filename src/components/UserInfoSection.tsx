@@ -8,6 +8,7 @@ import {
   Tag,
   Ticket,
 } from "lucide-react";
+import { Card } from "./ui/card";
 
 export default function UserInfoSection({ user }: { user: UserModel }) {
   const genres = (
@@ -32,7 +33,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
     currency: "USD",
   });
   return (
-    <div className="bg-card flex w-full flex-col items-start justify-start rounded-xl px-8 py-4 shadow-lg">
+    <Card className="flex w-full flex-col items-start justify-start rounded-xl px-8 py-4 shadow-lg">
       <div className="flex w-full flex-row">
         <AtSign />
         <div className="w-2" />
@@ -109,6 +110,6 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
           <p>{rating} stars</p>
         </div>
       )}
-    </div>
+    </Card>
   );
 }
