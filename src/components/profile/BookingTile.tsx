@@ -79,7 +79,7 @@ export default function BookingTile({ booking, user }: {
           <div className='w-3' />
           <div>
             <div className='flex flex-row items-center'>
-              <p className='font-bold'>{booking.name ?? "live performance"}</p>
+              <p className='text-start font-bold text-ellipsis'>{booking.name ?? "live performance"}</p>
               <div className='w-3' />
               <p className='text-xs font-thin text-gray-300'>{booking.timestamp.toDateString()}</p>
             </div>
