@@ -146,39 +146,35 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
         <>
           <div className="h-4" />
           <Card
-            className="w-full"
+            className="w-full flex justify-center items-center"
+            onClick={() => {
+              toast({
+                title: `${category} performer`,
+                description: "performers are ranked based on how big their shows are, how frequent they are, and how they're selling tickets",
+              });
+            }}
           >
-            <Button
-              className="flex w-full justify-center items-center"
-              onClick={() => {
-                toast({
-                  title: `${category} performer`,
-                  description: "performers are ranked based on how big their shows are, how frequent they are, and how they're selling tickets",
-                });
-              }}
-            >
-              <GaugeComponent
-                value={performerScore(category)}
-                type="radial"
-                labels={{
-                  valueLabel: {
-                    formatTextValue: () => {
-                      return `${category}`;
-                    },
+            <GaugeComponent
+              value={performerScore(category)}
+              type="radial"
+              labels={{
+                valueLabel: {
+                  formatTextValue: () => {
+                    return `${category}`;
                   },
-                }}
-                arc={{
-                  colorArray: ["#9E9E9E", "#40C4FF", "#FF9800", "#9C27B0", "#F44336"],
-                  subArcs: [{ limit: 33 }, { limit: 66 }, { limit: 80 }, { limit: 95 }, { limit: 100 }],
-                  padding: 0.02,
-                  width: 0.3,
-                }}
-                pointer={{
-                  elastic: true,
-                  animationDelay: 0,
-                }}
-              />
-            </Button>
+                },
+              }}
+              arc={{
+                colorArray: ["#9E9E9E", "#40C4FF", "#FF9800", "#9C27B0", "#F44336"],
+                subArcs: [{ limit: 33 }, { limit: 66 }, { limit: 80 }, { limit: 95 }, { limit: 100 }],
+                padding: 0.02,
+                width: 0.3,
+              }}
+              pointer={{
+                elastic: true,
+                animationDelay: 0,
+              }}
+            />
           </Card>
         </>
       )}
