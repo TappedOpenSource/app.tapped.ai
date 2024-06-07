@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import GaugeComponent from "react-gauge-component";
 import { useToast } from "../ui/use-toast";
+import { Card } from "../ui/card";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -40,7 +41,6 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
   useEffect(() => {
     const getIfVerified = async () => {
       const res = await isVerified(user.id);
-      console.log({ res });
       setVerified(res);
     };
 
@@ -154,27 +154,29 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
               });
             }}
           >
-            <GaugeComponent
-              value={performerScore(category)}
-              type="radial"
-              labels={{
-                valueLabel: {
-                  formatTextValue: () => {
-                    return `${category}`;
+            <Card>
+              <GaugeComponent
+                value={performerScore(category)}
+                type="radial"
+                labels={{
+                  valueLabel: {
+                    formatTextValue: () => {
+                      return `${category}`;
+                    },
                   },
-                },
-              }}
-              arc={{
-                colorArray: ["#9E9E9E", "#40C4FF", "#FF9800", "#9C27B0", "#F44336"],
-                subArcs: [{ limit: 33 }, { limit: 66 }, { limit: 80 }, { limit: 95 }, { limit: 100 }],
-                padding: 0.02,
-                width: 0.3,
-              }}
-              pointer={{
-                elastic: true,
-                animationDelay: 0,
-              }}
-            />
+                }}
+                arc={{
+                  colorArray: ["#9E9E9E", "#40C4FF", "#FF9800", "#9C27B0", "#F44336"],
+                  subArcs: [{ limit: 33 }, { limit: 66 }, { limit: 80 }, { limit: 95 }, { limit: 100 }],
+                  padding: 0.02,
+                  width: 0.3,
+                }}
+                pointer={{
+                  elastic: true,
+                  animationDelay: 0,
+                }}
+              />
+            </Card>
           </Button>
         </>
       )}
