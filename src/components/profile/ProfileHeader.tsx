@@ -145,16 +145,18 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
       {category && (
         <>
           <div className="h-4" />
-          <Button
-            className="flex w-full justify-center items-center"
-            onClick={() => {
-              toast({
-                title: `${category} performer`,
-                description: "performers are ranked based on how big their shows are, how frequent they are, and how they're selling tickets",
-              });
-            }}
+          <Card
+            className="w-full"
           >
-            <Card>
+            <Button
+              className="flex w-full justify-center items-center"
+              onClick={() => {
+                toast({
+                  title: `${category} performer`,
+                  description: "performers are ranked based on how big their shows are, how frequent they are, and how they're selling tickets",
+                });
+              }}
+            >
               <GaugeComponent
                 value={performerScore(category)}
                 type="radial"
@@ -176,8 +178,8 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
                   animationDelay: 0,
                 }}
               />
-            </Card>
-          </Button>
+            </Button>
+          </Card>
         </>
       )}
       <div className="h-4" />
