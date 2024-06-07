@@ -4,7 +4,7 @@ import TiktokButton from "@/components/profile/TiktokButton";
 import TwitterButton from "@/components/profile/TwitterButton";
 import { Button } from "@/components/ui/button";
 import UserInfoSection from "@/components/UserInfoSection";
-import { isVerified } from "@/data/database";
+import { getBookingCount, isVerified } from "@/data/database";
 import {
   userAudienceSize,
   profileImage,
@@ -19,8 +19,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { Card } from "../ui/card";
 import GaugeComponent from "react-gauge-component";
+import { useToast } from "../ui/use-toast";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -33,9 +33,9 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
   const firstValue = user.venueInfo?.capacity ?? audience;
   const firstLabel = user.venueInfo?.capacity ? "capacity" : "audience";
   const category = user.performerInfo?.category;
+  const isPerformer = user.performerInfo !== null && user.performerInfo !== undefined;
 
-  const numReviews = reviewCount(user);
-  const hasReviews = numReviews > 0;
+  const { toast } = useToast();
   const [verified, setVerified] = useState(false);
   useEffect(() => {
     const getIfVerified = async () => {
@@ -45,6 +45,15 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
     };
 
     getIfVerified();
+  }, [user.id]);
+
+  const [bookingCount, setBookingCount] = useState<number | null>(null);
+  useEffect(() => {
+    const fetchBookingCount = async () => {
+      const bookingCount = await getBookingCount(user.id);
+      setBookingCount(bookingCount);
+    };
+    fetchBookingCount();
   }, [user.id]);
 
   return (
@@ -91,31 +100,36 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
         </div>
       </div>
       <div className="h-4" />
-      {hasReviews && (
-        <>
-          <div className="flex flex-row items-center justify-around">
-            <div className="flex flex-col items-center justify-center">
-              <h3 className="text-2xl font-bold">
-                {firstValue.toLocaleString()}
-              </h3>
-              <p className="text-font text-xs text-gray-500">{firstLabel}</p>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-              <h3 className="text-2xl font-bold">{numReviews}</h3>
-              <p className="text-font text-xs text-gray-500">reviews</p>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-              <h3 className="text-2xl font-bold">
-                {user.performerInfo?.rating ?
-                  `${user.performerInfo?.rating}/5` :
-                  "N/A"}
-              </h3>
-              <p className="text-sm text-gray-400">rating</p>
-            </div>
+      <div className="flex flex-row items-center justify-around">
+        <div className="flex flex-col items-center justify-center">
+          <h3 className="text-2xl font-bold">
+            {firstValue.toLocaleString()}
+          </h3>
+          <p className="text-font text-xs text-gray-500">{firstLabel}</p>
+        </div>
+        {isPerformer ? (
+          <div className="flex flex-col items-center justify-center">
+            <h3 className="text-2xl font-bold">{bookingCount}</h3>
+            <p className="text-font text-xs text-gray-500">bookings</p>
           </div>
-          <div className="h-4" />
-        </>
-      )}
+        ) : (
+          <div className="flex flex-col items-center justify-center">
+            <h3 className="text-2xl font-bold">
+              {reviewCount(user)}
+            </h3>
+            <p className="text-font text-xs text-gray-500">reviews</p>
+          </div>
+        )}
+        <div className="flex flex-col items-center justify-center">
+          <h3 className="text-2xl font-bold">
+            {user.performerInfo?.rating ?
+              `${user.performerInfo?.rating}/5` :
+              "N/A"}
+          </h3>
+          <p className="text-sm text-gray-400">rating</p>
+        </div>
+      </div>
+      <div className="h-4" />
       {(user.venueInfo !== null && user.venueInfo !== undefined) && (
         <div className="flex w-full items-center justify-center">
           <Link
@@ -131,7 +145,15 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
       {category && (
         <>
           <div className="h-4" />
-          <Card className="flex w-full justify-center items-center">
+          <Button
+            className="flex w-full justify-center items-center"
+            onClick={() => {
+              toast({
+                title: `${category} performer`,
+                description: "performers are ranked based on how big their shows are, how frequent they are, and how they're selling tickets",
+              });
+            }}
+          >
             <GaugeComponent
               value={performerScore(category)}
               type="radial"
@@ -153,7 +175,7 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
                 animationDelay: 0,
               }}
             />
-          </Card>
+          </Button>
         </>
       )}
       <div className="h-4" />

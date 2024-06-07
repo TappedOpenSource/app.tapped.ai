@@ -12,6 +12,8 @@ import {
   limit,
   Timestamp,
   updateDoc,
+  getAggregateFromServer,
+  count,
 } from "firebase/firestore";
 import {
   LabelApplication,
@@ -127,6 +129,22 @@ export async function isVerified(userId: string): Promise<boolean> {
     console.error(e);
     return false;
   }
+}
+
+export async function getBookingCount(userId: string) {
+  const bookingQuery = query(
+    collection(db, "bookings"),
+    where("requesteeId", "==", userId),
+  );
+  const aggr = await getAggregateFromServer(bookingQuery,
+    {
+      bookingCount: count(),
+    },
+  );
+
+  const data = aggr.data();
+
+  return data.bookingCount;
 }
 
 export async function getLatestBookingByRequestee(
