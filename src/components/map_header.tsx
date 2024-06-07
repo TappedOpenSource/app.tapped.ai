@@ -10,7 +10,7 @@ import {
   LogOut,
   Map,
   LayoutDashboard,
-  MessageCircle,
+  Home,
   Moon,
   Sun,
   UserCheck,
@@ -62,6 +62,18 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
         scrollPosition > 10 ? "shadow bg-card/75" : "shadow-none",
         "flex w-screen flex-row items-start px-4 pb-1 pt-8 md:px-8"
       )}>
+        <div className="hidden md:flex justify-center items-center h-full">
+          <Avatar className="bg-background ml-2 hover:cursor-pointer hover:shadow-xl">
+            <AvatarImage
+              src="/images/icon_1024.png"
+              style={{ objectFit: "cover", overflow: "hidden" }}
+              onClick={() => router.push("/")}
+            />
+            <AvatarFallback>
+              <Home className="h-4 w-4" />
+            </AvatarFallback>
+          </Avatar>
+        </div>
         <div className="flex-1">
           {showSearch && (
             <div className="md:w-3/4 lg:w-3/4 xl:w-1/2">
