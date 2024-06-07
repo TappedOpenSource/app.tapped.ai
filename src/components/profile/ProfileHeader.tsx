@@ -146,7 +146,7 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
         <>
           <div className="h-4" />
           <Card
-            className="w-full flex justify-center items-center"
+            className="w-full flex justify-center items-center cursor-pointer transition-all duration-150 ease-in-out hover:scale-101"
             onClick={() => {
               toast({
                 title: `${category} performer`,
