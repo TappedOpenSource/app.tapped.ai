@@ -36,4 +36,5 @@ next-env.d.ts
 
 # million
 .million
-.million/*
+.million/
+/.million/
