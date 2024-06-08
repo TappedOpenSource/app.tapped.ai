@@ -56,7 +56,9 @@ export default function Page() {
           <BuyPremium />
         </div>
       </div>
-      <Footer />
+      <div className="md:fixed bottom-0 w-screen">
+        <Footer />
+      </div>
     </>
   );
 }
