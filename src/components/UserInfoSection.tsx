@@ -7,10 +7,15 @@ import {
   Star,
   Tag,
   Ticket,
+  Lock,
 } from "lucide-react";
 import { Card } from "./ui/card";
+import { useAuth } from "@/context/auth";
+import { cn } from "@/lib/utils";
 
 export default function UserInfoSection({ user }: { user: UserModel }) {
+  const { state: { authUser } } = useAuth();
+
   const genres = (
     user.performerInfo?.genres ??
     user.venueInfo?.genres ??
@@ -86,9 +91,16 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
       {ticketPriceRange && (
         <>
           <div className="flex flex-row">
-            <Ticket />
+            {authUser !== null ? (
+              <Ticket />
+            ) : (
+              <Lock />
+            )}
             <div className="w-2" />
-            <p>{currencyFormatter.format(ticketPriceRange[0])} - {currencyFormatter.format(ticketPriceRange[1])} avg. ticket price</p>
+            <p>
+              <span className={cn(authUser !== null ? "blur-none" : "blur-md")}>{currencyFormatter.format(ticketPriceRange[0])} - {currencyFormatter.format(ticketPriceRange[1])}</span>
+              {" "} avg. ticket price
+            </p>
           </div>
           <div className="my-1 h-px w-full bg-gray-200/20" />
         </>
@@ -98,7 +110,9 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
           <div className="flex flex-row">
             <UsersRound />
             <div className="w-2" />
-            <p>{avgAttendance} avg. attendance</p>
+            <p>
+              <span className={cn(authUser !== null ? "blur-none" : "blur-md")}>{avgAttendance}</span>
+              {" "}avg. attendance</p>
           </div>
           <div className="my-1 h-px w-full bg-gray-200/20" />
         </>
