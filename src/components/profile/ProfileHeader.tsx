@@ -22,6 +22,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/
 import GaugeComponent from "react-gauge-component";
 import { useToast } from "../ui/use-toast";
 import { Card } from "../ui/card";
+import { LoadingSpinner } from "../LoadingSpinner";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -109,7 +110,11 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
         </div>
         {isPerformer ? (
           <div className="flex flex-col items-center justify-center">
-            <h3 className="text-2xl font-bold">{bookingCount}</h3>
+            <h3 className="text-2xl font-bold">{bookingCount !== null ? (
+              bookingCount.toLocaleString()
+            ) : (
+              <span><LoadingSpinner /></span>
+            )}</h3>
             <p className="text-font text-xs text-gray-500">bookings</p>
           </div>
         ) : (
