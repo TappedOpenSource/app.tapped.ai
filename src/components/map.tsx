@@ -138,12 +138,12 @@ function _VenueMap({
                 router.push(newPathname);
               }}
             >
-              <div className="bg-background flex transform flex-row items-center justify-center rounded-xl px-1 py-1 shadow-xl transition-all duration-200 ease-in-out hover:scale-105 hover:cursor-pointer">
+              <div className="bg-background flex transform flex-row items-center justify-center rounded-xl px-1 py-1 shadow-lg transition-all duration-200 ease-in-out hover:scale-105 hover:cursor-pointer">
                 <div className="relative h-[22px] w-[22px]">
                   <Image
                     src={imageSrc}
                     alt="venue profile picture"
-                    className="rounded-full"
+                    className="rounded-md"
                     style={{ objectFit: "cover", overflow: "hidden" }}
                     fill
                   />

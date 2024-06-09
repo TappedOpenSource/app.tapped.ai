@@ -23,6 +23,7 @@ import GaugeComponent from "react-gauge-component";
 import { useToast } from "../ui/use-toast";
 import { Card } from "../ui/card";
 import { LoadingSpinner } from "../LoadingSpinner";
+import { useTheme } from "next-themes";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
   const firstLabel = user.venueInfo?.capacity ? "capacity" : "audience";
   const category = user.performerInfo?.category;
   const isPerformer = user.performerInfo !== null && user.performerInfo !== undefined;
+  const { resolvedTheme } = useTheme();
 
   const { toast } = useToast();
   const [verified, setVerified] = useState(false);
@@ -164,6 +166,11 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
               type="radial"
               labels={{
                 valueLabel: {
+                  style: {
+                    color: resolvedTheme === "dark" ?
+                      "#FFF" :
+                      "#000",
+                  },
                   formatTextValue: () => {
                     return `${category}`;
                   },

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Map, LogOut, User, Settings } from "lucide-react";
+import { Home, Map, LogOut, User, Settings } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -62,7 +62,7 @@ export function UserNav() {
         <DropdownMenuGroup>
           <DropdownMenuItem className="hover:cursor-pointer" asChild>
             <Link href="/" className="flex items-center">
-              <Map className="w-4 h-4 mr-3 text-muted-foreground" />
+              <Home className="w-4 h-4 mr-3 text-muted-foreground" />
               home
             </Link>
           </DropdownMenuItem>

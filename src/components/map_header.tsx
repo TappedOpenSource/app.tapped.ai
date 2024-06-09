@@ -58,10 +58,7 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
 
   return (
     <>
-      <div className={cn(
-        scrollPosition > 10 ? "shadow bg-card/75" : "shadow-none",
-        "flex w-screen flex-row items-start px-4 pb-1 pt-8 md:px-8"
-      )}>
+      <div className="flex w-screen flex-row items-center px-4 pb-1 pt-8 md:px-8 supports-backdrop-blur:bg-background/60 z-20 w-full shadow bg-background/95 backdrop-blur">
         <div className="hidden md:flex justify-center items-center h-full">
           <Avatar className="bg-background mr-2 hover:cursor-pointer hover:shadow-xl">
             <AvatarImage
