@@ -254,7 +254,7 @@ function _SearchBar({ animatedPlaceholder = false, onSelect }: {
   );
   return (
     <>
-      <div className="bg-card z-50 rounded-xl border border-input ring-offset-background">
+      <div className="bg-card z-40 rounded-xl border border-input ring-offset-background">
         <div className="relative">
           <div className="pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-3">
             <Search className="pointer-events-none h-4 w-4 text-gray-400" />

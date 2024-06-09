@@ -12,7 +12,7 @@ export default function UnauthLayout({ children }: {
   return (
     <>
       <TappedSheet />
-      <div className="fixed z-10">
+      <div className="fixed z-50">
         <MapHeader />
       </div>
       {!isMapPage && (

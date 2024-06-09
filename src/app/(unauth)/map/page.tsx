@@ -21,7 +21,7 @@ export default function Page({ searchParams }: {
 
   return (
     <>
-      <div className="z-0">
+      <div className="z-40">
         <Suspense
           fallback={
             <div className="flex min-h-screen w-screen items-center justify-center">
