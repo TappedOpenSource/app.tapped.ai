@@ -38,7 +38,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
     currency: "USD",
   });
   return (
-    <Card className="flex w-full flex-col items-start justify-start rounded-xl px-8 py-4 shadow-lg">
+    <Card className="flex w-full flex-col items-start justify-start px-8 py-4">
       <div className="flex w-full flex-row">
         <AtSign />
         <div className="w-2" />
