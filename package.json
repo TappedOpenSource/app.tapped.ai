@@ -98,6 +98,7 @@
     "postcss": "^8.4.33",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
+    "react-ga": "^3.3.1",
     "tailwindcss": "^3.4.4",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.3.3"
