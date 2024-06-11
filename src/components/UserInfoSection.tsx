@@ -77,7 +77,7 @@ export default function UserInfoSection({ user }: { user: UserModel }) {
           <div className="my-1 h-px w-full bg-gray-200/20" />
         </>
       )}
-      {label && (
+      {(label && !["independent", "Independent"].includes(label)) && (
         <>
           <div className="flex flex-row">
             <Tag />
