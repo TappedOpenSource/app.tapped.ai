@@ -56,12 +56,6 @@ if (window.tolt_referral) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/dashboard">map</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
               <BreadcrumbPage>premium</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>

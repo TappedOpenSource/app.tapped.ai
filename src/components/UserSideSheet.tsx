@@ -77,7 +77,7 @@ export default function UserSideSheet() {
               </div>
             ) : (
               <div className="w-full overflow-y-scroll">
-                <ProfileHeader user={selectedUser} />
+                <ProfileHeader user={selectedUser} full />
               </div>
             )}
           </div>

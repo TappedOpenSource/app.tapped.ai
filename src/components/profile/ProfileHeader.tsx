@@ -4,7 +4,13 @@ import TiktokButton from "@/components/profile/TiktokButton";
 import TwitterButton from "@/components/profile/TwitterButton";
 import { Button } from "@/components/ui/button";
 import UserInfoSection from "@/components/UserInfoSection";
-import { getBookingCount, isVerified } from "@/data/database";
+import {
+  getBookingCount,
+  getBookingsByRequestee,
+  getBookingsByRequester,
+  getLatestPerformerReviewByPerformerId,
+  isVerified,
+} from "@/data/database";
 import {
   userAudienceSize,
   profileImage,
@@ -13,7 +19,7 @@ import {
   performerScore,
 } from "@/domain/types/user_model";
 import { cn } from "@/lib/utils";
-import { BadgeCheck, Facebook, Link2 } from "lucide-react";
+import { BadgeCheck, Facebook, Link2, MapPinned, MicVocal, Network } from "lucide-react";
 import { Manrope } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,13 +30,20 @@ import { useToast } from "../ui/use-toast";
 import { Card } from "../ui/card";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { useTheme } from "next-themes";
+import { Booking } from "@/domain/types/booking";
+import { Review } from "@/domain/types/review";
+import BookingHistoryPreview from "./BookingHistoryPreview";
+import ReviewTile from "./ReviewTile";
+import DownloadTheAppSection from "./DownloadTheAppSection";
+import GooglePlayButton from "../appstorebuttons/GooglePlayButton";
+import AppStoreButton from "../appstorebuttons/AppStoreButton";
 
 const manrope = Manrope({
   subsets: ["latin"],
   weight: ["700", "800"],
 });
 
-export default function ProfileHeader({ user }: { user: UserModel }) {
+export default function ProfileHeader({ user, full = false }: { user: UserModel, full?: boolean }) {
   const imageSrc = profileImage(user);
   const audience = userAudienceSize(user);
   const firstValue = user.venueInfo?.capacity ?? audience;
@@ -38,6 +51,9 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
   const category = user.performerInfo?.category;
   const isPerformer = user.performerInfo !== null && user.performerInfo !== undefined;
   const { resolvedTheme } = useTheme();
+
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [latestReview, setLatestReview] = useState<Review | null>(null);
 
   const { toast } = useToast();
   const [verified, setVerified] = useState(false);
@@ -58,6 +74,45 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
     };
     fetchBookingCount();
   }, [user.id]);
+
+  useEffect(() => {
+    const fetchBooking = async () => {
+      if (user === null || !full) {
+        return;
+      }
+
+      // fetch latest booking
+      const latestRequesteeBookings = await getBookingsByRequestee(user.id);
+      const latestRequesterBookings = await getBookingsByRequester(user.id);
+      const latestBookings = latestRequesteeBookings
+        .concat(latestRequesterBookings)
+        .sort((a, b) => {
+          return b.startTime.getTime() - a.startTime.getTime();
+        });
+
+      setBookings(latestBookings);
+    };
+    fetchBooking();
+
+    const fetchLatestReview = async () => {
+      if (user === null) {
+        return;
+      }
+
+      // get latest review
+      const latestPerformerReview = await getLatestPerformerReviewByPerformerId(
+        user.id
+      );
+      const latestBookerReview = await getLatestPerformerReviewByPerformerId(
+        user.id
+      );
+
+      const latestReview = latestPerformerReview ?? latestBookerReview ?? null;
+      setLatestReview(latestReview);
+    };
+    fetchLatestReview();
+  }, [user, full]);
+
 
   return (
     <div className="w-full px-0 py-6 md:py-12">
@@ -228,6 +283,118 @@ export default function ProfileHeader({ user }: { user: UserModel }) {
             </Button>
           </Link>
         )}
+      </div>
+      <div className="h-4" />
+      {full && (
+        <FullRows user={user} bookings={bookings} latestReview={latestReview} />
+      )}
+    </div>
+  );
+}
+
+function FullRows({
+  user,
+  bookings,
+  latestReview,
+}: {
+  user: UserModel;
+  bookings: Booking[];
+  latestReview: Review | null;
+}) {
+  const appleUrl = "https://apps.apple.com/us/app/tapped-network/id1574937614";
+  const googleUrl =
+  "https://play.google.com/store/apps/details?id=com.intheloopstudio";
+
+  return (
+    <div className="px-3 py-6">
+      <div className="h-4" />
+      {bookings.length !== 0 && (
+        <div>
+          <div className="flex flex-row items-center">
+            <h2 className="text-2xl font-bold">booking history</h2>
+            <div className="w-2" />
+            <Link
+              href={`/history/${user.id}`}
+              className="text-sm text-blue-500"
+            >
+              see all
+            </Link>
+          </div>
+          <div className="h-2" />
+          <BookingHistoryPreview user={user} bookings={bookings} />
+        </div>
+      )}
+      <div className="h-8" />
+      {latestReview && (
+        <div>
+          <div className="flex flex-row items-center">
+            <h2 className="text-2xl font-bold">reviews</h2>
+            <div className="w-2" />
+            <Link
+              href={`/reviews/${user.id}`}
+              className="text-sm text-blue-500"
+            >
+              see all
+            </Link>
+          </div>
+          <div className="h-2" />
+          <ReviewTile review={latestReview} />
+        </div>
+      )}
+      {user.bio !== "" && (
+        <>
+          <div className="h-8" />
+          <div>
+            <h2 className="text-2xl font-bold">about</h2>
+            <div className="h-2" />
+            <p>{user.bio}</p>
+          </div>
+        </>
+      )}
+      <div className="h-8" />
+      <div className="flex flex-row">
+        <div className="flex flex-col gap-4">
+          <h2 className="text-2xl font-bold">download the tapped app</h2>
+          <div className="flex flex-row gap-3">
+            <Button variant="outline" size="icon" disabled>
+              <MapPinned />
+            </Button>
+            <p className="flex-1">
+              discover the venues in your city, with tailored recommendations
+              synced to your booking history
+            </p>
+          </div>
+          <div className="flex flex-row gap-3">
+            <Button variant="outline" size="icon" disabled>
+              <MicVocal />
+            </Button>
+            <p className="flex-1">
+              keep track of what&apos;s coming up by getting notified about new
+              events and gig opportunities
+            </p>
+          </div>
+          <div className="flex flex-row gap-3">
+            <Button variant="outline" size="icon" disabled>
+              <Network />
+            </Button>
+            <p className="flex-1">
+              we’ve made it easy to request to perform at thousands of venues
+              across the country. no stress.
+            </p>
+          </div>
+          <div className="flex flex-col items-center justify-start gap-4">
+            <GooglePlayButton url={googleUrl} theme={"dark"} />
+            <AppStoreButton url={appleUrl} theme={"dark"} />
+          </div>
+        </div>
+        <div className="flex-0 hidden">
+          <Image
+            src="/images/icon_1024.png"
+            alt="Tapped App Icon"
+            width={124}
+            height={124}
+          />
+        </div>
       </div>
     </div>
   );

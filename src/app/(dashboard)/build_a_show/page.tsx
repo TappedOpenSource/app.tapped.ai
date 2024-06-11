@@ -23,12 +23,6 @@ export default function Page() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/dashboard">map</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
               <BreadcrumbPage>build a show</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
