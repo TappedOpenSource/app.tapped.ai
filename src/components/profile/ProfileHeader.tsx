@@ -9,6 +9,7 @@ import {
   getBookingsByRequestee,
   getBookingsByRequester,
   getLatestPerformerReviewByPerformerId,
+  getUserById,
   isVerified,
 } from "@/data/database";
 import {
@@ -37,6 +38,7 @@ import ReviewTile from "./ReviewTile";
 import GooglePlayButton from "../appstorebuttons/GooglePlayButton";
 import AppStoreButton from "../appstorebuttons/AppStoreButton";
 import DayOfWeekGraph from "./DayOrWeekGraph";
+import UserCluster from "../UserCluster";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -311,9 +313,32 @@ function FullRows({
   const googleUrl =
   "https://play.google.com/store/apps/details?id=com.intheloopstudio";
 
+  const [topPerformers, setTopPerformers] = useState<UserModel[]>([]);
+
+  useEffect(() => {
+    const topPerformerIds = user.venueInfo?.topPerformerIds ?? [];
+    const fetchTopPerformers = async () => {
+      const performers = (await Promise.all(
+        topPerformerIds.map(async (id) => {
+          return await getUserById(id);
+        })
+      )).filter((user) => user !== null) as UserModel[];
+      setTopPerformers(performers);
+    };
+    fetchTopPerformers();
+  }, [user.venueInfo]);
+
   return (
     <div className="px-3">
       <div className="h-4" />
+      {(topPerformers.length > 0) && (
+        <div>
+          <h2 className="text-2xl font-bold">top performers</h2>
+          <div className="h-2" />
+          <UserCluster users={topPerformers} />
+        </div>
+      )}
+      <div className="h-8" />
       {bookings.length !== 0 && (
         <div>
           <div className="flex flex-row items-center">

@@ -1,49 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { getFeaturedPerformers } from "@/data/database";
-import { profileImage, type UserModel } from "@/domain/types/user_model";
-import { usePathname, useRouter } from "next/navigation";
+import { type UserModel } from "@/domain/types/user_model";
 import { useState, useEffect } from "react";
 import { Dices } from "lucide-react";
 import { Button } from "./ui/button";
 import { useHotkeys } from "react-hotkeys-hook";
-
-function FeaturedCard({ performer }: { performer: UserModel }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const imageSrc = profileImage(performer);
-
-  return (
-    <>
-      <Button
-        variant={"outline"}
-        onClick={() => {
-          const newSearchParams = `username=${performer.username}`;
-          const newPathname = pathname.includes("?") ? `${pathname}&${newSearchParams}` : `${pathname}?${newSearchParams}`;
-          router.push(newPathname);
-        }}
-      >
-        <div className="flex flex-row justify-start items-center">
-          <div
-            className="relative bg-card rounded-xl w-6 h-6"
-          >
-            <Image
-              src={imageSrc}
-              alt="performer profile picture"
-              className="rounded-xl"
-              style={{ objectFit: "cover", overflow: "hidden" }}
-              fill
-            />
-          </div>
-          <p
-            className="p-1 md:p-2"
-          >{performer.artistName ?? performer.username}</p>
-        </div>
-      </Button>
-    </>
-  );
-}
+import UserChip from "./UserChip";
 
 export default function FeaturedPerformers() {
   const [loading, setLoading] = useState(false);
@@ -72,7 +35,7 @@ export default function FeaturedPerformers() {
     <>
       <div className="my-6 flex flex-wrap gap-1">
         {sampledPerformers.map((performer) => (
-          <FeaturedCard key={performer.id} performer={performer} />
+          <UserChip key={performer.id} performer={performer} />
         ))}
         {!loading && (
 

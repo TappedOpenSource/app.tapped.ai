@@ -18,13 +18,13 @@ export default function DayOfWeekGraph({ dayOfWeekData, label = "when are shows?
 
   const data = {
     labels: [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
+      "sunday",
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday",
     ],
     datasets: [{
       label,
