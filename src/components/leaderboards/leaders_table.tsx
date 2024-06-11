@@ -7,7 +7,7 @@ import { userAudienceSize, type UserModel } from "@/domain/types/user_model";
 import { getBookingLeaders, getFeaturedPerformers } from "@/data/database";
 import { columns } from "./columns";
 
-export type LeaderboardType = "trending" | "performer";
+export type LeaderboardType = "rising" | "performer";
 export default function LeaderboardTable({ type }: { type: LeaderboardType }) {
   // trending = bookingLeaders
   // performer= featuredPerformers
@@ -15,7 +15,7 @@ export default function LeaderboardTable({ type }: { type: LeaderboardType }) {
   // genre = allBookings.map(b => b.genres).flat().reduce((acc, g) => acc.set(g, (acc.get(g) ?? 0) + 1), new Map())
   // city = allBookings.map(b => b.location).reduce((acc, c) => acc.set(c, (acc.get(c) ?? 0) + 1), new Map())
 
-  const [trending, setTrending] = useState<UserModel[]>([]);
+  const [rising, setRising] = useState<UserModel[]>([]);
   const [topPerformers, setTopPerformers] = useState<UserModel[]>([]);
   // const [topVenues, setTopVenues] = useState<UserModel[]>([]);
   // const [topGenres, setTopGenres] = useState<Map<string, number>>(new Map());
@@ -28,7 +28,7 @@ export default function LeaderboardTable({ type }: { type: LeaderboardType }) {
   useEffect(() => {
     const fetchLeaders = async () => {
       const leaders = await getBookingLeaders();
-      setTrending(leaders);
+      setRising(leaders);
     };
     fetchLeaders();
 
@@ -53,7 +53,7 @@ export default function LeaderboardTable({ type }: { type: LeaderboardType }) {
     // fetchCities();
   }, []);
 
-  const data = type === "trending" ? trending : topPerformers;
+  const data = type === "rising" ? rising : topPerformers;
   const table = useReactTable({
     data,
     columns,

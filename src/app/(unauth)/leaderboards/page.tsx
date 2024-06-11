@@ -2,21 +2,21 @@ import LeaderboardTable, { LeaderboardType } from "@/components/leaderboards/lea
 
 const validatedType = (type: string): LeaderboardType => {
   switch (type) {
-  case "trending":
+  case "rising":
   case "performer":
   // case "venue":
   // case "genre":
   // case "city":
     return type;
   default:
-    return "trending";
+    return "rising";
   }
 };
 
 export default function Page({ searchParams }: {
   searchParams: { [key: string]: string };
 }) {
-  const rawListType = searchParams["type"] ?? "trending";
+  const rawListType = searchParams["type"] ?? "rising";
   const listType = validatedType(rawListType);
 
   return (

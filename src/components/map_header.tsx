@@ -107,7 +107,7 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>top lists</SelectLabel>
-                  <SelectItem value="trending">top trending</SelectItem>
+                  <SelectItem value="rising">top rising</SelectItem>
                   <SelectItem value="performer">top performers</SelectItem>
                   {/* <SelectItem value="venue">top venues</SelectItem> */}
                   {/* <SelectItem value="genre">top genres</SelectItem> */}
