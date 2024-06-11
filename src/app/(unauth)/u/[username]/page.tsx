@@ -73,7 +73,7 @@ export default function Page({ params }: Props) {
   const username = params.username;
   return (
     <>
-      <div className="landing">
+      <div>
         <ProfileView username={username} />
         <Footer />
       </div>
