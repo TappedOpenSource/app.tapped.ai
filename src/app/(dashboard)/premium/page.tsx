@@ -80,7 +80,7 @@ if (window.tolt_referral) {
             </Button>
           </div>
         ) : (
-          <div className="rounded-xl bg-white flex justify-center items-center py-16 my-4">
+          <div className="rounded-xl bg-white flex justify-center items-start py-16 my-4">
             <stripe-pricing-table
               pricing-table-id="prctbl_1PFJ5XDYybu1wznE3NpaCEH4"
               publishable-key="pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil">
