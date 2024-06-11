@@ -16,7 +16,7 @@ export default function UnauthLayout({ children }: {
         <MapHeader />
       </div>
       {!isMapPage && (
-        <div className="h-[7vh]" />
+        <div className="h-[8rem]" />
       )}
       {children}
     </>

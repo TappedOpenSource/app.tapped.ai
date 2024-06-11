@@ -306,7 +306,7 @@ function FullRows({
   "https://play.google.com/store/apps/details?id=com.intheloopstudio";
 
   return (
-    <div className="px-3 py-6">
+    <div className="px-3">
       <div className="h-4" />
       {bookings.length !== 0 && (
         <div>
