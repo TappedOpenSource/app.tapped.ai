@@ -99,6 +99,7 @@ export type VenueInfo = {
   microphones?: Option<string>;
   lights?: Option<string>;
   topPerformerIds?: string[];
+  bookingsByDayOfWeek?: number[];
 };
 
 export type EmailNotifications = {

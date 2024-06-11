@@ -34,9 +34,9 @@ import { Booking } from "@/domain/types/booking";
 import { Review } from "@/domain/types/review";
 import BookingHistoryPreview from "./BookingHistoryPreview";
 import ReviewTile from "./ReviewTile";
-import DownloadTheAppSection from "./DownloadTheAppSection";
 import GooglePlayButton from "../appstorebuttons/GooglePlayButton";
 import AppStoreButton from "../appstorebuttons/AppStoreButton";
+import DayOfWeekGraph from "./DayOrWeekGraph";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -50,6 +50,8 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
   const firstLabel = user.venueInfo?.capacity ? "capacity" : "audience";
   const category = user.performerInfo?.category;
   const isPerformer = user.performerInfo !== null && user.performerInfo !== undefined;
+  const isVenue = user.venueInfo !== null && user.venueInfo !== undefined;
+  const dayOfWeekData = user.venueInfo?.bookingsByDayOfWeek ?? [];
   const { resolvedTheme } = useTheme();
 
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -284,6 +286,10 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
           </Link>
         )}
       </div>
+      <div className="h-4" />
+      {isVenue && (
+        <DayOfWeekGraph dayOfWeekData={dayOfWeekData} />
+      )}
       <div className="h-4" />
       {full && (
         <FullRows user={user} bookings={bookings} latestReview={latestReview} />
