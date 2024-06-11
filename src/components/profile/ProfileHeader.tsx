@@ -330,47 +330,53 @@ function FullRows({
 
   return (
     <div className="px-3">
-      <div className="h-4" />
       {(topPerformers.length > 0) && (
-        <div>
-          <h2 className="text-2xl font-bold">top performers</h2>
-          <div className="h-2" />
-          <UserCluster users={topPerformers} />
-        </div>
+        <>
+          <div className="h-4" />
+          <div>
+            <h2 className="text-2xl font-bold">top performers</h2>
+            <div className="h-2" />
+            <UserCluster users={topPerformers} />
+          </div>
+        </>
       )}
-      <div className="h-8" />
       {bookings.length !== 0 && (
-        <div>
-          <div className="flex flex-row items-center">
-            <h2 className="text-2xl font-bold">booking history</h2>
-            <div className="w-2" />
-            <Link
-              href={`/history/${user.id}`}
-              className="text-sm text-blue-500"
-            >
+        <>
+          <div className="h-8" />
+          <div>
+            <div className="flex flex-row items-center">
+              <h2 className="text-2xl font-bold">booking history</h2>
+              <div className="w-2" />
+              <Link
+                href={`/history/${user.id}`}
+                className="text-sm text-blue-500"
+              >
               see all
-            </Link>
+              </Link>
+            </div>
+            <div className="h-2" />
+            <BookingHistoryPreview user={user} bookings={bookings} />
           </div>
-          <div className="h-2" />
-          <BookingHistoryPreview user={user} bookings={bookings} />
-        </div>
+        </>
       )}
-      <div className="h-8" />
       {latestReview && (
-        <div>
-          <div className="flex flex-row items-center">
-            <h2 className="text-2xl font-bold">reviews</h2>
-            <div className="w-2" />
-            <Link
-              href={`/reviews/${user.id}`}
-              className="text-sm text-blue-500"
-            >
+        <>
+          <div className="h-8" />
+          <div>
+            <div className="flex flex-row items-center">
+              <h2 className="text-2xl font-bold">reviews</h2>
+              <div className="w-2" />
+              <Link
+                href={`/reviews/${user.id}`}
+                className="text-sm text-blue-500"
+              >
               see all
-            </Link>
+              </Link>
+            </div>
+            <div className="h-2" />
+            <ReviewTile review={latestReview} />
           </div>
-          <div className="h-2" />
-          <ReviewTile review={latestReview} />
-        </div>
+        </>
       )}
       {user.bio !== "" && (
         <>
