@@ -14,7 +14,7 @@ import { useState } from "react";
 import { LoadingSpinner } from "../LoadingSpinner";
 
 const formSchema = z.object({
-  username: z.string().min(3).max(20),
+  username: z.string().min(3).max(20).regex(/^[a-zA-Z0-9_]+$/),
   profilePicture: z.custom<File>(),
   instagramHandle: z.string().min(3).max(20).optional(),
   instagramFollowers: z.coerce.number().int().nonnegative(),
@@ -93,7 +93,7 @@ export default function OnboardingForm() {
                 <FormItem>
                   <FormLabel>preferred username</FormLabel>
                   <FormControl>
-                    <Input id="username" placeholder="enter your username" {...field}/>
+                    <Input id="username" placeholder="handle (no caps or spaces)" {...field}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
