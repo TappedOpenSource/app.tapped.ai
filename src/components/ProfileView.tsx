@@ -8,6 +8,7 @@ import {
   getBookingsByRequestee,
   getBookingsByRequester,
   getLatestPerformerReviewByPerformerId,
+  getUserById,
   getUserByUsername,
 } from "@/data/database";
 import type { Booking } from "@/domain/types/booking";
@@ -17,12 +18,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "./LoadingSpinner";
+import UserCluster from "./UserCluster";
 
 export default function ProfileView({ username }: { username: string }) {
   const router = useRouter();
   const [user, setUser] = useState<UserModel | null>(null);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [latestReview, setLatestReview] = useState<Review | null>(null);
+  const [topPerformers, setTopPerformers] = useState<UserModel[]>([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -78,6 +81,16 @@ export default function ProfileView({ username }: { username: string }) {
       setLatestReview(latestReview);
     };
     fetchLatestReview();
+
+    const fetchTopPerformers = async () => {
+      const topPerformerIds = user?.venueInfo?.topPerformerIds ?? [];
+      const topPerformers = (await Promise.all(
+        topPerformerIds.map((id) => getUserById(id))
+      )).filter((user) => user !== null) as UserModel[];
+
+      setTopPerformers(topPerformers);
+    };
+    fetchTopPerformers();
   }, [user]);
 
   if (user === null) {
@@ -114,6 +127,7 @@ export default function ProfileView({ username }: { username: string }) {
           <BuildRows
             user={user}
             bookings={bookings}
+            topPerformers={topPerformers}
             latestReview={latestReview}
           />
         </div>
@@ -125,47 +139,63 @@ export default function ProfileView({ username }: { username: string }) {
 function BuildRows({
   user,
   bookings,
+  topPerformers,
   latestReview,
 }: {
   user: UserModel;
   bookings: Booking[];
+  topPerformers: UserModel[];
   latestReview: Review | null;
 }) {
   return (
     <div className="px-3 py-6 md:w-[70vw] md:px-24 md:py-12">
-      <div className="h-4" />
-      {bookings.length !== 0 && (
-        <div>
-          <div className="flex flex-row items-center">
-            <h2 className="text-2xl font-bold">booking history</h2>
-            <div className="w-2" />
-            <Link
-              href={`/history/${user.id}`}
-              className="text-sm text-blue-500"
-            >
-              see all
-            </Link>
+      {(topPerformers.length > 0) && (
+        <>
+          <div className="h-4" />
+          <div>
+            <h2 className="text-2xl font-bold">top performers</h2>
+            <div className="h-2" />
+            <UserCluster users={topPerformers} />
           </div>
-          <div className="h-2" />
-          <BookingHistoryPreview user={user} bookings={bookings} />
-        </div>
+        </>
       )}
-      <div className="h-8" />
-      {latestReview && (
-        <div>
-          <div className="flex flex-row items-center">
-            <h2 className="text-2xl font-bold">reviews</h2>
-            <div className="w-2" />
-            <Link
-              href={`/reviews/${user.id}`}
-              className="text-sm text-blue-500"
-            >
-              see all
-            </Link>
+      {bookings.length !== 0 && (
+        <>
+          <div className="h-4" />
+          <div>
+            <div className="flex flex-row items-center">
+              <h2 className="text-2xl font-bold">booking history</h2>
+              <div className="w-2" />
+              <Link
+                href={`/history/${user.id}`}
+                className="text-sm text-blue-500"
+              >
+                see all
+              </Link>
+            </div>
+            <div className="h-2" />
+            <BookingHistoryPreview user={user} bookings={bookings} />
           </div>
-          <div className="h-2" />
-          <ReviewTile review={latestReview} />
-        </div>
+        </>
+      )}
+      {latestReview && (
+        <>
+          <div className="h-8" />
+          <div>
+            <div className="flex flex-row items-center">
+              <h2 className="text-2xl font-bold">reviews</h2>
+              <div className="w-2" />
+              <Link
+                href={`/reviews/${user.id}`}
+                className="text-sm text-blue-500"
+              >
+              see all
+              </Link>
+            </div>
+            <div className="h-2" />
+            <ReviewTile review={latestReview} />
+          </div>
+        </>
       )}
       {user.bio !== "" && (
         <>

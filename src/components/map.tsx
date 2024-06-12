@@ -24,6 +24,7 @@ import {
 } from "react-map-gl";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { cn } from "@/lib/utils";
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
@@ -126,6 +127,7 @@ function _VenueMap({
                 venue,
               }) :
               false;
+          const hasBookingData = venue.venueInfo?.bookingsByDayOfWeek?.some((val) => val !== 0);
           return (
             <Marker
               key={venue.id}
@@ -138,7 +140,10 @@ function _VenueMap({
                 router.push(newPathname);
               }}
             >
-              <div className="bg-background flex transform flex-row items-center justify-center rounded-xl px-1 py-1 shadow-lg transition-all duration-200 ease-in-out hover:scale-105 hover:cursor-pointer">
+              <div className={cn(
+                "bg-background flex transform flex-row items-center justify-center rounded-xl px-1 py-1 shadow-lg transition-all duration-200 ease-in-out hover:scale-105 hover:cursor-pointer",
+                hasBookingData ? "border-2 border-dotted border-yellow-500" : "border-none border-background"
+              )}>
                 <div className="relative h-[22px] w-[22px]">
                   <Image
                     src={imageSrc}
