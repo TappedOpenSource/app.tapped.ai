@@ -3,14 +3,13 @@
 import React, { useEffect, useState } from "react";
 import { getOpportunityById, getUserById } from "@/data/database";
 import { Opportunity, opImage } from "@/domain/types/opportunity";
-import Link from "next/link";
 import Image from "next/image";
 import UserTile from "@/components/UserTile";
 import { UserModel } from "@/domain/types/user_model";
-import { FaMoneyBill } from "react-icons/fa";
 import { getPlaceById } from "@/data/places";
-import { LoadingSpinner } from "./LoadingSpinner";
-import { Button } from "./ui/button";
+import { LoadingSpinner } from "../LoadingSpinner";
+import ApplyButton from "./ApplyButton";
+import { Coins } from "lucide-react";
 
 export default function OpportunityView({
   opportunityId,
@@ -67,13 +66,8 @@ export default function OpportunityView({
 
   return (
     <>
-
       <div className="fixed right-8 bottom-8">
-        <Link href={"https://tapped.ai/download"}>
-          <Button aria-label="add">
-            apply in the app
-          </Button>
-        </Link>
+        <ApplyButton op={opportunity} />
       </div>
       <div className="h-4 md:h-12" />
       <div className="flex items-center justify-center px-4 md:px-0">
@@ -101,7 +95,7 @@ export default function OpportunityView({
           </div>
           <div className="h-4" />
           <div>
-            <h3 className="text-3xl font-bold">booking agent</h3>
+            <h3 className="text-3xl font-bold">listing agent</h3>
             <div className="h-2" />
             {booker && <UserTile user={booker} />}
           </div>
@@ -120,17 +114,16 @@ export default function OpportunityView({
             </p>
           </div>
           <div className="h-4" />
-          <div>
-            <h3 className="text-3xl font-bold">compensation</h3>
-            <div className="h-2" />
-            <p className="text-xl">
-              {!opportunity.isPaid ? (
-                <FaMoneyBill color="green" size={20} />
-              ) : (
-                <FaMoneyBill color="red" size={20} />
-              )}
-            </p>
-          </div>
+          {opportunity.isPaid && (
+            <>
+              <h3 className="text-3xl font-bold">compensation</h3>
+              <div className="h-2" />
+              <div className="flex flex-row gap-4 items-center">
+                <Coins className="h-4 w-4" />
+                <p>is paid</p>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>

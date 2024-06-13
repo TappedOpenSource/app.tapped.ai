@@ -293,6 +293,38 @@ export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
   return [...tccOps, ...leaderOps];
 }
 
+export async function checkIfUserApplied(opId: string, userId: string) {
+  try {
+    const opsRef = collection(db, "opportunities");
+    const interestedCollection = collection(opsRef, `${opId}/interestedUsers`);
+    const userDoc = doc(interestedCollection, userId);
+    const user = await getDoc(userDoc);
+
+    return user.exists();
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+}
+
+export async function applyForOpportunity({ opId, userId, userComment }: {
+  opId: string;
+  userId: string;
+  userComment: string;
+}) {
+  try {
+    const opsRef = collection(db, "opportunities");
+    const interestedCollection = collection(opsRef, `${opId}/interestedUsers`);
+    const userDoc = doc(interestedCollection, userId);
+    await setDoc(userDoc, {
+      "timestamp": Timestamp.now(),
+      "userComment": userComment,
+    });
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 const featuredPerformersCache = new LRUCache<string, UserModel[]>({
   max: 1,
 });

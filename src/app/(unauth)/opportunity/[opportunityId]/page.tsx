@@ -1,9 +1,7 @@
 
 import type { Metadata, ResolvingMetadata } from "next/types";
-import OpportunityView from "@/components/OpportunityView";
+import OpportunityView from "@/components/opportunity/OpportunityView";
 import { Opportunity, opImage } from "@/domain/types/opportunity";
-import Footer from "@/components/Footer";
-import UnauthHeader from "@/components/unauth_header";
 
 type Props = {
   params: { opportunityId: string }
@@ -24,15 +22,16 @@ export async function generateMetadata(
 
     const imageSrc = opImage(opportunity);
 
+    const description = `${opportunity.title} on tapped | create a world tour from your iPhone`;
     return {
       metadataBase: new URL(metadataBase),
       title: opportunity.title,
-      description: `${opportunity.title} on tapped`,
+      description,
       openGraph: {
         type: "website",
         url: `${metadataBase}/opportunity/${opportunityId}`,
         title: opportunity.title,
-        description: `${opportunity.title} on tapped`,
+        description,
         siteName: "Tapped Ai",
         images: [{ url: imageSrc }],
       },
@@ -40,7 +39,7 @@ export async function generateMetadata(
         card: "summary_large_image",
         site: "@tappedai",
         title: opportunity.title,
-        description: `${opportunity.title} on tapped`,
+        description,
         images: imageSrc,
       },
     };
@@ -58,9 +57,7 @@ export default function Page({ params }: Props) {
   const { opportunityId } = params;
   return (
     <>
-      <UnauthHeader />
       <OpportunityView opportunityId={opportunityId} />
-      <Footer />
     </>
   );
 }
