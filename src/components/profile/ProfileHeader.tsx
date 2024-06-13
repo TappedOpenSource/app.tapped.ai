@@ -209,11 +209,19 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
       )}
       <div className="h-4" />
       <UserInfoSection user={user} />
+      <div>
+        <Link
+          href="mailto:support@tapped.ai"
+          className="text-sm text-blue-500 cursor-pointer transition-all duration-150 ease-in-out hover:scale-105"
+        >
+          something incorrect? contact us
+        </Link>
+      </div>
       {category && (
         <>
           <div className="h-4" />
           <Card
-            className="w-full flex justify-center items-center cursor-pointer transition-all duration-150 ease-in-out hover:scale-101"
+            className="w-full flex justify-center items-center cursor-pointer transition-all duration-150 ease-in-out hover:scale-103"
             onClick={() => {
               toast({
                 title: `${category} performer`,
