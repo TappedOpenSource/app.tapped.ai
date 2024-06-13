@@ -79,13 +79,6 @@ export function getMenuList(pathname: string): Group[] {
           submenus: [],
         },
         {
-          href: "/premium",
-          label: "premium",
-          active: pathname.includes("/premium"),
-          icon: Award,
-          submenus: [],
-        },
-        {
           href: "https://tapped.tolt.io",
           external: true,
           label: "join the team",
