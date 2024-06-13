@@ -54,6 +54,7 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
   const isPerformer = user.performerInfo !== null && user.performerInfo !== undefined;
   const isVenue = user.venueInfo !== null && user.venueInfo !== undefined;
   const dayOfWeekData = user.venueInfo?.bookingsByDayOfWeek ?? [];
+  const websiteUrl = user.venueInfo?.websiteUrl?.startsWith("http") ? user.venueInfo?.websiteUrl : `https://${user.venueInfo?.websiteUrl}`;
   const { resolvedTheme } = useTheme();
 
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -278,7 +279,7 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
         )}
         {user.venueInfo?.websiteUrl && (
           <Link
-            href={user.venueInfo.websiteUrl}
+            href={websiteUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
