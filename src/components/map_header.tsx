@@ -14,6 +14,7 @@ import {
   Moon,
   Sun,
   UserCheck,
+  Globe2,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -41,11 +42,10 @@ import {
 } from "./ui/select";
 import SearchBar from "./SearchBar";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { useScrollPosition } from "@/utils/use_scroll_position";
-import { cn } from "@/lib/utils";
 import { Suspense } from "react";
 import { LoadingSpinner } from "./LoadingSpinner";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { headers } from "next/headers";
 
 const queryClient = new QueryClient();
 
@@ -53,8 +53,10 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
   const { state: { currentUser } } = useAuth();
   const { state: subscribed } = usePurchases();
   const { setTheme } = useTheme();
-  const scrollPosition = useScrollPosition();
   const router = useRouter();
+
+  const pathname = usePathname();
+  const isMapPage = pathname.includes("/map");
 
   return (
     <>
@@ -87,13 +89,15 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
         </div>
         <div className="flex flex-row gap-3">
           <div className="hidden md:block">
-            <Link
-              href="https://tapped.ai/download"
-              target="_blank"
-              referrerPolicy="no-referrer"
-            >
-              <Button variant="link">get the app</Button>
-            </Link>
+            {!isMapPage && (
+              <Link
+                href="/map"
+              >
+                <Button variant={"secondary"}>
+              view the map <span className="ml-2"><Globe2 className="h-4 w-4" /></span>
+                </Button>
+              </Link>
+            )}
           </div>
           <div className="hidden md:block">
             <Select

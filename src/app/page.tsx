@@ -32,22 +32,6 @@ export default function Page() {
               search performers
           </h1>
           <SearchBar animatedPlaceholder />
-          <div className="flex justify-center gap-4 mt-4">
-            <Link
-              href="/map"
-            >
-              <Button variant={"secondary"}>
-              view the map <span className="ml-2"><Globe2 className="h-4 w-4" /></span>
-              </Button>
-            </Link>
-            <Link
-              href="/premium"
-            >
-              <Button variant={"ghost"}>
-                try premium
-              </Button>
-            </Link>
-          </div>
         </div>
         <div className="w-full md:w-3/4 lg:w-1/2 xl:w-1/3">
           <FeaturedPerformers />
