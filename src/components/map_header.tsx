@@ -45,7 +45,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Suspense } from "react";
 import { LoadingSpinner } from "./LoadingSpinner";
 import { usePathname, useRouter } from "next/navigation";
-import { headers } from "next/headers";
 
 const queryClient = new QueryClient();
 
