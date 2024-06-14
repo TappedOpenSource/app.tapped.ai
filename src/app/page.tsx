@@ -32,6 +32,16 @@ export default function Page() {
               search performers
           </h1>
           <SearchBar animatedPlaceholder />
+          <div className="flex justify-center">
+            <Button variant={"link"}>
+              <Link
+                href="https://tapped.ai"
+                className="text-blue-500 underline"
+              >
+            what is tapped?
+              </Link>
+            </Button>
+          </div>
         </div>
         <div className="w-full md:w-3/4 lg:w-1/2 xl:w-1/3">
           <FeaturedPerformers />
