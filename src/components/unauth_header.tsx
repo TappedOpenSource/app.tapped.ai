@@ -149,9 +149,7 @@ function HeaderUi() {
         <div className="flex flex-row">
           <div className="hidden md:block">
             <Link
-              href="https://tapped.ai/download"
-              target="_blank"
-              referrerPolicy="no-referrer"
+              href="/download"
             >
               <Button variant="link">get the app</Button>
             </Link>
