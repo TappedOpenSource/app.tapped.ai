@@ -10,7 +10,9 @@ const appleUrl = "https://apps.apple.com/us/app/tapped-network/id1574937614";
 const googleUrl =
   "https://play.google.com/store/apps/details?id=com.intheloopstudio";
 
-export default function DownloadTheAppSection() {
+export default function DownloadTheAppSection({ showIcon = true }: {
+  showIcon?: boolean;
+}) {
   return (
     <>
       <div className="flex flex-row">
@@ -48,14 +50,16 @@ export default function DownloadTheAppSection() {
             <AppStoreButton url={appleUrl} theme={"dark"} />
           </div>
         </div>
-        <div className="flex-0 hidden lg:block">
-          <Image
-            src="/images/icon_1024.png"
-            alt="Tapped App Icon"
-            width={124}
-            height={124}
-          />
-        </div>
+        {showIcon && (
+          <div className="flex-0 hidden lg:block">
+            <Image
+              src="/images/icon_1024.png"
+              alt="Tapped App Icon"
+              width={124}
+              height={124}
+            />
+          </div>
+        )}
       </div>
     </>
   );
