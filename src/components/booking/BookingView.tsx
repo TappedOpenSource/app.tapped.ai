@@ -7,6 +7,8 @@ import { Booking } from "@/domain/types/booking";
 import UserTile from "../UserTile";
 import { UserModel } from "@/domain/types/user_model";
 import { LoadingSpinner } from "../LoadingSpinner";
+import { Plus } from "lucide-react";
+import UserAvatarList from "../UserAvatarList";
 
 export default function BookingView({ bookingId }: {
     bookingId: string;
@@ -15,7 +17,7 @@ export default function BookingView({ bookingId }: {
   const [loading, setLoading] = useState(true);
   const [booker, setBooker] = useState<UserModel | null>(null);
   const [performer, setPerformer] = useState<UserModel | null>(null);
-  const [linkedBookings, setLinkedBookings] = useState<Booking[]>([]);
+  const [linkedPerformers, setLinkedPerformers] = useState<UserModel[]>([]);
 
   useEffect(() => {
     const fetchBooking = async () => {
@@ -71,18 +73,25 @@ export default function BookingView({ bookingId }: {
         const bookings = await getBookingsByEventId(eventId);
         const filteredBookings = bookings.filter((b) => b.id !== booking.id);
 
-        setLinkedBookings(filteredBookings);
+        const performers = await Promise.all(
+          filteredBookings.map((b) => getUserById(b.requesteeId))
+        );
+        setLinkedPerformers(performers.filter((p) => p !== null) as UserModel[]);
         return;
       }
 
       if (eventUrl !== undefined && eventUrl !== null) {
         const bookings = await getBookingsByEventUrl(eventUrl);
         const filteredBookings = bookings.filter((b) => b.id !== booking.id);
-        setLinkedBookings(filteredBookings);
+
+        const performers = await Promise.all(
+          filteredBookings.map((b) => getUserById(b.requesteeId))
+        );
+        setLinkedPerformers(performers.filter((p) => p !== null) as UserModel[]);
         return;
       }
 
-      setLinkedBookings([]);
+      setLinkedPerformers([]);
     };
     fetchLinkedEvents();
   }, [booking]);
@@ -103,7 +112,7 @@ export default function BookingView({ bookingId }: {
     null :
     (
       <>
-        <h3 className='font-extrabold text-xl'>Booker</h3>
+        <h3 className='font-extrabold text-xl'>booker</h3>
         <UserTile user={booker} />
       </>
     );
@@ -112,8 +121,16 @@ export default function BookingView({ bookingId }: {
     null :
     (
       <>
-        <h3 className='font-extrabold text-xl'>Performer</h3>
-        <UserTile user={performer} />
+        <h3 className='font-extrabold text-xl'>performer</h3>
+        <div className="flex flex-row items-center gap-4">
+          <UserTile user={performer} />
+          {linkedPerformers.length > 0 && (
+            <>
+              <Plus className="w-6 h-6 text-gray-500" />
+              <UserAvatarList users={linkedPerformers} />
+            </>
+          )}
+        </div>
       </>
     );
 
@@ -150,19 +167,19 @@ export default function BookingView({ bookingId }: {
   );
 }
 
-function formatDuration(startDate: Date, endDate: Date): string {
-  // Get the difference in milliseconds between the two dates.
-  const diff = endDate.getTime() - startDate.getTime();
+// function formatDuration(startDate: Date, endDate: Date): string {
+//   // Get the difference in milliseconds between the two dates.
+//   const diff = endDate.getTime() - startDate.getTime();
 
-  // Convert the difference to seconds.
-  const seconds = diff / 1000;
+//   // Convert the difference to seconds.
+//   const seconds = diff / 1000;
 
-  // Convert the seconds to minutes.
-  const minutes = seconds / 60;
+//   // Convert the seconds to minutes.
+//   const minutes = seconds / 60;
 
-  // Convert the minutes to hours and minutes.
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = Math.floor(minutes % 60);
+//   // Convert the minutes to hours and minutes.
+//   const hours = Math.floor(minutes / 60);
+//   const remainingMinutes = Math.floor(minutes % 60);
 
-  return `${hours} hours and ${remainingMinutes} minutes`;
-}
+//   return `${hours} hours and ${remainingMinutes} minutes`;
+// }
