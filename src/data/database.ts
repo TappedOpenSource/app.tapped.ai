@@ -232,6 +232,32 @@ export async function getLatestBookerReviewByBookerId(
   return queryDocs.docs[0].data();
 }
 
+export async function getBookingsByEventId(eventId: string): Promise<Booking[]> {
+  const bookingsQuery = query(
+    collection(db, "bookings"),
+    where("referenceEventId", "==", eventId),
+    where("status", "==", "confirmed"),
+  ).withConverter(bookingConverter);
+
+  const querySnapshot = await getDocs(bookingsQuery);
+  const queryDocs = querySnapshot.docs;
+
+  return queryDocs.map((doc) => doc.data());
+}
+
+export async function getBookingsByEventUrl(eventUrl: string): Promise<Booking[]> {
+  const bookingsQuery = query(
+    collection(db, "bookings"),
+    where("eventUrl", "==", eventUrl),
+    where("status", "==", "confirmed"),
+  ).withConverter(bookingConverter);
+
+  const querySnapshot = await getDocs(bookingsQuery);
+  const queryDocs = querySnapshot.docs;
+
+  return queryDocs.map((doc) => doc.data());
+}
+
 export async function getUserOpportunities(
   userId: string
 ): Promise<Opportunity[]> {

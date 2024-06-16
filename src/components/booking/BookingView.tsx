@@ -2,12 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { getBookingById, getUserById } from "@/data/database";
+import { getBookingById, getBookingsByEventId, getBookingsByEventUrl, getUserById } from "@/data/database";
 import { Booking } from "@/domain/types/booking";
 import UserTile from "../UserTile";
 import { UserModel } from "@/domain/types/user_model";
 import { LoadingSpinner } from "../LoadingSpinner";
-import UnauthHeader from "../unauth_header";
 
 export default function BookingView({ bookingId }: {
     bookingId: string;
@@ -16,6 +15,7 @@ export default function BookingView({ bookingId }: {
   const [loading, setLoading] = useState(true);
   const [booker, setBooker] = useState<UserModel | null>(null);
   const [performer, setPerformer] = useState<UserModel | null>(null);
+  const [linkedBookings, setLinkedBookings] = useState<Booking[]>([]);
 
   useEffect(() => {
     const fetchBooking = async () => {
@@ -55,6 +55,36 @@ export default function BookingView({ bookingId }: {
       };
       fetchPerformer();
     }
+  }, [booking]);
+
+  useEffect(() => {
+    const fetchLinkedEvents = async () => {
+      if (booking === null) {
+        return;
+      }
+
+      const eventId = booking.referenceEventId;
+      const eventUrl = booking.eventUrl;
+
+      if (eventId !== undefined && eventId !== null) {
+        // get other events with the same referenceEventId
+        const bookings = await getBookingsByEventId(eventId);
+        const filteredBookings = bookings.filter((b) => b.id !== booking.id);
+
+        setLinkedBookings(filteredBookings);
+        return;
+      }
+
+      if (eventUrl !== undefined && eventUrl !== null) {
+        const bookings = await getBookingsByEventUrl(eventUrl);
+        const filteredBookings = bookings.filter((b) => b.id !== booking.id);
+        setLinkedBookings(filteredBookings);
+        return;
+      }
+
+      setLinkedBookings([]);
+    };
+    fetchLinkedEvents();
   }, [booking]);
 
   if (booking === null) {

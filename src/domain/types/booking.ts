@@ -24,6 +24,8 @@ export type Booking = {
     endTime: Date;
     timestamp: Date;
     flierUrl: Option<string>;
+    eventUrl: Option<string>;
+    referenceEventId: Option<string>;
 }
 
 export const bookingConverter = {
@@ -37,24 +39,16 @@ export const bookingConverter = {
     snapshot: QueryDocumentSnapshot,
     options: SnapshotOptions
   ): Booking {
-    const data = snapshot.data(options);
+    const data = snapshot.data(options) as Booking & {
+      timestamp: Timestamp;
+      startTime: Timestamp;
+      endTime: Timestamp;
+    };
     return {
-      id: data.id,
-      serviceId: data.serviceId,
-      name: data.name,
-      note: data.note,
-      requesterId: data.requesterId,
-      requesteeId: data.requesteeId,
-      status: data.status,
-      rate: data.rate,
-      placeId: data.placeId,
-      geohash: data.geohash,
-      lat: data.lat,
-      lng: data.lng,
+      ...data,
       startTime: data.startTime.toDate(),
       endTime: data.endTime.toDate(),
       timestamp: data.timestamp.toDate(),
-      flierUrl: data.flierUrl,
     };
   },
 };
