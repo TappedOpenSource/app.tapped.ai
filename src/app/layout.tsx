@@ -12,7 +12,7 @@ import "./globals.css";
 
 const title = "live music stats | tapped ai";
 const description =
-  "Google Maps for Music Venues - Tapped Ai predicts the future of the live performance industry and gives performers the means of creating a world tour from their phone. We use new tech to gather data across the US to analyze/predict trends in the live performance space to ultimately increase bookings and ticket sales";
+  "Live Music Data Analytics - Tapped Ai predicts the future of the live performance industry and gives performers the means of creating a world tour from their phone. We use new tech to gather data across the US to analyze/predict trends in the live performance space to ultimately increase bookings and ticket sales";
 const metadataBase = "https://app.tapped.ai";
 
 export const metadata: Metadata = {
