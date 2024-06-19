@@ -105,11 +105,10 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
               }}
             >
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="top lists" />
+                <SelectValue placeholder="charts" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>top lists</SelectLabel>
                   <SelectItem value="rising">top rising</SelectItem>
                   <SelectItem value="performer">top performers</SelectItem>
                   {/* <SelectItem value="venue">top venues</SelectItem> */}
