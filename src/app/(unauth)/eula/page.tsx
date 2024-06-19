@@ -4,7 +4,7 @@ export default function Eula() {
     <>
       <div className="pl-4 pr-4 md:pl-24 md:pr-24 md:pb-24">
         <h1 className="flex justify-center text-center mb-10 mt-20 text-3xl md:text-6xl tracking-tighter md:justify-start">
-                      End User License Agreement (EULA) for Tapped App
+                      End User License Agreement (EULA) for Tapped Ai
         </h1>
 
         <div className="text-center md:text-start md:text-xl font-thin text-gray-300">

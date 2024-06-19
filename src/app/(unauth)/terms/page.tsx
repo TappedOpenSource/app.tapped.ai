@@ -5,7 +5,7 @@ export default function Terms() {
 
       <p>
           These Terms of Service (&quot;Agreement&quot;) govern your access to and
-          use of Tapped Network (&quot;Tapped&quot;), an online booking and
+          use of Tapped Ai (&quot;Tapped&quot;), an online booking and
           networking platform for the entertainment industry. This Agreement is a
           legal contract between you and Tapped, and governs your use of the
           Tapped website, mobile applications, and all related services (the
