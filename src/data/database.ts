@@ -351,6 +351,25 @@ export async function applyForOpportunity({ opId, userId, userComment }: {
   }
 }
 
+export async function getOpportunityQuota(opId: string): Promise<number> {
+  try {
+    const opsRef = collection(db, "credits");
+    const opDoc = doc(opsRef, opId);
+    const op = await getDoc(opDoc);
+
+    if (!op.exists()) {
+      return 0;
+    }
+
+    const { opportunityQuota } = op.data() as { opportunityQuota: number };
+
+    return opportunityQuota;
+  } catch (e) {
+    console.error(e);
+    return 0;
+  }
+}
+
 const featuredPerformersCache = new LRUCache<string, UserModel[]>({
   max: 1,
 });

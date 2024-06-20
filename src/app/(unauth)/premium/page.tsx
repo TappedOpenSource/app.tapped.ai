@@ -5,7 +5,7 @@ import Script from "next/script";
 import { usePurchases } from "@/context/purchases";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 
 // If using TypeScript, add the following snippet to your file as well.
 declare global {
@@ -20,6 +20,9 @@ declare global {
 export default function Page() {
   const { state: { authUser } } = useAuth();
   const { state: subscribed } = usePurchases();
+
+  const searchParams = useSearchParams();
+  const returnUrl = searchParams.get("return_url") ?? "/dashboard";
 
   if (!authUser) {
     return (

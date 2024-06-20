@@ -2,21 +2,24 @@
 
 import { useAuth } from "@/context/auth";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { Opportunity } from "@/domain/types/opportunity";
 import { useState, useEffect } from "react";
-import { applyForOpportunity, checkIfUserApplied } from "@/data/database";
+import { checkIfUserApplied } from "@/data/database";
 import { Check } from "lucide-react";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { useToast } from "../ui/use-toast";
+import { guardedApplyForOpportunity } from "@/domain/usecases/opportunities";
+import { usePurchases } from "@/context/purchases";
 
 export default function ApplyButton({ op }: {
     op: Opportunity;
 }) {
   const { state: authState } = useAuth();
   const { authUser } = authState;
-
+  const { state: subscribed } = usePurchases();
+  const router = useRouter();
   const pathname = usePathname();
   const [isApplied, setIsApplied] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -80,12 +83,12 @@ export default function ApplyButton({ op }: {
     <div>
       <Button
         onClick={async () => {
+          setLoading(true);
           try {
-            setLoading(true);
-            await applyForOpportunity({
-              opId: op.id,
+            await guardedApplyForOpportunity({
+              opportunityId: op.id,
               userId: authUser.uid,
-              userComment: "",
+              isPremium: subscribed ?? false,
             });
             setIsApplied(true);
             toast({
@@ -95,9 +98,13 @@ export default function ApplyButton({ op }: {
           } catch (e) {
             console.error("error applying for opportunity", e);
             toast({
-              title: "error applying for opportunity",
-              description: "please try again later",
+              title: "you've run out of opportunities to apply for",
+              description: "join tapped premium to get unlimited gig opportunities",
             });
+
+            router.push(
+              `/premium?return_url=/opportunities/${op.id}`
+            );
           } finally {
             setLoading(false);
           }
