@@ -72,8 +72,9 @@ export default function ApplyButton({ op }: {
   if (isApplied) {
     return (
       <div>
-        <Button size="icon">
-          <Check className="h-4 w-4" />
+        <Button>
+          <Check className="h-4 w-4 mr-2" />
+          <span>applied</span>
         </Button>
       </div>
     );
