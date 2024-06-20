@@ -72,7 +72,7 @@ export default function ApplyButton({ op }: {
   if (isApplied) {
     return (
       <div>
-        <Button>
+        <Button disabled>
           <Check className="h-4 w-4 mr-2" />
           <span>applied</span>
         </Button>
