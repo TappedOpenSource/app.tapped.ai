@@ -87,7 +87,7 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
           )}
         </div>
         <div className="flex flex-row gap-3">
-          <div className="hidden md:block">
+          <div className="block">
             {!isMapPage && (
               <Link
                 href="/map"
