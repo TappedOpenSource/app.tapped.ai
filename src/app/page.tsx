@@ -27,7 +27,7 @@ export default function Page() {
         </Suspense>
       </div>
       <div className="px-4 pb-12 min-h-screen flex flex-col justify-start items-center">
-        <div className="w-full md:w-3/4 lg:w-1/2 xl:w-1/3 mt-40 md:mt-64 lg:mt-64 xl:mt-[175px]">
+        <div className="w-full md:w-3/4 lg:w-1/2 mt-40 md:mt-64 lg:mt-64 xl:mt-[175px]">
           <h1 className="font-black text-5xl mb-4">
               search performers
           </h1>
@@ -43,10 +43,10 @@ export default function Page() {
             </Button>
           </div>
         </div>
-        <div className="w-full md:w-3/4 lg:w-1/2 xl:w-1/3">
+        <div className="w-full md:w-3/4 lg:w-1/2">
           <FeaturedPerformers />
         </div>
-        <div className="w-full md:w-3/4 lg:w-1/2 xl:w-1/3">
+        <div className="w-full md:w-3/4 lg:w-1/2">
           <BuyPremium />
         </div>
       </div>
