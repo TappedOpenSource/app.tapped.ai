@@ -73,7 +73,7 @@ export default function BookingTile({ booking, user }: {
               alt='booking image'
               width={50}
               height={50}
-              objectFit='cover'
+              style={{ objectFit: "cover" }}
             />
           </div>
           <div className='w-3' />
