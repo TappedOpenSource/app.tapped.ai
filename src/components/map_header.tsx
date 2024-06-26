@@ -40,7 +40,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import SearchBar from "./SearchBar";
+import SearchBar from "./search/SearchBar";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Suspense } from "react";
 import { LoadingSpinner } from "./LoadingSpinner";

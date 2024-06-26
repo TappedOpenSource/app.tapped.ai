@@ -21,24 +21,33 @@ export default function SearchDialog() {
   const router = useRouter();
   const pathname = usePathname();
   const searchBar = useStore(useSearchToggle, (state) => state);
-  const { useSearchData } = useSearch();
+  const { useSearchData, usePlaceData } = useSearch();
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebounce<string>(query, 250);
-  const { data } = useSearchData(debouncedQuery, { hitsPerPage: 7 });
 
-  const resultsList = useMemo(() => {
-    if (!data || data.length === 0) {
+  const { data } = useSearchData(debouncedQuery, {
+    hitsPerPage: 4,
+  });
+  const { data: placesData } = usePlaceData(debouncedQuery);
+  const performerData = data?.filter((hit) => {
+    return !hit.occupations.includes("venue") && !hit.occupations.includes("Venue");
+  });
+  const venueData = data?.filter((hit) => {
+    return hit.occupations.includes("venue") || hit.occupations.includes("Venue");
+  });
+
+  const performerResultsList = useMemo(() => {
+    if (!performerData || performerData.length === 0) {
       return (
         <CommandEmpty>no results found.</CommandEmpty>
       );
     }
 
-    return data?.map((hit) => {
+    return performerData?.map((hit) => {
       return (
         <CommandItem
           key={hit.id}
           onSelect={() => {
-            console.log("help");
             router.push(`${pathname}?username=${hit.username}`);
           }}
         >
@@ -60,7 +69,78 @@ export default function SearchDialog() {
         </CommandItem>
       );
     });
-  }, [data, pathname, router]);
+  }, [performerData, pathname, router]);
+
+  const venueResultsList = useMemo(() => {
+    if (!venueData || venueData.length === 0) {
+      return (
+        <CommandEmpty>no results found.</CommandEmpty>
+      );
+    }
+
+    return venueData?.map((hit) => {
+      return (
+        <CommandItem
+          key={hit.id}
+          onSelect={() => {
+            router.push(`${pathname}?username=${hit.username}`);
+          }}
+        >
+          {/* <Avatar>
+            {hit?.profilePicture !== null && (
+              <AvatarImage
+                src={hit?.profilePicture}
+                style={{ objectFit: "cover", overflow: "hidden" }}
+              />
+            )}
+            <AvatarFallback>
+              <UserCheck className="h-4 w-4" />
+            </AvatarFallback>
+          </Avatar> */}
+
+          {/* <span> */}
+          {hit.artistName ?? hit.username}
+          {/* </span> */}
+        </CommandItem>
+      );
+    });
+  }, [venueData, pathname, router]);
+
+  const placesResultsList = useMemo(() => {
+    if (!placesData || placesData.length === 0) {
+      return (
+        <CommandEmpty>no results found.</CommandEmpty>
+      );
+    }
+
+    return placesData?.map((hit) => {
+      return (
+        <CommandItem
+          key={hit.place_id}
+          onSelect={() => {
+            searchBar?.setIsOpen();
+            router.push(`/location?id=${hit.place_id}`);
+          }}
+        >
+          {/* <Avatar>
+            {hit?.profilePicture !== null && (
+              <AvatarImage
+                src={hit?.profilePicture}
+                style={{ objectFit: "cover", overflow: "hidden" }}
+              />
+            )}
+            <AvatarFallback>
+              <UserCheck className="h-4 w-4" />
+            </AvatarFallback>
+          </Avatar> */}
+
+          {/* <span> */}
+          {hit.description}
+          {/* </span> */}
+        </CommandItem>
+      );
+    });
+  }, [placesData, router, searchBar]);
 
   return (
     <>
@@ -71,9 +151,36 @@ export default function SearchDialog() {
         />
         <CommandList>
           {/* <CommandEmpty>no results found.</CommandEmpty> */}
-          <CommandGroup heading="profiles">
-            {resultsList}
-          </CommandGroup>
+          { (performerData?.length === 0 && venueData?.length === 0 && placesData?.length === 0) ?
+            (
+              <CommandEmpty>no results found.</CommandEmpty>
+            ) :
+            (
+              <>
+                {(!performerData || performerData.length === 0) ? (
+                  null
+                ) : (
+
+                  <CommandGroup heading="performers">
+                    {performerResultsList}
+                  </CommandGroup>
+                )}
+                {(!venueData || venueData.length === 0) ? (
+                  null
+                ) : (
+                  <CommandGroup heading="venues">
+                    {venueResultsList}
+                  </CommandGroup>
+                )}
+                {(!placesData || placesData.length === 0) ? (
+                  null
+                ) : (
+                  <CommandGroup heading="places">
+                    {placesResultsList}
+                  </CommandGroup>
+                )}
+              </>
+            )}
         </CommandList>
       </CommandDialog>
     </>

@@ -1,4 +1,7 @@
 import {
+  autocompletePlaces,
+} from "@/data/places";
+import {
   BoundingBox,
   queryVenuesInBoundedBox,
   queryUsers,
@@ -32,9 +35,21 @@ export const useSearch = () => {
     },
   });
 
+  const usePlaceData = (query: string) => useQuery({
+    queryKey: ["places", query],
+    queryFn: async () => {
+      if (query === "") {
+        return [];
+      }
+
+      return await autocompletePlaces(query);
+    },
+  });
+
   return {
     useVenueData,
     useSearchData,
+    usePlaceData,
   };
 };
 

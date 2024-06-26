@@ -7,6 +7,7 @@ export type UserSearchOptions = {
   labels?: string[];
   genres?: string[];
   occupations?: string[];
+  occupationsBlacklist?: string[];
   venueGenres?: string[];
   unclaimed?: boolean;
   lat?: number;
@@ -86,6 +87,7 @@ export async function queryUsers(query: string, {
   labels,
   genres,
   occupations,
+  occupationsBlacklist,
   venueGenres,
   unclaimed,
   lat,
@@ -102,8 +104,12 @@ export async function queryUsers(query: string, {
     `(${genres.map((e) => `performerInfo.genres:'${e}'`).join(" OR ")})` :
     null;
   const formattedOccupationFilter = occupations != null ?
-    `(${occupations.map((e) => `occupations:'${e}'`).join(" OR ")})` :
+    `(${occupations.map((e) => `occupations:'${e}'`).join(" AND ")})` :
     null;
+  const formattedOccupationsBlacklistFilter = occupationsBlacklist != null ?
+    `(${occupationsBlacklist.map((e) => `NOT occupations:'${e}'`).join(" OR ")})` :
+    null;
+
   const formattedVenueGenreFilter = venueGenres != null ?
     `(${venueGenres.map((e) => `venueInfo.genres:'${e}'`).join(" OR ")})` :
     null;
@@ -116,6 +122,7 @@ export async function queryUsers(query: string, {
     formattedLabelFilter,
     formattedGenreFilter,
     formattedOccupationFilter,
+    formattedOccupationsBlacklistFilter,
     formattedVenueGenreFilter,
     formattedUnclaimedFilter,
   ].filter((element) => element !== null);

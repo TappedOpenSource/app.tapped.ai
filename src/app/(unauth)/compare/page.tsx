@@ -1,6 +1,6 @@
 "use client";
 
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/components/search/SearchBar";
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import { getUserByUsername } from "@/data/database";
 import { UserModel } from "@/domain/types/user_model";
@@ -31,15 +31,19 @@ export default function Page() {
     <>
       <div className="flex flex-col items-center mt-24">
         <div className="flex flex-row justify-center items-center gap-4">
-          <SearchBar onSelect={
-            (user) => {
-              setPerformerOne(user);
-            }} />
+          <SearchBar
+            openDialog={false}
+            onSelect={
+              (user) => {
+                setPerformerOne(user);
+              }} />
           <h3>vs</h3>
-          <SearchBar onSelect={
-            (user) => {
-              setPerformerTwo(user);
-            }} />
+          <SearchBar
+            openDialog={false}
+            onSelect={
+              (user) => {
+                setPerformerTwo(user);
+              }} />
         </div>
         <div className="flex flex-row justify-center items-start gap-4">
           <div>

@@ -1,7 +1,8 @@
 import type { PlaceData, PlacePrediction } from "@/domain/types/place_data";
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "@/utils/firebase";
+import { db, functions } from "@/utils/firebase";
 import { LRUCache } from "lru-cache";
+import { httpsCallable } from "@firebase/functions";
 
 const googlePlacesApiKey = process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY ?? "";
 
@@ -80,9 +81,33 @@ const _getPlaceDetails = async (placeId: string): Promise<PlaceData> => {
   }
 };
 
+export const autocompletePlaces = async (
+  q: string,
+  types: string[] = ["locality"],
+): Promise<{
+  place_id: string;
+  description: string;
+}[]> => {
+  const callable = httpsCallable(functions, "autocompletePlaces");
+  const res = await callable({ query: q, types });
+  const data = res.data as {
+    predictions: {
+    place_id: string;
+    description: string;
+    }[];
+  };
+
+  if ("error_message" in data) {
+    console.error({ data });
+    return [];
+  }
+
+  return data.predictions ?? [];
+};
 
 export const searchPlaces = async (
-  q: string
+  q: string,
+  type = "cities",
 ): Promise<PlacePrediction[]> => {
   const res = await fetch(
     "https://places.googleapis.com/v1/places:searchText",
@@ -96,6 +121,7 @@ export const searchPlaces = async (
       },
       body: JSON.stringify({
         textQuery: q,
+        type,
       }),
     }
   );

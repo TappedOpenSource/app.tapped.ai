@@ -1,7 +1,7 @@
 import FeaturedPerformers from "@/components/FeaturedPerformers";
 import Footer from "@/components/admin-panel/footer";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/components/search/SearchBar";
 import TappedSheet from "@/components/TappedSheet";
 import BuyPremium from "@/components/landing/BuyPremium";
 // import BuyPremium from "@/components/landing/BuyPremium";
