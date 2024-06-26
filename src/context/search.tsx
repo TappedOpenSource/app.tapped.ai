@@ -25,7 +25,7 @@ export const useSearch = () => {
     });
 
   const useSearchData = (query: string, options: UserSearchOptions) => useQuery({
-    queryKey: ["users", query],
+    queryKey: ["users", `${query}-${JSON.stringify(options)}`],
     queryFn: async () => {
       if (query === "" && options.lat === undefined && options.lng === undefined && options.minCapacity === undefined && options.genres === undefined && options.maxCapacity === undefined) {
         return [];
