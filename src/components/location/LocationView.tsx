@@ -58,8 +58,8 @@ function _LocationView({ placeId }: {
         })
       );
 
-      const perfs = nestedPerfs.flat();
-      setPerformers(perfs);
+      const perfs = new Set(nestedPerfs.flat());
+      setPerformers(Array.from(perfs));
     };
 
     getPerformers();
