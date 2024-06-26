@@ -104,10 +104,10 @@ export async function queryUsers(query: string, {
     `(${genres.map((e) => `performerInfo.genres:'${e}'`).join(" OR ")})` :
     null;
   const formattedOccupationFilter = occupations != null ?
-    `(${occupations.map((e) => `occupations:'${e}'`).join(" AND ")})` :
+    `(${occupations.map((e) => `occupations:'${e}'`).join(" OR ")})` :
     null;
   const formattedOccupationsBlacklistFilter = occupationsBlacklist != null ?
-    `(${occupationsBlacklist.map((e) => `NOT occupations:'${e}'`).join(" OR ")})` :
+    `(${occupationsBlacklist.map((e) => `NOT occupations:'${e}'`).join(" AND ")})` :
     null;
 
   const formattedVenueGenreFilter = venueGenres != null ?

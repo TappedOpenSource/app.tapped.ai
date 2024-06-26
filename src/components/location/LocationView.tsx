@@ -9,8 +9,8 @@ import { useSearch } from "@/context/search";
 import { getUserById } from "@/data/database";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Button } from "../ui/button";
-import PerformerCard from "./PerformerCard";
 import VenueCard from "./VenueCard";
+import UserCluster from "../UserCluster";
 
 const queryClient = new QueryClient();
 export default function LocationView(props: {
@@ -33,9 +33,11 @@ function _LocationView({ placeId }: {
   const [performers, setPerformers] = useState<UserModel[]>([]);
   const [genreMap, setGenreMap] = useState<Record<string, number>>({});
 
-  const { data: venueData } = useSearchData("venue", {
+  const { data: venueData } = useSearchData(" ", {
     lat: place?.lat,
     lng: place?.lng,
+    radius: 250,
+    occupations: ["venue", "Venue"],
     hitsPerPage: 250,
   });
 
@@ -94,7 +96,7 @@ function _LocationView({ placeId }: {
       <div className="flex flex-wrap gap-1">
         {Object.entries(genreMap).sort(
           ([, a], [, b]) => b - a
-        ).slice(0, 10).filter(([genre, count]) => count > 1).map(([genre, count]) => {
+        ).slice(0, 10).filter(([, count]) => count > 1).map(([genre]) => {
           return (
             <Button key={genre} variant="outline">
               {genre}
@@ -104,33 +106,81 @@ function _LocationView({ placeId }: {
       </div>
     ), [genreMap]);
 
-  const performersList = useMemo(() => {
-    if (!performers || performers.length === 0) {
-      return null;
-    }
-
-    return (
-      <div className="flex flex-row flex-wrap gap-3">
-        {performers.map((p) =>
-          <PerformerCard key={p.id} performer={p} />
-        )}
-      </div>
-    );
-  }, [performers]);
-
-  const venuesList = useMemo(() => {
+  const smallVenues = useMemo(() => {
     if (!venueData || venueData.length === 0) {
       return null;
     }
 
     return (
-      <div className="flex flex-row flex-wrap gap-3">
-        {venueData.map((p) =>
+      <div className="flex flex-row items-start justify-start overflow-x-auto space-x-5 ">
+        {venueData.filter(
+          (venue) => (venue.venueInfo?.capacity ?? 0) < 250
+        ).map((p) =>
           <VenueCard key={p.id} venue={p} />
         )}
       </div>
     );
   }, [venueData]);
+
+  const mediumVenues = useMemo(() => {
+    if (!venueData || venueData.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="flex flex-row items-start justify-start overflow-x-auto space-x-5 ">
+        {venueData.filter(
+          (venue) => (venue.venueInfo?.capacity ?? 0) >= 250 && (venue.venueInfo?.capacity ?? 0) < 750
+        ).map((p) =>
+          <VenueCard key={p.id} venue={p} />
+        )}
+      </div>
+    );
+  }, [venueData]);
+
+  const largeVenues = useMemo(() => {
+    if (!venueData || venueData.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="flex flex-row items-start justify-start overflow-x-auto space-x-5 ">
+        {venueData.filter(
+          (venue) => (venue.venueInfo?.capacity ?? 0) >= 750
+        ).map((p) =>
+          <VenueCard key={p.id} venue={p} />
+        )}
+      </div>
+    );
+  }, [venueData]);
+
+  const performersGroupedByCategory = useMemo(() => {
+    if (performers.length === 0) {
+      return null;
+    }
+
+    const grouped = performers.reduce((acc, performer) => {
+      const category = performer.performerInfo?.category ?? "undiscovered";
+
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+
+      acc[category].push(performer);
+      return acc;
+    }, {} as Record<string, UserModel[]>);
+
+    return Object.entries(grouped).map(([category, performers]) => {
+      return (
+        <div key={category}>
+          <h3
+            className="text-lg lg:text-2xl font-bold"
+          >{category} performers</h3>
+          <UserCluster users={performers} />
+        </div>
+      );
+    });
+  }, [performers]);
 
   if (place === null) {
     return (
@@ -155,22 +205,32 @@ function _LocationView({ placeId }: {
           </div>
         </div>
         <div>
+          {performersGroupedByCategory}
+        </div>
+        <div>
           <h3
             className="text-lg lg:text-2xl font-bold"
-          >top performers</h3>
+          >small venues</h3>
           <div>
-            {performersList}
+            {smallVenues}
           </div>
         </div>
         <div>
           <h3
             className="text-lg lg:text-2xl font-bold"
-          >top venues</h3>
+          >medium venues</h3>
           <div>
-            {venuesList}
+            {mediumVenues}
           </div>
         </div>
-
+        <div>
+          <h3
+            className="text-lg lg:text-2xl font-bold"
+          >large venues</h3>
+          <div>
+            {largeVenues}
+          </div>
+        </div>
       </div>
     </>
   );
