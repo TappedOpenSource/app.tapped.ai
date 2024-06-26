@@ -119,7 +119,7 @@ export default function SearchDialog() {
           key={hit.place_id}
           onSelect={() => {
             searchBar?.setIsOpen();
-            router.push(`/location?id=${hit.place_id}`);
+            router.push(`/location/${hit.place_id}`);
           }}
         >
           {/* <Avatar>

@@ -28,7 +28,7 @@ export async function generateMetadata(
       description: `${name} on tapped ai | create a world tour from your iPhone`,
       openGraph: {
         type: "website",
-        url: `${metadataBase}/location?=${id}`,
+        url: `${metadataBase}/location/${id}`,
         title,
         description: `${name} on tapped ai`,
         siteName: "tapped ai",
