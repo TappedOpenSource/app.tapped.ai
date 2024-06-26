@@ -10,12 +10,12 @@ type Props = {
 const getPlaceByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/fetchPlaceById`;
 
 export async function generateMetadata(
-  { params }: Props,
+  { searchParams }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const metadataBase = "https://app.tapped.ai";
   try {
-    const id = params["id"];
+    const id = searchParams["id"];
 
     const res = await fetch(`${getPlaceByIdUrl}?placeId=${id}`);
     const place = (await res.json()) as PlaceData;
