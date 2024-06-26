@@ -3,19 +3,19 @@ import { PlaceData } from "@/domain/types/place_data";
 import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
-  params: { username: string };
+  params: { place_id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
 const getPlaceByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/fetchPlaceById`;
 
 export async function generateMetadata(
-  { searchParams }: Props,
+  { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const metadataBase = "https://app.tapped.ai";
   try {
-    const id = searchParams["id"];
+    const id = params.place_id;
 
     const res = await fetch(`${getPlaceByIdUrl}?placeId=${id}`);
     const place = (await res.json()) as PlaceData;
@@ -68,10 +68,10 @@ export async function generateMetadata(
 }
 
 
-export default async function Page({ searchParams }: Props) {
-  const id = searchParams.id as string;
+export default async function Page({ params }: Props) {
+  const placeId = params.place_id;
 
-  if (!id) {
+  if (!placeId) {
     return (
       <div>
         <h1>Location not found</h1>
@@ -81,7 +81,7 @@ export default async function Page({ searchParams }: Props) {
 
   return (
     <>
-      <LocationView placeId={id} />
+      <LocationView placeId={placeId} />
     </>
   );
 }
