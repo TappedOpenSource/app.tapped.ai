@@ -30,10 +30,10 @@ export default function SearchDialog() {
   });
   const { data: placesData } = usePlaceData(debouncedQuery);
   const performerData = data?.filter((hit) => {
-    return !hit.occupations.includes("venue") && !hit.occupations.includes("Venue");
+    return !hit.occupations?.includes("venue") && !hit.occupations?.includes("Venue");
   });
   const venueData = data?.filter((hit) => {
-    return hit.occupations.includes("venue") || hit.occupations.includes("Venue");
+    return hit.occupations?.includes("venue") || hit.occupations?.includes("Venue");
   });
 
   const performerResultsList = useMemo(() => {
