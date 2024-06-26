@@ -114,7 +114,7 @@ function _LocationView({ placeId }: {
     return (
       <div className="flex flex-row items-start justify-start overflow-x-auto space-x-5 ">
         {venueData.filter(
-          (venue) => (venue.venueInfo?.capacity ?? 0) < 250
+          (venue) => (venue.venueInfo?.capacity) && (venue.venueInfo?.capacity ?? 0) < 250
         ).map((p) =>
           <VenueCard key={p.id} venue={p} />
         )}
