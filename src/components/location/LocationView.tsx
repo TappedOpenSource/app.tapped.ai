@@ -2,12 +2,15 @@
 
 import { getPlaceById } from "@/data/places";
 import { PlaceData } from "@/domain/types/place_data";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { UserModel } from "@/domain/types/user_model";
 import { useSearch } from "@/context/search";
 import { getUserById } from "@/data/database";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Button } from "../ui/button";
+import PerformerCard from "./PerformerCard";
+import VenueCard from "./VenueCard";
 
 const queryClient = new QueryClient();
 export default function LocationView(props: {
@@ -28,12 +31,12 @@ function _LocationView({ placeId }: {
   const { useSearchData } = useSearch();
   const [place, setPlace] = useState<PlaceData | null>(null);
   const [performers, setPerformers] = useState<UserModel[]>([]);
-  const [genres, setGenres] = useState<string[]>([]);
+  const [genreMap, setGenreMap] = useState<Record<string, number>>({});
 
   const { data: venueData } = useSearchData("venue", {
     lat: place?.lat,
     lng: place?.lng,
-    hitsPerPage: 50,
+    hitsPerPage: 250,
   });
 
   useEffect(() => {
@@ -66,9 +69,16 @@ function _LocationView({ placeId }: {
     }
 
     const venuesGenres = venueData.map((venue) => venue.venueInfo?.genres ?? []);
-    const blah = venuesGenres.flat();
 
-    setGenres(blah);
+    // get genre: count map
+    const blah = venuesGenres.flat().reduce((acc, genre) => {
+      acc[genre] = (acc[genre] ?? 0) + 1;
+      return acc;
+    }
+    , {} as Record<string, number>);
+
+
+    setGenreMap(blah);
   }, [venueData]);
 
   useEffect(() => {
@@ -79,6 +89,48 @@ function _LocationView({ placeId }: {
     fetchPlace();
   }, [placeId]);
 
+  const GenreChips = useMemo(
+    () => (
+      <div className="flex flex-wrap gap-1">
+        {Object.entries(genreMap).sort(
+          ([, a], [, b]) => b - a
+        ).slice(0, 10).filter(([genre, count]) => count > 1).map(([genre, count]) => {
+          return (
+            <Button key={genre} variant="outline">
+              {genre}
+            </Button>
+          );
+        })}
+      </div>
+    ), [genreMap]);
+
+  const performersList = useMemo(() => {
+    if (!performers || performers.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="flex flex-row flex-wrap gap-3">
+        {performers.map((p) =>
+          <PerformerCard key={p.id} performer={p} />
+        )}
+      </div>
+    );
+  }, [performers]);
+
+  const venuesList = useMemo(() => {
+    if (!venueData || venueData.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="flex flex-row flex-wrap gap-3">
+        {venueData.map((p) =>
+          <VenueCard key={p.id} venue={p} />
+        )}
+      </div>
+    );
+  }, [venueData]);
 
   if (place === null) {
     return (
@@ -97,20 +149,26 @@ function _LocationView({ placeId }: {
         <div>
           <h3
             className="text-lg lg:text-2xl font-bold"
-          >genres</h3>
-          <div>{genres.join(", ")}</div>
+          >top genres</h3>
+          <div>
+            {GenreChips}
+          </div>
         </div>
         <div>
           <h3
             className="text-lg lg:text-2xl font-bold"
-          >performer list</h3>
-          <div>{performers.map((p) => p.artistName ?? p.username).join(", ")}</div>
+          >top performers</h3>
+          <div>
+            {performersList}
+          </div>
         </div>
         <div>
           <h3
             className="text-lg lg:text-2xl font-bold"
           >top venues</h3>
-          <div>{venueData?.map((p) => p.artistName ?? p.username).join(", ")}</div>
+          <div>
+            {venuesList}
+          </div>
         </div>
 
       </div>
