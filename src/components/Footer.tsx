@@ -66,6 +66,14 @@ const Footer = () => {
               <ul className="font-medium text-gray-400">
                 <li className="mb-4">
                   <Link
+                    href="https://api.tapped.ai/docs"
+                    className="hover:underline"
+                  >
+                    api
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link
                     href="https://getmusicart.com"
                     className="hover:underline"
                   >
