@@ -56,7 +56,8 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
   const isVenue = user.venueInfo !== null && user.venueInfo !== undefined;
   const dayOfWeekData = user.venueInfo?.bookingsByDayOfWeek ?? [];
   const websiteUrl = user.venueInfo?.websiteUrl?.startsWith("http") ? user.venueInfo?.websiteUrl : `https://${user.venueInfo?.websiteUrl}`;
-  const placeId = user.location?.placeId ?? null;
+  const lat = user.location?.lat ?? null;
+  const lng = user.location?.lng ?? null;
   const { resolvedTheme } = useTheme();
 
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -303,10 +304,10 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
       {isVenue && (
         <DayOfWeekGraph dayOfWeekData={dayOfWeekData} />
       )}
-      {isVenue && placeId !== null && (
+      {isVenue && lat !== null && lng !== null && (
         <>
           <h2 className="text-2xl font-bold">location</h2>
-          <EmbededMap placeId={placeId} />
+          <EmbededMap lat={lat} lng={lng} />
         </>
       )}
       <div className="h-4" />

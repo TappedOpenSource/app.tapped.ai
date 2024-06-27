@@ -1,11 +1,11 @@
 import { googlePlacesApiKey } from "@/data/places";
 import { Card } from "../ui/card";
 
-export default function EmbededMap({ placeId }: {
-    placeId: string;
+export default function EmbededMap({ lat, lng }: {
+    lat: number;
+    lng: number;
 }) {
-  const encodedPlaceId = encodeURIComponent(placeId.trim());
-  const query = `https://www.google.com/maps/embed/v1/place?key=${googlePlacesApiKey}&q=${encodedPlaceId}&zoom=21`;
+  const query = `https://www.google.com/maps/embed/v1/place?key=${googlePlacesApiKey}&q=${lat},${lng}`;
 
   console.log({ query });
   return (
