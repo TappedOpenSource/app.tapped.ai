@@ -196,7 +196,7 @@ function _LocationView({ placeId }: {
         <h1 className="text-2xl lg:text-4xl font-extrabold">
           {place.shortFormattedAddress}
         </h1>
-        <div>
+        <div className="py-4">
           <h3
             className="text-lg lg:text-2xl font-bold"
           >top genres</h3>
@@ -207,7 +207,7 @@ function _LocationView({ placeId }: {
         <div>
           {performersGroupedByCategory}
         </div>
-        <div>
+        <div className="py-4">
           <h3
             className="text-lg lg:text-2xl font-bold"
           >small venues</h3>
@@ -215,7 +215,7 @@ function _LocationView({ placeId }: {
             {smallVenues}
           </div>
         </div>
-        <div>
+        <div className="py-4">
           <h3
             className="text-lg lg:text-2xl font-bold"
           >medium venues</h3>
@@ -223,7 +223,7 @@ function _LocationView({ placeId }: {
             {mediumVenues}
           </div>
         </div>
-        <div>
+        <div className="py-4">
           <h3
             className="text-lg lg:text-2xl font-bold"
           >large venues</h3>
