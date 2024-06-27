@@ -35,7 +35,7 @@ export default function FeaturedPerformers() {
     <>
       <div className="my-6 flex flex-wrap gap-1">
         {sampledPerformers.map((performer) => (
-          <UserChip key={performer.id} performer={performer} />
+          <UserChip key={performer.id} user={performer} />
         ))}
         {!loading && (
 

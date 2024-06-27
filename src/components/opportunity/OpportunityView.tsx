@@ -10,6 +10,7 @@ import { getPlaceById } from "@/data/places";
 import { LoadingSpinner } from "../LoadingSpinner";
 import ApplyButton from "./ApplyButton";
 import { Coins } from "lucide-react";
+import UserChip from "../UserChip";
 
 export default function OpportunityView({
   opportunityId,
@@ -124,7 +125,7 @@ export default function OpportunityView({
             <div>
               <h3 className="text-3xl font-bold">booker</h3>
               <div className="h-2" />
-              {booker && <UserTile user={booker} />}
+              {booker && <UserChip user={booker} />}
             </div>
           </div>
         </div>

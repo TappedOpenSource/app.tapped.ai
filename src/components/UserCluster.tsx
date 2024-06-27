@@ -8,7 +8,7 @@ export default function UserCluster({ users }: {
     <div className='flex flex-wrap gap-1'>
       {users.map((user, index) => (
         <div key={index}>
-          <UserChip performer={user} />
+          <UserChip user={user} />
         </div>
       ))}
     </div>
