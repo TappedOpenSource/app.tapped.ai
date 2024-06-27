@@ -4,7 +4,7 @@ import { db, functions } from "@/utils/firebase";
 import { LRUCache } from "lru-cache";
 import { httpsCallable } from "@firebase/functions";
 
-const googlePlacesApiKey = process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY ?? "";
+export const googlePlacesApiKey = process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY ?? "";
 
 const placeDetailsCache = new LRUCache({
   max: 500,

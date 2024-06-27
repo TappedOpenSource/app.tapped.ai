@@ -39,6 +39,7 @@ import GooglePlayButton from "../appstorebuttons/GooglePlayButton";
 import AppStoreButton from "../appstorebuttons/AppStoreButton";
 import DayOfWeekGraph from "./DayOrWeekGraph";
 import UserCluster from "../UserCluster";
+import EmbededMap from "./EmbededMap";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -55,6 +56,7 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
   const isVenue = user.venueInfo !== null && user.venueInfo !== undefined;
   const dayOfWeekData = user.venueInfo?.bookingsByDayOfWeek ?? [];
   const websiteUrl = user.venueInfo?.websiteUrl?.startsWith("http") ? user.venueInfo?.websiteUrl : `https://${user.venueInfo?.websiteUrl}`;
+  const placeId = user.location?.placeId ?? null;
   const { resolvedTheme } = useTheme();
 
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -300,6 +302,12 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
       <div className="h-4" />
       {isVenue && (
         <DayOfWeekGraph dayOfWeekData={dayOfWeekData} />
+      )}
+      {isVenue && placeId !== null && (
+        <>
+          <h2 className="text-2xl font-bold">location</h2>
+          <EmbededMap placeId={placeId} />
+        </>
       )}
       <div className="h-4" />
       {full && (

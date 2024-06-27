@@ -16,10 +16,7 @@ export type Booking = {
     requesteeId: string;
     status: "pending" | "confirmed" | "canceled";
     rate: number;
-    placeId: Option<string>;
-    geohash: Option<string>;
-    lat: Option<number>;
-    lng: Option<number>;
+    location: Location;
     startTime: Date;
     endTime: Date;
     timestamp: Date;
