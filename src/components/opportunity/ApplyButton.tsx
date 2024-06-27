@@ -94,7 +94,7 @@ export default function ApplyButton({ op }: {
             setIsApplied(true);
             toast({
               title: "application submitted!",
-              description: "this is a huge step in your career. the listing agent will be in touch if you're selected",
+              description: "this is a huge step in your career. the booker will be in touch if you're selected",
             });
           } catch (e) {
             console.error("error applying for opportunity", e);

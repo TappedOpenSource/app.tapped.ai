@@ -122,7 +122,7 @@ export default function OpportunityView({
             )}
             <div className="h-4" />
             <div>
-              <h3 className="text-3xl font-bold">listing agent</h3>
+              <h3 className="text-3xl font-bold">booker</h3>
               <div className="h-2" />
               {booker && <UserTile user={booker} />}
             </div>
