@@ -15,7 +15,7 @@ import { useSearch } from "@/context/search";
 import { useSearchToggle } from "@/context/use-search-toggle";
 import { useStore } from "@/context/use-store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { UserCheck } from "lucide-react";
+import { UserCheck, X } from "lucide-react";
 import { Button } from "../ui/button";
 
 export default function SearchDialog() {
@@ -27,8 +27,8 @@ export default function SearchDialog() {
   const debouncedQuery = useDebounce<string>(query, 250);
 
   const [showPerformers, setShowPerformers] = useState<boolean>(true);
-  const [showVenues, setShowVenues] = useState<boolean>(false);
-  const [showPlaces, setShowPlaces] = useState<boolean>(false);
+  const [showVenues, setShowVenues] = useState<boolean>(true);
+  const [showCities, setShowCities] = useState<boolean>(true);
 
   const { data } = useSearchData(debouncedQuery, {
     hitsPerPage: 4,
@@ -157,18 +157,30 @@ export default function SearchDialog() {
         <CommandList>
           <div className="w-full flex flex-row justify-start gap-4 py-2 px-2">
             <Button
+              onClick={() => setShowPerformers(!showPerformers)}
               variant="outline"
             >
+              {showPerformers && (
+                <X className="h-4 w-4 mr-2" />
+              )}
                 performers
             </Button>
             <Button
+              onClick={() => setShowVenues(!showVenues)}
               variant="outline"
             >
+              {showVenues && (
+                <X className="h-4 w-4 mr-2" />
+              )}
                   venues
             </Button>
             <Button
+              onClick={() => setShowCities(!showCities)}
               variant="outline"
             >
+              {showCities && (
+                <X className="h-4 w-4 mr-2" />
+              )}
                   cities
             </Button>
           </div>
@@ -179,7 +191,7 @@ export default function SearchDialog() {
             ) :
             (
               <>
-                {(!performerData || performerData.length === 0) ? (
+                {(!performerData || performerData.length === 0 || !showPerformers) ? (
                   null
                 ) : (
 
@@ -187,14 +199,14 @@ export default function SearchDialog() {
                     {performerResultsList}
                   </CommandGroup>
                 )}
-                {(!venueData || venueData.length === 0) ? (
+                {(!venueData || venueData.length === 0 || !showVenues) ? (
                   null
                 ) : (
                   <CommandGroup heading="venues">
                     {venueResultsList}
                   </CommandGroup>
                 )}
-                {(!placesData || placesData.length === 0) ? (
+                {(!placesData || placesData.length === 0 || !showCities) ? (
                   null
                 ) : (
                   <CommandGroup heading="cities">
