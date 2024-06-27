@@ -9,6 +9,7 @@ import { UserModel } from "@/domain/types/user_model";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { Plus } from "lucide-react";
 import UserAvatarList from "../UserAvatarList";
+import UserCluster from "../UserCluster";
 
 export default function BookingView({ bookingId }: {
     bookingId: string;
@@ -127,7 +128,7 @@ export default function BookingView({ bookingId }: {
           {linkedPerformers.length > 0 && (
             <>
               <Plus className="w-6 h-6 text-gray-500" />
-              <UserAvatarList users={linkedPerformers} />
+              <UserCluster users={linkedPerformers} />
             </>
           )}
         </div>
