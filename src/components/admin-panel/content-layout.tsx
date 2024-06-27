@@ -9,7 +9,7 @@ interface ContentLayoutProps {
 
 export function ContentLayout({ title, children, noPadding = false }: ContentLayoutProps) {
   return (
-    <div className="h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbar title={title} />
       <div className={cn("flex flex-col grow", noPadding ? "" : "pt-8 pb-8 px-4 sm:px-8")}>{children}</div>
     </div>

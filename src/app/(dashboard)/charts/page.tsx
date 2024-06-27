@@ -1,4 +1,14 @@
+import { ContentLayout } from "@/components/admin-panel/content-layout";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import LeaderboardTable, { LeaderboardType } from "@/components/leaderboards/leaders_table";
+import Link from "next/link";
 
 const validatedType = (type: string): LeaderboardType => {
   switch (type) {
@@ -21,9 +31,24 @@ export default function Page({ searchParams }: {
 
   return (
     <>
-      <div className="flex justify-center items-center">
-        <LeaderboardTable type={listType} />
-      </div>
+      <ContentLayout title="charts">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/">home</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>charts</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+        <div className="flex justify-center items-center">
+          <LeaderboardTable type={listType} />
+        </div>
+      </ContentLayout>
     </>
   );
 }

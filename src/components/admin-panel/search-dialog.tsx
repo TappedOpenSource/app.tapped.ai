@@ -16,6 +16,7 @@ import { useSearchToggle } from "@/context/use-search-toggle";
 import { useStore } from "@/context/use-store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { UserCheck } from "lucide-react";
+import { Button } from "../ui/button";
 
 export default function SearchDialog() {
   const router = useRouter();
@@ -24,6 +25,10 @@ export default function SearchDialog() {
   const { useSearchData, usePlaceData } = useSearch();
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebounce<string>(query, 250);
+
+  const [showPerformers, setShowPerformers] = useState<boolean>(true);
+  const [showVenues, setShowVenues] = useState<boolean>(false);
+  const [showPlaces, setShowPlaces] = useState<boolean>(false);
 
   const { data } = useSearchData(debouncedQuery, {
     hitsPerPage: 4,
@@ -150,6 +155,23 @@ export default function SearchDialog() {
           onValueChange={(value) => setQuery(value)}
         />
         <CommandList>
+          <div className="w-full flex flex-row justify-start gap-4 py-2 px-2">
+            <Button
+              variant="outline"
+            >
+                performers
+            </Button>
+            <Button
+              variant="outline"
+            >
+                  venues
+            </Button>
+            <Button
+              variant="outline"
+            >
+                  cities
+            </Button>
+          </div>
           {/* <CommandEmpty>no results found.</CommandEmpty> */}
           { (performerData?.length === 0 && venueData?.length === 0 && placesData?.length === 0) ?
             (
