@@ -72,6 +72,13 @@ export function getMenuList(pathname: string): Group[] {
           submenus: [],
         },
         {
+          href: "/compare",
+          label: "compare",
+          active: pathname.includes("/compare"),
+          icon: Handshake,
+          submenus: [],
+        },
+        {
           href: "/messages",
           label: "messages",
           active: pathname.includes("/messages"),
