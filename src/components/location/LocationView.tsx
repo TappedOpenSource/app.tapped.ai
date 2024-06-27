@@ -11,6 +11,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Button } from "../ui/button";
 import VenueCard from "./VenueCard";
 import UserCluster from "../UserCluster";
+import { useAuth } from "@/context/auth";
+import Footer from "../Footer";
+import Link from "next/link";
 
 const queryClient = new QueryClient();
 export default function LocationView(props: {
@@ -28,6 +31,7 @@ export default function LocationView(props: {
 function _LocationView({ placeId }: {
     placeId: string;
 }) {
+  const { state: authState } = useAuth();
   const { useSearchData } = useSearch();
   const [place, setPlace] = useState<PlaceData | null>(null);
   const [performers, setPerformers] = useState<UserModel[]>([]);
@@ -181,6 +185,25 @@ function _LocationView({ placeId }: {
       );
     });
   }, [performers]);
+
+  if (authState.currentUser === null) {
+    return (
+      <>
+        <main>
+          <div className="flex flex-col min-h-screen items-center justify-center">
+            <Button>
+              <Link href={`/signup?return_url=${encodeURIComponent("/dashboard")}`}>
+                    login
+              </Link>
+            </Button>
+          </div>
+        </main>
+        <footer>
+          <Footer />
+        </footer>
+      </>
+    );
+  }
 
   if (place === null) {
     return (
