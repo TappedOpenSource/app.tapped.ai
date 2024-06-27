@@ -1,18 +1,16 @@
 import { googlePlacesApiKey } from "@/data/places";
 import { Card } from "../ui/card";
 
-
 export default function EmbededMap({ placeId }: {
     placeId: string;
 }) {
-  const encodedPlaceId = encodeURIComponent(placeId);
-  const query = `
-   https://www.google.com/maps/embed/v1/place?key=${googlePlacesApiKey}&q=${encodedPlaceId}&zoom=21
-    `;
+  const encodedPlaceId = encodeURIComponent(placeId.trim());
+  const query = `https://www.google.com/maps/embed/v1/place?key=${googlePlacesApiKey}&q=${encodedPlaceId}&zoom=21`;
 
+  console.log({ query });
   return (
     <>
-      <Card>
+      <Card className="flex justify-center">
         <iframe
           title="map"
           width="300"
