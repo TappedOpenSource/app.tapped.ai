@@ -21,6 +21,9 @@ export type Opportunity = {
     startTime: Date;
     endTime: Date;
     isPaid: boolean;
+    genres?: string[];
+    venueId?: string | null;
+    referenceEventId?: string | null;
 };
 
 export const opportunityConverter = {
