@@ -15,7 +15,7 @@ export default function EmbededMap({ lat, lng }: {
           title="map"
           width="300"
           height="160"
-          style={{ border: 0 }}
+          style={{ border: 0, borderRadius: "0.5rem" }}
           frameBorder={0}
           referrerPolicy="no-referrer-when-downgrade"
           src={query}>
