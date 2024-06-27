@@ -175,7 +175,7 @@ export default function SearchDialog() {
                 {(!placesData || placesData.length === 0) ? (
                   null
                 ) : (
-                  <CommandGroup heading="places">
+                  <CommandGroup heading="cities">
                     {placesResultsList}
                   </CommandGroup>
                 )}
