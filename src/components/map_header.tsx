@@ -93,7 +93,7 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
                 href="/map"
               >
                 <Button variant={"secondary"}>
-              view the map <span className="ml-2"><Globe2 className="h-4 w-4" /></span>
+                  view the map <span className="ml-2"><Globe2 className="h-4 w-4" /></span>
                 </Button>
               </Link>
             )}
