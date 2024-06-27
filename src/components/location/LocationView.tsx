@@ -36,7 +36,7 @@ function _LocationView({ placeId }: {
   const { data: venueData } = useSearchData(" ", {
     lat: place?.lat,
     lng: place?.lng,
-    radius: 250_000,
+    radius: 50_000,
     occupations: ["venue", "Venue"],
     hitsPerPage: 250,
   });
