@@ -49,30 +49,12 @@ export function getMenuList(pathname: string): Group[] {
       groupLabel: "contents",
       menus: [
         // {
-        //   href: "",
-        //   label: "posts",
-        //   active: pathname.includes("/posts"),
-        //   icon: SquarePen,
-        //   submenus: [
-        //     {
-        //       href: "/posts",
-        //       label: "all posts",
-        //       active: pathname === "/posts",
-        //     },
-        //     {
-        //       href: "/posts/new",
-        //       label: "new post",
-        //       active: pathname === "/posts/new",
-        //     },
-        //   ],
+        //   href: "/search",
+        //   label: "search",
+        //   active: pathname.includes("/search"),
+        //   icon: ScanSearch,
+        //   submenus: [],
         // },
-        {
-          href: "/search",
-          label: "search",
-          active: pathname.includes("/search"),
-          icon: ScanSearch,
-          submenus: [],
-        },
         {
           href: "/build_a_show",
           label: "build a show",

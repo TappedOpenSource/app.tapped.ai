@@ -32,7 +32,6 @@ export default function Page({ searchParams }: {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <h1>search here</h1>
       </ContentLayout>
     </>
   );
