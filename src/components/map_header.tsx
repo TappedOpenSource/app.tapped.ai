@@ -101,7 +101,7 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
           <div className="hidden md:block">
             <Select
               onValueChange={(value) => {
-                router.push(`/leaderboards?type=${value}`);
+                router.push(`/charts?type=${value}`);
               }}
             >
               <SelectTrigger className="w-[180px]">

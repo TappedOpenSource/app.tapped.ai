@@ -6,6 +6,7 @@ import {
   Award,
   Theater,
   Bug,
+  BarChart2,
 } from "lucide-react";
 
 type Submenu = {
@@ -69,6 +70,13 @@ export function getMenuList(pathname: string): Group[] {
           label: "build a show",
           active: pathname.includes("/build_a_show"),
           icon: Theater,
+          submenus: [],
+        },
+        {
+          href: "/charts",
+          label: "charts",
+          active: pathname.includes("/charts"),
+          icon: BarChart2,
           submenus: [],
         },
         {
