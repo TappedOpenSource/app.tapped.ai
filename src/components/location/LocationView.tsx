@@ -219,12 +219,12 @@ function _LocationView({ placeId }: {
     <>
       <div className="px-4 lg:px-24">
         <h1 className="text-2xl lg:text-4xl font-extrabold">
-          {place.shortFormattedAddress}
+          live music in {place.shortFormattedAddress}
         </h1>
         <div className="py-6">
           <h3
             className="text-lg lg:text-2xl font-bold"
-          >top genres</h3>
+          >popular genres</h3>
           <div>
             {GenreChips}
           </div>

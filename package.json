@@ -30,6 +30,8 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
+    "@react-three/drei": "^9.107.2",
+    "@react-three/fiber": "^8.16.8",
     "@revenuecat/purchases-js": "^0.2.1",
     "@rive-app/react-canvas": "^4.1.4",
     "@stripe/stripe-js": "^2.0.0",
@@ -75,6 +77,8 @@
     "stripe": "^12.17.0",
     "styled-components": "^6.1.8",
     "tailwind-merge": "^2.3.0",
+    "three": "^0.165.0",
+    "three-globe": "^2.31.1",
     "uuid": "^9.0.0",
     "zod": "^3.23.8",
     "zustand": "^4.5.2"
