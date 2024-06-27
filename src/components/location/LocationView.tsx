@@ -178,7 +178,7 @@ function _LocationView({ placeId }: {
 
     return Object.entries(grouped).map(([category, performers]) => {
       return (
-        <div key={category}>
+        <div key={category} className="py-6">
           <h3
             className="text-lg lg:text-2xl font-bold"
           >{category} performers</h3>
@@ -221,7 +221,7 @@ function _LocationView({ placeId }: {
         <h1 className="text-2xl lg:text-4xl font-extrabold">
           {place.shortFormattedAddress}
         </h1>
-        <div className="py-12">
+        <div className="py-6">
           <h3
             className="text-lg lg:text-2xl font-bold"
           >top genres</h3>
@@ -232,7 +232,7 @@ function _LocationView({ placeId }: {
         <div>
           {performersGroupedByCategory}
         </div>
-        <div className="py-12">
+        <div className="py-6">
           <h3
             className="text-lg lg:text-2xl font-bold"
           >small venues</h3>
@@ -240,7 +240,7 @@ function _LocationView({ placeId }: {
             {smallVenues}
           </div>
         </div>
-        <div className="py-12">
+        <div className="py-6">
           <h3
             className="text-lg lg:text-2xl font-bold"
           >medium venues</h3>
@@ -248,7 +248,7 @@ function _LocationView({ placeId }: {
             {mediumVenues}
           </div>
         </div>
-        <div className="py-12">
+        <div className="py-6">
           <h3
             className="text-lg lg:text-2xl font-bold"
           >large venues</h3>
