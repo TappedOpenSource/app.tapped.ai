@@ -7,6 +7,7 @@ import {
   Theater,
   Bug,
   BarChart2,
+  ScanSearch,
 } from "lucide-react";
 
 type Submenu = {
@@ -65,6 +66,13 @@ export function getMenuList(pathname: string): Group[] {
         //     },
         //   ],
         // },
+        {
+          href: "/search",
+          label: "search",
+          active: pathname.includes("/search"),
+          icon: ScanSearch,
+          submenus: [],
+        },
         {
           href: "/build_a_show",
           label: "build a show",
