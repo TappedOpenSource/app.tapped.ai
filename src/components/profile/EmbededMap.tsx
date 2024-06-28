@@ -10,7 +10,7 @@ export default function EmbededMap({ lat, lng }: {
   console.log({ query });
   return (
     <>
-      <Card className="flex justify-center">
+      <Card className="flex justify-center w-[300px]">
         <iframe
           title="map"
           width="300"

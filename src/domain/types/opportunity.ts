@@ -13,10 +13,11 @@ export type Opportunity = {
     title: string;
     description: string;
     flierUrl?: string;
-    placeId: string;
-    geohash: string;
-    lat: number;
-    lng: number;
+    location: {
+      placeId: string;
+      lat: number;
+      lng: number;
+    };
     timestamp: Date;
     startTime: Date;
     endTime: Date;
@@ -46,10 +47,7 @@ export const opportunityConverter = {
       title: data.title,
       description: data.description,
       flierUrl: data.flierUrl,
-      placeId: data.placeId,
-      geohash: data.geohash,
-      lat: data.lat,
-      lng: data.lng,
+      location: data.location,
       timestamp: data.timestamp.toDate(),
       startTime: data.startTime.toDate(),
       endTime: data.endTime.toDate(),
