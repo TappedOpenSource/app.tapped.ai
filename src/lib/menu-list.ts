@@ -1,13 +1,12 @@
 import {
+  BarChart2,
+  Bug,
   Handshake,
-  Settings,
   Map,
   MessageCircle,
-  Award,
-  Theater,
-  Bug,
-  BarChart2,
   ScanSearch,
+  Settings,
+  Theater,
 } from "lucide-react";
 
 type Submenu = {
@@ -48,13 +47,13 @@ export function getMenuList(pathname: string): Group[] {
     {
       groupLabel: "contents",
       menus: [
-        // {
-        //   href: "/search",
-        //   label: "search",
-        //   active: pathname.includes("/search"),
-        //   icon: ScanSearch,
-        //   submenus: [],
-        // },
+        {
+          href: "/search",
+          label: "search",
+          active: pathname.includes("/search"),
+          icon: ScanSearch,
+          submenus: [],
+        },
         {
           href: "/build_a_show",
           label: "build a show",
