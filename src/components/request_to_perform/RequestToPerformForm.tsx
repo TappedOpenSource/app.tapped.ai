@@ -19,9 +19,9 @@ import type { UserModel } from "@/domain/types/user_model";
 import { getUserById } from "@/data/database";
 import { useAuth } from "@/context/auth";
 import { usePurchases } from "@/context/purchases";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { requestToPerform } from "@/domain/usecases/request_to_perform";
+import { RequestLoginPage } from "../login/RequireLogin";
 
 const formSchema = z.object({
   note: z.string().min(1).max(512),
@@ -86,24 +86,12 @@ export default function RequestToPerformForm({ venueIds }: {
 
   if (authState === null) {
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center">
-        <p>log in to send a request</p>
-        <Link href="/login">
-          <Button>login</Button>
-        </Link>
-      </div>
+      <RequestLoginPage />
     );
   }
 
   if (!subscribed) {
-    return (
-      <div className="min-h-screen flex flex-col justify-center items-center">
-        <p>subscribe to send a request</p>
-        <Link href="/premium">
-          <Button>see pricing</Button>
-        </Link>
-      </div>
-    );
+    router.push("/premium");
   }
 
   return (

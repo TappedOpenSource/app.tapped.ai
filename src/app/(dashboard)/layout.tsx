@@ -9,8 +9,6 @@ import { SearchProvider } from "@/context/search";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { useAuth } from "@/context/auth";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import OnboardingForm from "@/components/onboarding/OnboardingForm";
 import { Chat, useCreateChatClient } from "stream-chat-react";
 import { getStreamToken } from "@/data/messaging";
@@ -20,6 +18,7 @@ import { useHotkeys } from "react-hotkeys-hook";
 import { useSearchToggle } from "@/context/use-search-toggle";
 import SearchDialog from "@/components/admin-panel/search-dialog";
 import TappedSheet from "@/components/TappedSheet";
+import { RequestLoginPage } from "@/components/login/RequireLogin";
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY ?? "";
 export default function DashboardLayout({
@@ -57,22 +56,7 @@ export default function DashboardLayout({
 
 
   if (!loggedIn) {
-    return (
-      <>
-        <main>
-          <div className="flex flex-col min-h-screen items-center justify-center">
-            <Button>
-              <Link href={`/signup?return_url=${encodeURIComponent("/dashboard")}`}>
-                login
-              </Link>
-            </Button>
-          </div>
-        </main>
-        <footer>
-          <FullFooter />
-        </footer>
-      </>
-    );
+    return <RequestLoginPage />;
   }
 
   if (!onboarded) {

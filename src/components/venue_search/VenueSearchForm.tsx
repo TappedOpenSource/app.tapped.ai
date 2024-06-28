@@ -17,11 +17,11 @@ import { useAuth } from "@/context/auth";
 import { usePurchases } from "@/context/purchases";
 import { genres } from "@/domain/types/genre";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { useRouter } from "next/navigation";
+import { RequestLoginPage } from "../login/RequireLogin";
 
 const optionSchema = z.object({
   label: z.string(),
@@ -70,14 +70,13 @@ export default function VenueSearchForm() {
     );
   }
 
+  if (currentUser === null) {
+    return <RequestLoginPage />;
+  }
+
   if (!subscribed) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Link href="/login">
-          <Button>login</Button>
-        </Link>
-      </div>
-    );
+    router.push("/premium");
+    return <RequestLoginPage />;
   }
 
   function onSubmit(values: z.infer<typeof formSchema>) {

@@ -1,8 +1,6 @@
 "use client";
 
 import { useAuth } from "@/context/auth";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   Channel,
   ChannelHeader,
@@ -16,24 +14,14 @@ import {
 import "stream-chat-react/dist/css/v2/index.css";
 import "stream-chat-react/dist/css/v2/index.layout.css";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import { RequestLoginPage } from "@/components/login/RequireLogin";
 
 
 export default function Page() {
   const { state: { authUser } } = useAuth();
-  const pathname = usePathname();
 
   if (authUser === null) {
-    const encodedPathname = encodeURIComponent(pathname);
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Link
-          href={`/signup?return_url=${encodedPathname}`}
-          className="underline text-blue">
-          login
-        </Link>
-        {" "}to access DMs
-      </div>
-    );
+    return <RequestLoginPage />;
   }
   const currentUserId = authUser.uid;
 

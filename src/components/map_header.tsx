@@ -36,7 +36,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
@@ -59,7 +58,7 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
 
   return (
     <>
-      <div className="flex w-screen flex-row items-center px-4 pb-1 pt-8 md:px-8 supports-backdrop-blur:bg-background/60 w-full bg-background/95 backdrop-blur">
+      <div className="flex w-screen flex-row items-center gap-3 px-4 pb-1 pt-8 md:px-8 supports-backdrop-blur:bg-background/60 w-full bg-background/95 backdrop-blur">
         <div className="hidden md:flex justify-center items-center h-full">
           <Avatar className="bg-background mr-2 hover:cursor-pointer hover:shadow-xl">
             <AvatarImage

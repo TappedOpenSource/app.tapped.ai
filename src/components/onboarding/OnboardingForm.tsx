@@ -12,6 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { onboardNewUser } from "@/domain/usecases/onboarding";
 import { useState } from "react";
 import { LoadingSpinner } from "../LoadingSpinner";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string().min(3).max(20).regex(/^[a-zA-Z0-9_]+$/),
@@ -26,7 +27,10 @@ const formSchema = z.object({
 });
 
 
-export default function OnboardingForm() {
+export default function OnboardingForm({ returnUrl }: {
+  returnUrl?: string | null;
+}) {
+  const router = useRouter();
   const { state: { authUser }, dispatch } = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -67,6 +71,9 @@ export default function OnboardingForm() {
       }
 
       await onboardNewUser(dispatch, authUser, values);
+      if (returnUrl) {
+        router.push(returnUrl);
+      }
     } catch (e) {
       console.error(e);
       alert(e.message);
