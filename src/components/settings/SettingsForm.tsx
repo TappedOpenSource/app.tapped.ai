@@ -3,20 +3,30 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { Input } from "../ui/input";
 // import SearchAddress from "../ui/search-address";
-import { genres } from "@/domain/types/genre";
-import MultipleSelector from "../ui/multiple-selector";
 import { useAuth } from "@/context/auth";
-import { LoadingSpinner } from "../LoadingSpinner";
-import { updateOnboardedUser } from "@/domain/usecases/onboarding";
-import * as _ from "lodash";
 import { uploadProfilePicture } from "@/data/storage";
+import { genres } from "@/domain/types/genre";
+import { updateOnboardedUser } from "@/domain/usecases/onboarding";
+import {
+  getInstagramHandle,
+  getTiktokHandle,
+  getTwitterHandle,
+} from "@/utils/url_parsing";
+import * as _ from "lodash";
+import { LoadingSpinner } from "../LoadingSpinner";
+import MultipleSelector from "../ui/multiple-selector";
 import { useToast } from "../ui/use-toast";
-import { getInstagramHandle, getTiktokHandle, getTwitterHandle } from "@/utils/url_parsing";
-
 
 const optionSchema = z.object({
   label: z.string(),
@@ -51,9 +61,11 @@ const formSchema = z.object({
   genres: z.array(optionSchema),
 });
 
-
 export default function SettingsForm() {
-  const { state: { currentUser }, dispatch } = useAuth();
+  const {
+    state: { currentUser },
+    dispatch,
+  } = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -62,24 +74,26 @@ export default function SettingsForm() {
       bio: currentUser?.bio,
       twitterHandle: currentUser?.socialFollowing.twitterHandle ?? undefined,
       twitterFollowers: currentUser?.socialFollowing.twitterFollowers ?? 0,
-      instagramHandle: currentUser?.socialFollowing.instagramHandle ?? undefined,
+      instagramHandle:
+        currentUser?.socialFollowing.instagramHandle ?? undefined,
       instagramFollowers: currentUser?.socialFollowing.instagramFollowers ?? 0,
       tiktokHandle: currentUser?.socialFollowing.tiktokHandle ?? undefined,
       tiktokFollowers: currentUser?.socialFollowing.tiktokFollowers ?? 0,
       // youtubeHandle: currentUser?.socialFollowing.youtubeHandle ?? undefined,
       spotifyUrl: currentUser?.socialFollowing.spotifyUrl ?? undefined,
       label: currentUser?.performerInfo?.label ?? undefined,
-      genres: currentUser?.performerInfo?.genres.map((genre) => ({
-        label: genre.toLowerCase(),
-        value: genre,
-      })) ?? [],
+      genres:
+        currentUser?.performerInfo?.genres.map((genre) => ({
+          label: genre.toLowerCase(),
+          value: genre,
+        })) ?? [],
     },
   });
   const { toast } = useToast();
 
   if (currentUser === null) {
     return (
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="flex min-h-screen items-center justify-center">
         <LoadingSpinner />
       </div>
     );
@@ -93,7 +107,7 @@ export default function SettingsForm() {
         if (data.profilePicture) {
           return await uploadProfilePicture(
             currentUser.id,
-            data.profilePicture,
+            data.profilePicture
           );
         } else {
           return currentUser.profilePicture;
@@ -140,14 +154,11 @@ export default function SettingsForm() {
   return (
     <>
       <div className="space-y-6 p-6">
-
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="flex flex-row justify-between">
               <h1 className="text-3xl font-bold">settings</h1>
-              <Button type="submit">
-              save
-              </Button>
+              <Button type="submit">save</Button>
             </div>
             <FormField
               control={form.control}
@@ -192,12 +203,9 @@ export default function SettingsForm() {
               name="artistName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>username</FormLabel>
+                  <FormLabel>performer name</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="artistName"
-                    />
+                    <Input {...field} placeholder="artistName" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -210,10 +218,7 @@ export default function SettingsForm() {
                 <FormItem>
                   <FormLabel>username</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="bio"
-                    />
+                    <Input {...field} placeholder="bio" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -253,7 +258,11 @@ export default function SettingsForm() {
                   <FormItem>
                     <FormLabel>instagram handle</FormLabel>
                     <FormControl>
-                      <Input id="instagram_handle" placeholder="@champagnepapi" {...field} />
+                      <Input
+                        id="instagram_handle"
+                        placeholder="@champagnepapi"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -266,7 +275,12 @@ export default function SettingsForm() {
                   <FormItem>
                     <FormLabel>instagram followers</FormLabel>
                     <FormControl>
-                      <Input id="instagram_followers" type="number" placeholder="0" {...field} />
+                      <Input
+                        id="instagram_followers"
+                        type="number"
+                        placeholder="0"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -281,7 +295,11 @@ export default function SettingsForm() {
                   <FormItem>
                     <FormLabel>twitter handle</FormLabel>
                     <FormControl>
-                      <Input id="twitter_handle" placeholder="@taylorswift13" {...field} />
+                      <Input
+                        id="twitter_handle"
+                        placeholder="@taylorswift13"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -294,7 +312,12 @@ export default function SettingsForm() {
                   <FormItem>
                     <FormLabel>twitter followers</FormLabel>
                     <FormControl>
-                      <Input id="twitter_followers" type="number" placeholder="0" {...field} />
+                      <Input
+                        id="twitter_followers"
+                        type="number"
+                        placeholder="0"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -309,7 +332,11 @@ export default function SettingsForm() {
                   <FormItem>
                     <FormLabel>tiktok handle</FormLabel>
                     <FormControl>
-                      <Input id="tiktok_handle" placeholder="@chandlermatkins" {...field} />
+                      <Input
+                        id="tiktok_handle"
+                        placeholder="@chandlermatkins"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -322,7 +349,12 @@ export default function SettingsForm() {
                   <FormItem>
                     <FormLabel>tiktok followers</FormLabel>
                     <FormControl>
-                      <Input id="tiktok_followers" type="number" placeholder="0" {...field} />
+                      <Input
+                        id="tiktok_followers"
+                        type="number"
+                        placeholder="0"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -352,10 +384,7 @@ export default function SettingsForm() {
                 <FormItem>
                   <FormLabel>label</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Interscope Records"
-                    />
+                    <Input {...field} placeholder="Interscope Records" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -383,7 +412,6 @@ export default function SettingsForm() {
                 </FormItem>
               )}
             />
-
           </form>
         </Form>
       </div>
