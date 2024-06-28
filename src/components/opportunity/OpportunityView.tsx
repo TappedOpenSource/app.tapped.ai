@@ -8,12 +8,13 @@ import { UserModel } from "@/domain/types/user_model";
 import { getPlaceById } from "@/data/places";
 import { LoadingSpinner } from "../LoadingSpinner";
 import ApplyButton from "./ApplyButton";
-import { ArrowUpRight, Calendar, Coins } from "lucide-react";
+import { ArrowUpRight, Calendar, Check, Coins, Share, Share2 } from "lucide-react";
 import UserChip from "../UserChip";
 import EmbededMap from "../profile/EmbededMap";
 import { PlaceData } from "@/domain/types/place_data";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { useToast } from "../ui/use-toast";
 
 export default function OpportunityView({
   opportunityId,
@@ -23,8 +24,8 @@ export default function OpportunityView({
   const [opportunity, setOpportunity] = useState<Opportunity | null>(null);
   const [booker, setBooker] = useState<UserModel | null>(null);
   const [location, setLocation] = useState<PlaceData | null>(null);
-
-  console.log({ opportunity });
+  const [linkCopied, setLinkCopied] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const getOpportunity = async () => {
@@ -94,33 +95,55 @@ export default function OpportunityView({
           <div className="flex items-start justify-center pt-4 lg:pt-16 px-4 md:px-0 md:sticky md:top-0">
             <div className="md:sticky md:top-0">
               {flierImage()}
+              <div className="flex flex-row gap-4 justify-center py-4">
+                <ApplyButton op={opportunity} />
+                {linkCopied ? (
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        `${window.location.origin}/opportunity/${opportunityId}`
+                      );
+                      toast({
+                        title: "link copied!",
+                        description: "share this with another performer",
+                      });
+                    }}
+                  >
+                    <Check className="mr-2 h-3 w-3" />
+                    <span>
+                      link copied!
+                    </span>
+                  </Button>
+                ) : (
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        `${window.location.origin}/opportunity/${opportunityId}`
+                      );
+                      setLinkCopied(true);
+                      setTimeout(() => setLinkCopied(false), 5000);
+                      toast({
+                        title: "link copied!",
+                        description: "share this with another performer",
+                      });
+                    }}
+                  >
+                    <Share className="mr-2 h-3 w-3" />
+                    <span>
+                    share with a friend
+                    </span>
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
           <div className="md:flex md:justify-start md:grow">
             <div className="py-4 px-6">
               <h1 className="text-4xl font-extrabold">{opportunity.title}</h1>
               <div className="h-4" />
-              <div className="flex flex-row gap-4">
-                <Button
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      `${window.location.origin}/opportunity/${opportunityId}`
-                    );
-                  }}
-                >
-                  add to calendar
-                </Button>
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      `${window.location.origin}/opportunity/${opportunityId}`
-                    );
-                  }}
-                >
-                  share with friend
-                </Button>
-              </div>
+
               <div className="h-4" />
               <div className="flex flex-row gap-2 items-center">
                 <Button size={"icon"} variant={"outline"} disabled>
