@@ -8,7 +8,7 @@ import { UserModel } from "@/domain/types/user_model";
 import { getPlaceById } from "@/data/places";
 import { LoadingSpinner } from "../LoadingSpinner";
 import ApplyButton from "./ApplyButton";
-import { ArrowUpRight, Calendar, Check, Coins, Share, Share2 } from "lucide-react";
+import { ArrowUpRight, Calendar, Check, Coins, MapPin, Share } from "lucide-react";
 import UserChip from "../UserChip";
 import EmbededMap from "../profile/EmbededMap";
 import { PlaceData } from "@/domain/types/place_data";
@@ -95,11 +95,19 @@ export default function OpportunityView({
           <div className="flex items-start justify-center pt-4 lg:pt-16 px-4 md:px-0 md:sticky md:top-0">
             <div className="md:sticky md:top-0">
               {flierImage()}
-              <div className="flex flex-row gap-4 justify-center py-4">
+
+            </div>
+          </div>
+          <div className="md:flex md:justify-start md:grow">
+            <div className="py-4 px-6">
+              <h1 className="text-4xl font-extrabold">{opportunity.title}</h1>
+              <div className="h-4" />
+              <div className="flex flex-row gap-4 justify-start">
                 <ApplyButton op={opportunity} />
                 {linkCopied ? (
                   <Button
                     variant="secondary"
+                    disabled={linkCopied}
                     onClick={() => {
                       navigator.clipboard.writeText(
                         `${window.location.origin}/opportunity/${opportunityId}`
@@ -118,6 +126,7 @@ export default function OpportunityView({
                 ) : (
                   <Button
                     variant="secondary"
+                    disabled={linkCopied}
                     onClick={() => {
                       navigator.clipboard.writeText(
                         `${window.location.origin}/opportunity/${opportunityId}`
@@ -137,13 +146,6 @@ export default function OpportunityView({
                   </Button>
                 )}
               </div>
-            </div>
-          </div>
-          <div className="md:flex md:justify-start md:grow">
-            <div className="py-4 px-6">
-              <h1 className="text-4xl font-extrabold">{opportunity.title}</h1>
-              <div className="h-4" />
-
               <div className="h-4" />
               <div className="flex flex-row gap-2 items-center">
                 <Button size={"icon"} variant={"outline"} disabled>
@@ -161,6 +163,26 @@ export default function OpportunityView({
                       <Coins className="h-6 w-6" />
                     </Button>
                     <p>is paid</p>
+                  </div>
+                </>
+              )}
+              <div className="h-1" />
+              {location && (
+                <>
+                  <div className="flex flex-row gap-1 items-center">
+                    <Button size={"icon"} variant={"outline"} disabled>
+                      <MapPin className="h-6 w-6" />
+                    </Button>
+                    <Link
+                      href={`https://www.google.com/maps/search/?api=1&query=${location.shortFormattedAddress}&query_place_id=${location.placeId}`}
+                      referrerPolicy="no-referrer"
+                      target="_blank"
+                    >
+                      <Button variant="link">
+                        {location.shortFormattedAddress}
+                        <ArrowUpRight className="ml-1 h-4 w-4" />
+                      </Button>
+                    </Link>
                   </div>
                 </>
               )}

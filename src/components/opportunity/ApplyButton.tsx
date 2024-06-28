@@ -50,7 +50,7 @@ export default function ApplyButton({ op }: {
     return (
       <div>
         <Link href={`/signup?return_url=${pathname}`}>
-          <Button aria-label="add">
+          <Button className="bg-blue-500">
             apply to perform
           </Button>
         </Link>
@@ -74,7 +74,7 @@ export default function ApplyButton({ op }: {
       <div>
         <Button disabled>
           <Check className="h-4 w-4 mr-2" />
-          <span>applied</span>
+          <span>you&apos;re applied!</span>
         </Button>
       </div>
     );
@@ -83,6 +83,7 @@ export default function ApplyButton({ op }: {
   return (
     <div>
       <Button
+        className="bg-blue-500"
         onClick={async () => {
           setLoading(true);
           try {

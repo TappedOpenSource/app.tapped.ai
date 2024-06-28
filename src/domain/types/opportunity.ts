@@ -40,18 +40,16 @@ export const opportunityConverter = {
     snapshot: QueryDocumentSnapshot,
     options: SnapshotOptions
   ): Opportunity {
-    const data = snapshot.data(options);
+    const data = snapshot.data(options) as Opportunity & {
+      timestamp: Timestamp;
+      startTime: Timestamp;
+      endTime: Timestamp;
+    };
     return {
-      id: data.id,
-      userId: data.userId,
-      title: data.title,
-      description: data.description,
-      flierUrl: data.flierUrl,
-      location: data.location,
+      ...data,
       timestamp: data.timestamp.toDate(),
       startTime: data.startTime.toDate(),
       endTime: data.endTime.toDate(),
-      isPaid: data.isPaid,
     };
   },
 };
