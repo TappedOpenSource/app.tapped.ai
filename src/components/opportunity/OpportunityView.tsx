@@ -1,20 +1,27 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import { getOpportunityById, getUserById } from "@/data/database";
-import { Opportunity, opImage } from "@/domain/types/opportunity";
-import Image from "next/image";
-import { UserModel } from "@/domain/types/user_model";
 import { getPlaceById } from "@/data/places";
+import { Opportunity, opImage } from "@/domain/types/opportunity";
+import { PlaceData } from "@/domain/types/place_data";
+import { UserModel } from "@/domain/types/user_model";
+import {
+  ArrowUpRight,
+  Calendar,
+  Check,
+  Coins,
+  MapPin,
+  Share,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../LoadingSpinner";
-import ApplyButton from "./ApplyButton";
-import { ArrowUpRight, Calendar, Check, Coins, MapPin, Share } from "lucide-react";
 import UserChip from "../UserChip";
 import EmbededMap from "../profile/EmbededMap";
-import { PlaceData } from "@/domain/types/place_data";
 import { Button } from "../ui/button";
-import Link from "next/link";
 import { useToast } from "../ui/use-toast";
+import ApplyButton from "./ApplyButton";
 
 export default function OpportunityView({
   opportunityId,
@@ -65,44 +72,43 @@ export default function OpportunityView({
 
   if (!opportunity) {
     return (
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="flex min-h-screen items-center justify-center">
         <LoadingSpinner />
       </div>
     );
   }
 
   const imageSrc = opImage(opportunity);
-  const flierImage = () => <div className="relative h-[512px] w-full md:w-[40vw] md:aspect-[3/4] overflow-hidden md:px-0">
-    <Image
-      src={imageSrc}
-      alt={`${opportunity.title} flier`}
-      fill
-      className="rounded-md"
-      style={{
-        objectFit: "contain",
-        objectPosition: "center",
-      }}
-    />
-  </div>;
+  const flierImage = () => (
+    <div className="relative h-[512px] w-full overflow-hidden md:aspect-[3/4] md:w-[40vw] md:px-0">
+      <Image
+        src={imageSrc}
+        alt={`${opportunity.title} flier`}
+        fill
+        className="rounded-md"
+        style={{
+          objectFit: "contain",
+          objectPosition: "center",
+        }}
+      />
+    </div>
+  );
 
   return (
     <>
-      <div className="fixed right-8 bottom-8">
+      <div className="fixed bottom-8 right-8">
         <ApplyButton op={opportunity} />
       </div>
       <div>
-        <div className="flex flex-col md:flex-row gap-4 md:justify-center md:items-start md:px-12 md:relative">
-          <div className="flex items-start justify-center pt-4 lg:pt-16 px-4 md:px-0 md:sticky md:top-0">
-            <div className="md:sticky md:top-0">
-              {flierImage()}
-
-            </div>
+        <div className="flex flex-col gap-4 md:relative md:flex-row md:items-start md:justify-center md:px-12">
+          <div className="flex items-start justify-center px-4 pt-4 md:sticky md:top-0 md:px-0 lg:pt-16">
+            <div className="md:sticky md:top-0">{flierImage()}</div>
           </div>
-          <div className="md:flex md:justify-start md:grow">
-            <div className="py-4 px-6">
+          <div className="md:flex md:grow md:justify-start">
+            <div className="px-6 py-4">
               <h1 className="text-4xl font-extrabold">{opportunity.title}</h1>
               <div className="h-4" />
-              <div className="flex flex-row gap-4 justify-start">
+              <div className="flex flex-row justify-start gap-4">
                 <ApplyButton op={opportunity} />
                 {linkCopied ? (
                   <Button
@@ -119,9 +125,7 @@ export default function OpportunityView({
                     }}
                   >
                     <Check className="mr-2 h-3 w-3" />
-                    <span>
-                      link copied!
-                    </span>
+                    <span>link copied!</span>
                   </Button>
                 ) : (
                   <Button
@@ -140,25 +144,30 @@ export default function OpportunityView({
                     }}
                   >
                     <Share className="mr-2 h-3 w-3" />
-                    <span>
-                    share with a friend
-                    </span>
+                    <span>share with a friend</span>
                   </Button>
                 )}
               </div>
               <div className="h-4" />
-              <div className="flex flex-row gap-2 items-center">
+              <div className="flex flex-row items-center gap-2">
                 <Button size={"icon"} variant={"outline"} disabled>
                   <Calendar className="h-6 w-6" />
                 </Button>
                 <p>
-                  {opportunity.startTime.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+                  {opportunity.startTime
+                    .toLocaleDateString("en-US", {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                    .toLowerCase()}
                 </p>
               </div>
               <div className="h-1" />
               {opportunity.isPaid && (
                 <>
-                  <div className="flex flex-row gap-4 items-center">
+                  <div className="flex flex-row items-center gap-4">
                     <Button size={"icon"} variant={"outline"} disabled>
                       <Coins className="h-6 w-6" />
                     </Button>
@@ -169,7 +178,7 @@ export default function OpportunityView({
               <div className="h-1" />
               {location && (
                 <>
-                  <div className="flex flex-row gap-1 items-center">
+                  <div className="flex flex-row items-center gap-1">
                     <Button size={"icon"} variant={"outline"} disabled>
                       <MapPin className="h-6 w-6" />
                     </Button>
@@ -195,9 +204,14 @@ export default function OpportunityView({
                 {booker && <UserChip user={booker} />}
                 <div className="h-1" />
                 <Link href="/download">
-                  <Button variant="link" className="flex flex-row items-center gap-1 p-0">
-                    <p className="text-xs font-bold text-foreground/70">contact booker</p>
-                    <ArrowUpRight className="h-3 w-3 text-foreground/70" />
+                  <Button
+                    variant="link"
+                    className="flex flex-row items-center gap-1 p-0"
+                  >
+                    <p className="text-foreground/70 text-xs font-bold">
+                      contact booker
+                    </p>
+                    <ArrowUpRight className="text-foreground/70 h-3 w-3" />
                   </Button>
                 </Link>
               </div>
@@ -216,11 +230,14 @@ export default function OpportunityView({
                 <div>
                   <div>
                     <h3 className="text-md font-bold">location</h3>
-                    <p className="text-sm text-foreground/70">{location.shortFormattedAddress}</p>
+                    <p className="text-foreground/70 text-sm">
+                      {location.shortFormattedAddress}
+                    </p>
                     <div className="h-2" />
                     <EmbededMap
                       lat={opportunity.location.lat}
-                      lng={opportunity.location.lng} />
+                      lng={opportunity.location.lng}
+                    />
                   </div>
                 </div>
               )}
