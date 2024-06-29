@@ -1,40 +1,43 @@
-import {
-  addDoc,
-  collection,
-  doc,
-  query,
-  getDoc,
-  getDocs,
-  setDoc,
-  where,
-  onSnapshot,
-  orderBy,
-  limit,
-  Timestamp,
-  updateDoc,
-  getAggregateFromServer,
-  count,
-} from "firebase/firestore";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { type Booking, bookingConverter } from "@/domain/types/booking";
+import { ContactVenueRequest } from "@/domain/types/contact_venue_request";
 import {
   LabelApplication,
   labelApplicationConverter,
 } from "@/domain/types/label_application";
-import { analytics, db } from "@/utils/firebase";
-import type { UserModel } from "@/domain/types/user_model";
+import {
+  type Opportunity,
+  opportunityConverter,
+} from "@/domain/types/opportunity";
 import type { Option } from "@/domain/types/option";
-import { type Booking, bookingConverter } from "@/domain/types/booking";
 import { type Review, reviewConverter } from "@/domain/types/review";
 import { type Service, serviceConverter } from "@/domain/types/service";
-import { type Opportunity, opportunityConverter } from "@/domain/types/opportunity";
+import type { UserModel } from "@/domain/types/user_model";
+import { analytics, db } from "@/utils/firebase";
 import { logEvent } from "firebase/analytics";
-import { ContactVenueRequest } from "@/domain/types/contact_venue_request";
+import {
+  addDoc,
+  collection,
+  count,
+  doc,
+  getAggregateFromServer,
+  getDoc,
+  getDocs,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+  Timestamp,
+  where,
+} from "firebase/firestore";
 import { LRUCache } from "lru-cache";
 
 const verifiedBadgeId = "0aa46576-1fbe-4312-8b69-e2fef3269083";
 
 export async function checkUsernameAvailability(
   userId: string,
-  username: string,
+  username: string
 ): Promise<boolean> {
   const blacklist = ["anonymous", "*deleted*"];
 
@@ -43,7 +46,11 @@ export async function checkUsernameAvailability(
   }
 
   const usersRef = collection(db, "users");
-  const userQuery = query(usersRef, where("username", "==", username), limit(1));
+  const userQuery = query(
+    usersRef,
+    where("username", "==", username),
+    limit(1)
+  );
   const userQuerySnapshot = await getDocs(userQuery);
   const userQueryDocs = userQuerySnapshot.docs;
 
@@ -77,7 +84,6 @@ export async function getUserById(userId: string): Promise<Option<UserModel>> {
   return user;
 }
 
-
 const userByUsernameCache = new LRUCache<string, UserModel>({
   max: 500,
 });
@@ -103,7 +109,6 @@ export async function getUserByUsername(
 
   return user;
 }
-
 
 const verifiedCache = new LRUCache<string, boolean>({
   max: 500,
@@ -134,13 +139,11 @@ export async function isVerified(userId: string): Promise<boolean> {
 export async function getBookingCount(userId: string) {
   const bookingQuery = query(
     collection(db, "bookings"),
-    where("requesteeId", "==", userId),
+    where("requesteeId", "==", userId)
   );
-  const aggr = await getAggregateFromServer(bookingQuery,
-    {
-      bookingCount: count(),
-    },
-  );
+  const aggr = await getAggregateFromServer(bookingQuery, {
+    bookingCount: count(),
+  });
 
   const data = aggr.data();
 
@@ -232,11 +235,13 @@ export async function getLatestBookerReviewByBookerId(
   return queryDocs.docs[0].data();
 }
 
-export async function getBookingsByEventId(eventId: string): Promise<Booking[]> {
+export async function getBookingsByEventId(
+  eventId: string
+): Promise<Booking[]> {
   const bookingsQuery = query(
     collection(db, "bookings"),
     where("referenceEventId", "==", eventId),
-    where("status", "==", "confirmed"),
+    where("status", "==", "confirmed")
   ).withConverter(bookingConverter);
 
   const querySnapshot = await getDocs(bookingsQuery);
@@ -245,11 +250,13 @@ export async function getBookingsByEventId(eventId: string): Promise<Booking[]> 
   return queryDocs.map((doc) => doc.data());
 }
 
-export async function getBookingsByEventUrl(eventUrl: string): Promise<Booking[]> {
+export async function getBookingsByEventUrl(
+  eventUrl: string
+): Promise<Booking[]> {
   const bookingsQuery = query(
     collection(db, "bookings"),
     where("eventUrl", "==", eventUrl),
-    where("status", "==", "confirmed"),
+    where("status", "==", "confirmed")
   ).withConverter(bookingConverter);
 
   const querySnapshot = await getDocs(bookingsQuery);
@@ -300,7 +307,7 @@ export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
     where("deleted", "==", false),
     where("startTime", ">", new Date()),
     orderBy("startTime", "desc"),
-    limit(3),
+    limit(3)
   ).withConverter(opportunityConverter);
   const tccOpsSnap = await getDocs(tccOpsQuery);
   const tccOps = tccOpsSnap.docs.map((doc) => doc.data());
@@ -311,10 +318,9 @@ export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
   const { featuredOpportunities } = leadersDoc.data() as {
     featuredOpportunities: string[];
   };
-  const leaderOps = (await Promise.all(
-    featuredOpportunities
-      .map(getOpportunityById)
-  )).filter((u) => u !== null) as Opportunity[];
+  const leaderOps = (
+    await Promise.all(featuredOpportunities.map(getOpportunityById))
+  ).filter((u) => u !== null) as Opportunity[];
 
   return [...tccOps, ...leaderOps];
 }
@@ -333,7 +339,11 @@ export async function checkIfUserApplied(opId: string, userId: string) {
   }
 }
 
-export async function applyForOpportunity({ opId, userId, userComment }: {
+export async function applyForOpportunity({
+  opId,
+  userId,
+  userComment,
+}: {
   opId: string;
   userId: string;
   userComment: string;
@@ -343,8 +353,8 @@ export async function applyForOpportunity({ opId, userId, userComment }: {
     const interestedCollection = collection(opsRef, `${opId}/interestedUsers`);
     const userDoc = doc(interestedCollection, userId);
     await setDoc(userDoc, {
-      "timestamp": Timestamp.now(),
-      "userComment": userComment,
+      timestamp: Timestamp.now(),
+      userComment: userComment,
     });
   } catch (e) {
     console.error(e);
@@ -385,10 +395,9 @@ export async function getFeaturedPerformers(): Promise<UserModel[]> {
   const { featuredPerformers } = leadersDoc.data() as {
     featuredPerformers: string[];
   };
-  const featured = (await Promise.all(
-    featuredPerformers
-      .map(getUserByUsername)
-  )).filter((u) => u !== null) as UserModel[];
+  const featured = (
+    await Promise.all(featuredPerformers.map(getUserByUsername))
+  ).filter((u) => u !== null) as UserModel[];
 
   featuredPerformersCache.set("featuredPerformers", featured);
   return featured;
@@ -409,15 +418,13 @@ export async function getBookingLeaders(): Promise<UserModel[]> {
   const { bookingLeaders } = leadersDoc.data() as {
     bookingLeaders: string[];
   };
-  const leaders = (await Promise.all(
-    bookingLeaders
-      .map(getUserByUsername)
-  )).filter((u) => u !== null) as UserModel[];
+  const leaders = (
+    await Promise.all(bookingLeaders.map(getUserByUsername))
+  ).filter((u) => u !== null) as UserModel[];
 
   bookingLeadersCache.set("bookingLeaders", leaders);
   return leaders;
 }
-
 
 export async function getServiceById({
   userId,
@@ -540,6 +547,7 @@ export async function createCheckoutSession({
   });
 }
 export async function getActiveProducts(): Promise<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   { product: any; prices: any }[]
   > {
   const productsQuery = query(
@@ -597,21 +605,25 @@ export async function createNewApplicationResponse({
   return docRef.id;
 }
 
-export async function hasUserSentContactRequest({ userId, venueId }: {
+export async function hasUserSentContactRequest({
+  userId,
+  venueId,
+}: {
   userId: string;
   venueId: string;
 }) {
   try {
     const contactVenuesRef = collection(db, "contactVenues");
-    const userCollection = collection(contactVenuesRef, `${userId}/venuesContacted`);
+    const userCollection = collection(
+      contactVenuesRef,
+      `${userId}/venuesContacted`
+    );
     const venueDoc = doc(userCollection, venueId);
 
     const docSnap = await getDoc(venueDoc);
     return docSnap.exists();
   } catch (e) {
-    console.error(
-      "can't check if user has sent contact request", { cause: e }
-    );
+    console.error("can't check if user has sent contact request", { cause: e });
     return false;
   }
 }
@@ -623,10 +635,10 @@ export async function contactVenue({
   bookingEmail,
 }: {
   currentUser: UserModel;
-    venue: UserModel;
-    note: string;
-    bookingEmail: string;
-  }) {
+  venue: UserModel;
+  note: string;
+  bookingEmail: string;
+}) {
   try {
     // already contacted?
     const hasSentContactRequest = await hasUserSentContactRequest({
@@ -639,16 +651,12 @@ export async function contactVenue({
     }
 
     if (analytics !== null) {
-      await logEvent(
-        analytics,
-        "contact_venue",
-        {
-          "user_id": currentUser.id,
-          "venue_id": venue.id,
-          "booking_email": bookingEmail,
-          "note": note,
-        },
-      );
+      await logEvent(analytics, "contact_venue", {
+        user_id: currentUser.id,
+        venue_id: venue.id,
+        booking_email: bookingEmail,
+        note: note,
+      });
     }
 
     const contactVenueRequest: ContactVenueRequest = {
@@ -667,12 +675,13 @@ export async function contactVenue({
     console.info("contactVenueRequest $contactVenueRequest");
 
     const contactVenuesRef = collection(db, "contactVenues");
-    const userCollection = collection(contactVenuesRef, `${currentUser.id}/venuesContacted`);
+    const userCollection = collection(
+      contactVenuesRef,
+      `${currentUser.id}/venuesContacted`
+    );
     const venueDoc = doc(userCollection, venue.id);
     await setDoc(venueDoc, contactVenueRequest);
   } catch (e) {
-    console.error(
-      "can't contact venue", { cause: e }
-    );
+    console.error("can't contact venue", { cause: e });
   }
 }
