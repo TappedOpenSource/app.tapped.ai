@@ -1,16 +1,11 @@
 import { googlePlacesApiKey } from "@/data/places";
 import { Card } from "../ui/card";
 
-export default function EmbededMap({ lat, lng }: {
-    lat: number;
-    lng: number;
-}) {
+export default function EmbededMap({ lat, lng }: { lat: number; lng: number }) {
   const query = `https://www.google.com/maps/embed/v1/place?key=${googlePlacesApiKey}&q=${lat},${lng}`;
-
-  console.log({ query });
   return (
     <>
-      <Card className="flex justify-center w-[300px]">
+      <Card className="flex w-[300px] justify-center">
         <iframe
           title="map"
           width="300"
@@ -18,8 +13,8 @@ export default function EmbededMap({ lat, lng }: {
           style={{ border: 0, borderRadius: "0.5rem" }}
           frameBorder={0}
           referrerPolicy="no-referrer-when-downgrade"
-          src={query}>
-        </iframe>
+          src={query}
+        ></iframe>
       </Card>
     </>
   );

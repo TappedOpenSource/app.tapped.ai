@@ -21,6 +21,7 @@ type Menu = {
   external?: boolean;
   label: string;
   active: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: any;
   submenus: Submenu[];
 };
@@ -45,7 +46,7 @@ export function getMenuList(pathname: string): Group[] {
       ],
     },
     {
-      groupLabel: "contents",
+      groupLabel: "tools",
       menus: [
         {
           href: "/search",
@@ -75,6 +76,18 @@ export function getMenuList(pathname: string): Group[] {
           icon: Handshake,
           submenus: [],
         },
+      ],
+    },
+    {
+      groupLabel: "account",
+      menus: [
+        // {
+        //   href: "/profile",
+        //   label: "me",
+        //   active: pathname.includes("/profile"),
+        //   icon: Users,
+        //   submenus: [],
+        // },
         {
           href: "/messages",
           label: "messages",
@@ -98,18 +111,6 @@ export function getMenuList(pathname: string): Group[] {
           icon: Bug,
           submenus: [],
         },
-      ],
-    },
-    {
-      groupLabel: "account",
-      menus: [
-        // {
-        //   href: "/profile",
-        //   label: "me",
-        //   active: pathname.includes("/profile"),
-        //   icon: Users,
-        //   submenus: [],
-        // },
         {
           href: "/settings",
           label: "settings",

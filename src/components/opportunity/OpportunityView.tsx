@@ -101,8 +101,8 @@ export default function OpportunityView({
       </div>
       <div>
         <div className="flex flex-col gap-4 md:relative md:flex-row md:items-start md:justify-center md:px-12">
-          <div className="flex items-start justify-center px-4 pt-4 md:sticky md:top-0 md:px-0 lg:pt-16">
-            <div className="md:sticky md:top-0">{flierImage()}</div>
+          <div className="flex items-start justify-center px-4 md:sticky md:top-0 md:px-0 lg:pt-16">
+            {flierImage()}
           </div>
           <div className="md:flex md:grow md:justify-start">
             <div className="px-6 py-4">
