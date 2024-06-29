@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { PlaceData, PlacePrediction } from "@/domain/types/place_data";
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { db, functions } from "@/utils/firebase";
-import { LRUCache } from "lru-cache";
 import { httpsCallable } from "@firebase/functions";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { LRUCache } from "lru-cache";
 
-export const googlePlacesApiKey = process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY ?? "";
+export const googlePlacesApiKey =
+  process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY ?? "";
 
 const placeDetailsCache = new LRUCache({
   max: 500,
@@ -51,9 +53,25 @@ const _getPlaceDetails = async (placeId: string): Promise<PlaceData> => {
           "X-Goog-Api-Key": googlePlacesApiKey,
           "X-Goog-FieldMask": fields.join(","),
         },
-      },
+      }
     );
-    const json = (await res.json()) as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const json = (await res.json()) as {
+      error?: Error;
+      location: { latitude: number; longitude: number };
+      shortFormattedAddress: string;
+      addressComponents: {
+        types: string[];
+        shortName: string;
+        longName: string;
+      }[];
+      photos: {
+        height: number;
+        width: number;
+        htmlAttributions: string[];
+        photoReference: string;
+      }[];
+    };
 
     if (json.error) {
       console.error(json.error);
@@ -83,17 +101,19 @@ const _getPlaceDetails = async (placeId: string): Promise<PlaceData> => {
 
 export const autocompletePlaces = async (
   q: string,
-  types: string[] = ["locality"],
-): Promise<{
-  place_id: string;
-  description: string;
-}[]> => {
+  types: string[] = ["locality"]
+): Promise<
+  {
+    place_id: string;
+    description: string;
+  }[]
+> => {
   const callable = httpsCallable(functions, "autocompletePlaces");
   const res = await callable({ query: q, types });
   const data = res.data as {
     predictions: {
-    place_id: string;
-    description: string;
+      place_id: string;
+      description: string;
     }[];
   };
 
@@ -105,10 +125,7 @@ export const autocompletePlaces = async (
   return data.predictions ?? [];
 };
 
-export const searchPlaces = async (
-  q: string,
-  type = "cities",
-): Promise<PlacePrediction[]> => {
+export const searchPlaces = async (q: string): Promise<PlacePrediction[]> => {
   const res = await fetch(
     "https://places.googleapis.com/v1/places:searchText",
     {
@@ -121,7 +138,6 @@ export const searchPlaces = async (
       },
       body: JSON.stringify({
         textQuery: q,
-        type,
       }),
     }
   );
