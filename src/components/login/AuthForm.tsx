@@ -1,16 +1,23 @@
 "use client";
 
-import { useState } from "react";
 import ContinueWithGoogleButton from "@/components/login/ContinueWithGoogleButton";
+import { loginWithCredentials } from "@/data/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Button } from "../ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 import { Input } from "../ui/input";
 import { PasswordInput } from "../ui/password_input";
-import { Button } from "../ui/button";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { loginWithCredentials } from "@/data/auth";
 
 const formSchema = z.object({
   email: z.string().email({ message: "enter a valid email address" }),
@@ -51,7 +58,7 @@ export default function AuthForm() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-2 w-full"
+          className="w-full space-y-2"
         >
           <FormField
             control={form.control}
@@ -61,6 +68,7 @@ export default function AuthForm() {
                 <FormLabel>email</FormLabel>
                 <FormControl>
                   <Input
+                    autoComplete="username"
                     type="email"
                     placeholder="enter your email..."
                     disabled={loading}
@@ -79,6 +87,7 @@ export default function AuthForm() {
                 <FormLabel>password</FormLabel>
                 <FormControl>
                   <PasswordInput
+                    autoComplete="new-password"
                     placeholder="********"
                     disabled={loading}
                     {...field}
@@ -99,14 +108,10 @@ export default function AuthForm() {
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs lowercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            or
-          </span>
+          <span className="bg-background text-muted-foreground px-2">or</span>
         </div>
       </div>
-      <ContinueWithGoogleButton
-        onClick={onGoogleLogin}
-      />
+      <ContinueWithGoogleButton onClick={onGoogleLogin} />
     </>
   );
 }

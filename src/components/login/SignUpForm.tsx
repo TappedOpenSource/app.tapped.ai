@@ -10,8 +10,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { PasswordInput } from "@/components/ui/password_input";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password_input";
 import { signupWithCredentials } from "@/data/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -22,7 +22,9 @@ import { z } from "zod";
 
 const formSchema = z.object({
   email: z.string().email({ message: "enter a valid email address" }),
-  password: z.string().min(8, { message: "password must be at least 8 characters" }),
+  password: z
+    .string()
+    .min(8, { message: "password must be at least 8 characters" }),
   confirmPassword: z.string(),
 });
 
@@ -69,7 +71,7 @@ export default function SignUpForm() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-2 w-full"
+          className="w-full space-y-2"
         >
           <FormField
             control={form.control}
@@ -79,6 +81,7 @@ export default function SignUpForm() {
                 <FormLabel>email</FormLabel>
                 <FormControl>
                   <Input
+                    autoComplete="username"
                     type="email"
                     placeholder="enter your email..."
                     disabled={loading}
@@ -97,6 +100,7 @@ export default function SignUpForm() {
                 <FormLabel>password</FormLabel>
                 <FormControl>
                   <PasswordInput
+                    autoComplete="new-password"
                     placeholder="********"
                     disabled={loading}
                     {...field}
@@ -114,6 +118,7 @@ export default function SignUpForm() {
                 <FormLabel>confirm password</FormLabel>
                 <FormControl>
                   <PasswordInput
+                    autoComplete="new-password"
                     placeholder="********"
                     disabled={loading}
                     {...field}
@@ -126,14 +131,12 @@ export default function SignUpForm() {
 
           <div className="flex flex-row gap-4">
             <Button variant={"secondary"}>
-              <Link
-                href={`/login?return_url=${encodeURIComponent(returnUrl)}`}
-              >
+              <Link href={`/login?return_url=${encodeURIComponent(returnUrl)}`}>
                 already have an account?
               </Link>
             </Button>
             <Button disabled={loading} className="ml-auto w-full" type="submit">
-            sign up
+              sign up
             </Button>
           </div>
         </form>
@@ -143,14 +146,10 @@ export default function SignUpForm() {
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs lowercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            or
-          </span>
+          <span className="bg-background text-muted-foreground px-2">or</span>
         </div>
       </div>
-      <ContinueWithGoogleButton
-        onClick={onGoogleLogin}
-      />
+      <ContinueWithGoogleButton onClick={onGoogleLogin} />
     </>
   );
 }

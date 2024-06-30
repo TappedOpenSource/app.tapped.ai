@@ -1,7 +1,7 @@
 "use client";
 
-import { loginWithGoogle } from "@/data/auth";
 import { Button } from "@/components/ui/button";
+import { loginWithGoogle } from "@/data/auth";
 
 export default function ContinueWithGoogleButton({ onClick }: {
     onClick: () => void,
@@ -29,8 +29,8 @@ export default function ContinueWithGoogleButton({ onClick }: {
       type="button"
     >
       <svg
-        className="ml-1 mr-2 h-4 w-4"
         aria-hidden="true"
+        className="ml-1 mr-2 h-4 w-4"
         focusable="false"
         data-prefix="fab"
         data-icon="google"
@@ -47,4 +47,3 @@ export default function ContinueWithGoogleButton({ onClick }: {
     </Button>
   );
 }
-

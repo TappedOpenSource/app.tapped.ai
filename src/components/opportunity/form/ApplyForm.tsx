@@ -1,11 +1,10 @@
 "use client";
 
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import SignUpForm from "@/components/login/SignUpForm";
 import { Button } from "@/components/ui/button";
 import {
-  type StepItem,
   Step,
+  type StepItem,
   Stepper,
   useStepper,
 } from "@/components/ui/stepper";
@@ -16,8 +15,7 @@ import {
   LogIn,
   StickyNote,
 } from "lucide-react";
-import Link from "next/link";
-import { Suspense } from "react";
+import LoginStep from "./LoginStep";
 
 export default function ApplyForm() {
   const steps = [
@@ -43,36 +41,47 @@ export default function ApplyForm() {
           if (index === 0) {
             return (
               <Step key={stepProps.label} {...stepProps}>
-                <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-                  <Suspense fallback={<LoadingSpinner />}>
-                    <SignUpForm />
-                  </Suspense>
-                  <p className="text-muted-foreground px-8 text-center text-sm">
-                    by clicking continue, you agree to our{" "}
-                    <Link
-                      href="/terms"
-                      className="hover:text-primary underline underline-offset-4"
-                    >
-                      terms of service
-                    </Link>{" "}
-                    and{" "}
-                    <Link
-                      href="/privacy"
-                      className="hover:text-primary underline underline-offset-4"
-                    >
-                      privacy policy
-                    </Link>
-                    .
-                  </p>
-                </div>
+                <LoginStep />
               </Step>
             );
           }
 
+          // if (index === 1) {
+          //   return (
+          //     <Step key={stepProps.label} {...stepProps}>
+          //       <OnboardingStep />
+          //     </Step>
+          //   );
+          // }
+
+          // if (index === 2) {
+          //   return (
+          //     <Step key={stepProps.label} {...stepProps}>
+          //       <SocialsStep />
+          //     </Step>
+          //   );
+          // }
+
+          // if (index === 3) {
+          //   return (
+          //     <Step key={stepProps.label} {...stepProps}>
+          //       <BookingHistoryStep />
+          //     </Step>
+          //   );
+          // }
+
+          // if (index === 4) {
+          //   return (
+          //     <Step key={stepProps.label} {...stepProps}>
+          //       <FinalNoteStep />
+          //     </Step>
+          //   );
+          // }
+
           return (
             <Step key={stepProps.label} {...stepProps}>
-              <div className="bg-secondary text-primary my-2 flex h-40 items-center justify-center rounded-md border">
-                <h1 className="text-xl">Step {index + 1}</h1>
+              <div className="flex h-40 items-center justify-center rounded-md border">
+                <LoadingSpinner />
               </div>
             </Step>
           );

@@ -7,17 +7,22 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Download,
   Gem,
+  Globe2,
+  Home,
+  LayoutDashboard,
   LogOut,
   Map,
-  LayoutDashboard,
-  Home,
   Moon,
   Sun,
   UserCheck,
-  Globe2,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { Suspense } from "react";
+import { LoadingSpinner } from "./LoadingSpinner";
+import SearchBar from "./search/SearchBar";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -39,16 +44,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import SearchBar from "./search/SearchBar";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Suspense } from "react";
-import { LoadingSpinner } from "./LoadingSpinner";
-import { usePathname, useRouter } from "next/navigation";
 
 const queryClient = new QueryClient();
 
 function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
-  const { state: { currentUser } } = useAuth();
+  const {
+    state: { currentUser },
+  } = useAuth();
   const { state: subscribed } = usePurchases();
   const { setTheme } = useTheme();
   const router = useRouter();
@@ -58,8 +60,8 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
 
   return (
     <>
-      <div className="flex w-screen flex-row items-center gap-3 px-4 pb-1 pt-8 md:px-8 supports-backdrop-blur:bg-background/60 w-full bg-background/95 backdrop-blur">
-        <div className="hidden md:flex justify-center items-center h-full">
+      <div className="supports-backdrop-blur:bg-background/60 bg-background/95 flex w-screen flex-row items-center gap-3 px-4 pb-1 pt-8 backdrop-blur md:px-8">
+        <div className="hidden h-full items-center justify-center md:flex">
           <Avatar className="bg-background mr-2 hover:cursor-pointer hover:shadow-xl">
             <AvatarImage
               src="/images/icon_1024.png"
@@ -79,7 +81,8 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
                   <div className="flex items-center justify-center">
                     <LoadingSpinner />
                   </div>
-                }>
+                }
+              >
                 <SearchBar />
               </Suspense>
             </div>
@@ -88,11 +91,12 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
         <div className="flex flex-row gap-3">
           <div className="block">
             {!isMapPage && (
-              <Link
-                href="/map"
-              >
+              <Link href="/map">
                 <Button variant={"secondary"}>
-                  view the map <span className="ml-2"><Globe2 className="h-4 w-4" /></span>
+                  view the map{" "}
+                  <span className="ml-2">
+                    <Globe2 className="h-4 w-4" />
+                  </span>
                 </Button>
               </Link>
             )}
@@ -118,14 +122,15 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
             </Select>
           </div>
           <div className="hidden md:block">
-            <Button
-              variant="secondary"
-              onClick={() => router.push("/compare")}
-            >compare performers</Button>
+            <Button variant="secondary" onClick={() => router.push("/compare")}>
+              compare performers
+            </Button>
           </div>
           {currentUser === null ? (
             <>
-              <Link href={`/signup?return_url=${encodeURIComponent("/dashboard")}`}>
+              <Link
+                href={`/signup?return_url=${encodeURIComponent("/dashboard")}`}
+              >
                 <Button className="ml-2">sign up</Button>
               </Link>
             </>

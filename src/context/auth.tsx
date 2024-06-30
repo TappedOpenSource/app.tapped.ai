@@ -4,22 +4,28 @@ import { getUserById } from "@/data/database";
 import { UserModel } from "@/domain/types/user_model";
 import { auth } from "@/utils/firebase";
 import { User } from "firebase/auth";
-import { type ReactNode, createContext, useContext, useReducer } from "react";
+import {
+  type ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
 
-export type Action = {type: "ONBOARD", currentUser: UserModel, authUser?: User}
-  | {type: "LOGIN"; authUser: User }
-  | {type: "LOGOUT"}
-export type Dispatch = (action: Action) => void
+export type Action =
+  | { type: "ONBOARD"; currentUser: UserModel; authUser?: User }
+  | { type: "LOGIN"; authUser: User }
+  | { type: "LOGOUT" };
+export type Dispatch = (action: Action) => void;
 export type State = {
-  authUser: User | null,
-  currentUser: UserModel | null,
- };
+  authUser: User | null;
+  currentUser: UserModel | null;
+};
 
 export const AuthContext = createContext<{
-    state: State;
-    dispatch: Dispatch;
-    } | null
->(null);
+  state: State;
+  dispatch: Dispatch;
+} | null>(null);
 
 export function useAuth() {
   const context = useContext(AuthContext);
@@ -74,20 +80,15 @@ function authReducer(state: State, action: Action): State {
   }
 }
 
-export function AuthProvider({ children }: {
-    children: ReactNode;
- }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(authReducer, {
     authUser: null,
     currentUser: null,
   });
-  initAuthListener(state, dispatch);
-  // NOTE: you *might* need to memoize this value
-  // Learn more in http://kcd.im/optimize-context
+  useEffect(() => {
+    return initAuthListener(state, dispatch);
+  }, [state]);
+
   const value = { state, dispatch };
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
