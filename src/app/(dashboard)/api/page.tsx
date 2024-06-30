@@ -1,5 +1,4 @@
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import { BackgroundBeams } from "@/components/ui/background-beams";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -93,7 +92,6 @@ export default function Page() {
             </Link>
           </div>
         </div>
-        <BackgroundBeams />
       </ContentLayout>
     </>
   );
