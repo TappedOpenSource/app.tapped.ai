@@ -97,13 +97,13 @@ const StepperFooter = () => {
     <>
       {hasCompletedAllSteps && (
         <div className="bg-secondary text-primary my-2 flex h-40 items-center justify-center rounded-md border">
-          <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
+          <h1 className="text-xl">Woohoo! all steps completed! 🎉</h1>
         </div>
       )}
       <div className="flex w-full justify-end gap-2">
         {hasCompletedAllSteps ? (
           <Button size="sm" onClick={resetSteps}>
-            Reset
+            reset
           </Button>
         ) : (
           <>
@@ -116,7 +116,7 @@ const StepperFooter = () => {
               prev
             </Button>
             <Button size="sm" onClick={nextStep}>
-              {isLastStep ? "Finish" : isOptionalStep ? "skip" : "next"}
+              {isLastStep ? "finish" : isOptionalStep ? "skip" : "next"}
             </Button>
           </>
         )}

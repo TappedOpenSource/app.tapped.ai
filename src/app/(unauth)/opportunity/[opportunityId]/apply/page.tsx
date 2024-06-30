@@ -1,9 +1,13 @@
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 import ApplyForm from "@/components/opportunity/form/ApplyForm";
+import { Suspense } from "react";
 
 export default function Page() {
   return (
     <>
-      <ApplyForm />
+      <Suspense fallback={<LoadingSpinner />}>
+        <ApplyForm />
+      </Suspense>
     </>
   );
 }

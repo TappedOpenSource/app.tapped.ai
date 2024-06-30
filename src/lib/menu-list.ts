@@ -1,12 +1,14 @@
 import {
   BarChart2,
   Bug,
+  CodeXml,
   Handshake,
   Map,
   MessageCircle,
   ScanSearch,
   Settings,
   Theater,
+  Users,
 } from "lucide-react";
 
 type Submenu = {
@@ -73,7 +75,14 @@ export function getMenuList(pathname: string): Group[] {
           href: "/compare",
           label: "compare",
           active: pathname.includes("/compare"),
-          icon: Handshake,
+          icon: Users,
+          submenus: [],
+        },
+        {
+          href: "/api",
+          label: "api",
+          active: pathname.includes("/api"),
+          icon: CodeXml,
           submenus: [],
         },
       ],
