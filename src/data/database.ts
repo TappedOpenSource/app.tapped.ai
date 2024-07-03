@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type Booking, bookingConverter } from "@/domain/types/booking";
 import { ContactVenueRequest } from "@/domain/types/contact_venue_request";
 import {

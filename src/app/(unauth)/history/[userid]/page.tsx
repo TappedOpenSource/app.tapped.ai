@@ -1,17 +1,17 @@
 "use client";
 
 import BookingTile from "@/components/profile/BookingTile";
-import { getBookingsByRequestee, getBookingsByRequester, getUserById } from "@/data/database";
+import {
+  getBookingsByRequestee,
+  getBookingsByRequester,
+  getUserById,
+} from "@/data/database";
 import { Booking } from "@/domain/types/booking";
 import { UserModel } from "@/domain/types/user_model";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
-export default function History({
-  params,
-}: {
-  params: { userid: string };
-}) {
+export default function History({ params }: { params: { userid: string } }) {
   const router = useRouter();
   const userId = params.userid;
 
@@ -28,9 +28,11 @@ export default function History({
       // fetch latest booking
       const latestRequesteeBookings = await getBookingsByRequestee(userId);
       const latestRequesterBookings = await getBookingsByRequester(userId);
-      const latestBookings = latestRequesteeBookings.concat(latestRequesterBookings).sort((a, b) => {
-        return b.startTime.getTime() - a.startTime.getTime();
-      });
+      const latestBookings = latestRequesteeBookings
+        .concat(latestRequesterBookings)
+        .sort((a, b) => {
+          return b.startTime.getTime() - a.startTime.getTime();
+        });
 
       setBookings(latestBookings);
     };
@@ -56,7 +58,7 @@ export default function History({
 
   if (loading || !performer) {
     return (
-      <div className='min-h-screen flex justify-center items-center'>
+      <div className="flex min-h-screen items-center justify-center">
         <p>fetching bookings... </p>
       </div>
     );
@@ -64,7 +66,7 @@ export default function History({
 
   if (bookings.length === 0) {
     return (
-      <div className='min-h-screen flex justify-center items-center'>
+      <div className="flex min-h-screen items-center justify-center">
         <p>no bookings</p>
       </div>
     );
@@ -72,19 +74,19 @@ export default function History({
 
   return (
     <>
-      <div className='md:flex md:justify-center'>
-        <div className='py-4 px-6 md:w-1/2'>
+      <div className="md:flex md:justify-center">
+        <div className="px-6 py-4 md:w-1/2">
           <h1 className="text-4xl font-extrabold">history</h1>
           <div className="h-4" />
           {bookings.map((booking, index) => (
-            <div key={index} className='py-4'>
-              <BookingTile booking={booking} user={performer} />
+            <div key={index} className="py-4">
+              <BookingTile booking={booking} />
               <div className="h-4" />
             </div>
           ))}
           <div className="h-4" />
-          <div className='flex justify-center items-center'>
-            <p className='text-xs font-thin text-gray-500'>end of list</p>
+          <div className="flex items-center justify-center">
+            <p className="text-xs font-thin text-gray-500">end of list</p>
           </div>
         </div>
       </div>

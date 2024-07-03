@@ -1,24 +1,24 @@
-
 import type { Metadata, ResolvingMetadata } from "next/types";
 import OpportunityView from "@/components/opportunity/OpportunityView";
 import { Opportunity, opImage } from "@/domain/types/opportunity";
+import Footer from "@/components/Footer";
 
 type Props = {
-  params: { opportunityId: string }
+  params: { opportunityId: string };
 };
 
 const getOpportunityByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/getOpportunityById`;
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvingMetadata,
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
   const metadataBase = "https://app.tapped.ai";
   try {
     const { opportunityId } = params;
 
     const res = await fetch(`${getOpportunityByIdUrl}?id=${opportunityId}`);
-    const opportunity = await res.json() as Opportunity;
+    const opportunity = (await res.json()) as Opportunity;
 
     const imageSrc = opImage(opportunity);
 
@@ -53,12 +53,12 @@ export async function generateMetadata(
   }
 }
 
-
 export default function Page({ params }: Props) {
   const { opportunityId } = params;
   return (
     <>
       <OpportunityView opportunityId={opportunityId} />
+      <Footer />
     </>
   );
 }

@@ -11,13 +11,12 @@ type RequireLoginProps = {
 export function RequestLoginPage(props: RequireLoginProps) {
   return (
     <>
-      <div className="h-screen flex justify-center items-center">
+      <div className="flex h-screen items-center justify-center">
         <RequestLoginCard {...props} />
       </div>
     </>
   );
 }
-
 
 export function RequestLoginCard({ returnUrl }: RequireLoginProps) {
   const pathname = usePathname();
@@ -25,7 +24,7 @@ export function RequestLoginCard({ returnUrl }: RequireLoginProps) {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <Link href={`/signup=return_url=${returnUrl ?? encodedPathname}`}>
+      <Link href={`/signup=return_url?${returnUrl ?? encodedPathname}`}>
         <Button>signup</Button>
       </Link>
     </div>

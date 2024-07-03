@@ -163,10 +163,12 @@ export default function SettingsForm() {
             <FormField
               control={form.control}
               name="profilePicture"
-              render={({ field: { value, onChange, ...fieldProps } }) => (
+              render={({ field: { onChange, ...fieldProps } }) => (
                 <FormItem>
                   <FormLabel>profile picture</FormLabel>
                   <FormControl>
+                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                    {/* @ts-ignore */}
                     <Input
                       {...fieldProps}
                       placeholder="profile picture"
@@ -216,7 +218,7 @@ export default function SettingsForm() {
               name="bio"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>username</FormLabel>
+                  <FormLabel>bio</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="bio" />
                   </FormControl>

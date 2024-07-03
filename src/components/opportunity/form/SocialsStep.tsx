@@ -1,13 +1,3 @@
-"use client";
-
-import { useAuth } from "@/context/auth";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -16,55 +6,50 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { onboardNewUser } from "@/domain/usecases/onboarding";
+import { Input } from "@/components/ui/input";
+import { useAuth } from "@/context/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { useStepper } from "@/components/ui/stepper";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { useState } from "react";
-import { LoadingSpinner } from "../LoadingSpinner";
-import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  username: z
-    .string()
-    .min(3)
-    .max(20)
-    .regex(/^[a-zA-Z0-9_]+$/),
-  profilePicture: z.custom<File>(),
   instagramHandle: z.string().min(3).max(20).optional(),
   instagramFollowers: z.coerce.number().int().nonnegative(),
   twitterHandle: z.string().min(3).max(20).optional(),
   twitterFollowers: z.coerce.number().int().nonnegative(),
   tiktokHandle: z.string().min(3).max(20).optional(),
   tiktokFollowers: z.coerce.number().int().nonnegative(),
-  eula: z.boolean(),
+  spotifyUrl: z.string().url().optional(),
+  soundcloudHandle: z.string().min(3).max(20).optional(),
 });
 
-export default function OnboardingForm({
-  returnUrl,
-}: {
-  returnUrl?: string | null;
-}) {
-  const router = useRouter();
+export default function SocialsStep() {
   const {
-    state: { authUser },
-    dispatch,
+    state: { currentUser },
   } = useAuth();
+  const instagramHandle = currentUser?.socialFollowing?.instagramHandle;
+  const instagramFollowers = currentUser?.socialFollowing?.instagramFollowers;
+  const twitterHandle = currentUser?.socialFollowing?.twitterHandle;
+  const twitterFollowers = currentUser?.socialFollowing?.twitterFollowers;
+  const tiktokHandle = currentUser?.socialFollowing?.tiktokHandle;
+  const tiktokFollowers = currentUser?.socialFollowing?.tiktokFollowers;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      twitterFollowers: 0,
-      instagramFollowers: 0,
-      tiktokFollowers: 0,
+      instagramHandle: instagramHandle ?? undefined,
+      twitterHandle: twitterHandle ?? undefined,
+      tiktokHandle: tiktokHandle ?? undefined,
+      twitterFollowers: twitterFollowers ?? undefined,
+      instagramFollowers: instagramFollowers ?? undefined,
+      tiktokFollowers: tiktokFollowers ?? undefined,
     },
   });
+  const { nextStep, prevStep, isDisabledStep } = useStepper();
   const [loading, setLoading] = useState(false);
-
-  if (authUser === null) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p>you must be logged in to access this page.</p>
-      </div>
-    );
-  }
-
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -73,50 +58,34 @@ export default function OnboardingForm({
     );
   }
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
-      setLoading(true);
-      console.log(values);
-
-      if (!authUser) {
-        throw new Error("cannot onboard without an auth user");
-      }
-
-      await onboardNewUser(dispatch, authUser, values);
-      if (returnUrl) {
-        router.push(returnUrl);
-      }
-    } catch (e) {
-      console.error(e);
-      alert(e.message);
-    }
-
+  const onSubmit = async () => {
     setLoading(true);
-  }
+
+    // set social info
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setLoading(false);
+    nextStep();
+  };
 
   return (
     <>
       <div className="mx-auto max-w-md space-y-6 py-12">
-        <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold">complete your profile</h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            enter your information to get started.
-          </p>
+        <div className="space-y-2 text-start">
+          <h1 className="text-3xl font-bold">socials</h1>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
-              name="username"
+              name="spotifyUrl"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>preferred username</FormLabel>
+                  <FormLabel>spotify URL</FormLabel>
                   <FormControl>
                     <Input
-                      id="username"
-                      placeholder="handle (no caps or spaces)"
+                      id="spotifyUrl"
+                      placeholder="https://open.spotify.com/artist/..."
                       {...field}
                     />
                   </FormControl>
@@ -126,26 +95,21 @@ export default function OnboardingForm({
             />
             <FormField
               control={form.control}
-              name="profilePicture"
-              render={({ field: { value, onChange, ...fieldProps } }) => (
+              name="soundcloudHandle"
+              render={({ field }) => (
                 <FormItem>
-                  <FormLabel>profile picture</FormLabel>
+                  <FormLabel>soundcloud handle</FormLabel>
                   <FormControl>
-                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                    {/* @ts-ignore */}
                     <Input
-                      {...fieldProps}
-                      placeholder="profile picture"
-                      type="file"
-                      accept="image/*"
-                      onChange={(event) =>
-                        onChange(event.target.files && event.target.files[0])
-                      }
+                      id="soundcloudHandle"
+                      placeholder="jonaylor89"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
+              // eslint-disable-next-line indent
             />
             <div className="grid grid-cols-2 gap-4">
               <FormField
@@ -258,38 +222,20 @@ export default function OnboardingForm({
                 )}
               />
             </div>
-            <div className="flex items-center gap-2">
-              <FormField
-                control={form.control}
-                name="eula"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <div className="space-y-1 leading-none">
-                      <FormLabel>
-                        i agree to the{" "}
-                        <Link
-                          className="underline"
-                          href="/eula"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          eula
-                        </Link>
-                      </FormLabel>
-                    </div>
-                  </FormItem>
-                )}
-              />
+            <div className="flex w-full flex-row gap-2">
+              <Button
+                disabled={isDisabledStep}
+                onClick={prevStep}
+                size="sm"
+                variant="secondary"
+                className="w-full"
+              >
+                prev
+              </Button>
+              <Button size="sm" type="submit" className="w-full">
+                next
+              </Button>
             </div>
-            <Button className="w-full" type="submit">
-              complete onboarding
-            </Button>
           </form>
         </Form>
       </div>

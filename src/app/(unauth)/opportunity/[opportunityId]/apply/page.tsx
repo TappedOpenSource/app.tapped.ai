@@ -1,11 +1,14 @@
-// import { LoadingSpinner } from "@/components/LoadingSpinner";
 import ApplyForm from "@/components/opportunity/form/ApplyForm";
-// import { Suspense } from "react";
 
-export default function Page() {
+export default function Page({
+  params,
+}: {
+  params: { opportunityId: string };
+}) {
+  const opId = params.opportunityId;
   return (
     <>
-      <ApplyForm />
+      <ApplyForm opportunityId={opId} />
     </>
   );
 }
