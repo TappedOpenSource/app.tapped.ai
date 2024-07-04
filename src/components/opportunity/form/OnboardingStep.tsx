@@ -20,16 +20,21 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Link from "next/link";
 import { useStepper } from "@/components/ui/stepper";
+import { onboardNewUser } from "@/domain/usecases/onboarding";
+import { sanitizeUsername } from "@/utils/sanitize";
+import { createOrUpdateUser } from "@/data/database";
+import { uploadProfilePicture, uploadPressKit } from "@/data/storage";
 
 const formSchema = z.object({
   performerName: z.string().min(3).max(24),
-  profilePicture: z.custom<File>().optional(),
+  profilePicture: z.custom<File>(),
   epk: z.custom<File>().optional(),
 });
 
 export default function OnboardingStep() {
   const {
-    state: { currentUser },
+    state: { authUser, currentUser },
+    dispatch,
   } = useAuth();
   const originalPerformerName = currentUser?.artistName;
   const originalProfilePicture = currentUser?.profilePicture ?? null;
@@ -58,32 +63,50 @@ export default function OnboardingStep() {
   }
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    if (authUser === null) return;
     setLoading(true);
     const { performerName, profilePicture, epk } = data;
 
+    const fourDigitRandom = Math.floor(1000 + Math.random() * 9000);
     if (currentUser === null) {
-      console.log("create new user");
-      console.log("set data to be the name, pfp, and epk put here");
+      await onboardNewUser(dispatch, authUser, {
+        username: `${sanitizeUsername(performerName)}-${fourDigitRandom}`,
+        artistName: performerName,
+        profilePicture: profilePicture,
+        pressKit: epk,
+        eula: true,
+        instagramHandle: undefined,
+        instagramFollowers: 0,
+        twitterHandle: undefined,
+        twitterFollowers: 0,
+        tiktokHandle: undefined,
+        tiktokFollowers: 0,
+      });
       setLoading(false);
       nextStep();
       return;
     }
 
     if (performerName !== originalPerformerName) {
-      console.log("update performer name");
-      console.log("set data to be the name put here");
+      await createOrUpdateUser(authUser.uid, {
+        artistName: performerName,
+      });
     }
 
     if (originalProfilePicture !== currProfilePicture) {
-      console.log({ profilePicture });
-      console.log("update profile picture");
-      console.log("set data to be the pfp put here");
+      const pfp = await uploadProfilePicture(authUser.uid, profilePicture);
+      await createOrUpdateUser(authUser.uid, {
+        profilePicture: pfp,
+      });
     }
 
-    if (originalPressKit !== currPressKit) {
-      console.log({ epk });
-      console.log("update press kit");
-      console.log("set data to be the epk put here");
+    if (originalPressKit !== currPressKit && epk) {
+      const epkUrl = await uploadPressKit(authUser.uid, epk);
+      await createOrUpdateUser(authUser.uid, {
+        performerInfo: {
+          pressKitUrl: epkUrl,
+        },
+      });
     }
 
     // add new user info if something has changed
@@ -195,7 +218,9 @@ export default function OnboardingStep() {
                   target="_blank"
                   href={currPressKit}
                 >
-                  <Button variant={"secondary"}>view current press kit</Button>
+                  <Button variant={"secondary"} type="button">
+                    view current press kit
+                  </Button>
                 </Link>
               </>
             ) : (

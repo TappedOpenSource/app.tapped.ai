@@ -7,12 +7,29 @@ export async function uploadProfilePicture(
   file: File
 ): Promise<string> {
   const extension = file.name.split(".").pop();
-  const prefix = userId === null ? "images/users" : "images/users/$userId";
+  const prefix = userId === null ? "images/users" : `images/users/${userId}`;
 
   const uniquePhotoId = uuidv4();
   const imageRef = ref(
     storage,
     `${prefix}/userProfile_${uniquePhotoId}.${extension}`
+  );
+  await uploadBytes(imageRef, file);
+
+  return await getDownloadURL(imageRef);
+}
+
+export async function uploadPressKit(
+  userId: string,
+  file: File
+): Promise<string> {
+  const extension = file.name.split(".").pop();
+  const prefix = userId === null ? "press_kits" : `press_kits/${userId}`;
+
+  const uniquePhotoId = uuidv4();
+  const imageRef = ref(
+    storage,
+    `${prefix}/press_kit_${uniquePhotoId}.${extension}`
   );
   await uploadBytes(imageRef, file);
 

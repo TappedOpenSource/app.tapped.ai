@@ -6,29 +6,38 @@ import { convertToNullableString } from "@/utils/strings";
 import { checkUsernameAvailability, createOrUpdateUser } from "@/data/database";
 import * as _ from "lodash";
 import { uploadProfilePicture } from "@/data/storage";
-import { getInstagramHandle, getTiktokHandle, getTwitterHandle } from "@/utils/url_parsing";
+import {
+  getInstagramHandle,
+  getTiktokHandle,
+  getTwitterHandle,
+} from "@/utils/url_parsing";
 
 type OnboardFormUser = {
-    username: string;
-    profilePicture: File;
-    eula: boolean;
-    instagramHandle?: string | undefined;
-    instagramFollowers: number;
-    twitterHandle?: string | undefined;
-    twitterFollowers: number;
-    tiktokHandle?: string | undefined;
-    tiktokFollowers: number;
-}
+  username: string;
+  artistName?: string;
+  profilePicture: File;
+  pressKit?: File;
+  eula: boolean;
+  instagramHandle?: string | undefined;
+  instagramFollowers: number;
+  twitterHandle?: string | undefined;
+  twitterFollowers: number;
+  tiktokHandle?: string | undefined;
+  tiktokFollowers: number;
+};
 
 export async function onboardNewUser(
   dispatch: Dispatch,
   authUser: User,
   onboardFormUser: OnboardFormUser,
+  options?: {
+    sleepTime?: number;
+  }
 ) {
   try {
     const usernameAvailable = await checkUsernameAvailability(
       authUser.uid,
-      onboardFormUser.username,
+      onboardFormUser.username
     );
 
     if (!usernameAvailable) {
@@ -47,8 +56,12 @@ export async function onboardNewUser(
     })();
 
     const tiktokHandle = convertToNullableString(onboardFormUser.tiktokHandle);
-    const instagramHandle = convertToNullableString(onboardFormUser.instagramHandle);
-    const twitterHandle = convertToNullableString(onboardFormUser.twitterHandle);
+    const instagramHandle = convertToNullableString(
+      onboardFormUser.instagramHandle
+    );
+    const twitterHandle = convertToNullableString(
+      onboardFormUser.twitterHandle
+    );
 
     const newUserObj = _.merge(emptyUserModel, {
       id: authUser.uid,
@@ -56,7 +69,10 @@ export async function onboardNewUser(
       unclaimed: false,
       deleted: false,
       username: onboardFormUser.username,
-      artistName: authUser.displayName ?? onboardFormUser.username,
+      artistName:
+        onboardFormUser.artistName ??
+        authUser.displayName ??
+        onboardFormUser.username,
       profilePicture: profilePictureUrl,
       socialFollowing: {
         tiktokHandle: getTiktokHandle(tiktokHandle),
@@ -75,8 +91,10 @@ export async function onboardNewUser(
       },
     });
 
-    await createOrUpdateUser(newUserObj);
-    await sleep(2000);
+    await createOrUpdateUser(newUserObj.id, newUserObj);
+    if (options?.sleepTime) {
+      await sleep(options.sleepTime);
+    }
 
     dispatch({ type: "ONBOARD", currentUser: newUserObj });
   } catch (e) {
@@ -87,20 +105,20 @@ export async function onboardNewUser(
 
 export async function updateOnboardedUser(
   dispatch: Dispatch,
-  updatedUser: UserModel,
+  updatedUser: UserModel
 ) {
   try {
-  // check that username doesn't already exist on someone else
+    // check that username doesn't already exist on someone else
     const usernameAvailable = await checkUsernameAvailability(
       updatedUser.id,
-      updatedUser.username,
+      updatedUser.username
     );
 
     if (!usernameAvailable) {
       throw new Error("username already taken");
     }
 
-    await createOrUpdateUser(updatedUser);
+    await createOrUpdateUser(updatedUser.id, updatedUser);
 
     dispatch({ type: "ONBOARD", currentUser: updatedUser });
   } catch (e) {

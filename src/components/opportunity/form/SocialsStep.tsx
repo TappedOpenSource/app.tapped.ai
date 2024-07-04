@@ -15,6 +15,8 @@ import { Button } from "@/components/ui/button";
 import { useStepper } from "@/components/ui/stepper";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { useState } from "react";
+import { createOrUpdateUser } from "@/data/database";
+import { idFromSpotifyUrl } from "@/utils/spotify";
 
 const formSchema = z.object({
   instagramHandle: z.string().min(3).max(20).optional(),
@@ -29,7 +31,7 @@ const formSchema = z.object({
 
 export default function SocialsStep() {
   const {
-    state: { currentUser },
+    state: { authUser, currentUser },
   } = useAuth();
   const instagramHandle = currentUser?.socialFollowing?.instagramHandle;
   const instagramFollowers = currentUser?.socialFollowing?.instagramFollowers;
@@ -58,12 +60,39 @@ export default function SocialsStep() {
     );
   }
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    if (authUser === null) return;
+
     setLoading(true);
 
-    // set social info
+    const {
+      instagramHandle,
+      instagramFollowers,
+      twitterHandle,
+      twitterFollowers,
+      tiktokHandle,
+      tiktokFollowers,
+      spotifyUrl,
+      soundcloudHandle,
+    } = data;
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const spotifyId = spotifyUrl ? idFromSpotifyUrl(spotifyUrl) : null;
+    await createOrUpdateUser(authUser.uid, {
+      socialFollowing: {
+        instagramHandle: instagramHandle ?? null,
+        instagramFollowers: instagramFollowers ?? 0,
+        twitterHandle: twitterHandle ?? null,
+        twitterFollowers: twitterFollowers ?? 0,
+        tiktokHandle: tiktokHandle ?? null,
+        tiktokFollowers: tiktokFollowers ?? 0,
+        spotifyUrl: spotifyUrl ?? null,
+        soundcloudHandle: soundcloudHandle ?? null,
+      },
+      performerInfo: {
+        spotifyId,
+      },
+    });
+
     setLoading(false);
     nextStep();
   };

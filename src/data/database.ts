@@ -9,6 +9,7 @@ import {
   opportunityConverter,
 } from "@/domain/types/opportunity";
 import type { Option } from "@/domain/types/option";
+import { RecursivePartial } from "@/domain/types/recursive_partial";
 import { type Review, reviewConverter } from "@/domain/types/review";
 import { type Service, serviceConverter } from "@/domain/types/service";
 import type { UserModel } from "@/domain/types/user_model";
@@ -56,8 +57,11 @@ export async function checkUsernameAvailability(
   return !(userQueryDocs.length > 0 && userQueryDocs[0].id !== userId);
 }
 
-export async function createOrUpdateUser(user: UserModel): Promise<void> {
-  const docRef = doc(db, "users", user.id);
+export async function createOrUpdateUser(
+  id: string,
+  user: RecursivePartial<UserModel>
+): Promise<void> {
+  const docRef = doc(db, "users", id);
   await setDoc(docRef, user, { merge: true });
 }
 
