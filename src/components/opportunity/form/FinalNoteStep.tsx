@@ -19,6 +19,10 @@ import UserChip from "@/components/UserChip";
 import { useState, useEffect } from "react";
 import { getUserById } from "@/data/database";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { useToast } from "@/components/ui/use-toast";
+import { guardedApplyForOpportunity } from "@/domain/usecases/opportunities";
+import { useAuth } from "@/context/auth";
+import { usePurchases } from "@/context/purchases";
 
 const formSchema = z.object({
   note: z.string().min(3).max(256).optional(),
@@ -29,10 +33,15 @@ export default function FinalNoteStep({
 }: {
   opportunity: Opportunity;
 }) {
+  const {
+    state: { authUser },
+  } = useAuth();
+  const { state: subscribed } = usePurchases();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
+  const { toast } = useToast();
   const { prevStep, isDisabledStep, isLastStep } = useStepper();
   const [loading, setLoading] = useState(false);
   const [requester, setRequester] = useState<UserModel | null>(null);
@@ -45,13 +54,27 @@ export default function FinalNoteStep({
   }, [opportunity]);
 
   const onSubmit = async () => {
+    if (!authUser) return;
+
     setLoading(true);
+    try {
+      await guardedApplyForOpportunity({
+        opportunityId: opportunity.id,
+        userId: authUser.uid,
+        isPremium: subscribed ?? false,
+      });
+      router.push(`/opportunity/${opportunity.id}?show_confirmation=true`);
+    } catch (e) {
+      console.error("error applying for opportunity", e);
+      toast({
+        title: "you've run out of opportunities to apply for",
+        description: "join tapped premium to get unlimited gig opportunities",
+      });
 
-    // apply for the opportunity
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    router.push(`/opportunity/${opportunity.id}?show_confirmation=true`);
-    setLoading(false);
+      router.push(`/premium?return_url=/opportunities/${opportunity.id}/apply`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
