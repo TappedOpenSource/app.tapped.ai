@@ -2,28 +2,16 @@
 
 import { useAuth } from "@/context/auth";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { Opportunity } from "@/domain/types/opportunity";
 import { useState, useEffect } from "react";
 import { checkIfUserApplied } from "@/data/database";
 import { Check } from "lucide-react";
-import { LoadingSpinner } from "../LoadingSpinner";
-import { useToast } from "../ui/use-toast";
-import { guardedApplyForOpportunity } from "@/domain/usecases/opportunities";
-import { usePurchases } from "@/context/purchases";
 
 export default function ApplyButton({ op }: { op: Opportunity }) {
   const { state: authState } = useAuth();
   const { authUser } = authState;
-  const { state: subscribed } = usePurchases();
-  const router = useRouter();
-  const pathname = usePathname();
   const [isApplied, setIsApplied] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const { toast } = useToast();
-
   useEffect(() => {
     if (!authUser) {
       return;
@@ -35,14 +23,6 @@ export default function ApplyButton({ op }: { op: Opportunity }) {
     };
     checkIfApplied();
   }, [authUser, op.id]);
-
-  if (loading) {
-    return (
-      <Button size="icon">
-        <LoadingSpinner />
-      </Button>
-    );
-  }
 
   if (isApplied) {
     return (
