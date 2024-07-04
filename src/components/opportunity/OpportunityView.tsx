@@ -39,10 +39,12 @@ export default function OpportunityView({
   useEffect(() => {
     if (!showConfirmation) return;
 
-    toast({
-      title: "application submitted!",
-      description: "you will be notified if you are selected.",
-    });
+    setTimeout(() => {
+      toast({
+        title: "application submitted!",
+        description: "you will be notified if you are selected.",
+      });
+    }, 1000);
   }, [showConfirmation, toast]);
 
   useEffect(() => {
