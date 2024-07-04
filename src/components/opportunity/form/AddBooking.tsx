@@ -243,9 +243,6 @@ export default function AddBooking({
             )}
           />
           <div className="flex flex-row justify-end gap-2">
-            <Button variant="ghost" type="button">
-              cancel
-            </Button>
             <Button type="submit">submit</Button>
           </div>
         </form>

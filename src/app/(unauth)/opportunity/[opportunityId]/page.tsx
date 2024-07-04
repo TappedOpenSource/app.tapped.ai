@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 
 type Props = {
   params: { opportunityId: string };
+  searchParams: { [key: string]: string };
 };
 
 const getOpportunityByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/getOpportunityById`;
@@ -53,11 +54,17 @@ export async function generateMetadata(
   }
 }
 
-export default function Page({ params }: Props) {
+export default function Page({ params, searchParams }: Props) {
   const { opportunityId } = params;
+  const rawShowConfirmation = searchParams["show_confirmation"] ?? "false";
+  const showConfirmation = rawShowConfirmation === "true";
+
   return (
     <>
-      <OpportunityView opportunityId={opportunityId} />
+      <OpportunityView
+        opportunityId={opportunityId}
+        showConfirmation={showConfirmation}
+      />
       <Footer />
     </>
   );

@@ -50,19 +50,9 @@ export default function FinalNoteStep({
     // apply for the opportunity
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    router.push(`/opportunity/${opportunity.id}/confirmation`);
+    router.push(`/opportunity/${opportunity.id}?show_confirmation=true`);
     setLoading(false);
   };
-
-  if (loading) {
-    return (
-      <>
-        <div className="flex items-center justify-center">
-          <LoadingSpinner />
-        </div>
-      </>
-    );
-  }
 
   return (
     <>
@@ -99,9 +89,15 @@ export default function FinalNoteStep({
               >
                 prev
               </Button>
-              <Button size="sm" type="submit">
-                {isLastStep ? "finish and apply" : "next"}
-              </Button>
+              {loading ? (
+                <Button disabled variant="outline" size="icon" type="button">
+                  <LoadingSpinner />
+                </Button>
+              ) : (
+                <Button size="sm" type="submit">
+                  {isLastStep ? "finish and apply" : "next"}
+                </Button>
+              )}
             </div>
           </form>
         </Form>

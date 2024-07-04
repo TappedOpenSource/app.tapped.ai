@@ -40,10 +40,10 @@ export default function OnboardingStep() {
   const originalProfilePicture = currentUser?.profilePicture ?? null;
   const originalPressKit = currentUser?.performerInfo?.pressKitUrl ?? null;
   const [currPressKit, setCurrPressKit] = useState<string | null>(
-    originalProfilePicture
+    originalPressKit
   );
   const [currProfilePicture, setCurrProfilePicture] = useState<string | null>(
-    originalPressKit
+    originalProfilePicture
   );
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -109,8 +109,6 @@ export default function OnboardingStep() {
       });
     }
 
-    // add new user info if something has changed
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     setLoading(false);
     nextStep();
   };

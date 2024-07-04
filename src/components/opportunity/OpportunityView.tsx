@@ -25,14 +25,25 @@ import ApplyButton from "./ApplyButton";
 
 export default function OpportunityView({
   opportunityId,
+  showConfirmation = false,
 }: {
   opportunityId: string;
+  showConfirmation?: boolean;
 }) {
   const [opportunity, setOpportunity] = useState<Opportunity | null>(null);
   const [booker, setBooker] = useState<UserModel | null>(null);
   const [location, setLocation] = useState<PlaceData | null>(null);
   const [linkCopied, setLinkCopied] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (!showConfirmation) return;
+
+    toast({
+      title: "application submitted!",
+      description: "you will be notified if you are selected.",
+    });
+  }, [showConfirmation, toast]);
 
   useEffect(() => {
     const getOpportunity = async () => {
