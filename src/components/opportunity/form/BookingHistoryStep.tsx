@@ -96,12 +96,6 @@ export default function BookingHistoryStep() {
                 </Button>
               </DialogTrigger>
               <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>add booking</DialogTitle>
-                  <DialogDescription>
-                    <p>hi</p>
-                  </DialogDescription>
-                </DialogHeader>
                 <AddBooking
                   onSubmit={(booking) => {
                     setBookingHistory([booking, ...bookingHistory]);

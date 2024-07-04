@@ -99,7 +99,7 @@ const _getPlaceDetails = async (placeId: string): Promise<PlaceData> => {
   }
 };
 
-export const autocompletePlaces = async (
+export const autocompleteCities = async (
   q: string,
   types: string[] = ["locality"]
 ): Promise<
@@ -174,6 +174,8 @@ export const searchPlaces = async (q: string): Promise<PlacePrediction[]> => {
       longitude,
     };
   });
+
+  console.log({ places });
 
   return places ?? [];
 };

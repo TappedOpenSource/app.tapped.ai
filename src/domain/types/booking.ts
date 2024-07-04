@@ -1,4 +1,3 @@
-
 import {
   QueryDocumentSnapshot,
   SnapshotOptions,
@@ -8,22 +7,23 @@ import { UserModel } from "./user_model";
 import { Option } from "./option";
 
 export type Booking = {
-    id: string;
-    serviceId: Option<string>;
-    name: string;
-    note: string;
-    requesterId?: string | null;
-    requesteeId: string;
-    status: "pending" | "confirmed" | "canceled";
-    rate: number;
-    location: Location;
-    startTime: Date;
-    endTime: Date;
-    timestamp: Date;
-    flierUrl: Option<string>;
-    eventUrl: Option<string>;
-    referenceEventId: Option<string>;
-}
+  id: string;
+  serviceId: Option<string>;
+  name: string;
+  note: string;
+  requesterId?: string | null;
+  requesteeId: string;
+  status: "pending" | "confirmed" | "canceled";
+  rate: number;
+  location: Location;
+  startTime: Date;
+  endTime: Date;
+  timestamp: Date;
+  flierUrl: Option<string>;
+  eventUrl: Option<string>;
+  venueId: Option<string>;
+  referenceEventId: Option<string>;
+};
 
 export const bookingConverter = {
   toFirestore: (booking: Booking) => {
@@ -50,7 +50,10 @@ export const bookingConverter = {
   },
 };
 
-export const bookingImage = (booking: Booking, user: Option<UserModel>): string => {
+export const bookingImage = (
+  booking: Booking,
+  user: Option<UserModel>
+): string => {
   if (booking === null) {
     return defaultImage();
   }
@@ -64,7 +67,6 @@ export const bookingImage = (booking: Booking, user: Option<UserModel>): string 
   if (pfp === null || pfp === undefined) {
     return defaultImage(user?.id);
   }
-
 
   return pfp;
 };
