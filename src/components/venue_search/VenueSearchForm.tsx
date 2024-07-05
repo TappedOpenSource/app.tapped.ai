@@ -46,18 +46,21 @@ const genreOptions = genres.map((genre) => ({
 }));
 
 export default function VenueSearchForm() {
-  const { state: { currentUser } } = useAuth();
+  const {
+    state: { currentUser },
+  } = useAuth();
   const { state: subscribed } = usePurchases();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      genres: currentUser?.performerInfo?.genres.map((genre) => {
-        return {
-          label: genre.toLowerCase(),
-          value: genre,
-        };
-      }) ?? [],
+      genres:
+        currentUser?.performerInfo?.genres.map((genre) => {
+          return {
+            label: genre.toLowerCase(),
+            value: genre,
+          };
+        }) ?? [],
       capacity: defaultCapacity,
     },
   });
@@ -75,8 +78,21 @@ export default function VenueSearchForm() {
   }
 
   if (!subscribed) {
-    router.push("/premium");
-    return <RequestLoginPage />;
+    return (
+      <>
+        <div className="mx-auto max-w-lg">
+          <h1 className="text-3xl font-bold">find the right venues</h1>
+          <div className="space-y-6">
+            <p className="text-lg">
+              subscribe to send booking requests to venues
+            </p>
+            <Button onClick={() => router.push("/premium")} className="w-full">
+              subscribe
+            </Button>
+          </div>
+        </div>
+      </>
+    );
   }
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -108,8 +124,8 @@ export default function VenueSearchForm() {
                 <FormItem>
                   <FormLabel>where</FormLabel>
                   <FormControl>
-                    <SearchAddress onSelectLocation={
-                      (location) => {
+                    <SearchAddress
+                      onSelectLocation={(location) => {
                         console.log(location);
                         if (location === null) {
                           return;
@@ -120,8 +136,8 @@ export default function VenueSearchForm() {
                           lat: location.latitude,
                           lng: location.longitude,
                         });
-                      }
-                    } />
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
