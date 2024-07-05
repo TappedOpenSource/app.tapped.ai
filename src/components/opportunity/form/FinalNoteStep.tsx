@@ -53,8 +53,10 @@ export default function FinalNoteStep({
     fetchUser();
   }, [opportunity]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
     if (!authUser) return;
+
+    const { note } = data;
 
     setLoading(true);
     try {
@@ -62,6 +64,7 @@ export default function FinalNoteStep({
         opportunityId: opportunity.id,
         userId: authUser.uid,
         isPremium: subscribed ?? false,
+        userComment: note ?? "",
       });
       router.push(`/opportunity/${opportunity.id}?show_confirmation=true`);
     } catch (e) {

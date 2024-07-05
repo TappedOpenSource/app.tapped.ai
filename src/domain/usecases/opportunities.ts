@@ -4,10 +4,12 @@ export async function guardedApplyForOpportunity({
   userId,
   opportunityId,
   isPremium,
-} : {
-    userId: string;
-    opportunityId: string;
-    isPremium: boolean;
+  userComment,
+}: {
+  userId: string;
+  opportunityId: string;
+  isPremium: boolean;
+  userComment: string;
 }) {
   if (!isPremium) {
     // check credits
@@ -21,6 +23,6 @@ export async function guardedApplyForOpportunity({
   await applyForOpportunity({
     opId: opportunityId,
     userId,
-    userComment: "",
+    userComment,
   });
 }

@@ -38,7 +38,7 @@ export default function ApplyForm({
       setIsApplied(isApplied);
     };
     isAppliedToOp();
-  }, [opportunityId]);
+  }, [opportunityId, authUser]);
 
   useEffect(() => {
     const fetchOp = async () => {
