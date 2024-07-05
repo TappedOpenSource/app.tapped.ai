@@ -209,7 +209,7 @@ export default function OnboardingStep() {
             {currPressKit ? (
               <>
                 <p className="text-foreground/70 text-sm font-bold">
-                  press kit (epk)
+                  press kit/epk (optional)
                 </p>
                 <Link
                   referrerPolicy="no-referrer"
