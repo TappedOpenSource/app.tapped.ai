@@ -20,12 +20,24 @@ import {
   performerScore,
 } from "@/domain/types/user_model";
 import { cn } from "@/lib/utils";
-import { BadgeCheck, Facebook, Link2, MapPinned, MicVocal, Network } from "lucide-react";
+import {
+  BadgeCheck,
+  Facebook,
+  Link2,
+  MapPinned,
+  MicVocal,
+  Network,
+} from "lucide-react";
 import { Manrope } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
 import GaugeComponent from "react-gauge-component";
 import { useToast } from "../ui/use-toast";
 import { Card } from "../ui/card";
@@ -40,24 +52,33 @@ import AppStoreButton from "../appstorebuttons/AppStoreButton";
 import DayOfWeekGraph from "./DayOrWeekGraph";
 import UserCluster from "../UserCluster";
 import EmbededMap from "./EmbededMap";
+import { usePurchases } from "@/context/purchases";
 
 const manrope = Manrope({
   subsets: ["latin"],
   weight: ["700", "800"],
 });
 
-export default function ProfileHeader({ user, full = false }: { user: UserModel, full?: boolean }) {
+export default function ProfileHeader({
+  user,
+  full = false,
+}: {
+  user: UserModel;
+  full?: boolean;
+}) {
   const imageSrc = profileImage(user);
   const audience = userAudienceSize(user);
   const firstValue = user.venueInfo?.capacity ?? audience;
   const firstLabel = user.venueInfo?.capacity ? "capacity" : "audience";
   const category = user.performerInfo?.category;
-  const isPerformer = user.performerInfo !== null && user.performerInfo !== undefined;
+  const isPerformer =
+    user.performerInfo !== null && user.performerInfo !== undefined;
   const isVenue = user.venueInfo !== null && user.venueInfo !== undefined;
   const dayOfWeekData = user.venueInfo?.bookingsByDayOfWeek ?? [];
-  const websiteUrl = user.venueInfo?.websiteUrl?.startsWith("http") ? user.venueInfo?.websiteUrl : `https://${user.venueInfo?.websiteUrl}`;
-  const lat = user.location?.lat ?? null;
-  const lng = user.location?.lng ?? null;
+  const websiteUrl = user.venueInfo?.websiteUrl?.startsWith("http") ?
+    user.venueInfo?.websiteUrl :
+    `https://${user.venueInfo?.websiteUrl}`;
+
   const { resolvedTheme } = useTheme();
 
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -121,11 +142,10 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
     fetchLatestReview();
   }, [user, full]);
 
-
   return (
     <div className="w-full px-0 py-6 md:py-12">
-      <div className="flex flex-row items-center justify-start flex-col">
-        <div className="flex flex-col items-center justify-center aspect-square w-full">
+      <div className="flex flex-row flex-col items-center justify-start">
+        <div className="flex aspect-square w-full flex-col items-center justify-center">
           <div className="z-1 relative h-full w-full overflow-hidden rounded-xl">
             <Image
               src={imageSrc}
@@ -142,7 +162,7 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
         <div className="">
           <h1
             className={cn(
-              "flex-1 line-clamp-3 overflow-ellipsis text-4xl font-extrabold md:text-5xl",
+              "line-clamp-3 flex-1 overflow-ellipsis text-4xl font-extrabold md:text-5xl",
               manrope.className
             )}
           >
@@ -155,12 +175,11 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
                       <BadgeCheck />
                     </TooltipTrigger>
                     <TooltipContent side="right" align="start" alignOffset={2}>
-                verified
+                      verified
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               </span>
-
             )}
           </h1>
         </div>
@@ -168,25 +187,25 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
       <div className="h-4" />
       <div className="flex flex-row items-center justify-around">
         <div className="flex flex-col items-center justify-center">
-          <h3 className="text-2xl font-bold">
-            {firstValue.toLocaleString()}
-          </h3>
+          <h3 className="text-2xl font-bold">{firstValue.toLocaleString()}</h3>
           <p className="text-font text-xs text-gray-500">{firstLabel}</p>
         </div>
         {isPerformer ? (
           <div className="flex flex-col items-center justify-center">
-            <h3 className="text-2xl font-bold">{bookingCount !== null ? (
-              bookingCount.toLocaleString()
-            ) : (
-              <span><LoadingSpinner /></span>
-            )}</h3>
+            <h3 className="text-2xl font-bold">
+              {bookingCount !== null ? (
+                bookingCount.toLocaleString()
+              ) : (
+                <span>
+                  <LoadingSpinner />
+                </span>
+              )}
+            </h3>
             <p className="text-font text-xs text-gray-500">bookings</p>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center">
-            <h3 className="text-2xl font-bold">
-              {reviewCount(user)}
-            </h3>
+            <h3 className="text-2xl font-bold">{reviewCount(user)}</h3>
             <p className="text-font text-xs text-gray-500">reviews</p>
           </div>
         )}
@@ -200,7 +219,7 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
         </div>
       </div>
       <div className="h-4" />
-      {(user.venueInfo !== null && user.venueInfo !== undefined) && (
+      {user.venueInfo !== null && user.venueInfo !== undefined && (
         <div className="flex w-full items-center justify-center">
           <Link
             href={`/build_a_show/request_to_perform?venue_ids=${user.id}`}
@@ -215,7 +234,7 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
       <div>
         <Link
           href="mailto:support@tapped.ai"
-          className="text-sm text-blue-500 cursor-pointer transition-all duration-150 ease-in-out hover:scale-105"
+          className="cursor-pointer text-sm text-blue-500 transition-all duration-150 ease-in-out hover:scale-105"
         >
           something incorrect? contact us
         </Link>
@@ -224,11 +243,12 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
         <>
           <div className="h-4" />
           <Card
-            className="w-full flex justify-center items-center cursor-pointer transition-all duration-150 ease-in-out hover:scale-103"
+            className="hover:scale-103 flex w-full cursor-pointer items-center justify-center transition-all duration-150 ease-in-out"
             onClick={() => {
               toast({
                 title: `${category} performer`,
-                description: "performers are ranked based on how big their shows are, how frequent they are, and how they're selling tickets",
+                description:
+                  "performers are ranked based on how big their shows are, how frequent they are, and how they're selling tickets",
               });
             }}
           >
@@ -238,9 +258,7 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
               labels={{
                 valueLabel: {
                   style: {
-                    color: resolvedTheme === "dark" ?
-                      "#FFF" :
-                      "#000",
+                    color: resolvedTheme === "dark" ? "#FFF" : "#000",
                   },
                   formatTextValue: () => {
                     return `${category}`;
@@ -248,8 +266,20 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
                 },
               }}
               arc={{
-                colorArray: ["#9E9E9E", "#40C4FF", "#FF9800", "#9C27B0", "#F44336"],
-                subArcs: [{ limit: 33 }, { limit: 66 }, { limit: 80 }, { limit: 95 }, { limit: 100 }],
+                colorArray: [
+                  "#9E9E9E",
+                  "#40C4FF",
+                  "#FF9800",
+                  "#9C27B0",
+                  "#F44336",
+                ],
+                subArcs: [
+                  { limit: 33 },
+                  { limit: 66 },
+                  { limit: 80 },
+                  { limit: 95 },
+                  { limit: 100 },
+                ],
                 padding: 0.02,
                 width: 0.3,
               }}
@@ -289,11 +319,7 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
           <SpotifyButton spotifyId={user.performerInfo.spotifyId} />
         )}
         {user.venueInfo?.websiteUrl && (
-          <Link
-            href={websiteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <Link href={websiteUrl} target="_blank" rel="noopener noreferrer">
             <Button variant={"outline"} size={"icon"}>
               <Link2 />
             </Button>
@@ -301,15 +327,7 @@ export default function ProfileHeader({ user, full = false }: { user: UserModel,
         )}
       </div>
       <div className="h-4" />
-      {isVenue && (
-        <DayOfWeekGraph dayOfWeekData={dayOfWeekData} />
-      )}
-      {isVenue && lat !== null && lng !== null && (
-        <>
-          <h2 className="text-2xl font-bold">location</h2>
-          <EmbededMap lat={lat} lng={lng} />
-        </>
-      )}
+      {isVenue && <DayOfWeekGraph dayOfWeekData={dayOfWeekData} />}
       <div className="h-4" />
       {full && (
         <FullRows user={user} bookings={bookings} latestReview={latestReview} />
@@ -329,18 +347,24 @@ function FullRows({
 }) {
   const appleUrl = "https://apps.apple.com/us/app/tapped-network/id1574937614";
   const googleUrl =
-  "https://play.google.com/store/apps/details?id=com.intheloopstudio";
+    "https://play.google.com/store/apps/details?id=com.intheloopstudio";
+
+  const isVenue = user.venueInfo !== null && user.venueInfo !== undefined;
+  const lat = user.location?.lat ?? null;
+  const lng = user.location?.lng ?? null;
 
   const [topPerformers, setTopPerformers] = useState<UserModel[]>([]);
-
+  const { state: subscribed } = usePurchases();
   useEffect(() => {
     const topPerformerIds = user.venueInfo?.topPerformerIds ?? [];
     const fetchTopPerformers = async () => {
-      const performers = (await Promise.all(
-        topPerformerIds.map(async (id) => {
-          return await getUserById(id);
-        })
-      )).filter((user) => user !== null) as UserModel[];
+      const performers = (
+        await Promise.all(
+          topPerformerIds.map(async (id) => {
+            return await getUserById(id);
+          })
+        )
+      ).filter((user) => user !== null) as UserModel[];
       setTopPerformers(performers);
     };
     fetchTopPerformers();
@@ -348,13 +372,28 @@ function FullRows({
 
   return (
     <div className="px-3">
-      {(topPerformers.length > 0) && (
+      {topPerformers.length > 0 && (
         <>
           <div className="h-4" />
           <div>
             <h2 className="text-2xl font-bold">top performers</h2>
             <div className="h-2" />
-            <UserCluster users={topPerformers} />
+            {subscribed ? (
+              <UserCluster users={topPerformers} />
+            ) : (
+              <>
+                <Link
+                  href={{
+                    pathname: "/subscribe",
+                    query: { return_url: `/venue/${user.id}` },
+                  }}
+                >
+                  <Button variant="secondary">
+                    subscribe to see top performers
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </>
       )}
@@ -369,7 +408,7 @@ function FullRows({
                 href={`/history/${user.id}`}
                 className="text-sm text-blue-500"
               >
-              see all
+                see all
               </Link>
             </div>
             <div className="h-2" />
@@ -388,7 +427,7 @@ function FullRows({
                 href={`/reviews/${user.id}`}
                 className="text-sm text-blue-500"
               >
-              see all
+                see all
               </Link>
             </div>
             <div className="h-2" />
@@ -404,6 +443,13 @@ function FullRows({
             <div className="h-2" />
             <p>{user.bio}</p>
           </div>
+        </>
+      )}
+      <div className="h-4" />
+      {isVenue && lat !== null && lng !== null && (
+        <>
+          <h2 className="text-2xl font-bold">location</h2>
+          <EmbededMap lat={lat} lng={lng} />
         </>
       )}
       <div className="h-8" />

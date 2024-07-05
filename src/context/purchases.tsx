@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  type ReactNode,
-  createContext,
-  useContext,
-  useReducer,
-} from "react";
+import { type ReactNode, createContext, useContext, useReducer } from "react";
 import { useAuth } from "./auth";
 import { initPurchases } from "@/domain/usecases/purchases";
 
@@ -14,9 +9,9 @@ export type Action = { type: "SUBSCRIBE" } | { type: "UNSUBSCRIBE" };
 export type Dispatch = (action: Action) => void;
 
 export const PurchasesContext = createContext<{
-    state: State;
-    dispatch: Dispatch;
-    } | null>(null);
+  state: State;
+  dispatch: Dispatch;
+} | null>(null);
 
 export function usePurchases() {
   const context = useContext(PurchasesContext);
@@ -38,15 +33,17 @@ function purchasesReducer(state: State, action: Action): State {
   }
 }
 
-export function PurchasesProvider({ children }: {
-    children: ReactNode;
-}) {
+export function PurchasesProvider({ children }: { children: ReactNode }) {
   const { state: authState } = useAuth();
   const { authUser } = authState;
   const [state, dispatch] = useReducer(purchasesReducer, null);
 
   if (state === null && authUser !== null) {
     initPurchases(authUser.uid, state, dispatch);
+  } else {
+    if (state !== false) {
+      dispatch({ type: "UNSUBSCRIBE" });
+    }
   }
 
   return (
