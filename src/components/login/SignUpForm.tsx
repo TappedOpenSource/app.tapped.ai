@@ -30,7 +30,11 @@ const formSchema = z.object({
 
 type SignUpFormValue = z.infer<typeof formSchema>;
 
-export default function SignUpForm() {
+export default function SignUpForm({
+  doRedirect = true,
+}: {
+  doRedirect?: boolean;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const returnUrl = searchParams.get("return_url") ?? "/dashboard";
@@ -40,7 +44,9 @@ export default function SignUpForm() {
   const [loading, setLoading] = useState(false);
 
   const onGoogleLogin = () => {
-    router.push(returnUrl);
+    if (doRedirect) {
+      router.push(returnUrl);
+    }
   };
 
   const onSubmit = async (data: SignUpFormValue) => {
@@ -57,7 +63,9 @@ export default function SignUpForm() {
         window["tolt"].signup(email);
       }
 
-      router.push(returnUrl ?? "/dashboard");
+      if (doRedirect) {
+        router.push(returnUrl ?? "/dashboard");
+      }
     } catch (err) {
       console.error(err);
       alert(err.message);

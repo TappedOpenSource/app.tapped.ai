@@ -8,7 +8,7 @@ export default function LoginStep() {
     <>
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <Suspense fallback={<LoadingSpinner />}>
-          <SignUpForm />
+          <SignUpForm doRedirect={false} />
         </Suspense>
         <p className="text-muted-foreground px-8 text-center text-sm">
           by clicking continue, you agree to our{" "}
