@@ -16,7 +16,7 @@ import OnboardingStep from "./OnboardingStep";
 import SocialsStep from "./SocialsStep";
 import { useState, useEffect } from "react";
 import type { Opportunity } from "@/domain/types/opportunity";
-import { getOpportunityById } from "@/data/database";
+import { checkIfUserApplied, getOpportunityById } from "@/data/database";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 export default function ApplyForm({
@@ -27,7 +27,19 @@ export default function ApplyForm({
   const {
     state: { authUser },
   } = useAuth();
+  const [isApplied, setIsApplied] = useState(false);
   const [opportunity, setOpportunity] = useState<Opportunity | null>(null);
+
+  useEffect(() => {
+    const isAppliedToOp = async () => {
+      if (authUser === null) return;
+
+      const isApplied = await checkIfUserApplied(opportunityId, authUser.uid);
+      setIsApplied(isApplied);
+    };
+    isAppliedToOp();
+  }, [opportunityId]);
+
   useEffect(() => {
     const fetchOp = async () => {
       const op = await getOpportunityById(opportunityId);
@@ -60,6 +72,16 @@ export default function ApplyForm({
           <LoadingSpinner />
         </div>
       </>
+    );
+  }
+
+  if (isApplied) {
+    return (
+      <div className="flex items-center justify-center">
+        <h1 className="text-center text-2xl font-bold">
+          you have already applied to this opportunity
+        </h1>
+      </div>
     );
   }
 
