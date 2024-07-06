@@ -101,8 +101,6 @@ export function Globe({ globeConfig, data }: WorldProps) {
   const _buildMaterial = () => {
     if (!globeRef.current) return;
 
-    console.log({ what: globeRef.current });
-
     const globeMaterial = globeRef.current.globeMaterial() as unknown as {
       color: Color;
       emissive: Color;
@@ -142,7 +140,6 @@ export function Globe({ globeConfig, data }: WorldProps) {
         lng: arc.endLng,
       });
     }
-
 
     // remove duplicates for same lat and lng
     const filteredPoints = points.filter(

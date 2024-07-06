@@ -34,16 +34,13 @@ function purchasesReducer(state: State, action: Action): State {
 }
 
 export function PurchasesProvider({ children }: { children: ReactNode }) {
-  const { state: authState } = useAuth();
-  const { authUser } = authState;
+  const {
+    state: { authUser },
+  } = useAuth();
   const [state, dispatch] = useReducer(purchasesReducer, null);
 
   if (state === null && authUser !== null) {
     initPurchases(authUser.uid, state, dispatch);
-  } else {
-    if (state !== false) {
-      dispatch({ type: "UNSUBSCRIBE" });
-    }
   }
 
   return (

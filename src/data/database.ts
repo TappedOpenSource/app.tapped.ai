@@ -103,7 +103,7 @@ export async function getUserByUsername(
 
   const querySnapshot = await getDocs(q);
   if (querySnapshot.empty) {
-    console.log("No user found!");
+    console.log("no user found!");
     return null;
   }
 

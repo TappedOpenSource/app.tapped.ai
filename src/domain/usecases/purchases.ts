@@ -17,6 +17,7 @@ export async function initPurchases(
 
     const customerInfo = await purchases.getCustomerInfo();
 
+    console.log({ customerInfo });
     const isSubscribed = customerInfo.entitlements.active["pro"] !== undefined;
     if (isSubscribed === state) {
       return;
