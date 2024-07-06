@@ -5,28 +5,54 @@ import Script from "next/script";
 import { usePurchases } from "@/context/purchases";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth";
-import { redirect } from "next/navigation";
 
 // If using TypeScript, add the following snippet to your file as well.
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      "stripe-pricing-table": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+      "stripe-pricing-table": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >;
     }
   }
 }
 
 export default function Page() {
-  const { state: { authUser } } = useAuth();
+  const {
+    state: { authUser },
+  } = useAuth();
   const { state: subscribed } = usePurchases();
 
   if (!authUser) {
     return (
-      <div className="flex flex-col justify-center items-center mt-16">
+      <div className="mt-16 flex flex-col items-center justify-center">
         <p>please sign up first</p>
-        <Button onClick={() => redirect("/signup")}>
-          sign in
+        <Link
+          href={{
+            pathname: "/sign-up",
+            query: { redirect: "/premium" },
+          }}
+        >
+          <Button>sign in</Button>
+        </Link>
+      </div>
+    );
+  }
+
+  if (subscribed) {
+    return (
+      <div className="mt-16 flex flex-col items-center justify-center">
+        <p>you&apos;re already subscribed</p>
+        <Button variant="secondary">
+          <Link
+            href="https://tapped.tolt.io"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            share with a friend
+          </Link>
         </Button>
       </div>
     );
@@ -34,8 +60,7 @@ export default function Page() {
 
   return (
     <>
-      <Script id="pricing-table-fix">{
-        `const updatePricingTables = () => {
+      <Script id="pricing-table-fix">{`const updatePricingTables = () => {
   var stripePricingTables = document.querySelectorAll("stripe-pricing-table");
   if (window.tolt_referral !== null && stripePricingTables.length > 0) {
     stripePricingTables.forEach(stripePricingTable => {
@@ -52,30 +77,14 @@ if (window.tolt_referral) {
 }
 })
 `}</Script>
-
-      {subscribed ? (
-        <div className="flex flex-col justify-center items-center mt-16">
-          <p>you&apos;re already subscribed</p>
-          <Button variant="secondary">
-            <Link
-              href="https://tapped.tolt.io"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-                share with a friend
-            </Link>
-          </Button>
-        </div>
-      ) : (
-        <div className="px-12 mx-12 bg-black rounded-xl">
-          <stripe-pricing-table
-            pricing-table-id="prctbl_1PFJ5XDYybu1wznE3NpaCEH4"
-            publishable-key="pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil"
-            client-reference-id={authUser.uid}
-            customer-email={authUser.email}>
-          </stripe-pricing-table>
-        </div>
-      )}
+      <div className="mx-12 rounded-xl bg-black px-12">
+        <stripe-pricing-table
+          pricing-table-id="prctbl_1PFJ5XDYybu1wznE3NpaCEH4"
+          publishable-key="pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil"
+          client-reference-id={authUser.uid}
+          customer-email={authUser.email}
+        ></stripe-pricing-table>
+      </div>
     </>
   );
 }
