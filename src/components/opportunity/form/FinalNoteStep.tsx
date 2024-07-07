@@ -66,7 +66,7 @@ export default function FinalNoteStep({
         isPremium: subscribed ?? false,
         userComment: note ?? "",
       });
-      router.push(`/opportunity/${opportunity.id}?show_confirmation=true`);
+      router.push(`/opportunity/${opportunity.id}/confirmation`);
     } catch (e) {
       console.error("error applying for opportunity", e);
       toast({

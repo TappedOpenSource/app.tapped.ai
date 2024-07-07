@@ -18,7 +18,6 @@ import { useState, useEffect } from "react";
 import type { Opportunity } from "@/domain/types/opportunity";
 import { checkIfUserApplied, getOpportunityById } from "@/data/database";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import Image from "next/image";
 import Footer from "@/components/Footer";
 import DownloadTheAppSection from "@/components/profile/DownloadTheAppSection";
 

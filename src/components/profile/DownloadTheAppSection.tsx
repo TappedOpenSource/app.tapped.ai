@@ -10,14 +10,18 @@ const appleUrl = "https://apps.apple.com/us/app/tapped-network/id1574937614";
 const googleUrl =
   "https://play.google.com/store/apps/details?id=com.intheloopstudio";
 
-export default function DownloadTheAppSection({ showIcon = true }: {
+export default function DownloadTheAppSection({
+  showIcon = true,
+}: {
   showIcon?: boolean;
 }) {
   return (
     <>
       <div className="flex flex-row">
         <div className="flex flex-col gap-4">
-          <h2 className="text-2xl font-bold">download the tapped app</h2>
+          <h2 className="text-2xl font-bold">
+            download the tapped app for more
+          </h2>
           <div className="flex flex-row gap-3">
             <Button variant="outline" size="icon" disabled>
               <MapPinned />
