@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const colors = [
   "blue-500",
@@ -39,14 +40,18 @@ export default function Page({
           </Link>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-3 px-4 lg:grid-cols-4 lg:px-12">
-        {colors.map((c, i) => (
-          <div
-            key={i}
-            className={`h-24 w-24 rounded-md lg:h-44 lg:w-44 bg-${c} py-4 blur-md`}
-          />
-        ))}
-      </div>
+      <Link href="/download" className="flex justify-center">
+        <div className="grid grid-cols-3 place-items-center gap-3 px-4 lg:grid-cols-4 lg:px-12">
+          {colors.map((c, i) => (
+            <div
+              key={i}
+              className="flex h-32 w-28 items-center justify-center rounded-md bg-indigo-500 text-2xl font-bold text-white blur-md transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg lg:h-56 lg:w-44"
+            >
+              bg - {c}
+            </div>
+          ))}
+        </div>
+      </Link>
       <Footer />
     </>
   );
