@@ -37,12 +37,7 @@ export default function ApplyButton({ op }: { op: Opportunity }) {
 
   return (
     <div>
-      <Link
-        href={{
-          pathname: "/opportunities/[opportunityId]/apply",
-          query: { opportunityId: op.id },
-        }}
-      >
+      <Link href={`/opportunities/${op.id}/apply`}>
         <Button className="bg-blue-500">apply to perform</Button>
       </Link>
     </div>
