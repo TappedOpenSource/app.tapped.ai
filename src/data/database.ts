@@ -334,7 +334,6 @@ export async function checkIfUserApplied(opId: string, userId: string) {
     const interestedCollection = collection(opsRef, `${opId}/interestedUsers`);
     const userDoc = doc(interestedCollection, userId);
     const user = await getDoc(userDoc);
-
     return user.exists();
   } catch (e) {
     console.error(e);
