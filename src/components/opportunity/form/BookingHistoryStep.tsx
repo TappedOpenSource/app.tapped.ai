@@ -9,15 +9,19 @@ import { useState, useEffect } from "react";
 import type { Booking } from "@/domain/types/booking";
 import { getBookingsByRequestee } from "@/data/database";
 import BookingTile from "@/components/profile/BookingTile";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogTitle,
-  DialogContent,
-  DialogHeader,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import AddBooking from "@/components/opportunity/form/AddBooking";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogTitle,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+} from "@/components/ui/alert-dialog";
 
 export default function BookingHistoryStep() {
   const {
@@ -45,14 +49,6 @@ export default function BookingHistoryStep() {
       </>
     );
   }
-
-  const onNext = () => {
-    if (bookingHistory.length <= 0) {
-      return;
-    }
-
-    nextStep();
-  };
 
   return (
     <>
@@ -124,9 +120,26 @@ export default function BookingHistoryStep() {
         >
           prev
         </Button>
-        <Button size="sm" onClick={onNext}>
-          {isLastStep ? "finish" : "next"}
-        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button size="sm">{isLastStep ? "finish" : "next"}</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                your booking history is the most important part of your profile.
+                it is what bookers primarily use to decide talent and
+                you&apos;re 86% more likely to get booked with at least one
+                booking
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={nextStep}>continue</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </>
   );
