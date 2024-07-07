@@ -18,6 +18,9 @@ import { useState, useEffect } from "react";
 import type { Opportunity } from "@/domain/types/opportunity";
 import { checkIfUserApplied, getOpportunityById } from "@/data/database";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import Image from "next/image";
+import Footer from "@/components/Footer";
+import DownloadTheAppSection from "@/components/profile/DownloadTheAppSection";
 
 export default function ApplyForm({
   opportunityId,
@@ -77,11 +80,17 @@ export default function ApplyForm({
 
   if (isApplied) {
     return (
-      <div className="flex items-center justify-center">
-        <h1 className="text-center text-2xl font-bold">
-          you have already applied to this opportunity
-        </h1>
-      </div>
+      <>
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-center text-2xl font-bold">
+            you have already applied to this opportunity
+          </h1>
+          <div className="px-4 py-24">
+            <DownloadTheAppSection showIcon={false} />
+          </div>
+        </div>
+        <Footer />
+      </>
     );
   }
 
