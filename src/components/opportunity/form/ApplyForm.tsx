@@ -30,15 +30,15 @@ export default function ApplyForm({
   const [isApplied, setIsApplied] = useState(false);
   const [opportunity, setOpportunity] = useState<Opportunity | null>(null);
 
-  // useEffect(() => {
-  //   const isAppliedToOp = async () => {
-  //     if (authUser === null) return;
+  useEffect(() => {
+    const isAppliedToOp = async () => {
+      if (authUser === null) return;
 
-  //     const isApplied = await checkIfUserApplied(opportunityId, authUser.uid);
-  //     setIsApplied(isApplied);
-  //   };
-  //   isAppliedToOp();
-  // }, [opportunityId, authUser]);
+      const isApplied = await checkIfUserApplied(opportunityId, authUser.uid);
+      setIsApplied(isApplied);
+    };
+    isAppliedToOp();
+  }, [opportunityId, authUser]);
 
   useEffect(() => {
     const fetchOp = async () => {
