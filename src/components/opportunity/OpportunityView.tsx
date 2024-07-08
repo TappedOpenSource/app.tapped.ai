@@ -12,6 +12,7 @@ import {
   Coins,
   MapPin,
   Share,
+  Info,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,6 +23,12 @@ import EmbededMap from "../profile/EmbededMap";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import ApplyButton from "./ApplyButton";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
 
 export default function OpportunityView({
   opportunityId,
@@ -186,6 +193,37 @@ export default function OpportunityView({
                     </Button>
                     <p>is paid</p>
                   </div>
+                </>
+              )}
+              <div className="h-1" />
+              {opportunity.genres && opportunity.genres.length > 0 && (
+                <>
+                  <TooltipProvider disableHoverableContent>
+                    <Tooltip delayDuration={100}>
+                      <TooltipTrigger asChild>
+                        <div className="flex flex-row items-center gap-4">
+                          <Button size={"icon"} variant={"outline"} disabled>
+                            <Info className="h-6 w-6" />
+                          </Button>
+                          {opportunity.genres.length > 3 ? (
+                            <span>
+                              {opportunity.genres.slice(0, 3).join(", ")} +
+                              {opportunity.genres.length - 3}
+                            </span>
+                          ) : (
+                            <span>{opportunity.genres.join(", ")}</span>
+                          )}
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="right"
+                        align="start"
+                        alignOffset={2}
+                      >
+                        {opportunity.genres.join(", ")}
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </>
               )}
               <div className="h-1" />
