@@ -382,6 +382,22 @@ export async function getOpportunityQuota(opId: string): Promise<number> {
   }
 }
 
+export async function getInterestedUsersForOpportunity(
+  opId: string
+): Promise<UserModel[]> {
+  const opsRef = collection(db, "opportunities");
+  const interestedCollection = collection(opsRef, `${opId}/interestedUsers`);
+  const interestedUsers = await getDocs(interestedCollection);
+
+  return (
+    await Promise.all(
+      interestedUsers.docs.map(async (doc) => {
+        return await getUserById(doc.id);
+      })
+    )
+  ).filter((u) => u !== null) as UserModel[];
+}
+
 const featuredPerformersCache = new LRUCache<string, UserModel[]>({
   max: 1,
 });
