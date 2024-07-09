@@ -29,6 +29,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useAuth } from "@/context/auth";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { uploadFlier } from "@/data/storage";
+import { DialogClose } from "@/components/ui/dialog";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -77,11 +78,11 @@ export default function AddBooking({
       flierUrl,
       referenceEventId: null,
     };
-    onSubmit?.(booking);
     toast({
       title: "booking added!",
       description: "another booking successfully added to your profile",
     });
+    onSubmit?.(booking);
   };
 
   if (!authUser) {
@@ -233,7 +234,9 @@ export default function AddBooking({
             )}
           />
           <div className="flex flex-row justify-end gap-2">
-            <Button type="submit">submit</Button>
+            <DialogClose asChild>
+              <Button type="submit">submit</Button>
+            </DialogClose>
           </div>
         </form>
       </Form>
