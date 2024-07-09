@@ -79,18 +79,8 @@ export default function AddBooking({
     };
     onSubmit?.(booking);
     toast({
-      title: "Your submitted data",
-      description: (
-        <>
-          <p className="text-red-600">
-            It is a Date object, the JSON.stringify will show 0+ timezone. You
-            need to parse to your timezone to match your needs.
-          </p>
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        </>
-      ),
+      title: "booking added!",
+      description: "another booking successfully added to your profile",
     });
   };
 
