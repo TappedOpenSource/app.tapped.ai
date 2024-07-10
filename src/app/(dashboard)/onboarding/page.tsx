@@ -1,7 +1,9 @@
 import OnboardingForm from "@/components/onboarding/OnboardingForm";
-import FullFooter from "@/components/Footer";
+import Footer from "@/components/admin-panel/footer";
 
-export default function Page({ searchParams }: {
+export default function Page({
+  searchParams,
+}: {
   searchParams: { [key: string]: string };
 }) {
   const redirectUrl = searchParams["return_url"];
@@ -13,7 +15,7 @@ export default function Page({ searchParams }: {
         <OnboardingForm returnUrl={returnUrl} />
       </main>
       <footer>
-        <FullFooter />
+        <Footer />
       </footer>
     </>
   );
