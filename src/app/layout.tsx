@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Titillium_Web as FontSans } from "next/font/google";
 import React from "react";
+import { CSPostHogProvider } from "@/context/analytics";
 
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/auth";
@@ -62,11 +63,6 @@ export default function RootLayout({
           src="https://cdn.tolt.io/tolt.js"
           data-tolt="c77a5dc4-85f0-4852-9474-d07e64a12ace"
         ></script>
-        <script
-          defer
-          data-domain="app.tapped.ai"
-          src="https://plausible.io/js/script.js"
-        ></script>
       </head>
       <body
         className={cn(
@@ -74,18 +70,20 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <AuthProvider>
-          <PurchasesProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="dark"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {children}
-            </ThemeProvider>
-          </PurchasesProvider>
-        </AuthProvider>
+        <CSPostHogProvider>
+          <AuthProvider>
+            <PurchasesProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="dark"
+                enableSystem
+                disableTransitionOnChange
+              >
+                {children}
+              </ThemeProvider>
+            </PurchasesProvider>
+          </AuthProvider>
+        </CSPostHogProvider>
         <Toaster />
         <Analytics />
       </body>
