@@ -45,6 +45,7 @@ export function initAuthListener(state: State, dispatch: Dispatch) {
     }
 
     if (!user) {
+      posthog.reset();
       dispatch({ type: "LOGOUT" });
       return;
     }
