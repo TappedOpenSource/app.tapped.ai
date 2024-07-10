@@ -1,5 +1,5 @@
 "use client";
-
+import posthog from "posthog-js";
 import { getUserById } from "@/data/database";
 import { UserModel } from "@/domain/types/user_model";
 import { auth } from "@/utils/firebase";
@@ -51,10 +51,17 @@ export function initAuthListener(state: State, dispatch: Dispatch) {
 
     const currentUser = await getUserById(user.uid);
     if (!currentUser) {
+      posthog.identify(uid);
+
       dispatch({ type: "LOGIN", authUser: user });
       return;
     }
 
+    posthog.identify(uid, {
+      email: currentUser.email,
+      displayName: currentUser.artistName ?? currentUser.username,
+      username: currentUser.username,
+    });
     dispatch({ type: "ONBOARD", authUser: user, currentUser: currentUser });
   });
 }
