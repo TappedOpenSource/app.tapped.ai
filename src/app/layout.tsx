@@ -62,6 +62,11 @@ export default function RootLayout({
           src="https://cdn.tolt.io/tolt.js"
           data-tolt="c77a5dc4-85f0-4852-9474-d07e64a12ace"
         ></script>
+        <script
+          defer
+          data-domain="app.tapped.ai"
+          src="https://plausible.io/js/script.js"
+        ></script>
       </head>
       <body
         className={cn(
