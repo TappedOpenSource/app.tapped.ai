@@ -25,7 +25,7 @@ import { useAuth } from "@/context/auth";
 import { usePurchases } from "@/context/purchases";
 
 const formSchema = z.object({
-  note: z.string().min(3).max(256).optional(),
+  note: z.string().min(3).max(256),
 });
 
 export default function FinalNoteStep({
