@@ -128,9 +128,7 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
           </div>
           {currentUser === null ? (
             <>
-              <Link
-                href={`/signup?return_url=${encodeURIComponent("/dashboard")}`}
-              >
+              <Link href={`/signup?return_url=${encodeURIComponent(pathname)}`}>
                 <Button className="ml-2">sign up</Button>
               </Link>
             </>
