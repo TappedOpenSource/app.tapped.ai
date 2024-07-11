@@ -185,16 +185,12 @@ export default function OpportunityView({
                 </p>
               </div>
               <div className="h-1" />
-              {opportunity.isPaid && (
-                <>
-                  <div className="flex flex-row items-center gap-4">
-                    <Button size={"icon"} variant={"outline"} disabled>
-                      <Coins className="h-6 w-6" />
-                    </Button>
-                    <p>is paid</p>
-                  </div>
-                </>
-              )}
+              <div className="flex flex-row items-center gap-4">
+                <Button size={"icon"} variant={"outline"} disabled>
+                  <Coins className="h-6 w-6" />
+                </Button>
+                <p>{opportunity.isPaid ? "is paid" : "is not paid"}</p>
+              </div>
               <div className="h-1" />
               {opportunity.genres && opportunity.genres.length > 0 && (
                 <>
