@@ -12,14 +12,10 @@ import { Button } from "../ui/button";
 import VenueCard from "./VenueCard";
 import UserCluster from "../UserCluster";
 import { useAuth } from "@/context/auth";
-import Footer from "../Footer";
-import Link from "next/link";
 import { RequestLoginPage } from "../login/RequireLogin";
 
 const queryClient = new QueryClient();
-export default function LocationView(props: {
-    placeId: string;
-}) {
+export default function LocationView(props: { placeId: string }) {
   return (
     <>
       <QueryClientProvider client={queryClient}>
@@ -29,9 +25,7 @@ export default function LocationView(props: {
   );
 }
 
-function _LocationView({ placeId }: {
-    placeId: string;
-}) {
+function _LocationView({ placeId }: { placeId: string }) {
   const { state: authState } = useAuth();
   const { useSearchData } = useSearch();
   const [place, setPlace] = useState<PlaceData | null>(null);
@@ -55,17 +49,22 @@ function _LocationView({ placeId }: {
       const nestedPerfs = await Promise.all(
         venueData.map(async (venue) => {
           const topPerformersIds = venue.venueInfo?.topPerformerIds ?? [];
-          return (await Promise.all(
-            topPerformersIds.map(async (performerId) => {
-              return await getUserById(performerId);
-            })
-          )).filter((performer) => performer !== null) as UserModel[];
+          return (
+            await Promise.all(
+              topPerformersIds.map(async (performerId) => {
+                return await getUserById(performerId);
+              })
+            )
+          ).filter((performer) => performer !== null) as UserModel[];
         })
       );
 
-      const perfs = nestedPerfs.flat().filter((item, index, self) =>
-        index === self.findIndex((obj) => obj.id === item.id)
-      );
+      const perfs = nestedPerfs
+        .flat()
+        .filter(
+          (item, index, self) =>
+            index === self.findIndex((obj) => obj.id === item.id)
+        );
       setPerformers(perfs);
     };
 
@@ -77,15 +76,15 @@ function _LocationView({ placeId }: {
       return;
     }
 
-    const venuesGenres = venueData.map((venue) => venue.venueInfo?.genres ?? []);
+    const venuesGenres = venueData.map(
+      (venue) => venue.venueInfo?.genres ?? []
+    );
 
     // get genre: count map
     const blah = venuesGenres.flat().reduce((acc, genre) => {
       acc[genre] = (acc[genre] ?? 0) + 1;
       return acc;
-    }
-    , {} as Record<string, number>);
-
+    }, {} as Record<string, number>);
 
     setGenreMap(blah);
   }, [venueData]);
@@ -101,17 +100,21 @@ function _LocationView({ placeId }: {
   const GenreChips = useMemo(
     () => (
       <div className="flex flex-wrap gap-1">
-        {Object.entries(genreMap).sort(
-          ([, a], [, b]) => b - a
-        ).slice(0, 10).filter(([, count]) => count > 1).map(([genre]) => {
-          return (
-            <Button key={genre} variant="outline">
-              {genre}
-            </Button>
-          );
-        })}
+        {Object.entries(genreMap)
+          .sort(([, a], [, b]) => b - a)
+          .slice(0, 10)
+          .filter(([, count]) => count > 1)
+          .map(([genre]) => {
+            return (
+              <Button key={genre} variant="outline">
+                {genre}
+              </Button>
+            );
+          })}
       </div>
-    ), [genreMap]);
+    ),
+    [genreMap]
+  );
 
   const smallVenues = useMemo(() => {
     if (!venueData || venueData.length === 0) {
@@ -119,12 +122,16 @@ function _LocationView({ placeId }: {
     }
 
     return (
-      <div className="flex flex-row items-start justify-start overflow-x-auto space-x-5 ">
-        {venueData.filter(
-          (venue) => (venue.venueInfo?.capacity) && (venue.venueInfo?.capacity ?? 0) < 250
-        ).map((p) =>
-          <VenueCard key={p.id} venue={p} />
-        )}
+      <div className="flex flex-row items-start justify-start space-x-5 overflow-x-auto ">
+        {venueData
+          .filter(
+            (venue) =>
+              venue.venueInfo?.capacity &&
+              (venue.venueInfo?.capacity ?? 0) < 250
+          )
+          .map((p) => (
+            <VenueCard key={p.id} venue={p} />
+          ))}
       </div>
     );
   }, [venueData]);
@@ -135,12 +142,16 @@ function _LocationView({ placeId }: {
     }
 
     return (
-      <div className="flex flex-row items-start justify-start overflow-x-auto space-x-5 ">
-        {venueData.filter(
-          (venue) => (venue.venueInfo?.capacity ?? 0) >= 250 && (venue.venueInfo?.capacity ?? 0) < 750
-        ).map((p) =>
-          <VenueCard key={p.id} venue={p} />
-        )}
+      <div className="flex flex-row items-start justify-start space-x-5 overflow-x-auto ">
+        {venueData
+          .filter(
+            (venue) =>
+              (venue.venueInfo?.capacity ?? 0) >= 250 &&
+              (venue.venueInfo?.capacity ?? 0) < 750
+          )
+          .map((p) => (
+            <VenueCard key={p.id} venue={p} />
+          ))}
       </div>
     );
   }, [venueData]);
@@ -151,12 +162,12 @@ function _LocationView({ placeId }: {
     }
 
     return (
-      <div className="flex flex-row items-start justify-start overflow-x-auto space-x-5 ">
-        {venueData.filter(
-          (venue) => (venue.venueInfo?.capacity ?? 0) >= 750
-        ).map((p) =>
-          <VenueCard key={p.id} venue={p} />
-        )}
+      <div className="flex flex-row items-start justify-start space-x-5 overflow-x-auto ">
+        {venueData
+          .filter((venue) => (venue.venueInfo?.capacity ?? 0) >= 750)
+          .map((p) => (
+            <VenueCard key={p.id} venue={p} />
+          ))}
       </div>
     );
   }, [venueData]);
@@ -180,9 +191,9 @@ function _LocationView({ placeId }: {
     return Object.entries(grouped).map(([category, performers]) => {
       return (
         <div key={category} className="py-6">
-          <h3
-            className="text-lg lg:text-2xl font-bold"
-          >{category} performers</h3>
+          <h3 className="text-lg font-bold lg:text-2xl">
+            {category} performers
+          </h3>
           <UserCluster users={performers} />
         </div>
       );
@@ -195,7 +206,7 @@ function _LocationView({ placeId }: {
 
   if (place === null) {
     return (
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="flex min-h-screen items-center justify-center">
         <LoadingSpinner />
       </div>
     );
@@ -204,43 +215,25 @@ function _LocationView({ placeId }: {
   return (
     <>
       <div className="px-4 lg:px-24">
-        <h1 className="text-2xl lg:text-4xl font-extrabold">
+        <h1 className="text-2xl font-extrabold lg:text-4xl">
           live music in {place.shortFormattedAddress}
         </h1>
         <div className="py-6">
-          <h3
-            className="text-lg lg:text-2xl font-bold"
-          >popular genres</h3>
-          <div>
-            {GenreChips}
-          </div>
+          <h3 className="text-lg font-bold lg:text-2xl">popular genres</h3>
+          <div>{GenreChips}</div>
         </div>
-        <div>
-          {performersGroupedByCategory}
+        <div>{performersGroupedByCategory}</div>
+        <div className="py-6">
+          <h3 className="text-lg font-bold lg:text-2xl">small venues</h3>
+          <div>{smallVenues}</div>
         </div>
         <div className="py-6">
-          <h3
-            className="text-lg lg:text-2xl font-bold"
-          >small venues</h3>
-          <div>
-            {smallVenues}
-          </div>
+          <h3 className="text-lg font-bold lg:text-2xl">medium venues</h3>
+          <div>{mediumVenues}</div>
         </div>
         <div className="py-6">
-          <h3
-            className="text-lg lg:text-2xl font-bold"
-          >medium venues</h3>
-          <div>
-            {mediumVenues}
-          </div>
-        </div>
-        <div className="py-6">
-          <h3
-            className="text-lg lg:text-2xl font-bold"
-          >large venues</h3>
-          <div>
-            {largeVenues}
-          </div>
+          <h3 className="text-lg font-bold lg:text-2xl">large venues</h3>
+          <div>{largeVenues}</div>
         </div>
       </div>
     </>
