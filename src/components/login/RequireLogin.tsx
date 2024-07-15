@@ -24,7 +24,7 @@ export function RequestLoginCard({ returnUrl }: RequireLoginProps) {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <Link href={`/signup=?return_url=${returnUrl ?? encodedPathname}`}>
+      <Link href={`/signup?return_url=${returnUrl ?? encodedPathname}`}>
         <Button>signup</Button>
       </Link>
     </div>
