@@ -104,27 +104,35 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
           <div className="hidden md:block">
             <Select
               onValueChange={(value) => {
-                router.push(`/charts?type=${value}`);
+                router.push(`/location/${value}`);
               }}
             >
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="charts" />
+                <SelectValue placeholder="top cities" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="rising">top rising</SelectItem>
-                  <SelectItem value="performer">top performers</SelectItem>
-                  {/* <SelectItem value="venue">top venues</SelectItem> */}
-                  {/* <SelectItem value="genre">top genres</SelectItem> */}
-                  {/* <SelectItem value="city">top cities</SelectItem> */}
+                  <SelectItem value="ChIJOwg_06VPwokRYv534QaPC8g">
+                    new york city
+                  </SelectItem>
+                  <SelectItem value="ChIJW-T2Wt7Gt4kRKl2I1CJFUsI">
+                    washington dc
+                  </SelectItem>
+                  <SelectItem value="ChIJE9on3F3HwoAR9AhGJW_fL-I">
+                    los angeles
+                  </SelectItem>
+                  <SelectItem value="ChIJ7cv00DwsDogRAMDACa2m4K8">
+                    chicago
+                  </SelectItem>
+                  <SelectItem value="ChIJjQmTaV0E9YgRC2MLmS_e_mY">
+                    atlanta
+                  </SelectItem>
+                  <SelectItem value="ChIJLwPMoJm1RIYRetVp1EtGm10">
+                    austin
+                  </SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
-          </div>
-          <div className="hidden md:block">
-            <Button variant="secondary" onClick={() => router.push("/compare")}>
-              compare performers
-            </Button>
           </div>
           {currentUser === null ? (
             <>

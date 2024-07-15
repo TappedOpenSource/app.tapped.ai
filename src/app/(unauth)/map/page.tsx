@@ -4,11 +4,13 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Suspense } from "react";
 
-export default function Page({ searchParams }: {
+export default function Page({
+  searchParams,
+}: {
   searchParams: { [key: string]: string };
 }) {
-  const lat = searchParams["lat"] ?? "38.895";
-  const lng = searchParams["lng"] ?? "-77.0366";
+  const lat = searchParams["lat"] ?? "40.730610";
+  const lng = searchParams["lng"] ?? "-73.935242";
   const minCapacity = searchParams["min_capacity"] ?? null;
   const maxCapacity = searchParams["max_capacity"] ?? null;
   const genres = searchParams["genres"] ?? "";
@@ -38,10 +40,11 @@ export default function Page({ searchParams }: {
           />
         </Suspense>
       </div>
-      <div className="hidden md:absolute z-10 bottom-0 w-screen">
+      <div className="bottom-0 z-10 hidden w-screen md:absolute">
         <div className="flex flex-row items-center justify-center">
           <p className="text-center text-sm">
-              © {new Date().getFullYear()} Tapped Industries Inc. All rights reserved.
+            © {new Date().getFullYear()} Tapped Industries Inc. All rights
+            reserved.
           </p>
           <Button variant="link">
             <Link
@@ -49,7 +52,7 @@ export default function Page({ searchParams }: {
               target="_blank"
               rel="noreferrer noopener"
             >
-                privacy policy
+              privacy policy
             </Link>
           </Button>
           <Button variant="link">
@@ -58,7 +61,7 @@ export default function Page({ searchParams }: {
               target="_blank"
               rel="noreferrer noopener"
             >
-                terms of service
+              terms of service
             </Link>
           </Button>
         </div>

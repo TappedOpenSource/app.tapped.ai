@@ -127,7 +127,9 @@ function _VenueMap({
                 venue,
               }) :
               false;
-          const hasBookingData = venue.venueInfo?.bookingsByDayOfWeek?.some((val) => val !== 0);
+          const hasBookingData = venue.venueInfo?.bookingsByDayOfWeek?.some(
+            (val) => val !== 0
+          );
           return (
             <Marker
               key={venue.id}
@@ -136,14 +138,20 @@ function _VenueMap({
               anchor="center"
               onClick={() => {
                 const newSearchParams = `username=${venue.username}`;
-                const newPathname = pathname.includes("?") ? `${pathname}&${newSearchParams}` : `${pathname}?${newSearchParams}`;
+                const newPathname = pathname.includes("?") ?
+                  `${pathname}&${newSearchParams}` :
+                  `${pathname}?${newSearchParams}`;
                 router.push(newPathname);
               }}
             >
-              <div className={cn(
-                "bg-background flex transform flex-row items-center justify-center rounded-xl px-1 py-1 shadow-lg transition-all duration-200 ease-in-out hover:scale-105 hover:cursor-pointer",
-                hasBookingData ? "border-2 border-dotted border-yellow-500" : "border-none border-background"
-              )}>
+              <div
+                className={cn(
+                  "bg-background flex transform flex-row items-center justify-center rounded-xl px-1 py-1 shadow-lg transition-all duration-200 ease-in-out hover:scale-105 hover:cursor-pointer",
+                  hasBookingData ?
+                    "border-2 border-dotted border-yellow-500" :
+                    "border-background border-none"
+                )}
+              >
                 <div className="relative h-[22px] w-[22px]">
                   <Image
                     src={imageSrc}
@@ -173,7 +181,6 @@ function _VenueMap({
     [data, currentUser, subscribed, pathname, router]
   );
 
-
   const mapTheme =
     resolvedTheme === "light" ? mapboxLightStyle : mapboxDarkStyle;
   return (
@@ -182,7 +189,7 @@ function _VenueMap({
         initialViewState={{
           latitude: lat,
           longitude: lng,
-          zoom: 5.5,
+          zoom: 11.5,
           bearing: 0,
           pitch: 0,
         }}
