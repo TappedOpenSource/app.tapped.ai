@@ -234,9 +234,14 @@ export default function OnboardingStep() {
                       <FileUploader
                         {...fieldProps}
                         label="click here to add your press kit"
-                        onChange={(event) =>
-                          onChange(event.target.files && event.target.files[0])
-                        }
+                        onChange={(event) => {
+                          const file =
+                            event.target.files && event.target.files[0];
+                          onChange(file);
+                          if (file) {
+                            setCurrPressKit(URL.createObjectURL(file));
+                          }
+                        }}
                       />
                     </FormControl>
                     {originalPressKit !== null && (
