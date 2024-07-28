@@ -38,3 +38,5 @@ next-env.d.ts
 .million
 .million/
 /.million/
+
+*storybook.log
