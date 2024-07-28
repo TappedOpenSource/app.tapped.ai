@@ -1,5 +1,5 @@
 import { initializeApp, getApp, getApps } from "firebase/app";
-import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { getFunctions } from "firebase/functions";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";

@@ -1,6 +1,5 @@
 
 import Link from "next/link";
-import MapHeader from "@/components/map_header";
 import { Button } from "@/components/ui/button";
 
 export default function Page() {

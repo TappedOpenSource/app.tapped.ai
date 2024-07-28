@@ -1,5 +1,5 @@
 import type { Dispatch } from "@/context/purchases";
-import { ErrorCode, Purchases, PurchasesError } from "@revenuecat/purchases-js";
+import { Purchases } from "@revenuecat/purchases-js";
 
 const revenueCatApiKey = process.env["NEXT_PUBLIC_REVENUECAT_BILLING_API_KEY"];
 

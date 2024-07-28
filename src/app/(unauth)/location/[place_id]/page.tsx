@@ -1,6 +1,6 @@
 import LocationView from "@/components/location/LocationView";
 import { PlaceData } from "@/domain/types/place_data";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 type Props = {
   params: { place_id: string };
@@ -11,7 +11,6 @@ const getPlaceByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/fetchPlaceById`;
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const metadataBase = "https://app.tapped.ai";
   try {
