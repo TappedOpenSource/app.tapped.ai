@@ -1,20 +1,20 @@
 "use client";
 
 import { type UserModel } from "@/domain/types/user_model";
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useDebounce } from "@/context/debounce";
 import { useSearch } from "@/context/search";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { Search } from "lucide-react";
+// import { Search } from "lucide-react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { track } from "@vercel/analytics/react";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { useStore } from "@/context/use-store";
 import { useSearchToggle } from "@/context/use-search-toggle";
 import SearchDialog from "../admin-panel/search-dialog";
-import { Hit } from "./hit";
+// import { Hit } from "./hit";
+import { Input } from "../ui/input";
 
 const phrases = [
   // eslint-disable-next-line sonarjs/no-duplicate-string
@@ -82,25 +82,25 @@ function _SearchBar({ animatedPlaceholder = false, onSelect }: {
   const { useSearchData } = useSearch();
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebounce<string>(query, 250);
-  const router = useRouter();
+  // const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
-  const pathname = usePathname();
+  // const pathname = usePathname();
   useEffect(() => {
     if (debouncedQuery === "") return;
     track("search", { query: debouncedQuery });
   }, [debouncedQuery]);
 
-  const { data } = useSearchData(debouncedQuery, { hitsPerPage: 5 });
-  const searchParams = useSearchParams();
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+  // const { data } = useSearchData(debouncedQuery, { hitsPerPage: 5 });
+  // const searchParams = useSearchParams();
+  // const createQueryString = useCallback(
+  //   (name: string, value: string) => {
+  //     const params = new URLSearchParams(searchParams.toString());
+  //     params.set(name, value);
 
-      return params.toString();
-    },
-    [searchParams]
-  );
+  //     return params.toString();
+  //   },
+  //   [searchParams]
+  // );
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
@@ -127,46 +127,48 @@ function _SearchBar({ animatedPlaceholder = false, onSelect }: {
     }, 1500);
   }, [currentIndex, currentPhraseIndex]);
 
-  const userTiles = useMemo(
-    () =>
-      (data ?? []).map((user) => {
-        return (
-          <Hit
-            key={user.id}
-            hit={user}
-            onClick={() => {
-              if (onSelect) {
-                setQuery("");
-                onSelect(user);
-                return;
-              }
+  // const userTiles = useMemo(
+  //   () =>
+  //     (data ?? []).map((user) => {
+  //       return (
+  //         <Hit
+  //           key={user.id}
+  //           hit={user}
+  //           onClick={() => {
+  //             if (onSelect) {
+  //               setQuery("");
+  //               onSelect(user);
+  //               return;
+  //             }
 
-              router.push(`${pathname}?${createQueryString("username", user.username)}`);
-            }}
-          />
-        );
-      }),
-    [data, router, pathname, createQueryString, onSelect]
-  );
+  //             router.push(`${pathname}?${createQueryString("username", user.username)}`);
+  //           }}
+  //         />
+  //       );
+  //     }),
+  //   [data, router, pathname, createQueryString, onSelect]
+  // );
+
   return (
     <>
-      <div className="bg-card z-40 rounded-xl border border-input ring-offset-background">
-        <div className="relative">
-          <div className="pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-3">
+      {/* {/* <div className="bg-card z-40 rounded-xl border border-input ring-offset-background"> */}
+      {/* <div className="relative"> */}
+      {/* <div className="pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-3">
             <Search className="pointer-events-none h-4 w-4 text-gray-400" />
-          </div>
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder={animatedPlaceholder ? currentText : "search tapped..."}
-            className="bg-card w-full rounded-xl p-2.5 px-6 py-4 ps-10 shadow-xl"
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </div>
-        <div className="relative z-50">
-          <div className="absolute z-50 w-full flex flex-col">{userTiles}</div>
-        </div>
-      </div>
+          </div>  */}
+      <Input
+        ref={inputRef}
+        type="text"
+        placeholder={animatedPlaceholder ? currentText : "search tapped..."}
+        // className="bg-card w-full rounded-xl p-2.5 px-3 py-2 ps-10 shadow-xl"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      {/* </div> */}
+      {/* <div className="relative z-50">
+        <div className="absolute z-50 w-full flex flex-col">{userTiles}</div>
+      </div> */}
+      {/* </div> */}
       {/* <div className="overflow-x-auto">
               <GenreList
                 genres={genres}
