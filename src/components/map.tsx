@@ -137,6 +137,11 @@ function _VenueMap({
               latitude={lat}
               anchor="center"
               onClick={() => {
+                if (authState?.authUser === null) {
+                  router.push(`/signup?return_url=${pathname}`);
+                  return;
+                }
+
                 const newSearchParams = `username=${venue.username}`;
                 const newPathname = pathname.includes("?") ?
                   `${pathname}&${newSearchParams}` :
