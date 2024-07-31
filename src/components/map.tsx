@@ -184,7 +184,7 @@ function _VenueMap({
           );
         })
         .filter((x) => x !== null) as JSX.Element[],
-    [data, currentUser, subscribed, pathname, router]
+    [data, currentUser, subscribed, pathname, router, authState?.authUser]
   );
 
   const mapTheme =
