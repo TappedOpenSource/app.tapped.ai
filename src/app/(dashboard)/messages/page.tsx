@@ -28,28 +28,30 @@ export default function Page() {
 
   const filters = { members: { $in: [currentUserId] }, type: "messaging" };
   return (
-    <ContentLayout title="messages" noPadding>
-      <div className="h-screen">
-        <div id="root">
-          <div className="channel-list-container">
-            <ChannelList
-              sort={{ last_message_at: -1 }}
-              filters={filters}
-              // options={options}
-              Paginator={InfiniteScroll}
-              showChannelSearch
-            />
-          </div>
-          <Channel>
+    // <ContentLayout title="messages" noPadding>
+    <div className="h-screen">
+      <div id="root">
+        <div className="h-screen channel-list-container">
+          <ChannelList
+            sort={{ last_message_at: -1 }}
+            filters={filters}
+            // options={options}
+            Paginator={InfiniteScroll}
+            showChannelSearch
+          />
+        </div>
+        <Channel>
+          <div className="h-screen">
             <Window>
               <ChannelHeader />
               <MessageList />
               <MessageInput focus />
             </Window>
             <Thread />
-          </Channel>
-        </div>
+          </div>
+        </Channel>
       </div>
-    </ContentLayout>
+    </div>
+    // </ContLayout>
   );
 }
