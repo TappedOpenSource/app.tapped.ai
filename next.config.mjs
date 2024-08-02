@@ -1,3 +1,4 @@
+
 const nextConfig = {
   webpack: (config) => {
     config.resolve.fallback = {

@@ -21,6 +21,7 @@ export type Opportunity = {
     timestamp: Date;
     startTime: Date;
     endTime: Date;
+    deadline?: Date;
     isPaid: boolean;
     genres?: string[];
     venueId?: string | null;
@@ -34,6 +35,7 @@ export const opportunityConverter = {
       timestamp: Timestamp.fromDate(opportunity.timestamp),
       startTime: Timestamp.fromDate(opportunity.startTime),
       endTime: Timestamp.fromDate(opportunity.endTime),
+      deadline: opportunity.deadline ? Timestamp.fromDate(opportunity.deadline) : null,
     };
   },
   fromFirestore(
@@ -44,12 +46,14 @@ export const opportunityConverter = {
       timestamp: Timestamp;
       startTime: Timestamp;
       endTime: Timestamp;
+      deadline?: Timestamp;
     };
     return {
       ...data,
       timestamp: data.timestamp.toDate(),
       startTime: data.startTime.toDate(),
       endTime: data.endTime.toDate(),
+      deadline: data.deadline?.toDate(),
     };
   },
 };

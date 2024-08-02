@@ -24,6 +24,17 @@ export default function ApplyButton({ op }: { op: Opportunity }) {
     checkIfApplied();
   }, [authUser, op.id]);
 
+  const applicationDeadline = op.deadline ?? op.startTime;
+  const isExpired = applicationDeadline < new Date();
+
+  if (isExpired) {
+    return (
+      <div>
+        <Button disabled>application deadline expired</Button>
+      </div>
+    );
+  }
+
   if (isApplied) {
     return (
       <div>
