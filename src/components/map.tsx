@@ -91,12 +91,13 @@ function _VenueMap({
     }
 
     setTimeout(() => {
+      console.log({ user: authState.authUser });
       if (authState.authUser !== null) {
         return;
       }
 
-      router.push("/signup?return_url=/map");
-    }, 10_000);
+      // router.push("/signup?return_url=/map");
+    }, 1_000);
   }, [authState.authUser, router]);
 
   const { data } = useVenueData(debouncedBounds, {
