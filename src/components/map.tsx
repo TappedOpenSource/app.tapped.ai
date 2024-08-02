@@ -87,18 +87,15 @@ function _VenueMap({
 
   useEffect(() => {
     if (authState.authUser !== null) {
-      console.log("authstate is fine");
       return;
     }
 
-    console.log("setting timeout");
     setTimeout(() => {
       if (authState.authUser !== null) {
         return;
       }
 
-      console.log("going to signup");
-      router.push("/signup");
+      router.push("/signup?return_url=/map");
     }, 10_000);
   }, [authState.authUser, router]);
 
