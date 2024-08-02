@@ -86,19 +86,22 @@ function _VenueMap({
   const currentUser = authState?.currentUser ?? null;
 
   useEffect(() => {
-    if (authState.authUser !== null) {
+    if (authState.authUser !== null || authState.currentUser !== null) {
       return;
     }
 
-    setTimeout(() => {
-      console.log({ user: authState.authUser });
-      if (authState.authUser !== null) {
+    const timeout = setTimeout(() => {
+      if (authState.authUser !== null || authState.currentUser !== null) {
         return;
       }
 
-      // router.push("/signup?return_url=/map");
-    }, 1_000);
-  }, [authState.authUser, router]);
+      router.push("/signup?return_url=/map");
+    }, 10_000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [authState.authUser, authState.currentUser, router]);
 
   const { data } = useVenueData(debouncedBounds, {
     hitsPerPage: 100,
