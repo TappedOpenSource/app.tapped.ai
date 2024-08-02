@@ -11,7 +11,7 @@ import classNames from "classnames";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { Suspense, useCallback, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import {
   FullscreenControl,
   GeolocateControl,
@@ -84,6 +84,23 @@ function _VenueMap({
   const { state: subscribed } = usePurchases();
   const { resolvedTheme } = useTheme();
   const currentUser = authState?.currentUser ?? null;
+
+  useEffect(() => {
+    if (authState.authUser !== null) {
+      console.log("authstate is fine");
+      return;
+    }
+
+    console.log("setting timeout");
+    setTimeout(() => {
+      if (authState.authUser !== null) {
+        return;
+      }
+
+      console.log("going to signup");
+      router.push("/signup");
+    }, 10_000);
+  }, [authState.authUser, router]);
 
   const { data } = useVenueData(debouncedBounds, {
     hitsPerPage: 100,
