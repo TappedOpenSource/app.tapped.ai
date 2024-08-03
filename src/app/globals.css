@@ -369,16 +369,6 @@
   gap: 0;
 }
 
-.str-chat__channel-list {
-  width: 100%;
-}
-.str-chat__channel {
-  width: 100%;
-}
-.str-chat__thread {
-  width: 45%;
-}
-
 .profile-row {
   justify-content: space-between;
   background: var(--background-header);
@@ -399,13 +389,38 @@
   border-radius: 50%;
 }
 
-.channel-list-container {
-  overflow-y: scroll;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+[data-theme="light"] .react-modal-sheet-container {
+  background-color: #fff !important;
+}
+
+[data-theme="dark"] .react-modal-sheet-container {
+  background-color: #010f16ff !important;
+}
+
+.react-modal-sheet-backdrop {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+.react-modal-sheet-drag-indicator {
+  background-color: #666 !important;
+}
+
+.str-chat__channel-list {
+  width: 100%;
+}
+.str-chat__channel {
+  width: 100%;
+}
+.str-chat__thread {
+  width: 45%;
+}
+.channel-list-container {
+  overflow-y: scroll;
 }
 
 .messaging__sidebar {
@@ -501,28 +516,6 @@ code {
   z-index: 1;
 }
 
-.str-chat__channel-header .str-chat__header-hamburger {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-
-  svg {
-    width: 25px;
-    height: 25px;
-  }
-
-  &:hover {
-    svg path {
-      fill: var(--primary-color);
-    }
-  }
-}
-
 @media screen and (min-width: 768px) {
   .str-chat-channel-list {
     width: 100%;
@@ -583,21 +576,4 @@ code {
     --str-chat__secondary-background-color: #212326;
     --str-chat__primary-surface-color: #18191b;
     --str-chat__secondary-surface-color: #343434;
-}
-
-
-[data-theme="light"] .react-modal-sheet-container {
-  background-color: #fff !important;
-}
-
-[data-theme="dark"] .react-modal-sheet-container {
-  background-color: #010f16ff !important;
-}
-
-.react-modal-sheet-backdrop {
-  background-color: rgba(0, 0, 0, 0.3) !important;
-}
-
-.react-modal-sheet-drag-indicator {
-  background-color: #666 !important;
 }
