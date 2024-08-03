@@ -9,6 +9,8 @@ import { AuthProvider } from "@/context/auth";
 import { PurchasesProvider } from "@/context/purchases";
 import { ThemeProvider } from "@/context/themes";
 import { cn } from "@/lib/utils";
+import "stream-chat-react/dist/css/v2/index.css";
+// import "stream-chat-react/dist/css/v2/index.layout.css";
 import "./globals.css";
 
 const title = "live music stats | tapped ai";

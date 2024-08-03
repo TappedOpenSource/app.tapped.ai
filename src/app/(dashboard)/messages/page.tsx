@@ -13,8 +13,6 @@ import {
 } from "stream-chat-react";
 import { RequestLoginPage } from "@/components/login/RequireLogin";
 import { Menu } from "lucide-react";
-import "stream-chat-react/dist/css/v2/index.css";
-// import "stream-chat-react/dist/css/v2/index.layout.css";
 import "./messages.css";
 
 export default function Page() {
