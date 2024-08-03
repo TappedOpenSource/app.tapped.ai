@@ -85,6 +85,7 @@ function _VenueMap({
   const { resolvedTheme } = useTheme();
   const currentUser = authState?.currentUser ?? null;
 
+  // redirect to signup if user is not logged in
   useEffect(() => {
     if (authState.authUser !== null || authState.currentUser !== null) {
       return;

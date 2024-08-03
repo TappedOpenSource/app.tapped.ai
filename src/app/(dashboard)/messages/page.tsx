@@ -12,9 +12,9 @@ import {
   Window,
 } from "stream-chat-react";
 import "stream-chat-react/dist/css/v2/index.css";
-import "stream-chat-react/dist/css/v2/index.layout.css";
-import { ContentLayout } from "@/components/admin-panel/content-layout";
+// import "stream-chat-react/dist/css/v2/index.layout.css";
 import { RequestLoginPage } from "@/components/login/RequireLogin";
+import { Menu } from "lucide-react";
 
 export default function Page() {
   const {
@@ -28,30 +28,24 @@ export default function Page() {
 
   const filters = { members: { $in: [currentUserId] }, type: "messaging" };
   return (
-    // <ContentLayout title="messages" noPadding>
-    <div className="h-screen">
-      <div id="root">
-        <div className="h-screen channel-list-container">
-          <ChannelList
-            sort={{ last_message_at: -1 }}
-            filters={filters}
-            // options={options}
-            Paginator={InfiniteScroll}
-            showChannelSearch
-          />
+    <div className="flex h-screen">
+      <ChannelList
+        sort={{ last_message_at: -1 }}
+        filters={filters}
+        // options={options}
+        Paginator={InfiniteScroll}
+        showChannelSearch
+      />
+      <Channel>
+        <div className="h-screen">
+          <Window>
+            <ChannelHeader MenuIcon={Menu}/>
+            <MessageList />
+            <MessageInput focus />
+          </Window>
+          <Thread />
         </div>
-        <Channel>
-          <div className="h-screen">
-            <Window>
-              <ChannelHeader />
-              <MessageList />
-              <MessageInput focus />
-            </Window>
-            <Thread />
-          </div>
-        </Channel>
-      </div>
+      </Channel>
     </div>
-    // </ContLayout>
   );
 }
