@@ -11,10 +11,11 @@ import {
   Thread,
   Window,
 } from "stream-chat-react";
-import "stream-chat-react/dist/css/v2/index.css";
-// import "stream-chat-react/dist/css/v2/index.layout.css";
 import { RequestLoginPage } from "@/components/login/RequireLogin";
 import { Menu } from "lucide-react";
+import "stream-chat-react/dist/css/v2/index.css";
+// import "stream-chat-react/dist/css/v2/index.layout.css";
+import "@/app/globals.css";
 
 export default function Page() {
   const {
@@ -36,10 +37,14 @@ export default function Page() {
         Paginator={InfiniteScroll}
         showChannelSearch
       />
-      <Channel>
+      <Channel
+        enrichURLForPreview
+      >
         <div className="h-screen">
           <Window>
-            <ChannelHeader MenuIcon={Menu}/>
+            <ChannelHeader
+              MenuIcon={Menu}
+            />
             <MessageList />
             <MessageInput focus />
           </Window>
