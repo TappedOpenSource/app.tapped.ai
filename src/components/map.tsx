@@ -105,7 +105,7 @@ function _VenueMap({
   }, [authState.authUser, authState.currentUser, router]);
 
   const { data } = useVenueData(debouncedBounds, {
-    hitsPerPage: 100,
+    hitsPerPage: 250,
     minCapacity: minCapacity ?? undefined,
     maxCapacity: maxCapacity ?? undefined,
     venueGenres: genres.length > 0 ? genres : undefined,
