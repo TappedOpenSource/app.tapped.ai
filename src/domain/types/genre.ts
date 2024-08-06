@@ -272,3 +272,7 @@ export const genres: Genre[] = [
   "yeYe",
   "other",
 ];
+
+export type SubGenre = "christianRap";
+
+export const subGenres: SubGenre[] = ["christianRap"];
