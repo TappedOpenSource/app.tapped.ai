@@ -14,8 +14,8 @@ import { useDebounce } from "@/context/debounce";
 import { useSearch } from "@/context/search";
 import { useSearchToggle } from "@/context/use-search-toggle";
 import { useStore } from "@/context/use-store";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { UserCheck, X } from "lucide-react";
+// import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+// import { UserCheck, X, Map } from "lucide-react";
 import { Button } from "../ui/button";
 
 export default function SearchDialog() {
@@ -34,116 +34,111 @@ export default function SearchDialog() {
     hitsPerPage: 4,
   });
   const { data: placesData } = useCityData(debouncedQuery);
-  const performerData = data?.filter((hit) => {
-    return (
-      !hit.occupations?.includes("venue") && !hit.occupations?.includes("Venue")
-    );
-  });
-  const venueData = data?.filter((hit) => {
+  const performerData = useMemo(() => {
+    return (data ?? []).filter((hit) => {
+      return (
+        !hit.occupations?.includes("venue") && !hit.occupations?.includes("Venue")
+      );
+    });
+  }, [data]);
+  const venueData = useMemo(() => (data ?? []).filter((hit) => {
     return (
       hit.occupations?.includes("venue") || hit.occupations?.includes("Venue")
     );
-  });
+  }), [data]);
 
-  const performerResultsList = useMemo(() => {
-    if (!performerData || performerData.length === 0) {
-      return <CommandEmpty>no results found.</CommandEmpty>;
+  const PerformerResultsList = useMemo(() => {
+    if (performerData.length === 0 || !showPerformers) {
+      return null;
     }
 
-    return performerData?.map((hit) => {
-      return (
-        <CommandItem
-          key={hit.id}
-          onSelect={() => {
-            router.push(`${pathname}?username=${hit.username}`);
-          }}
-        >
-          {/* <Avatar>
-            {hit?.profilePicture !== null && (
-              <AvatarImage
-                src={hit?.profilePicture}
-                style={{ objectFit: "cover", overflow: "hidden" }}
-              />
-            )}
-            <AvatarFallback>
-              <UserCheck className="h-4 w-4" />
-            </AvatarFallback>
-          </Avatar> */}
-
-          {/* <span> */}
-          {hit.artistName ?? hit.username}
-          {/* </span> */}
-        </CommandItem>
-      );
-    });
-  }, [performerData, pathname, router]);
+    return (
+      <CommandGroup heading="performers">
+        {performerData.map((hit) => (
+          <CommandItem
+            key={hit.id}
+            onSelect={() => {
+              router.push(`${pathname}?username=${hit.username}`);
+            }}
+          >
+            {/* <Avatar className="h-4 w-4">
+              {hit.profilePicture !== null && (
+                <AvatarImage
+                  src={hit.profilePicture}
+                  style={{ objectFit: "cover", overflow: "hidden" }}
+                  className="h-4 w-4"
+                />
+              )}
+              <AvatarFallback>
+                <UserCheck className="h-2 w-2" />
+              </AvatarFallback>
+            </Avatar>
+            <span className="ml-2"> */}
+            {hit.artistName ?? hit.username}
+            {/* </span> */}
+          </CommandItem>
+        ))}
+      </CommandGroup>
+    );
+  }, [performerData, pathname, router, showPerformers]);
 
   const venueResultsList = useMemo(() => {
-    if (!venueData || venueData.length === 0) {
-      return <CommandEmpty>no results found.</CommandEmpty>;
+    if (venueData.length === 0 || !showVenues) {
+      return null;
     }
 
-    return venueData?.map((hit) => {
-      return (
-        <CommandItem
-          key={hit.id}
-          onSelect={() => {
-            router.push(`${pathname}?username=${hit.username}`);
-          }}
-        >
-          {/* <Avatar>
-            {hit?.profilePicture !== null && (
-              <AvatarImage
-                src={hit?.profilePicture}
-                style={{ objectFit: "cover", overflow: "hidden" }}
-              />
-            )}
-            <AvatarFallback>
-              <UserCheck className="h-4 w-4" />
-            </AvatarFallback>
-          </Avatar> */}
+    return (
+      <CommandGroup heading="venues">
+        {venueData.map((hit) => (
+          <CommandItem
+            key={hit.id}
+            onSelect={() => {
+              router.push(`${pathname}?username=${hit.username}`);
+            }}
+          >
+            {/* <Avatar>
+              {hit?.profilePicture !== null && (
+                <AvatarImage
+                  src={hit?.profilePicture}
+                  style={{ objectFit: "cover", overflow: "hidden" }}
+                />
+              )}
+              <AvatarFallback>
+                <UserCheck className="h-4 w-4" />
+              </AvatarFallback>
+            </Avatar>
 
-          {/* <span> */}
-          {hit.artistName ?? hit.username}
-          {/* </span> */}
-        </CommandItem>
-      );
-    });
-  }, [venueData, pathname, router]);
+            <span className="ml-2"> */}
+            {hit.artistName ?? hit.username}
+            {/* </span> */}
+          </CommandItem>
+        ))}
+      </CommandGroup>
+    );
+  }, [venueData, pathname, router, showVenues]);
 
-  const placesResultsList = useMemo(() => {
-    if (!placesData || placesData.length === 0) {
-      return <CommandEmpty>no results found.</CommandEmpty>;
+  const PlacesResultsList = useMemo(() => {
+    if (!placesData || placesData.length === 0 || !showCities) {
+      return null;
     }
 
-    return placesData?.map((hit) => {
-      return (
-        <CommandItem
-          key={hit.place_id}
-          onSelect={() => {
-            searchBar?.setIsOpen();
-            router.push(`/location/${hit.place_id}`);
-          }}
-        >
-          {/* <Avatar>
-            {hit?.profilePicture !== null && (
-              <AvatarImage
-                src={hit?.profilePicture}
-                style={{ objectFit: "cover", overflow: "hidden" }}
-              />
-            )}
-            <AvatarFallback>
-              <UserCheck className="h-4 w-4" />
-            </AvatarFallback>
-          </Avatar> */}
-
-          {/* <span> */}
-          {hit.description}
-          {/* </span> */}
-        </CommandItem>
-      );
-    });
-  }, [placesData, router, searchBar]);
+    return (
+      <CommandGroup heading="cities">
+        {placesData?.map((hit) => (
+          <CommandItem
+            key={hit.place_id}
+            onSelect={() => {
+              searchBar?.setIsOpen();
+              router.push(`/location/${hit.place_id}`);
+            }}
+          >
+            {/* <Map className="h-2 w-2 mr-2" /> */}
+            {hit.description}
+          </CommandItem>
+        ))}
+      </CommandGroup>
+    );
+  }, [placesData, router, searchBar, showCities]);
 
   return (
     <>
@@ -156,7 +151,7 @@ export default function SearchDialog() {
           onValueChange={(value) => setQuery(value)}
         />
         <CommandList>
-          <div className="flex w-full flex-row justify-start gap-4 px-2 py-2">
+          {/* <div className="flex w-full flex-row justify-start gap-4 px-2 py-2">
             <Button
               onClick={() => setShowPerformers(!showPerformers)}
               variant="outline"
@@ -178,31 +173,11 @@ export default function SearchDialog() {
               {showCities && <X className="mr-2 h-4 w-4" />}
               cities
             </Button>
-          </div>
-          {/* <CommandEmpty>no results found.</CommandEmpty> */}
-          {performerData?.length === 0 &&
-          venueData?.length === 0 &&
-          placesData?.length === 0 ? (
-              <CommandEmpty>no results found.</CommandEmpty>
-            ) : (
-              <>
-                {!performerData ||
-              performerData.length === 0 ||
-              !showPerformers ? null : (
-                    <CommandGroup heading="performers">
-                      {performerResultsList}
-                    </CommandGroup>
-                  )}
-                {!venueData || venueData.length === 0 || !showVenues ? null : (
-                  <CommandGroup heading="venues">{venueResultsList}</CommandGroup>
-                )}
-                {!placesData || placesData.length === 0 || !showCities ? null : (
-                  <CommandGroup heading="cities">
-                    {placesResultsList}
-                  </CommandGroup>
-                )}
-              </>
-            )}
+          </div> */}
+          <CommandEmpty>no results found.</CommandEmpty>
+          {PerformerResultsList}
+          {venueResultsList}
+          {PlacesResultsList}
         </CommandList>
       </CommandDialog>
     </>

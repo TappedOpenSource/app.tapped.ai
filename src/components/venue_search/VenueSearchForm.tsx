@@ -98,8 +98,6 @@ export default function VenueSearchForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
-
     const queryParams = new URLSearchParams({
       capacity: values.capacity.toString(),
       genres: values.genres.map((genre) => genre.value).join(","),
@@ -126,7 +124,6 @@ export default function VenueSearchForm() {
                   <FormControl>
                     <SearchAddress
                       onSelectLocation={(location) => {
-                        console.log(location);
                         if (location === null) {
                           return;
                         }

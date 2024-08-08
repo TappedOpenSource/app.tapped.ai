@@ -38,8 +38,6 @@ const _getPlaceDetails = async (placeId: string): Promise<PlaceData> => {
   ];
 
   try {
-    console.log(`[+] getting place details for placeId: ${placeId}`);
-
     if (placeDetailsCache.has(placeId)) {
       return placeDetailsCache.get(placeId) as PlaceData;
     }

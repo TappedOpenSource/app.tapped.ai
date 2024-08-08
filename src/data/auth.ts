@@ -79,10 +79,10 @@ export async function logout() {
 }
 
 export async function getCustomClaims() {
-  console.log({ currentUser: auth.currentUser });
-  const token = await auth.currentUser?.getIdToken(true);
-  console.log({ token });
+  // console.log({ currentUser: auth.currentUser });
+  // const token = await auth.currentUser?.getIdToken(true);
+  // console.log({ token });
   const decodedToken = await auth.currentUser?.getIdTokenResult();
-  console.log({ claims: decodedToken?.claims });
+  // console.log({ claims: decodedToken?.claims });
   return decodedToken?.claims ?? null;
 }

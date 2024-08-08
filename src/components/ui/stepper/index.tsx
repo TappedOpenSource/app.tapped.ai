@@ -163,7 +163,6 @@ const HorizontalContent = ({ children }: { children: React.ReactNode }) => {
   const childArr = React.Children.toArray(children);
 
   if (!childArr || childArr.length === 0 || activeStep > childArr.length) {
-    console.log("why not here???");
     return null;
   }
 

@@ -11,13 +11,9 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string };
-}) {
-  const { q } = searchParams;
-  console.log({ q });
+export default function Page() {
+  // const { q } = searchParams;
+  // console.log({ q });
 
   return (
     <>

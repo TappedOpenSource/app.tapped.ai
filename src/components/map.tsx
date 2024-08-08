@@ -18,9 +18,9 @@ import {
   Map,
   // NavigationControl,
   // ScaleControl,
-  MapboxEvent,
+  MapEvent,
   Marker,
-  Popup,
+  // Popup,
 } from "react-map-gl";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
@@ -68,13 +68,13 @@ function _VenueMap({
   maxCapacity: number | null;
   genres: string[];
 }) {
-  const [popupInfo, setPopupInfo] = useState<{
-    longitude: number;
-    latitude: number;
-    city: string;
-    state: string;
-    image: string;
-  } | null>(null);
+  // const [popupInfo, setPopupInfo] = useState<{
+  //   longitude: number;
+  //   latitude: number;
+  //   city: string;
+  //   state: string;
+  //   image: string;
+  // } | null>(null);
   const [bounds, setBounds] = useState<null | BoundingBox>(null);
   const { useVenueData } = useSearch();
   const debouncedBounds = useDebounce<null | BoundingBox>(bounds, 250);
@@ -111,8 +111,12 @@ function _VenueMap({
     venueGenres: genres.length > 0 ? genres : undefined,
   });
 
-  const onRender = useCallback((e: MapboxEvent) => {
+  const onRender = useCallback((e: MapEvent) => {
     const currentMapBounds = e.target.getBounds();
+    if (currentMapBounds === null) {
+      return;
+    }
+
     setBounds({
       ne: {
         lat: currentMapBounds.getNorth(),
@@ -184,6 +188,7 @@ function _VenueMap({
                     className="rounded-md"
                     style={{ objectFit: "cover", overflow: "hidden" }}
                     fill
+                    sizes="22px"
                   />
                 </div>
                 {venueCapacity !== 0 && (
@@ -232,7 +237,7 @@ function _VenueMap({
         {/* <ScaleControl /> */}
 
         {markers}
-
+        {/*
         {popupInfo && (
           <Popup
             anchor="top"
@@ -251,7 +256,7 @@ function _VenueMap({
             </div>
             <img width="100%" src={popupInfo.image} />
           </Popup>
-        )}
+        )} */}
       </Map>
 
       {/* <ControlPanel /> */}

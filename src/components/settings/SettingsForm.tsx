@@ -101,8 +101,6 @@ export default function SettingsForm() {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-      console.log({ data });
-
       const profilePictureUrl = await (async () => {
         if (data.profilePicture) {
           return await uploadProfilePicture(

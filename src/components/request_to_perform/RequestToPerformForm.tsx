@@ -56,8 +56,6 @@ export default function RequestToPerformForm({ venueIds }: {
   }, [venueIds]);
 
   const onSubmit = async (data) => {
-    console.log({ data });
-
     const note = data.note;
     if (venues.length === 0) {
       return;

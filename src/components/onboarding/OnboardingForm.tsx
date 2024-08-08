@@ -78,7 +78,6 @@ export default function OnboardingForm({
       // Do something with the form values.
       // ✅ This will be type-safe and validated.
       setLoading(true);
-      console.log(values);
 
       if (!authUser) {
         throw new Error("cannot onboard without an auth user");

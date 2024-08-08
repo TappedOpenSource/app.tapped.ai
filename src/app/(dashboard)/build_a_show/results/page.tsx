@@ -20,8 +20,6 @@ export default function Page({ searchParams }: {
   const lng = searchParams["lng"] ?? "0";
   const radius = searchParams["radius"] ?? "250";
 
-  console.log({ capacity, genres, lat, lng, radius });
-
   const performerGenres = genres.length > 0 ? genres.split(",") : [];
   const intCapacity = parseInt(capacity);
   const intLat = parseInt(lat);
