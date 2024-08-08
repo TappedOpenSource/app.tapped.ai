@@ -15,7 +15,7 @@ import { useSearch } from "@/context/search";
 import { useSearchToggle } from "@/context/use-search-toggle";
 import { useStore } from "@/context/use-store";
 // import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-// import { UserCheck, X, Map } from "lucide-react";
+import { UserCheck, X, Map } from "lucide-react";
 import { Button } from "../ui/button";
 
 export default function SearchDialog() {
@@ -151,7 +151,7 @@ export default function SearchDialog() {
           onValueChange={(value) => setQuery(value)}
         />
         <CommandList>
-          {/* <div className="flex w-full flex-row justify-start gap-4 px-2 py-2">
+          <div className="flex w-full flex-row justify-start gap-4 px-2 py-2">
             <Button
               onClick={() => setShowPerformers(!showPerformers)}
               variant="outline"
@@ -173,7 +173,7 @@ export default function SearchDialog() {
               {showCities && <X className="mr-2 h-4 w-4" />}
               cities
             </Button>
-          </div> */}
+          </div>
           <CommandEmpty>no results found.</CommandEmpty>
           {PerformerResultsList}
           {venueResultsList}
