@@ -70,7 +70,7 @@ export default function RequestToPerformForm({ venueIds }: {
     try {
       await requestToPerform(currentUser, venues, note);
       //   nav.push(RequestToPerformConfirmationPage(venues: _venues));
-      router.push("/build_a_show/request_to_perform_confirmation");
+      router.push("/venue_outreach/request_to_perform_confirmation");
     } catch (e) {
       console.error(
         "error sending the request", { cause: e }

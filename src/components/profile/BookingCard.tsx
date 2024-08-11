@@ -68,12 +68,13 @@ export default function BookingCard({ booking, user }: {
     <>
       <Link
         href={`/booking/${booking.id}`}
+        className="group"
       >
-        <div className='relative w-[156px] h-[156px]'>
+        <div className='relative w-[156px] h-[156px] overflow-hidden rounded-lg'>
           <Image
             src={bookerImageSrc}
             alt={"booking image"}
-            className='rounded-lg'
+            className="rounded-lg aspect-square transition-all duration-150 ease-in-out group-hover:scale-105"
             objectFit='cover'
             fill
           />

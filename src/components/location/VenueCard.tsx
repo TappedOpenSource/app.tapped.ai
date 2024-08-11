@@ -26,12 +26,11 @@ export default function VenueCard({ venue }: {
     <>
       <Link
         href={`${pathname}?${createQueryString("username", venue.username)}`}
-        className="transition-all duration-150 ease-in-out hover:scale-105"
       >
-        <div className="flex flex-col items-start">
-          <div className="relative w-32 h-24 rounded-lg bg-card">
+        <div className="flex flex-col items-start rounded-lg group">
+          <div className="overflow-hidden relative w-32 h-32 aspect-square rounded-lg bg-card">
             <Image
-              className="rounded-lg w-24 h-24"
+              className="rounded-lg aspect-square transition-all duration-150 ease-in-out group-hover:scale-105"
               src={pfp}
               alt={venue.artistName ?? venue.username}
               style={{ objectFit: "cover" }}

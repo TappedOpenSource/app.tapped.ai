@@ -111,8 +111,8 @@ export default function ProfileHeader({
       }
 
       // fetch latest booking
-      const latestRequesteeBookings = await getBookingsByRequestee(user.id);
-      const latestRequesterBookings = await getBookingsByRequester(user.id);
+      const latestRequesteeBookings = await getBookingsByRequestee(user.id, { limit: 40 });
+      const latestRequesterBookings = await getBookingsByRequester(user.id, { limit: 40 });
       const latestBookings = latestRequesteeBookings
         .concat(latestRequesterBookings)
         .sort((a, b) => {
@@ -222,7 +222,7 @@ export default function ProfileHeader({
       {user.venueInfo !== null && user.venueInfo !== undefined && (
         <div className="flex w-full items-center justify-center">
           <Link
-            href={`/build_a_show/request_to_perform?venue_ids=${user.id}`}
+            href={`/venue_outreach/request_to_perform?venue_ids=${user.id}`}
             className="w-full"
           >
             <Button className="w-full font-bold">request to perform</Button>

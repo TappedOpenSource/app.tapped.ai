@@ -51,7 +51,7 @@ export default function ResultsTable({
             disabled={table.getFilteredSelectedRowModel().rows.length === 0}
           >
             <Link
-              href={`/build_a_show/request_to_perform?venue_ids=${venueIds.join(",")}`}
+              href={`/venue_outreach/request_to_perform?venue_ids=${venueIds.join(",")}`}
             >
             request to perform
             </Link>

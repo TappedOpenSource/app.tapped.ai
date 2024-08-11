@@ -106,7 +106,7 @@ export default function VenueSearchForm() {
       radius: "250000",
     });
 
-    router.push(`/build_a_show/results?${queryParams.toString()}`);
+    router.push(`/venue_outreach/results?${queryParams.toString()}`);
   }
 
   return (

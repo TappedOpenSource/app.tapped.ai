@@ -493,14 +493,16 @@ export async function getReviewsByBookerId(userId: string): Promise<Review[]> {
 }
 
 export async function getBookingsByRequestee(
-  userId: string
+  userId: string,
+  params?: { limit: number },
 ): Promise<Booking[]> {
   const bookingsCollection = collection(db, "bookings");
   const querySnapshot = query(
     bookingsCollection,
     where("requesteeId", "==", userId),
     where("status", "==", "confirmed"),
-    orderBy("timestamp", "desc")
+    orderBy("timestamp", "desc"),
+    limit(params?.limit ?? 100),
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
 
@@ -508,14 +510,16 @@ export async function getBookingsByRequestee(
 }
 
 export async function getBookingsByRequester(
-  userId: string
+  userId: string,
+  params?: { limit: number },
 ): Promise<Booking[]> {
   const bookingsCollection = collection(db, "bookings");
   const querySnapshot = query(
     bookingsCollection,
     where("requesterId", "==", userId),
     where("status", "==", "confirmed"),
-    orderBy("timestamp", "desc")
+    orderBy("timestamp", "desc"),
+    limit(params?.limit ?? 100),
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
 
@@ -643,6 +647,22 @@ export async function hasUserSentContactRequest({
   } catch (e) {
     console.error("can't check if user has sent contact request", { cause: e });
     return false;
+  }
+}
+
+export async function getContactedVenues(
+  userId: string,
+  params?: { limit: number },
+): Promise<ContactVenueRequest[]> {
+  try {
+    const contactVenuesRef = collection(db, "contactVenues");
+    const userCollection = collection(contactVenuesRef, `${userId}/venuesContacted`);
+    const querySnapshot = await query(userCollection, orderBy("timestamp", "desc"), limit(params?.limit ?? 100));
+    const snap = await getDocs(querySnapshot);
+    return snap.docs.map((doc) => doc.data() as ContactVenueRequest);
+  } catch (e) {
+    console.error("can't get contacted venues", { cause: e });
+    return [];
   }
 }
 
