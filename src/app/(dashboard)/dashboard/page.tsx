@@ -12,14 +12,17 @@ import Link from "next/link";
 import TasksSection from "@/components/dashboard/TasksSection";
 import ContactedVenuesSlider from "@/components/dashboard/ContactedVenuesSlider";
 import BookingHistory from "@/components/dashboard/BookingHistory";
+import StatsSection from "@/components/dashboard/StatsSection";
 
 export default function Page() {
-  // how many venues you've contacted in the last week
-  // how many have responded in the last week
-  // how many total conversations you've had
-  // how many total venues you've contacted
-  // what was the last one you contacted
-  // what was the last one that's messaged you
+  // how many venues you've contacted in the last week (number)
+  // AND how many have responded in the last week (ratio)
+  // how many shows you've had this month (number)
+  // how many total venues you've contacted (number)
+  // how much money you've made this month (number)
+  // what was the last one you contacted with status (list)
+  // booking history (list)
+  // shows over time (graph)
   return (
     <>
       <ContentLayout title="dashboard">
@@ -40,6 +43,8 @@ export default function Page() {
         </Breadcrumb>
         <div className="hidden md:block py-16 px-8">
           <TasksSection />
+          <div className="py-4" />
+          <StatsSection />
           <div className="py-4" />
           <ContactedVenuesSlider />
           <div className="py-4" />
