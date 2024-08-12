@@ -2,6 +2,7 @@ import {
   BarChart2,
   Bug,
   CodeXml,
+  Gem,
   Handshake,
   LayoutPanelLeft,
   MessageCircle,
@@ -102,6 +103,13 @@ export function getMenuList(pathname: string): Group[] {
           label: "messages",
           active: pathname.includes("/messages"),
           icon: MessageCircle,
+          submenus: [],
+        },
+        {
+          href: "/billing",
+          label: "billing",
+          active: pathname.includes("/billing"),
+          icon: Gem,
           submenus: [],
         },
         {
