@@ -11,7 +11,7 @@ import classNames from "classnames";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   FullscreenControl,
   GeolocateControl,
@@ -104,7 +104,7 @@ function _VenueMap({
     };
   }, [authState.authUser, authState.currentUser, router]);
 
-  const { data } = useVenueData(debouncedBounds, {
+  const { data, isFetching } = useVenueData(debouncedBounds, {
     hitsPerPage: 250,
     minCapacity: minCapacity ?? undefined,
     maxCapacity: maxCapacity ?? undefined,
@@ -129,9 +129,14 @@ function _VenueMap({
     });
   }, []);
 
+  const cachedMarkers = useRef<JSX.Element[]>([]);
   const markers = useMemo(
-    () =>
-      (data ?? [])
+    () => {
+      if (isFetching) {
+        return cachedMarkers.current;
+      }
+
+      const newMarkers = (data ?? [])
         .map((venue) => {
           const lat = venue.location?.lat ?? null;
           const lng = venue.location?.lng ?? null;
@@ -207,8 +212,13 @@ function _VenueMap({
             </Marker>
           );
         })
-        .filter((x) => x !== null) as JSX.Element[],
-    [data, currentUser, subscribed, pathname, router, authState?.authUser]
+        .filter((x) => x !== null) as JSX.Element[];
+
+      cachedMarkers.current = newMarkers;
+
+      return newMarkers;
+    },
+    [data, currentUser, subscribed, pathname, router, authState?.authUser, isFetching]
   );
 
   const mapTheme =
