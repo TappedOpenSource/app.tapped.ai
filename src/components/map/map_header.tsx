@@ -4,7 +4,7 @@ import SearchBar from "../search/SearchBar";
 import { Suspense } from "react";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/auth";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
