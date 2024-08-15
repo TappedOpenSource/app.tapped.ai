@@ -20,7 +20,6 @@ export default function MapHeader({ onMenuClick }: {
   const { state: subscribed } = usePurchases();
   const { setTheme } = useTheme();
   const router = useRouter();
-  const pathname = usePathname();
 
   return (
     <>
@@ -77,7 +76,7 @@ export default function MapHeader({ onMenuClick }: {
           </div>
           {currentUser === null ? (
             <>
-              <Link href={`/signup?return_url=${encodeURIComponent(pathname)}`}>
+              <Link href={`/signup?return_url=${encodeURIComponent("/dashboard")}`}>
                 <Button className="ml-2">sign up</Button>
               </Link>
             </>
