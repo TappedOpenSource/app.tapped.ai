@@ -1,33 +1,27 @@
 "use client";
 
 import { useAuth } from "@/context/auth";
-import { useDebounce } from "@/context/debounce";
 import { usePurchases } from "@/context/purchases";
-import { useSearch } from "@/context/search";
 import { logout } from "@/data/auth";
-import {
-  userAudienceSize,
-  profileImage,
-  type UserModel,
-} from "@/domain/types/user_model";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Download,
   Gem,
+  Globe2,
+  Home,
+  LayoutDashboard,
   LogOut,
   Map,
-  MessageCircle,
   Moon,
-  Search,
   Sun,
   UserCheck,
 } from "lucide-react";
 import { useTheme } from "next-themes";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useMemo, useRef, useState } from "react";
-import { useHotkeys } from "react-hotkeys-hook";
+import { Suspense } from "react";
+import { LoadingSpinner } from "./LoadingSpinner";
+import SearchBar from "./search/SearchBar";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
@@ -42,122 +36,103 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
 const queryClient = new QueryClient();
 
-function getSubtitle(hit: UserModel): string {
-  const capacity = hit.venueInfo?.capacity ?? null;
-  const totalFollowing = userAudienceSize(hit);
-  const category = hit.performerInfo?.category ?? null;
-
-  if (capacity === null && category === null) {
-    return totalFollowing === 0 ?
-      `@${hit.username}` :
-      `${totalFollowing.toLocaleString()} followers`;
-  }
-
-  if (capacity === null && category !== null) {
-    return `${category} performer`;
-  }
-
-  if (capacity === null) {
-    return `@${hit.username}`;
-  }
-
-  return `${capacity.toLocaleString()} capacity venue`;
-}
-
-function Hit({ hit, onClick }: { hit: UserModel; onClick: () => void }) {
-  const imageSrc = profileImage(hit);
-  const subtitle = getSubtitle(hit);
-
-  return (
-    <button onClick={onClick}>
-      <div className="w-screen px-4 py-px md:px-8">
-        <div className="bg-card my-1 flex w-full flex-row items-center justify-start rounded-xl px-4 py-3 transition-all duration-150 ease-in-out hover:scale-105 md:w-1/2 lg:w-1/3 xl:w-1/4">
-          <div className="pl-1 pr-2">
-            <div className="relative h-[42px] w-[42px]">
-              <Image
-                src={imageSrc}
-                alt="user profile picture"
-                fill
-                className="rounded-full"
-                style={{ objectFit: "cover", overflow: "hidden" }}
-              />
-            </div>
-          </div>
-          <div className="flex w-full flex-1 flex-col items-start justify-center overflow-hidden">
-            <h1 className="line-clamp-1 overflow-hidden text-ellipsis text-start text-xl font-bold">
-              {(hit.artistName ?? hit.username)?.trim()}
-            </h1>
-            <p className="line-clamp-1 overflow-hidden text-ellipsis text-start text-sm text-gray-400">
-              {subtitle}
-            </p>
-          </div>
-        </div>
-      </div>
-    </button>
-  );
-}
-
-function HeaderUi() {
-  const { state: { currentUser } } = useAuth();
+function UnauthHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
+  const {
+    state: { currentUser },
+  } = useAuth();
   const { state: subscribed } = usePurchases();
-  const { useSearchData } = useSearch();
-  const [query, setQuery] = useState<string>("");
-  const debouncedQuery = useDebounce<string>(query, 250);
-  const router = useRouter();
   const { setTheme } = useTheme();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
   const pathname = usePathname();
-
-  const { data } = useSearchData(debouncedQuery, { hitsPerPage: 5 });
-  useHotkeys("/", (e) => {
-    e.preventDefault();
-    inputRef.current?.focus();
-  });
-
-  const userTiles = useMemo(
-    () =>
-      (data ?? []).map((user) => {
-        return (
-          <Hit
-            key={user.id}
-            hit={user}
-            onClick={() => router.push(`${pathname}?username=${user.username}`)}
-          />
-        );
-      }),
-    [data, router, pathname]
-  );
 
   return (
     <>
-      <div className="peer flex w-screen flex-row items-center px-4 pb-1 pt-8 md:px-8">
-        <div className="flex-1 relative">
-          <div className="pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-3">
-            <Search className="pointer-events-none h-4 w-4 text-gray-400" />
-          </div>
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="search tapped..."
-            className="bg-card w-full rounded-full p-2.5 px-6 py-4 ps-10 shadow-xl md:w-1/2 lg:w-1/3 xl:w-1/4"
-            onChange={(e) => setQuery(e.target.value)}
-          />
+      <div className="dark:supports-backdrop-blur:bg-background/60 dark:bg-background/95 light:supports-backdrop-blur:bg-background/40 light:bg-background/60 flex w-screen flex-row items-center gap-3 px-4 py-2 backdrop-blur">
+        <div className="hidden h-full items-center justify-center md:flex">
+          <Avatar className="bg-background mr-2 hover:cursor-pointer hover:shadow-xl">
+            <AvatarImage
+              src="/images/icon_1024.png"
+              style={{ objectFit: "cover", overflow: "hidden" }}
+              onClick={() => router.push("/")}
+            />
+            <AvatarFallback>
+              <Home className="h-4 w-4" />
+            </AvatarFallback>
+          </Avatar>
         </div>
-        <div className="flex flex-row">
+        <div className="flex-1">
+          {showSearch && (
+            <div className="md:w-3/4 lg:w-3/4 xl:w-1/2">
+              <Suspense
+                fallback={
+                  <div className="flex items-center justify-center">
+                    <LoadingSpinner />
+                  </div>
+                }
+              >
+                <SearchBar />
+              </Suspense>
+            </div>
+          )}
+        </div>
+        <div className="flex flex-row gap-3">
+          <Link href="/map">
+            <Button variant={"secondary"}>
+                  view the map{" "}
+              <span className="ml-2">
+                <Globe2 className="h-4 w-4" />
+              </span>
+            </Button>
+          </Link>
           <div className="hidden md:block">
-            <Link
-              href="/download"
+            <Select
+              onValueChange={(value) => {
+                router.push(`/location/${value}`);
+              }}
             >
-              <Button variant="link">get the app</Button>
-            </Link>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="top cities" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="ChIJOwg_06VPwokRYv534QaPC8g">
+                    new york city
+                  </SelectItem>
+                  <SelectItem value="ChIJW-T2Wt7Gt4kRKl2I1CJFUsI">
+                    washington dc
+                  </SelectItem>
+                  <SelectItem value="ChIJE9on3F3HwoAR9AhGJW_fL-I">
+                    los angeles
+                  </SelectItem>
+                  <SelectItem value="ChIJ7cv00DwsDogRAMDACa2m4K8">
+                    chicago
+                  </SelectItem>
+                  <SelectItem value="ChIJjQmTaV0E9YgRC2MLmS_e_mY">
+                    atlanta
+                  </SelectItem>
+                  <SelectItem value="ChIJLwPMoJm1RIYRetVp1EtGm10">
+                    austin
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
           {currentUser === null ? (
             <>
-              <Link href={`/signup?return_url=${encodeURIComponent("/dashboard")}`}>
-                <Button className="ml-2">login</Button>
+              <Link href={`/signup?return_url=${encodeURIComponent(pathname)}`}>
+                <Button className="ml-2">sign up</Button>
               </Link>
             </>
           ) : (
@@ -178,9 +153,15 @@ function HeaderUi() {
               <DropdownMenuContent className="bg-background w-48 rounded-xl border-0 p-2 shadow-xl">
                 <DropdownMenuLabel>my account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <Link href={"/dashboard"}>
+                <Link href={"/map"}>
                   <DropdownMenuItem>
                     <Map className="mr-2 h-4 w-4" />
+                    <span>map</span>
+                  </DropdownMenuItem>
+                </Link>
+                <Link href={"/dashboard"}>
+                  <DropdownMenuItem>
+                    <LayoutDashboard className="mr-2 h-4 w-4" />
                     <span>dashboard</span>
                   </DropdownMenuItem>
                 </Link>
@@ -205,18 +186,12 @@ function HeaderUi() {
                   </DropdownMenuPortal>
                 </DropdownMenuSub>
                 <DropdownMenuItem>
-                  <MessageCircle className="mr-2 h-4 w-4" />
-                  <Link href={"/messages"}>
-                    <span>messages</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
                   <Gem className="mr-2 h-4 w-4" />
                   {subscribed ? (
                     <span>subscribed</span>
                   ) : (
                     <Link href={"/subscribe"}>
-                      <span>subscribe</span>
+                      <span>premium</span>
                     </Link>
                   )}
                 </DropdownMenuItem>
@@ -236,20 +211,14 @@ function HeaderUi() {
           )}
         </div>
       </div>
-      {/* <div className="hidden items-center justify-center pt-4 ease-in-out peer-has-[:focus-within]:flex">
-        <Button className="" onClick={() => router.push("/mass-outreach")}>
-          mass outreach
-        </Button>
-      </div> */}
-      <div className="flex flex-col">{userTiles}</div>
     </>
   );
 }
 
-export default function UnauthHeader() {
+export default function UnauthHeader(props: { showSearch?: boolean }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <HeaderUi />
+      <UnauthHeaderUi {...props} />
     </QueryClientProvider>
   );
 }

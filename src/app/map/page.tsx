@@ -1,5 +1,6 @@
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import VenueMap from "@/components/map";
+import VenueMap from "@/components/map/map";
+import TappedSheet from "@/components/TappedSheet";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -11,18 +12,14 @@ export default function Page({
 }) {
   const lat = searchParams["lat"] ?? "40.730610";
   const lng = searchParams["lng"] ?? "-73.935242";
-  const minCapacity = searchParams["min_capacity"] ?? null;
-  const maxCapacity = searchParams["max_capacity"] ?? null;
-  const genres = searchParams["genres"] ?? "";
-
-  const intMinCapacity = minCapacity ? parseInt(minCapacity) : null;
-  const intMaxCapacity = maxCapacity ? parseInt(maxCapacity) : null;
+  const zoom = searchParams["zoom"] ?? "11.5";
   const intLat = parseFloat(lat);
   const intLng = parseFloat(lng);
-  const venueGenres = genres.length > 0 ? genres.split(",") : [];
+  const intZoom = parseInt(zoom);
 
   return (
     <>
+      <TappedSheet />
       <div className="z-40">
         <Suspense
           fallback={
@@ -34,9 +31,7 @@ export default function Page({
           <VenueMap
             lat={intLat}
             lng={intLng}
-            minCapacity={intMinCapacity}
-            maxCapacity={intMaxCapacity}
-            genres={venueGenres}
+            zoom={intZoom}
           />
         </Suspense>
       </div>

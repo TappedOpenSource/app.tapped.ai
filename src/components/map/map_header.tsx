@@ -1,106 +1,47 @@
-"use client";
-
-import { useAuth } from "@/context/auth";
-import { usePurchases } from "@/context/purchases";
-import { logout } from "@/data/auth";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  Download,
-  Gem,
-  Globe2,
-  Home,
-  LayoutDashboard,
-  LogOut,
-  Map,
-  Moon,
-  Sun,
-  UserCheck,
-} from "lucide-react";
-import { useTheme } from "next-themes";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { Map, Download, LayoutDashboard, LogOut, Menu, Moon, Sun, UserCheck, Gem } from "lucide-react";
+import { Button } from "../ui/button";
+import SearchBar from "../search/SearchBar";
 import { Suspense } from "react";
-import { LoadingSpinner } from "./LoadingSpinner";
-import SearchBar from "./search/SearchBar";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
+import { LoadingSpinner } from "../LoadingSpinner";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/context/auth";
+import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { logout } from "@/data/auth";
+import { usePurchases } from "@/context/purchases";
+import { useTheme } from "next-themes";
 
-const queryClient = new QueryClient();
-
-function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
-  const {
-    state: { currentUser },
-  } = useAuth();
+export default function MapHeader({ onMenuClick }: {
+    onMenuClick: () => void;
+}) {
+  const { state: { currentUser } } = useAuth();
   const { state: subscribed } = usePurchases();
   const { setTheme } = useTheme();
   const router = useRouter();
-
   const pathname = usePathname();
-  const isMapPage = pathname.includes("/map");
 
   return (
     <>
-      <div className="supports-backdrop-blur:bg-background/60 bg-background/95 flex w-screen flex-row items-center gap-3 px-4 pb-1 pt-8 backdrop-blur md:px-8">
-        <div className="hidden h-full items-center justify-center md:flex">
-          <Avatar className="bg-background mr-2 hover:cursor-pointer hover:shadow-xl">
-            <AvatarImage
-              src="/images/icon_1024.png"
-              style={{ objectFit: "cover", overflow: "hidden" }}
-              onClick={() => router.push("/")}
-            />
-            <AvatarFallback>
-              <Home className="h-4 w-4" />
-            </AvatarFallback>
-          </Avatar>
-        </div>
+      <div className="dark:supports-backdrop-blur:bg-background/60 dark:bg-background/95 light:supports-backdrop-blur:bg-background/20 light:bg-background/40 flex w-screen flex-row items-center gap-3 px-4 py-2 backdrop-blur">
+        <Button variant="ghost" size="icon" onClick={onMenuClick}>
+          <Menu className="h-4 w-4" />
+        </Button>
         <div className="flex-1">
-          {showSearch && (
-            <div className="md:w-3/4 lg:w-3/4 xl:w-1/2">
-              <Suspense
-                fallback={
-                  <div className="flex items-center justify-center">
-                    <LoadingSpinner />
-                  </div>
-                }
-              >
-                <SearchBar />
-              </Suspense>
-            </div>
-          )}
+          <div className="md:w-3/4 lg:w-3/4 xl:w-1/2">
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center">
+                  <LoadingSpinner />
+                </div>
+              }
+            >
+              <SearchBar />
+            </Suspense>
+          </div>
         </div>
         <div className="flex flex-row gap-3">
-          <div className="block">
-            {!isMapPage && (
-              <Link href="/map">
-                <Button variant={"secondary"}>
-                  view the map{" "}
-                  <span className="ml-2">
-                    <Globe2 className="h-4 w-4" />
-                  </span>
-                </Button>
-              </Link>
-            )}
-          </div>
           <div className="hidden md:block">
             <Select
               onValueChange={(value) => {
@@ -217,13 +158,5 @@ function MapHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
         </div>
       </div>
     </>
-  );
-}
-
-export default function MapHeader(props: { showSearch?: boolean }) {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <MapHeaderUi {...props} />
-    </QueryClientProvider>
   );
 }

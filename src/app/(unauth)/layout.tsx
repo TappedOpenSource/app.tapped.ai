@@ -1,23 +1,16 @@
 import TappedSheet from "@/components/TappedSheet";
-import MapHeader from "@/components/map_header";
-import { headers } from "next/headers";
+import UnauthHeader from "@/components/unauth_header";
 
 export default function UnauthLayout({ children }: {
     children: React.ReactNode;
 }) {
-  const header = headers();
-  const pathname = header.get("x-pathname");
-  const isMapPage = pathname?.includes("/map");
-
   return (
     <>
       <TappedSheet />
       <div className="fixed z-50 top-0">
-        <MapHeader />
+        <UnauthHeader />
       </div>
-      {!isMapPage && (
-        <div className="h-[8rem] transparent" />
-      )}
+      <div className="h-[4rem] transparent" />
       {children}
     </>
   );

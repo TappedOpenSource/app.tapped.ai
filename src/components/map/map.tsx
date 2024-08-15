@@ -10,21 +10,20 @@ import { isVenueGoodFit } from "@/utils/good_fit";
 import classNames from "classnames";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   FullscreenControl,
   GeolocateControl,
   Map,
-  // NavigationControl,
-  // ScaleControl,
   MapEvent,
   Marker,
-  // Popup,
 } from "react-map-gl";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { cn } from "@/lib/utils";
+import MapHeader from "./map_header";
+import LocationSideSheet from "./LocationSideSheet";
 
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
@@ -34,9 +33,7 @@ const queryClient = new QueryClient();
 export default function VenueMap(props: {
   lat: number;
   lng: number;
-  minCapacity: number | null;
-  maxCapacity: number | null;
-  genres: string[];
+  zoom: number;
 }) {
   return (
     <>
@@ -58,15 +55,11 @@ export default function VenueMap(props: {
 function _VenueMap({
   lat,
   lng,
-  minCapacity,
-  maxCapacity,
-  genres,
+  zoom,
 }: {
   lat: number;
   lng: number;
-  minCapacity: number | null;
-  maxCapacity: number | null;
-  genres: string[];
+  zoom: number;
 }) {
   // const [popupInfo, setPopupInfo] = useState<{
   //   longitude: number;
@@ -76,10 +69,10 @@ function _VenueMap({
   //   image: string;
   // } | null>(null);
   const [bounds, setBounds] = useState<null | BoundingBox>(null);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const { useVenueData } = useSearch();
   const debouncedBounds = useDebounce<null | BoundingBox>(bounds, 250);
   const router = useRouter();
-  const pathname = usePathname();
   const { state: authState } = useAuth();
   const { state: subscribed } = usePurchases();
   const { resolvedTheme } = useTheme();
@@ -106,9 +99,6 @@ function _VenueMap({
 
   const { data, isFetching } = useVenueData(debouncedBounds, {
     hitsPerPage: 250,
-    minCapacity: minCapacity ?? undefined,
-    maxCapacity: maxCapacity ?? undefined,
-    venueGenres: genres.length > 0 ? genres : undefined,
   });
 
   const onRender = useCallback((e: MapEvent) => {
@@ -127,6 +117,12 @@ function _VenueMap({
         lng: currentMapBounds.getEast(),
       },
     });
+
+    // const { lat: newLat, lng: newLng } = e.target.getCenter();
+    // const newZoom = e.target.getZoom();
+    // setCenter({ lat: newLat, lng: newLng });
+    // setZoom(newZoom);
+    // router.push(`/map?lat=${newLat}&lng=${newLng}&zoom=${newZoom}`);
   }, []);
 
   const cachedMarkers = useRef<JSX.Element[]>([]);
@@ -165,10 +161,7 @@ function _VenueMap({
               latitude={lat}
               anchor="center"
               onClick={() => {
-                const newSearchParams = `username=${venue.username}`;
-                const newPathname = pathname.includes("?") ?
-                  `${pathname}&${newSearchParams}` :
-                  `${pathname}?${newSearchParams}`;
+                const newPathname = `/map?username=${venue.username}`;
                 if (authState?.authUser === null) {
                   const encoded = encodeURIComponent(newPathname);
                   router.push(`/signup?return_url=${encoded}`);
@@ -218,36 +211,48 @@ function _VenueMap({
 
       return newMarkers;
     },
-    [data, currentUser, subscribed, pathname, router, authState?.authUser, isFetching]
+    [data, currentUser, subscribed, router, authState?.authUser, isFetching]
   );
 
   const mapTheme =
     resolvedTheme === "light" ? mapboxLightStyle : mapboxDarkStyle;
   return (
-    <div className="m-0 h-screen w-screen">
-      <Map
-        initialViewState={{
-          latitude: lat,
-          longitude: lng,
-          zoom: 11.5,
-          bearing: 0,
-          pitch: 0,
-        }}
-        mapStyle={`mapbox://styles/${mapTheme}`}
-        mapboxAccessToken={defaultMapboxToken}
-        onRender={onRender}
-      >
-        <GeolocateControl
-          position="bottom-right"
-          showUserHeading
-          trackUserLocation
-        />
-        <FullscreenControl position="bottom-right" />
-        {/* <NavigationControl position="bottom-right" /> */}
-        {/* <ScaleControl /> */}
+    <>
+      <LocationSideSheet
+        venues={data ?? []}
+        lat={lat}
+        lng={lng}
+        zoom={zoom}
+        isOpen={sidebarIsOpen}
+        onOpenChange={() => setSidebarIsOpen(!sidebarIsOpen)}
+      />
+      <div className="absolute t-0 w-full z-40">
+        <MapHeader onMenuClick={() => setSidebarIsOpen(!sidebarIsOpen)} />
+      </div>
+      <div className="m-0 h-screen w-screen">
+        <Map
+          initialViewState={{
+            latitude: lat,
+            longitude: lng,
+            zoom: zoom,
+            bearing: 0,
+            pitch: 0,
+          }}
+          mapStyle={`mapbox://styles/${mapTheme}`}
+          mapboxAccessToken={defaultMapboxToken}
+          onRender={onRender}
+        >
+          <GeolocateControl
+            position="bottom-right"
+            showUserHeading
+            trackUserLocation
+          />
+          <FullscreenControl position="bottom-right" />
+          {/* <NavigationControl position="bottom-right" /> */}
+          {/* <ScaleControl /> */}
 
-        {markers}
-        {/*
+          {markers}
+          {/*
         {popupInfo && (
           <Popup
             anchor="top"
@@ -267,9 +272,10 @@ function _VenueMap({
             <img width="100%" src={popupInfo.image} />
           </Popup>
         )} */}
-      </Map>
+        </Map>
 
-      {/* <ControlPanel /> */}
-    </div>
+        {/* <ControlPanel /> */}
+      </div>
+    </>
   );
 }
