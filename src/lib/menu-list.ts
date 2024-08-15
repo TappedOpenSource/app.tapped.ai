@@ -66,20 +66,6 @@ export function getMenuList(pathname: string): Group[] {
           submenus: [],
         },
         {
-          href: "/charts",
-          label: "charts",
-          active: pathname.includes("/charts"),
-          icon: BarChart2,
-          submenus: [],
-        },
-        {
-          href: "/compare",
-          label: "compare",
-          active: pathname.includes("/compare"),
-          icon: Users,
-          submenus: [],
-        },
-        {
           href: "/api",
           label: "api",
           active: pathname.includes("/api"),
