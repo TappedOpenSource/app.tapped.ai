@@ -1,5 +1,4 @@
 import {
-  BarChart2,
   Bug,
   CodeXml,
   Gem,
@@ -9,7 +8,7 @@ import {
   ScanSearch,
   Settings,
   Theater,
-  Users,
+  MapIcon,
 } from "lucide-react";
 
 type Submenu = {
@@ -27,6 +26,7 @@ type Menu = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: any;
   submenus: Submenu[];
+  requireAuth?: boolean;
 };
 
 type Group = {
@@ -40,10 +40,10 @@ export function getMenuList(pathname: string): Group[] {
       groupLabel: "",
       menus: [
         {
-          href: "/dashboard",
-          label: "dashboard",
-          active: pathname.includes("/dashboard"),
-          icon: LayoutPanelLeft,
+          href: "/map",
+          label: "map",
+          active: pathname.includes("/map"),
+          icon: MapIcon,
           submenus: [],
         },
       ],
@@ -51,6 +51,14 @@ export function getMenuList(pathname: string): Group[] {
     {
       groupLabel: "tools",
       menus: [
+        {
+          href: "/dashboard",
+          label: "dashboard",
+          active: pathname.includes("/dashboard"),
+          icon: LayoutPanelLeft,
+          submenus: [],
+          requireAuth: true,
+        },
         {
           href: "/search",
           label: "search",
@@ -64,6 +72,7 @@ export function getMenuList(pathname: string): Group[] {
           active: pathname.includes("/venue_outreach"),
           icon: Theater,
           submenus: [],
+          requireAuth: true,
         },
         {
           href: "/api",
@@ -71,25 +80,20 @@ export function getMenuList(pathname: string): Group[] {
           active: pathname.includes("/api"),
           icon: CodeXml,
           submenus: [],
+          requireAuth: true,
         },
       ],
     },
     {
       groupLabel: "account",
       menus: [
-        // {
-        //   href: "/profile",
-        //   label: "me",
-        //   active: pathname.includes("/profile"),
-        //   icon: Users,
-        //   submenus: [],
-        // },
         {
           href: "/messages",
           label: "messages",
           active: pathname.includes("/messages"),
           icon: MessageCircle,
           submenus: [],
+          requireAuth: true,
         },
         {
           href: "/billing",
@@ -97,6 +101,7 @@ export function getMenuList(pathname: string): Group[] {
           active: pathname.includes("/billing"),
           icon: Gem,
           submenus: [],
+          requireAuth: true,
         },
         {
           href: "https://tapped.tolt.io",
@@ -105,6 +110,7 @@ export function getMenuList(pathname: string): Group[] {
           active: pathname.includes("/affiliate"),
           icon: Handshake,
           submenus: [],
+          requireAuth: true,
         },
         {
           href: "https://tapped.canny.io/ideas-bugs",
@@ -113,6 +119,7 @@ export function getMenuList(pathname: string): Group[] {
           active: pathname.includes("/feedback"),
           icon: Bug,
           submenus: [],
+          requireAuth: true,
         },
         {
           href: "/settings",
@@ -120,6 +127,7 @@ export function getMenuList(pathname: string): Group[] {
           active: pathname.includes("/settings"),
           icon: Settings,
           submenus: [],
+          requireAuth: true,
         },
       ],
     },

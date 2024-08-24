@@ -9,7 +9,6 @@ import { ArrowUpRight } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import AddBooking from "../opportunity/form/AddBooking";
 import { useToast } from "../ui/use-toast";
-import { Button } from "../ui/button";
 
 const Task = ({ text, cta }: { text: string, cta?: string }) => {
   if (!cta) {
@@ -55,7 +54,12 @@ export default function TasksSection() {
   }, [currentUser]);
 
   if (!currentUser) {
-    return null;
+    return (
+      <>
+        <Task text="sign in" cta="/login" />
+        <Task text="create an account" cta="/register" />
+      </>
+    );
   }
 
   const needsPfp = !currentUser.profilePicture;
