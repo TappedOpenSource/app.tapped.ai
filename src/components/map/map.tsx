@@ -79,23 +79,23 @@ function _VenueMap({
   const currentUser = authState?.currentUser ?? null;
 
   // redirect to signup if user is not logged in
-  useEffect(() => {
-    if (authState.authUser !== null || authState.currentUser !== null) {
-      return;
-    }
+  // useEffect(() => {
+  //   if (authState.authUser !== null || authState.currentUser !== null) {
+  //     return;
+  //   }
 
-    const timeout = setTimeout(() => {
-      if (authState.authUser !== null || authState.currentUser !== null) {
-        return;
-      }
+  //   const timeout = setTimeout(() => {
+  //     if (authState.authUser !== null || authState.currentUser !== null) {
+  //       return;
+  //     }
 
-      router.push("/signup?return_url=/map");
-    }, 10_000);
+  //     router.push("/signup?return_url=/map");
+  //   }, 10_000);
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [authState.authUser, authState.currentUser, router]);
+  //   return () => {
+  //     clearTimeout(timeout);
+  //   };
+  // }, [authState.authUser, authState.currentUser, router]);
 
   const { data, isFetching } = useVenueData(debouncedBounds, {
     hitsPerPage: 250,

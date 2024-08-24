@@ -24,11 +24,10 @@ interface MenuProps {
 
 export function Menu({ isOpen }: MenuProps) {
   const { state: { authUser } } = useAuth();
-  const router = useRouter();
   const pathname = usePathname();
   const menuList = getMenuList(pathname);
 
-  const isLoggedIn = authUser !== undefined && authUser !== null;
+  const isLoggedIn = authUser !== null;
 
   return (
     <>
@@ -123,7 +122,6 @@ export function Menu({ isOpen }: MenuProps) {
                       <Button
                         onClick={() => {
                           logout();
-                          router.push("/");
                         }}
                         variant="outline"
                         className="w-full justify-center h-10 mt-5"
