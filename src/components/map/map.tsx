@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 import MapHeader from "./map_header";
 import LocationSideSheet from "./LocationSideSheet";
 
+const env = process.env.NODE_ENV || "development";
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
 const mapboxLightStyle = "mapbox/light-v11";
@@ -79,23 +80,23 @@ function _VenueMap({
   const currentUser = authState?.currentUser ?? null;
 
   // redirect to signup if user is not logged in
-  // useEffect(() => {
-  //   if (authState.authUser !== null || authState.currentUser !== null) {
-  //     return;
-  //   }
+  useEffect(() => {
+    if (env !== "production" || authState.authUser !== null || authState.currentUser !== null) {
+      return;
+    }
 
-  //   const timeout = setTimeout(() => {
-  //     if (authState.authUser !== null || authState.currentUser !== null) {
-  //       return;
-  //     }
+    const timeout = setTimeout(() => {
+      if (authState.authUser !== null || authState.currentUser !== null) {
+        return;
+      }
 
-  //     router.push("/signup?return_url=/map");
-  //   }, 10_000);
+      router.push("/signup?return_url=/map");
+    }, 10_000);
 
-  //   return () => {
-  //     clearTimeout(timeout);
-  //   };
-  // }, [authState.authUser, authState.currentUser, router]);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [authState.authUser, authState.currentUser, router]);
 
   const { data, isFetching } = useVenueData(debouncedBounds, {
     hitsPerPage: 250,
@@ -229,7 +230,7 @@ function _VenueMap({
       <div className="absolute t-0 w-full z-40">
         <MapHeader onMenuClick={() => setSidebarIsOpen(!sidebarIsOpen)} />
       </div>
-      <div className="m-0 h-screen w-screen">
+      <div className="m-0 h-screen w-full">
         <Map
           initialViewState={{
             latitude: lat,

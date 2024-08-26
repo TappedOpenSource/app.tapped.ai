@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Ellipsis, LogOut, LogIn } from "lucide-react";
+import { Ellipsis, LogOut, LogIn, ArrowUpRight } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
@@ -89,6 +89,11 @@ export function Menu({ isOpen }: MenuProps) {
                                   >
                                     {label}
                                   </p>
+                                  {external && (
+                                    <span className="ml-1">
+                                      <ArrowUpRight size={14} />
+                                    </span>
+                                  )}
                                 </Link>
                               </Button>
                             </TooltipTrigger>

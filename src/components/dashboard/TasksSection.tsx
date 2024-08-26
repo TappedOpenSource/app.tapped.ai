@@ -56,8 +56,7 @@ export default function TasksSection() {
   if (!currentUser) {
     return (
       <>
-        <Task text="sign in" cta="/login" />
-        <Task text="create an account" cta="/register" />
+        <Task text="sign up" cta="/signup" />
       </>
     );
   }
