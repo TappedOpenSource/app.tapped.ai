@@ -72,7 +72,6 @@ export function getMenuList(pathname: string): Group[] {
           active: pathname.includes("/venue_outreach"),
           icon: Theater,
           submenus: [],
-          requireAuth: true,
         },
         {
           href: "/api",
