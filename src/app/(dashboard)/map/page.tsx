@@ -20,22 +20,20 @@ export default function Page({
   return (
     <>
       <TappedSheet />
-      <div className="z-40">
-        <Suspense
-          fallback={
-            <div className="flex min-h-screen w-screen items-center justify-center">
-              <LoadingSpinner />
-            </div>
-          }
-        >
-          <VenueMap
-            lat={intLat}
-            lng={intLng}
-            zoom={intZoom}
-          />
-        </Suspense>
-      </div>
-      <div className="bottom-0 z-10 hidden w-screen md:absolute">
+      <Suspense
+        fallback={
+          <div className="flex min-h-screen w-screen items-center justify-center">
+            <LoadingSpinner />
+          </div>
+        }
+      >
+        <VenueMap
+          lat={intLat}
+          lng={intLng}
+          zoom={intZoom}
+        />
+      </Suspense>
+      <div className="bottom-0 z-40 hidden w-full md:absolute no-scroll">
         <div className="flex flex-row items-center justify-center">
           <p className="text-center text-sm">
             © {new Date().getFullYear()} Tapped Industries Inc. All rights
@@ -43,7 +41,7 @@ export default function Page({
           </p>
           <Button variant="link">
             <Link
-              href="https://tapped.ai/privacy"
+              href="https://app.tapped.ai/privacy"
               target="_blank"
               rel="noreferrer noopener"
             >
@@ -52,7 +50,7 @@ export default function Page({
           </Button>
           <Button variant="link">
             <Link
-              href="https://tapped.ai/terms"
+              href="https://app.tapped.ai/terms"
               target="_blank"
               rel="noreferrer noopener"
             >

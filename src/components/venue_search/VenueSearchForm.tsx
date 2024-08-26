@@ -19,9 +19,12 @@ import { genres } from "@/domain/types/genre";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { LoadingSpinner } from "../LoadingSpinner";
 import { useRouter } from "next/navigation";
-import { RequestLoginPage } from "../login/RequireLogin";
+import SignUpForm from "@/components/login/SignUpForm";
+import Link from "next/link";
+import { Suspense } from "react";
+import { LoadingSpinner } from "../LoadingSpinner";
+import OnboardingForm from "../onboarding/OnboardingForm";
 
 const optionSchema = z.object({
   label: z.string(),
@@ -47,7 +50,7 @@ const genreOptions = genres.map((genre) => ({
 
 export default function VenueSearchForm() {
   const {
-    state: { currentUser },
+    state: { currentUser, authUser },
   } = useAuth();
   const { state: subscribed } = usePurchases();
   const router = useRouter();
@@ -65,16 +68,39 @@ export default function VenueSearchForm() {
     },
   });
 
-  if (currentUser === null) {
+  if (authUser === null) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoadingSpinner />
+      <div className="p-4 lg:p-8 h-full flex items-center">
+        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+          <Suspense fallback={<LoadingSpinner />}>
+            <SignUpForm doRedirect={false} />
+          </Suspense>
+          <p className="px-8 text-center text-sm text-muted-foreground">
+              by clicking continue, you agree to our{" "}
+            <Link
+              href="/terms"
+              className="underline underline-offset-4 hover:text-primary"
+            >
+                terms of service
+            </Link>{" "}
+              and{" "}
+            <Link
+              href="/privacy"
+              className="underline underline-offset-4 hover:text-primary"
+            >
+                privacy policy
+            </Link>
+              .
+          </p>
+        </div>
       </div>
     );
   }
 
   if (currentUser === null) {
-    return <RequestLoginPage />;
+    return (
+      <OnboardingForm />
+    );
   }
 
   if (!subscribed) {

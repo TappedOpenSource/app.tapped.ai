@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 import MapHeader from "./map_header";
 import LocationSideSheet from "./LocationSideSheet";
 
+const env = process.env.NODE_ENV || "development";
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
 const mapboxLightStyle = "mapbox/light-v11";
@@ -40,7 +41,7 @@ export default function VenueMap(props: {
       <QueryClientProvider client={queryClient}>
         <Suspense
           fallback={
-            <div className="flex min-h-screen w-screen items-center justify-center">
+            <div className="flex min-h-screen w-full items-center justify-center">
               <LoadingSpinner />
             </div>
           }
@@ -80,7 +81,7 @@ function _VenueMap({
 
   // redirect to signup if user is not logged in
   useEffect(() => {
-    if (authState.authUser !== null || authState.currentUser !== null) {
+    if (env !== "production" || authState.authUser !== null || authState.currentUser !== null) {
       return;
     }
 
@@ -226,33 +227,34 @@ function _VenueMap({
         isOpen={sidebarIsOpen}
         onOpenChange={() => setSidebarIsOpen(!sidebarIsOpen)}
       />
-      <div className="absolute t-0 w-full z-40">
-        <MapHeader onMenuClick={() => setSidebarIsOpen(!sidebarIsOpen)} />
-      </div>
-      <div className="m-0 h-screen w-screen">
-        <Map
-          initialViewState={{
-            latitude: lat,
-            longitude: lng,
-            zoom: zoom,
-            bearing: 0,
-            pitch: 0,
-          }}
-          mapStyle={`mapbox://styles/${mapTheme}`}
-          mapboxAccessToken={defaultMapboxToken}
-          onRender={onRender}
-        >
-          <GeolocateControl
-            position="bottom-right"
-            showUserHeading
-            trackUserLocation
-          />
-          <FullscreenControl position="bottom-right" />
-          {/* <NavigationControl position="bottom-right" /> */}
-          {/* <ScaleControl /> */}
+      <div className="relative z-0 flex flex-col grow no-scroll overflow-hidden">
+        <div className="absolute t-0 w-full z-40">
+          <MapHeader onMenuClick={() => setSidebarIsOpen(!sidebarIsOpen)} />
+        </div>
+        <div className="m-0 h-screen w-full z-0">
+          <Map
+            initialViewState={{
+              latitude: lat,
+              longitude: lng,
+              zoom: zoom,
+              bearing: 0,
+              pitch: 0,
+            }}
+            mapStyle={`mapbox://styles/${mapTheme}`}
+            mapboxAccessToken={defaultMapboxToken}
+            onRender={onRender}
+          >
+            <GeolocateControl
+              position="bottom-right"
+              showUserHeading
+              trackUserLocation
+            />
+            <FullscreenControl position="bottom-right" />
+            {/* <NavigationControl position="bottom-right" /> */}
+            {/* <ScaleControl /> */}
 
-          {markers}
-          {/*
+            {markers}
+            {/*
         {popupInfo && (
           <Popup
             anchor="top"
@@ -272,9 +274,10 @@ function _VenueMap({
             <img width="100%" src={popupInfo.image} />
           </Popup>
         )} */}
-        </Map>
+          </Map>
 
-        {/* <ControlPanel /> */}
+          {/* <ControlPanel /> */}
+        </div>
       </div>
     </>
   );
