@@ -163,12 +163,6 @@ function _VenueMap({
               anchor="center"
               onClick={() => {
                 const newPathname = `/map?username=${venue.username}`;
-                if (authState?.authUser === null) {
-                  const encoded = encodeURIComponent(newPathname);
-                  router.push(`/signup?return_url=${encoded}`);
-                  return;
-                }
-
                 router.push(newPathname);
               }}
             >

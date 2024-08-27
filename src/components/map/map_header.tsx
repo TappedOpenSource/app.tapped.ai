@@ -11,31 +11,29 @@ export default function MapHeader({ onMenuClick }: {
 
   return (
     <>
-      <div className="dark:supports-backdrop-blur:bg-background/60 dark:bg-background/95 light:supports-backdrop-blur:bg-background/20 light:bg-background/40 flex w-screen flex-row items-center gap-3 px-4 py-2 backdrop-blur">
+      <div className="dark:supports-backdrop-blur:bg-background/60 dark:bg-background/95 light:supports-backdrop-blur:bg-background/20 light:bg-background/40 flex w-full flex-row justify-between items-center gap-3 px-4 py-2 backdrop-blur">
         <Button variant="ghost" size="icon" onClick={onMenuClick}>
           <Menu className="h-4 w-4" />
         </Button>
-        <div className="flex flex-row gap-3">
-          {currentUser === null ? (
-            <>
-              <Link href={`/signup?return_url=${encodeURIComponent("/dashboard")}`}>
-                <Button className="ml-2">sign up</Button>
-              </Link>
-            </>
-          ) : (
-            <Avatar className="bg-background ml-2 hover:cursor-pointer hover:shadow-xl">
-              {currentUser?.profilePicture !== null && (
-                <AvatarImage
-                  src={currentUser?.profilePicture}
-                  style={{ objectFit: "cover", overflow: "hidden" }}
-                />
-              )}
-              <AvatarFallback>
-                <UserCheck className="h-4 w-4" />
-              </AvatarFallback>
-            </Avatar>
-          )}
-        </div>
+        {currentUser === null ? (
+          <>
+            <Link href={`/signup?return_url=${encodeURIComponent("/dashboard")}`}>
+              <Button className="ml-2">sign up</Button>
+            </Link>
+          </>
+        ) : (
+          <Avatar className="bg-background ml-2 hover:cursor-pointer hover:shadow-xl">
+            {currentUser?.profilePicture !== null && (
+              <AvatarImage
+                src={currentUser?.profilePicture}
+                style={{ objectFit: "cover", overflow: "hidden" }}
+              />
+            )}
+            <AvatarFallback>
+              <UserCheck className="h-4 w-4" />
+            </AvatarFallback>
+          </Avatar>
+        )}
       </div>
     </>
   );
