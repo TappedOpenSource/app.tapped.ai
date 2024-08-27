@@ -32,12 +32,14 @@ type SignUpFormValue = z.infer<typeof formSchema>;
 
 export default function SignUpForm({
   doRedirect = true,
+  redirect = "/dashboard",
 }: {
   doRedirect?: boolean;
+  redirect?: string;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const returnUrl = searchParams.get("return_url") ?? "/dashboard";
+  const returnUrl = searchParams.get("return_url") ?? redirect;
   const form = useForm<SignUpFormValue>({
     resolver: zodResolver(formSchema),
   });
