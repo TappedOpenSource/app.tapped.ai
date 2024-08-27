@@ -63,16 +63,11 @@ export function Menu({ isOpen }: MenuProps) {
                         <TooltipProvider disableHoverableContent>
                           <Tooltip delayDuration={100}>
                             <TooltipTrigger asChild>
-                              <Button
-                                variant={active ? "secondary" : "ghost"}
-                                className="w-full justify-start h-10 mb-1"
-                                asChild
-                                disabled={requireAuth && !isLoggedIn}
-                              >
-                                <Link
-                                  href={href}
-                                  target={external ? "_blank" : undefined}
-                                  referrerPolicy={external ? "no-referrer" : undefined}
+                              {(requireAuth && !isLoggedIn) ? (
+                                <Button
+                                  variant={active ? "secondary" : "ghost"}
+                                  className="w-full justify-start h-10 mb-1"
+                                  disabled
                                 >
                                   <span
                                     className={cn(isOpen === false ? "" : "mr-4")}
@@ -89,13 +84,42 @@ export function Menu({ isOpen }: MenuProps) {
                                   >
                                     {label}
                                   </p>
-                                  {external && (
-                                    <span className="ml-1">
-                                      <ArrowUpRight size={14} />
+                                </Button>
+                              ) : (
+
+                                <Button
+                                  variant={active ? "secondary" : "ghost"}
+                                  className="w-full justify-start h-10 mb-1"
+                                  asChild
+                                >
+                                  <Link
+                                    href={href}
+                                    target={external ? "_blank" : undefined}
+                                    referrerPolicy={external ? "no-referrer" : undefined}
+                                  >
+                                    <span
+                                      className={cn(isOpen === false ? "" : "mr-4")}
+                                    >
+                                      <Icon size={18} />
                                     </span>
-                                  )}
-                                </Link>
-                              </Button>
+                                    <p
+                                      className={cn(
+                                        "max-w-[200px] truncate",
+                                        isOpen === false ?
+                                          "-translate-x-96 opacity-0" :
+                                          "translate-x-0 opacity-100"
+                                      )}
+                                    >
+                                      {label}
+                                    </p>
+                                    {external && (
+                                      <span className="ml-1">
+                                        <ArrowUpRight size={14} />
+                                      </span>
+                                    )}
+                                  </Link>
+                                </Button>
+                              )}
                             </TooltipTrigger>
                             {isOpen === false && (
                               <TooltipContent side="right">
