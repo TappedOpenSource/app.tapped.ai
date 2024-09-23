@@ -24,6 +24,7 @@ import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { cn } from "@/lib/utils";
 import MapHeader from "./map_header";
 import LocationSideSheet from "./LocationSideSheet";
+import posthog from "posthog-js";
 
 const env = process.env.NODE_ENV || "development";
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
@@ -162,6 +163,7 @@ function _VenueMap({
               latitude={lat}
               anchor="center"
               onClick={() => {
+                posthog.capture("marker_clicked");
                 const newPathname = `/map?username=${venue.username}`;
                 router.push(newPathname);
               }}
@@ -206,7 +208,7 @@ function _VenueMap({
 
       return newMarkers;
     },
-    [data, currentUser, subscribed, router, authState?.authUser, isFetching]
+    [data, currentUser, subscribed, router, isFetching]
   );
 
   const mapTheme =
