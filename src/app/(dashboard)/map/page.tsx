@@ -4,14 +4,25 @@ import TappedSheet from "@/components/TappedSheet";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Suspense } from "react";
+import { useFeatureFlag } from "@/context/use-feature-flag";
 
 export default function Page({
   searchParams,
 }: {
   searchParams: { [key: string]: string };
 }) {
-  const lat = searchParams["lat"] ?? "40.730610";
-  const lng = searchParams["lng"] ?? "-73.935242";
+  const { value } = useFeatureFlag("map-city-center");
+  const latlng = {
+    control: { lat: "40.730610", lng: "-73.935242" },
+    los_angles: { lat: "34.052235", lng: "-118.243683" },
+    chicago: { lat: "41.878113", lng: "-87.629799" },
+    miami: { lat: "25.761681", lng: "-80.191788" },
+    san_francisco: { lat: "37.774929", lng: "-122.419418" },
+    atlanta: { lat: "33.749001", lng: "-84.387978" },
+  };
+
+  const lat = searchParams["lat"] ?? latlng[value].lat;
+  const lng = searchParams["lng"] ?? latlng[value].lng;
   const zoom = searchParams["zoom"] ?? "11.5";
   const intLat = parseFloat(lat);
   const intLng = parseFloat(lng);
