@@ -21,8 +21,8 @@ export default function Page({
     atlanta: { lat: "33.749001", lng: "-84.387978" },
   };
 
-  const lat = searchParams["lat"] ?? latlng[value].lat;
-  const lng = searchParams["lng"] ?? latlng[value].lng;
+  const lat = searchParams["lat"] ?? latlng[value].lat ?? "40.730610";
+  const lng = searchParams["lng"] ?? latlng[value].lng ?? "-73.935242";
   const zoom = searchParams["zoom"] ?? "11.5";
   const intLat = parseFloat(lat);
   const intLng = parseFloat(lng);
