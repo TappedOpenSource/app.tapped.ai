@@ -1,6 +1,16 @@
 
 import posthog from "posthog-js";
 
-export function trackEvent(event: string, properties?: Record<string, any>) {
+type EventName = "marker_clicked"
+  | "sidebar_toggle"
+  | "contact_venue"
+  | "featured_performer_click"
+  | "apply_for_opportunity"
+  | "menu_click"
+  | "login"
+  | "signup"
+  | "logout";
+
+export function trackEvent(event: EventName, properties?: Record<string, any>) {
   posthog.capture(event, properties);
 }

@@ -7,6 +7,7 @@ import { Dices } from "lucide-react";
 import { Button } from "./ui/button";
 import { useHotkeys } from "react-hotkeys-hook";
 import UserChip from "./UserChip";
+import { trackEvent } from "@/utils/tracking";
 
 export default function FeaturedPerformers() {
   const [loading, setLoading] = useState(false);
@@ -35,7 +36,9 @@ export default function FeaturedPerformers() {
     <>
       <div className="my-6 flex flex-wrap gap-1">
         {sampledPerformers.map((performer) => (
-          <UserChip key={performer.id} user={performer} />
+          <UserChip key={performer.id} user={performer} onClick={() => {
+            trackEvent("featured_performer_click", { performer_id: performer.id });
+          }} />
         ))}
         {!loading && (
 

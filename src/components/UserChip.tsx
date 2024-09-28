@@ -3,7 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import Image from "next/image";
 
-export default function UserChip({ user }: { user: UserModel }) {
+export default function UserChip({ user, onClick }: { user: UserModel, onClick?: () => void }) {
   const router = useRouter();
   const pathname = usePathname();
   const imageSrc = profileImage(user);
@@ -13,6 +13,7 @@ export default function UserChip({ user }: { user: UserModel }) {
       <Button
         variant={"outline"}
         onClick={() => {
+          onClick?.();
           const newSearchParams = `username=${user.username}`;
           const newPathname = pathname.includes("?") ? `${pathname}&${newSearchParams}` : `${pathname}?${newSearchParams}`;
           router.push(newPathname);
