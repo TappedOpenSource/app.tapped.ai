@@ -14,6 +14,7 @@ import { type Review, reviewConverter } from "@/domain/types/review";
 import { type Service, serviceConverter } from "@/domain/types/service";
 import type { UserModel } from "@/domain/types/user_model";
 import { analytics, db } from "@/utils/firebase";
+import { trackEvent } from "@/utils/tracking";
 import { logEvent } from "firebase/analytics";
 import {
   addDoc,
@@ -359,6 +360,11 @@ export async function applyForOpportunity({
       timestamp: Timestamp.now(),
       userComment: userComment,
     });
+
+    trackEvent("apply_for_opportunity", {
+      opportunity_id: opId,
+      user_id: userId,
+    });
   } catch (e) {
     console.error(e);
   }
@@ -612,6 +618,7 @@ export async function addCustomerSubscriptionListener(userId, callback) {
   );
   return onSnapshot(queryRef, callback);
 }
+
 export async function createNewApplicationResponse({
   userId,
   labelApplication,
@@ -720,6 +727,13 @@ export async function contactVenue({
     );
     const venueDoc = doc(userCollection, venue.id);
     await setDoc(venueDoc, contactVenueRequest);
+
+    trackEvent("contact_venue", {
+      user_id: currentUser.id,
+      venue_id: venue.id,
+      booking_email: bookingEmail,
+      note: note,
+    });
   } catch (e) {
     console.error("can't contact venue", { cause: e });
   }
