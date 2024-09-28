@@ -1,6 +1,7 @@
 import { Booking } from "@/domain/types/booking";
 import { UserModel } from "@/domain/types/user_model";
 import BookingCard from "./BookingCard";
+import { trackEvent } from "@/utils/tracking";
 
 export default function BookingHistoryPreview({ user, bookings }: {
   user: UserModel;

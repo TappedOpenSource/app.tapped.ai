@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "./LoadingSpinner";
 import UserCluster from "./UserCluster";
+import { trackEvent } from "@/utils/tracking";
 
 export default function ProfileView({ username }: { username: string }) {
   const router = useRouter();
@@ -155,7 +156,11 @@ function BuildRows({
           <div>
             <h2 className="text-2xl font-bold">top performers</h2>
             <div className="h-2" />
-            <UserCluster users={topPerformers} />
+            <UserCluster users={topPerformers} onClick={(performer) => {
+              trackEvent("top_performer_click", {
+                performerId: performer.id,
+              });
+            }} />
           </div>
         </>
       )}
