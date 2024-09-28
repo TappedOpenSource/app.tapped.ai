@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Menu } from "@/components/admin-panel/menu";
 import { useSidebarToggle } from "@/context/use-sidebar-toggle";
 import { SidebarToggle } from "@/components/admin-panel/sidebar-toggle";
+import { trackEvent } from "@/utils/tracking";
 
 export function Sidebar() {
   const sidebar = useStore(useSidebarToggle, (state) => state);
@@ -19,7 +20,12 @@ export function Sidebar() {
           sidebar?.isOpen === false ? "w-[90px]" : "w-72"
         )}
       >
-        <SidebarToggle isOpen={sidebar?.isOpen} setIsOpen={sidebar?.setIsOpen} />
+        <SidebarToggle isOpen={sidebar?.isOpen} setIsOpen={() => {
+          trackEvent("sidebar_toggle", {
+            isOpen: sidebar?.isOpen,
+          });
+          sidebar?.setIsOpen();
+        }} />
         <div className="relative h-full flex flex-col px-3 py-4 overflow-y-auto shadow-md dark:shadow-zinc-800">
           <Button
             className={cn(

@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { useAuth } from "@/context/auth";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { trackEvent } from "@/utils/tracking";
 
 export default function MapHeader({ onMenuClick }: {
     onMenuClick: () => void;
@@ -12,7 +13,10 @@ export default function MapHeader({ onMenuClick }: {
   return (
     <>
       <div className="dark:supports-backdrop-blur:bg-background/60 dark:bg-background/95 light:supports-backdrop-blur:bg-background/20 light:bg-background/40 flex w-full flex-row justify-between items-center gap-3 px-4 py-2 backdrop-blur">
-        <Button variant="ghost" size="icon" onClick={onMenuClick}>
+        <Button variant="ghost" size="icon" onClick={() => {
+          trackEvent("menu_click");
+          onMenuClick();
+        }}>
           <Menu className="h-4 w-4" />
         </Button>
         {currentUser === null ? (
