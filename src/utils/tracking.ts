@@ -9,7 +9,8 @@ type EventName = "marker_clicked"
   | "menu_click"
   | "login"
   | "signup"
-  | "logout";
+  | "logout"
+  | "search_bar_clicked";
 
 export function trackEvent(event: EventName, properties?: Record<string, any>) {
   posthog.capture(event, properties);

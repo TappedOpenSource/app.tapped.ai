@@ -12,6 +12,7 @@ import { useStore } from "@/context/use-store";
 import { useSearchToggle } from "@/context/use-search-toggle";
 import SearchDialog from "../admin-panel/search-dialog";
 import { Input } from "../ui/input";
+import { trackEvent } from "@/utils/tracking";
 
 const phrases = [
   // eslint-disable-next-line sonarjs/no-duplicate-string
@@ -38,6 +39,7 @@ export default function SearchBar(props: {
     e.preventDefault();
     searchBar?.setIsOpen();
   });
+
   return (
     <>
       <Suspense
@@ -55,7 +57,12 @@ export default function SearchBar(props: {
                   (props.openDialog ?? true) ? (
                     <button
                       className="w-full"
-                      onClick={searchBar?.setIsOpen}>
+                      onClick={() => {
+                        trackEvent("search_bar_clicked", {
+                          open: searchBar?.isOpen,
+                        });
+                        searchBar?.setIsOpen();
+                      }}>
                       <_SearchBar {...props} />
                     </button>
                   ) : (
