@@ -1,4 +1,5 @@
 import { auth } from "@/utils/firebase";
+import { trackEvent } from "@/utils/tracking";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -20,6 +21,7 @@ export async function loginWithCredentials(credentials: Credentials) {
     credentials.email,
     credentials.password
   );
+  trackEvent("login", { method: "email", email: credentials.email });
   return { uid: loginResult.user.uid };
 }
 
@@ -36,6 +38,7 @@ export async function signupWithCredentials({
     email,
     password
   );
+  trackEvent("signup", { method: "email", email });
   return { uid: loginResult.user.uid };
 }
 
@@ -70,11 +73,13 @@ export async function loginWithGoogle() {
   console.debug("loginWithGoogle");
   const provider = new GoogleAuthProvider();
   const userCred = await signInWithPopup(auth, provider);
+
+  trackEvent("login", { method: "google", email: userCred.user.email });
   return { uid: userCred.user.uid, email: userCred.user.email };
 }
 
 export async function logout() {
-  console.debug("logout");
+  trackEvent("logout");
   await auth.signOut();
 }
 
