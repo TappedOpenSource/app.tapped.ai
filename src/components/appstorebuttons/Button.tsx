@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import classNames from "classnames";
 import Image from "next/image";
 import { Outfit } from "next/font/google";
+import { trackEvent } from "@/utils/tracking";
 
 type ButtonProps = {
   theme?: "dark" | "light";
@@ -33,7 +34,16 @@ const Button: FC<ButtonProps> = ({
   return (
     <div>
       <button
-        onClick={() => url && window.open(url, "_blank")}
+        onClick={() => {
+          if (url) {
+            window.open(url, "_blank");
+          }
+
+          trackEvent("appstore_button_clicked", {
+            storeName,
+            url,
+          });
+        }}
         style={{
           height: height,
           width: width,

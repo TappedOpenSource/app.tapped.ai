@@ -53,6 +53,7 @@ import DayOfWeekGraph from "./DayOrWeekGraph";
 import UserCluster from "../UserCluster";
 import EmbededMap from "./EmbededMap";
 import { usePurchases } from "@/context/purchases";
+import { trackEvent } from "@/utils/tracking";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -245,6 +246,9 @@ export default function ProfileHeader({
           <Card
             className="hover:scale-103 flex w-full cursor-pointer items-center justify-center transition-all duration-150 ease-in-out"
             onClick={() => {
+              trackEvent("gauge_clicked", {
+                performer_id: user.id,
+              });
               toast({
                 title: `${category} performer`,
                 description:
@@ -379,7 +383,11 @@ function FullRows({
             <h2 className="text-2xl font-bold">top performers</h2>
             <div className="h-2" />
             {subscribed ? (
-              <UserCluster users={topPerformers} />
+              <UserCluster users={topPerformers} onClick={(performer) => {
+                trackEvent("top_performer_click", {
+                  performer_id: performer.id,
+                });
+              }} />
             ) : (
               <>
                 <Link

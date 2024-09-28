@@ -5,12 +5,15 @@ type EventName = "marker_clicked"
   | "sidebar_toggle"
   | "contact_venue"
   | "featured_performer_click"
+  | "top_performer_click"
   | "apply_for_opportunity"
   | "menu_click"
   | "login"
   | "signup"
   | "logout"
-  | "search_bar_clicked";
+  | "search_bar_clicked"
+  | "gauge_clicked"
+  | "appstore_button_clicked";
 
 export function trackEvent(event: EventName, properties?: Record<string, any>) {
   posthog.capture(event, properties);
