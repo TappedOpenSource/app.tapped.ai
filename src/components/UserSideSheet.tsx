@@ -9,6 +9,7 @@ import { ArrowUpRight, Copy } from "lucide-react";
 import { LoadingSpinner } from "./LoadingSpinner";
 import ProfileHeader from "./profile/ProfileHeader";
 import Link from "next/link";
+import { trackEvent } from "@/utils/tracking";
 
 export default function UserSideSheet() {
   const router = useRouter();
@@ -49,6 +50,10 @@ export default function UserSideSheet() {
                 navigator.clipboard.writeText(
                   `${window.location.origin}/u/${username}`
                 );
+
+                trackEvent("user_profile_link_copied", {
+                  user_id: selectedUser?.id,
+                });
 
                 toast({
                   description: "link copied!",
