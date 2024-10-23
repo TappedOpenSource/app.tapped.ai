@@ -1,12 +1,5 @@
 import type { Booking } from "@/domain/types/booking";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 // import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { z } from "zod";
@@ -153,11 +146,7 @@ export default function AddBooking({
               <FormItem>
                 <FormLabel>event name</FormLabel>
                 <FormControl>
-                  <Input
-                    id="name"
-                    placeholder="60min set at Elsewhere"
-                    {...field}
-                  />
+                  <Input id="name" placeholder="60min set at Elsewhere" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -170,11 +159,7 @@ export default function AddBooking({
               <FormItem className="flex flex-col">
                 <FormLabel htmlFor="datetime">when was it?</FormLabel>
                 <FormControl>
-                  <DateTimePicker
-                    granularity="minute"
-                    jsDate={value}
-                    onJsDateChange={onChange}
-                  />
+                  <DateTimePicker granularity="minute" jsDate={value} onJsDateChange={onChange} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -223,9 +208,7 @@ export default function AddBooking({
                     <FileUploader
                       {...fieldProps}
                       label="click here to upload a flier"
-                      onChange={(event) =>
-                        onChange(event.target.files && event.target.files[0])
-                      }
+                      onChange={(event) => onChange(event.target.files && event.target.files[0])}
                     />
                   )}
                 </FormControl>

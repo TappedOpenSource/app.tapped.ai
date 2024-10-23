@@ -144,11 +144,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
     // remove duplicates for same lat and lng
     const filteredPoints = points.filter(
       (v, i, a) =>
-        a.findIndex((v2) =>
-          ["lat", "lng"].every(
-            (k) => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"]
-          )
-        ) === i
+        a.findIndex((v2) => ["lat", "lng"].every((k) => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"])) === i,
     );
 
     setGlobeData(filteredPoints);
@@ -203,9 +199,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .ringColor((e: any) => (t: any) => e.color(t))
       .ringMaxRadius(defaultProps.maxRings)
       .ringPropagationSpeed(RING_PROPAGATION_SPEED)
-      .ringRepeatPeriod(
-        (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings
-      );
+      .ringRepeatPeriod((defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings);
   };
 
   useEffect(() => {
@@ -213,15 +207,9 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
     const interval = setInterval(() => {
       if (!globeRef.current || !globeData) return;
-      numbersOfRings = genRandomNumbers(
-        0,
-        data.length,
-        Math.floor((data.length * 4) / 5)
-      );
+      numbersOfRings = genRandomNumbers(0, data.length, Math.floor((data.length * 4) / 5));
 
-      globeRef.current.ringsData(
-        globeData.filter((d, i) => numbersOfRings.includes(i))
-      );
+      globeRef.current.ringsData(globeData.filter((d, i) => numbersOfRings.includes(i)));
     }, 2000);
 
     return () => {
@@ -256,19 +244,9 @@ export function World(props: WorldProps) {
     <Canvas scene={scene} camera={new PerspectiveCamera(50, aspect, 180, 1800)}>
       <WebGLRendererConfig />
       <ambientLight color={globeConfig.ambientLight} intensity={0.6} />
-      <directionalLight
-        color={globeConfig.directionalLeftLight}
-        position={new Vector3(-400, 100, 400)}
-      />
-      <directionalLight
-        color={globeConfig.directionalTopLight}
-        position={new Vector3(-200, 500, 200)}
-      />
-      <pointLight
-        color={globeConfig.pointLight}
-        position={new Vector3(-200, 500, 200)}
-        intensity={0.8}
-      />
+      <directionalLight color={globeConfig.directionalLeftLight} position={new Vector3(-400, 100, 400)} />
+      <directionalLight color={globeConfig.directionalTopLight} position={new Vector3(-200, 500, 200)} />
+      <pointLight color={globeConfig.pointLight} position={new Vector3(-200, 500, 200)} intensity={0.8} />
       <Globe {...props} />
       <OrbitControls
         enablePan={false}

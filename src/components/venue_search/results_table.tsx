@@ -15,11 +15,11 @@ export default function ResultsTable({
   lng,
   radius,
 }: {
-    capacity: number;
-    genres: string[];
-    lat: number;
-    lng: number;
-    radius: number;
+  capacity: number;
+  genres: string[];
+  lat: number;
+  lng: number;
+  radius: number;
 }) {
   const { useSearchData } = useSearch();
   const { data } = useSearchData("", {
@@ -47,14 +47,8 @@ export default function ResultsTable({
     <>
       <div className="container mx-auto py-10 overflow-y-scroll">
         <div className="flex justify-end py-3">
-          <Button
-            disabled={table.getFilteredSelectedRowModel().rows.length === 0}
-          >
-            <Link
-              href={`/venue_outreach/request_to_perform?venue_ids=${venueIds.join(",")}`}
-            >
-            request to perform
-            </Link>
+          <Button disabled={table.getFilteredSelectedRowModel().rows.length === 0}>
+            <Link href={`/venue_outreach/request_to_perform?venue_ids=${venueIds.join(",")}`}>request to perform</Link>
           </Button>
         </div>
         <DataTable table={table} />

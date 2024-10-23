@@ -15,63 +15,61 @@ interface StepInternalConfig {
 interface FullStepProps extends StepProps, StepInternalConfig {}
 
 // eslint-disable-next-line react/display-name
-const Step = React.forwardRef<HTMLLIElement, StepProps>(
-  (props, ref: React.Ref<any>) => {
-    const {
-      children,
-      description,
-      icon,
-      state,
-      checkIcon,
-      errorIcon,
-      index,
-      isCompletedStep,
-      isCurrentStep,
-      isLastStep,
-      isKeepError,
-      label,
-      onClickStep,
-    } = props as FullStepProps;
+const Step = React.forwardRef<HTMLLIElement, StepProps>((props, ref: React.Ref<any>) => {
+  const {
+    children,
+    description,
+    icon,
+    state,
+    checkIcon,
+    errorIcon,
+    index,
+    isCompletedStep,
+    isCurrentStep,
+    isLastStep,
+    isKeepError,
+    label,
+    onClickStep,
+  } = props as FullStepProps;
 
-    const { isVertical, isError, isLoading, clickable } = useStepper();
+  const { isVertical, isError, isLoading, clickable } = useStepper();
 
-    const hasVisited = isCurrentStep || isCompletedStep;
+  const hasVisited = isCurrentStep || isCompletedStep;
 
-    const sharedProps = {
-      isLastStep,
-      isCompletedStep,
-      isCurrentStep,
-      index,
-      isError,
-      isLoading,
-      clickable,
-      label,
-      description,
-      hasVisited,
-      icon,
-      isKeepError,
-      checkIcon,
-      state,
-      errorIcon,
-      onClickStep,
-    };
+  const sharedProps = {
+    isLastStep,
+    isCompletedStep,
+    isCurrentStep,
+    index,
+    isError,
+    isLoading,
+    clickable,
+    label,
+    description,
+    hasVisited,
+    icon,
+    isKeepError,
+    checkIcon,
+    state,
+    errorIcon,
+    onClickStep,
+  };
 
-    const renderStep = () => {
-      // eslint-disable-next-line sonarjs/no-small-switch
-      switch (isVertical) {
-      case true:
-        return (
-          <VerticalStep ref={ref} {...sharedProps}>
-            {children}
-          </VerticalStep>
-        );
-      default:
-        return <HorizontalStep ref={ref} {...sharedProps} />;
-      }
-    };
+  const renderStep = () => {
+    // eslint-disable-next-line sonarjs/no-small-switch
+    switch (isVertical) {
+    case true:
+      return (
+        <VerticalStep ref={ref} {...sharedProps}>
+          {children}
+        </VerticalStep>
+      );
+    default:
+      return <HorizontalStep ref={ref} {...sharedProps} />;
+    }
+  };
 
-    return renderStep();
-  }
-);
+  return renderStep();
+});
 
 export { Step };

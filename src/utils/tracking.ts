@@ -1,7 +1,7 @@
-
 import posthog from "posthog-js";
 
-type EventName = "marker_clicked"
+type EventName =
+  | "marker_clicked"
   | "sidebar_toggle"
   | "contact_venue"
   | "featured_performer_click"

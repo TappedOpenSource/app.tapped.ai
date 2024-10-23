@@ -1,16 +1,16 @@
 import { DocumentSnapshot, Timestamp } from "firebase/firestore";
 
 export type LabelApplication = {
-    id: string;
-    phone: string;
-    name: string;
-    location: string;
-    artistLabel: boolean;
-    description: string[];
-    followingCount: string;
-    instagramHandle: string;
-    profession: string;
-    timestamp: Date;
+  id: string;
+  phone: string;
+  name: string;
+  location: string;
+  artistLabel: boolean;
+  description: string[];
+  followingCount: string;
+  instagramHandle: string;
+  profession: string;
+  timestamp: Date;
 };
 
 export const labelApplicationConverter = {

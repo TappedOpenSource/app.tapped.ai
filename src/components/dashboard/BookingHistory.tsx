@@ -11,7 +11,9 @@ import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 
 export default function BookingHistory() {
-  const { state: { currentUser } } = useAuth();
+  const {
+    state: { currentUser },
+  } = useAuth();
   const [bookings, setBookings] = useState<Booking[]>([]);
   useEffect(() => {
     const fetchBooking = async () => {
@@ -22,11 +24,9 @@ export default function BookingHistory() {
       // fetch latest booking
       const latestRequesteeBookings = await getBookingsByRequestee(currentUser.id, { limit: 40 });
       const latestRequesterBookings = await getBookingsByRequester(currentUser.id, { limit: 40 });
-      const latestBookings = latestRequesteeBookings
-        .concat(latestRequesterBookings)
-        .sort((a, b) => {
-          return b.startTime.getTime() - a.startTime.getTime();
-        });
+      const latestBookings = latestRequesteeBookings.concat(latestRequesterBookings).sort((a, b) => {
+        return b.startTime.getTime() - a.startTime.getTime();
+      });
 
       setBookings(latestBookings);
     };
@@ -36,7 +36,6 @@ export default function BookingHistory() {
   if (currentUser === null) {
     return null;
   }
-
 
   return (
     <>

@@ -1,8 +1,10 @@
 import { UserModel, profileImage } from "@/domain/types/user_model";
 import Image from "next/image";
 
-export default function PerformerCard({ performer }: {
-    performer: UserModel;
+export default function PerformerCard({
+  performer,
+}: {
+  performer: UserModel;
 }) {
   const pfp = profileImage(performer);
   return (
@@ -17,10 +19,7 @@ export default function PerformerCard({ performer }: {
             fill
           />
         </div>
-        <p
-          className="mt-2 text-sm font-semibold">
-          {performer.artistName ?? performer.username}
-        </p>
+        <p className="mt-2 text-sm font-semibold">{performer.artistName ?? performer.username}</p>
       </div>
     </>
   );

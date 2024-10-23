@@ -2,14 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -27,8 +20,10 @@ const formSchema = z.object({
   note: z.string().min(1).max(512),
 });
 
-export default function RequestToPerformForm({ venueIds }: {
-    venueIds: string[];
+export default function RequestToPerformForm({
+  venueIds,
+}: {
+  venueIds: string[];
 }) {
   const { state: authState } = useAuth();
   const { state: subscribed } = usePurchases();
@@ -44,11 +39,13 @@ export default function RequestToPerformForm({ venueIds }: {
 
   useEffect(() => {
     const fetchVenues = async () => {
-      const venues = (await Promise.all(
-        venueIds.map(async (id) => {
-          return getUserById(id);
-        })
-      )).filter((v) => v !== null) as UserModel[];
+      const venues = (
+        await Promise.all(
+          venueIds.map(async (id) => {
+            return getUserById(id);
+          }),
+        )
+      ).filter((v) => v !== null) as UserModel[];
 
       setVenues(venues);
     };
@@ -72,9 +69,7 @@ export default function RequestToPerformForm({ venueIds }: {
       //   nav.push(RequestToPerformConfirmationPage(venues: _venues));
       router.push("/venue_outreach/request_to_perform_confirmation");
     } catch (e) {
-      console.error(
-        "error sending the request", { cause: e }
-      );
+      console.error("error sending the request", { cause: e });
 
       // show toast of error?
     } finally {
@@ -83,9 +78,7 @@ export default function RequestToPerformForm({ venueIds }: {
   };
 
   if (authState === null) {
-    return (
-      <RequestLoginPage />
-    );
+    return <RequestLoginPage />;
   }
 
   if (!subscribed) {
@@ -106,11 +99,7 @@ export default function RequestToPerformForm({ venueIds }: {
                 <FormItem>
                   <FormLabel>note</FormLabel>
                   <FormControl>
-                    <Textarea
-                      {...onChange}
-                      placeholder="i've got an idea for a show..."
-                      rows={4}
-                    />
+                    <Textarea {...onChange} placeholder="i've got an idea for a show..." rows={4} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

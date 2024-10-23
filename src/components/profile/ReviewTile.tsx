@@ -13,8 +13,7 @@ export default function ReviewTile({ review }: { review: Review }) {
         return;
       }
 
-      const reviewerId =
-        review.type === "booker" ? review.performerId : review.bookerId;
+      const reviewerId = review.type === "booker" ? review.performerId : review.bookerId;
 
       const reviewer = await getUserById(reviewerId);
       setReviewer(reviewer ?? null);

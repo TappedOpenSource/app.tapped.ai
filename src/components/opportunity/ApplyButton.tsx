@@ -49,9 +49,7 @@ export default function ApplyButton({ op }: { op: Opportunity }) {
   return (
     <div>
       <Link href={`/opportunity/${op.id}/apply`}>
-        <Button className="bg-blue-500 font-bold text-white">
-          apply to perform
-        </Button>
+        <Button className="bg-blue-500 font-bold text-white">apply to perform</Button>
       </Link>
     </div>
   );

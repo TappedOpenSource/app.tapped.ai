@@ -1,19 +1,14 @@
-
-import {
-  DocumentData,
-  QueryDocumentSnapshot,
-  SnapshotOptions,
-} from "firebase/firestore";
+import { DocumentData, QueryDocumentSnapshot, SnapshotOptions } from "firebase/firestore";
 
 export type Service = {
-    id: string;
-    userId: string;
-    title: string;
-    description: string;
-    rate: number;
-    rateType: "hourly" | "fixed";
-    count: number;
-    deleted: boolean;
+  id: string;
+  userId: string;
+  title: string;
+  description: string;
+  rate: number;
+  rateType: "hourly" | "fixed";
+  count: number;
+  deleted: boolean;
 };
 
 export const serviceConverter = {
@@ -22,10 +17,7 @@ export const serviceConverter = {
       ...service,
     };
   },
-  fromFirestore(
-    snapshot: QueryDocumentSnapshot,
-    options: SnapshotOptions
-  ): Service {
+  fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions): Service {
     const data = snapshot.data(options);
     return {
       id: data.id,

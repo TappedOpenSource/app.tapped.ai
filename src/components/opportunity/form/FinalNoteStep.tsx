@@ -1,11 +1,4 @@
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -93,11 +86,7 @@ export default function FinalNoteStep({
                 <FormItem>
                   <FormLabel>additional info for the booker</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="add a note for the booker..."
-                      className="resize-none"
-                      {...field}
-                    />
+                    <Textarea placeholder="add a note for the booker..." className="resize-none" {...field} />
                   </FormControl>
                   {/* <FormDescription>
                     You can <span>@mention</span> other users and organizations.
@@ -107,12 +96,7 @@ export default function FinalNoteStep({
               )}
             />
             <div className="flex flex-row justify-center gap-2">
-              <Button
-                disabled={isDisabledStep}
-                onClick={prevStep}
-                size="sm"
-                variant="secondary"
-              >
+              <Button disabled={isDisabledStep} onClick={prevStep} size="sm" variant="secondary">
                 prev
               </Button>
               {loading ? (

@@ -2,13 +2,7 @@
 
 import { Step, type StepItem, Stepper } from "@/components/ui/stepper";
 import { useAuth } from "@/context/auth";
-import {
-  CalendarDays,
-  FolderOpen,
-  Instagram,
-  LogIn,
-  StickyNote,
-} from "lucide-react";
+import { CalendarDays, FolderOpen, Instagram, LogIn, StickyNote } from "lucide-react";
 import BookingHistoryStep from "./BookingHistoryStep";
 import FinalNoteStep from "./FinalNoteStep";
 import LoginStep from "./LoginStep";
@@ -81,9 +75,7 @@ export default function ApplyForm({
     return (
       <>
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-center text-2xl font-bold">
-            you have already applied to this opportunity
-          </h1>
+          <h1 className="text-center text-2xl font-bold">you have already applied to this opportunity</h1>
           <div className="px-4 py-24">
             <DownloadTheAppSection showIcon={false} />
           </div>
@@ -95,12 +87,7 @@ export default function ApplyForm({
 
   return (
     <div className="flex w-full flex-col justify-center gap-4 px-4">
-      <Stepper
-        orientation="horizontal"
-        variant={"line"}
-        initialStep={0}
-        steps={steps}
-      >
+      <Stepper orientation="horizontal" variant={"line"} initialStep={0} steps={steps}>
         {steps.map((stepProps) => {
           const View = stepProps.view;
           return (

@@ -4,25 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 // import SearchAddress from "../ui/search-address";
 import { useAuth } from "@/context/auth";
 import { uploadProfilePicture } from "@/data/storage";
 import { genres } from "@/domain/types/genre";
 import { updateOnboardedUser } from "@/domain/usecases/onboarding";
-import {
-  getInstagramHandle,
-  getTiktokHandle,
-  getTwitterHandle,
-} from "@/utils/url_parsing";
+import { getInstagramHandle, getTiktokHandle, getTwitterHandle } from "@/utils/url_parsing";
 import * as _ from "lodash";
 import { LoadingSpinner } from "../LoadingSpinner";
 import MultipleSelector from "../ui/multiple-selector";
@@ -74,8 +63,7 @@ export default function SettingsForm() {
       bio: currentUser?.bio,
       twitterHandle: currentUser?.socialFollowing.twitterHandle ?? undefined,
       twitterFollowers: currentUser?.socialFollowing.twitterFollowers ?? 0,
-      instagramHandle:
-        currentUser?.socialFollowing.instagramHandle ?? undefined,
+      instagramHandle: currentUser?.socialFollowing.instagramHandle ?? undefined,
       instagramFollowers: currentUser?.socialFollowing.instagramFollowers ?? 0,
       tiktokHandle: currentUser?.socialFollowing.tiktokHandle ?? undefined,
       tiktokFollowers: currentUser?.socialFollowing.tiktokFollowers ?? 0,
@@ -103,10 +91,7 @@ export default function SettingsForm() {
     try {
       const profilePictureUrl = await (async () => {
         if (data.profilePicture) {
-          return await uploadProfilePicture(
-            currentUser.id,
-            data.profilePicture
-          );
+          return await uploadProfilePicture(currentUser.id, data.profilePicture);
         } else {
           return currentUser.profilePicture;
         }
@@ -172,9 +157,7 @@ export default function SettingsForm() {
                       placeholder="profile picture"
                       type="file"
                       accept="image/*"
-                      onChange={(event) =>
-                        onChange(event.target.files && event.target.files[0])
-                      }
+                      onChange={(event) => onChange(event.target.files && event.target.files[0])}
                     />
                   </FormControl>
                   <FormMessage />
@@ -188,11 +171,7 @@ export default function SettingsForm() {
                 <FormItem>
                   <FormLabel>username</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="username"
-                      className="lowercase"
-                    />
+                    <Input {...field} placeholder="username" className="lowercase" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -258,11 +237,7 @@ export default function SettingsForm() {
                   <FormItem>
                     <FormLabel>instagram handle</FormLabel>
                     <FormControl>
-                      <Input
-                        id="instagram_handle"
-                        placeholder="@champagnepapi"
-                        {...field}
-                      />
+                      <Input id="instagram_handle" placeholder="@champagnepapi" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -275,12 +250,7 @@ export default function SettingsForm() {
                   <FormItem>
                     <FormLabel>instagram followers</FormLabel>
                     <FormControl>
-                      <Input
-                        id="instagram_followers"
-                        type="number"
-                        placeholder="0"
-                        {...field}
-                      />
+                      <Input id="instagram_followers" type="number" placeholder="0" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -295,11 +265,7 @@ export default function SettingsForm() {
                   <FormItem>
                     <FormLabel>twitter handle</FormLabel>
                     <FormControl>
-                      <Input
-                        id="twitter_handle"
-                        placeholder="@taylorswift13"
-                        {...field}
-                      />
+                      <Input id="twitter_handle" placeholder="@taylorswift13" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -312,12 +278,7 @@ export default function SettingsForm() {
                   <FormItem>
                     <FormLabel>twitter followers</FormLabel>
                     <FormControl>
-                      <Input
-                        id="twitter_followers"
-                        type="number"
-                        placeholder="0"
-                        {...field}
-                      />
+                      <Input id="twitter_followers" type="number" placeholder="0" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -332,11 +293,7 @@ export default function SettingsForm() {
                   <FormItem>
                     <FormLabel>tiktok handle</FormLabel>
                     <FormControl>
-                      <Input
-                        id="tiktok_handle"
-                        placeholder="@chandlermatkins"
-                        {...field}
-                      />
+                      <Input id="tiktok_handle" placeholder="@chandlermatkins" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -349,12 +306,7 @@ export default function SettingsForm() {
                   <FormItem>
                     <FormLabel>tiktok followers</FormLabel>
                     <FormControl>
-                      <Input
-                        id="tiktok_followers"
-                        type="number"
-                        placeholder="0"
-                        {...field}
-                      />
+                      <Input id="tiktok_followers" type="number" placeholder="0" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -368,10 +320,7 @@ export default function SettingsForm() {
                 <FormItem>
                   <FormLabel>spotify url</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="https://open.spotify.com/artist/..."
-                    />
+                    <Input {...field} placeholder="https://open.spotify.com/artist/..." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

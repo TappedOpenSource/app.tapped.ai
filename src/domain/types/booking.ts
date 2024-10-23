@@ -1,8 +1,4 @@
-import {
-  QueryDocumentSnapshot,
-  SnapshotOptions,
-  Timestamp,
-} from "@firebase/firestore";
+import { QueryDocumentSnapshot, SnapshotOptions, Timestamp } from "@firebase/firestore";
 import { UserModel } from "./user_model";
 import { Option } from "./option";
 
@@ -32,10 +28,7 @@ export const bookingConverter = {
       timestamp: Timestamp.fromDate(booking.timestamp),
     };
   },
-  fromFirestore(
-    snapshot: QueryDocumentSnapshot,
-    options: SnapshotOptions
-  ): Booking {
+  fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions): Booking {
     const data = snapshot.data(options) as Booking & {
       timestamp: Timestamp;
       startTime: Timestamp;
@@ -50,10 +43,7 @@ export const bookingConverter = {
   },
 };
 
-export const bookingImage = (
-  booking: Booking,
-  user: Option<UserModel>
-): string => {
+export const bookingImage = (booking: Booking, user: Option<UserModel>): string => {
   if (booking === null) {
     return defaultImage();
   }

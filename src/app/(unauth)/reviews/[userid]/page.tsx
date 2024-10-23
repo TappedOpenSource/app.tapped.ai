@@ -32,7 +32,7 @@ export default function Reviews({
 
   if (loading) {
     return (
-      <div className='min-h-screen flex justify-center items-center'>
+      <div className="min-h-screen flex justify-center items-center">
         <p>fetching reviews... </p>
       </div>
     );
@@ -40,7 +40,7 @@ export default function Reviews({
 
   if (reviews.length === 0) {
     return (
-      <div className='min-h-screen flex justify-center items-center'>
+      <div className="min-h-screen flex justify-center items-center">
         <p>no reviews</p>
       </div>
     );
@@ -48,18 +48,18 @@ export default function Reviews({
 
   return (
     <>
-      <div className='md:flex md:justify-center'>
-        <div className='py-4 px-6 md:w-1/2'>
+      <div className="md:flex md:justify-center">
+        <div className="py-4 px-6 md:w-1/2">
           <h1 className="text-4xl font-extrabold">reviews</h1>
           <div className="h-4" />
           {reviews.map((review, index) => (
-            <div key={index} className='py-4'>
+            <div key={index} className="py-4">
               <ReviewTile review={review} />
             </div>
           ))}
           <div className="h-4" />
-          <div className='flex justify-center items-center'>
-            <p className='text-xs font-thin text-gray-500'>end of list</p>
+          <div className="flex justify-center items-center">
+            <p className="text-xs font-thin text-gray-500">end of list</p>
           </div>
         </div>
       </div>

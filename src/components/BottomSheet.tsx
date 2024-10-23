@@ -20,7 +20,6 @@ const UserSheet = styled(BSheet)`
   }
 `;
 
-
 export default function UserBottomSheet() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -46,7 +45,6 @@ export default function UserBottomSheet() {
     router.push(newPathname);
   };
 
-
   return (
     <>
       <UserSheet isOpen={isOpen} onClose={onClose}>
@@ -54,9 +52,7 @@ export default function UserBottomSheet() {
           <BSheet.Header />
           <BSheet.Content>
             <BSheet.Scroller>
-              {selectedUser === null ? null : (
-                <ProfileView username={selectedUser.username} />
-              )}
+              {selectedUser === null ? null : <ProfileView username={selectedUser.username} />}
             </BSheet.Scroller>
           </BSheet.Content>
         </BSheet.Container>

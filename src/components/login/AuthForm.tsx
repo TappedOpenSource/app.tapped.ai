@@ -8,14 +8,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { PasswordInput } from "../ui/password_input";
 
@@ -56,10 +49,7 @@ export default function AuthForm() {
   return (
     <>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-2"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-2">
           <FormField
             control={form.control}
             name="email"
@@ -86,12 +76,7 @@ export default function AuthForm() {
               <FormItem>
                 <FormLabel>password</FormLabel>
                 <FormControl>
-                  <PasswordInput
-                    autoComplete="new-password"
-                    placeholder="********"
-                    disabled={loading}
-                    {...field}
-                  />
+                  <PasswordInput autoComplete="new-password" placeholder="********" disabled={loading} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

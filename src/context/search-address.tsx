@@ -23,10 +23,7 @@ export const useSearchAddress = () => {
           setResults(response);
           setLoading(false);
         } catch (error) {
-          console.error(
-            "there was a problem with your fetch operation:",
-            error,
-          );
+          console.error("there was a problem with your fetch operation:", error);
           setResults([]);
         }
       } else {

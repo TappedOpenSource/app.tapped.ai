@@ -5,7 +5,14 @@ import ProfileHeader from "@/components/profile/ProfileHeader";
 import { getUserByUsername } from "@/data/database";
 import { UserModel } from "@/domain/types/user_model";
 import { useState, useEffect } from "react";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import Link from "next/link";
 
@@ -50,17 +57,17 @@ export default function Page() {
           <div className="flex flex-row justify-center items-center gap-4">
             <SearchBar
               openDialog={false}
-              onSelect={
-                (user) => {
-                  setPerformerOne(user);
-                }} />
+              onSelect={(user) => {
+                setPerformerOne(user);
+              }}
+            />
             <h3>vs</h3>
             <SearchBar
               openDialog={false}
-              onSelect={
-                (user) => {
-                  setPerformerTwo(user);
-                }} />
+              onSelect={(user) => {
+                setPerformerTwo(user);
+              }}
+            />
           </div>
           <div className="flex flex-row justify-center items-start gap-4">
             <div>

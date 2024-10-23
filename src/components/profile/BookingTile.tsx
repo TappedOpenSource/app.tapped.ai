@@ -66,28 +66,17 @@ export default function BookingTile({ booking }: { booking: Booking }) {
       >
         <div className="flex flex-row">
           <div className="flex items-center justify-center">
-            <Image
-              src={imageSrc}
-              alt="booking image"
-              width={50}
-              height={50}
-              style={{ objectFit: "cover" }}
-            />
+            <Image src={imageSrc} alt="booking image" width={50} height={50} style={{ objectFit: "cover" }} />
           </div>
           <div className="w-3" />
           <div>
             <div className="flex flex-row items-center">
-              <p className="line-clamp-1 text-ellipsis text-start font-bold">
-                {booking.name ?? "live performance"}
-              </p>
+              <p className="line-clamp-1 text-ellipsis text-start font-bold">{booking.name ?? "live performance"}</p>
               <div className="w-3" />
-              <p className="line-clamp-1 text-xs font-thin text-gray-300">
-                {booking.timestamp.toDateString()}
-              </p>
+              <p className="line-clamp-1 text-xs font-thin text-gray-300">{booking.timestamp.toDateString()}</p>
             </div>
             <p className="break-word text-start">
-              {booker?.artistName ?? "someone"} booked{" "}
-              {performer?.artistName ?? "someone"}
+              {booker?.artistName ?? "someone"} booked {performer?.artistName ?? "someone"}
               {" for a show"}
             </p>
           </div>

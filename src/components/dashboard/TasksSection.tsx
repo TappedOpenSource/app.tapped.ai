@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import AddBooking from "../opportunity/form/AddBooking";
 import { useToast } from "../ui/use-toast";
 
-const Task = ({ text, cta }: { text: string, cta?: string }) => {
+const Task = ({ text, cta }: { text: string; cta?: string }) => {
   if (!cta) {
     return (
       <div className="group flex items-center gap-2 rounded-xl border border-blue-800 bg-blue-800/30 p-3">
@@ -34,7 +34,9 @@ const Task = ({ text, cta }: { text: string, cta?: string }) => {
 
 export default function TasksSection() {
   const [hasBookings, setHasBookings] = useState(true);
-  const { state: { currentUser } } = useAuth();
+  const {
+    state: { currentUser },
+  } = useAuth();
   const { toast } = useToast();
 
   useEffect(() => {
@@ -73,23 +75,24 @@ export default function TasksSection() {
       <h1 className="font-bold text-gray-500">tasks</h1>
       {needsPfp && <Task text="add a profile picture" cta="/settings" />}
       {needsSocials && <Task text="add social media links" cta="/settings" />}
-      {!hasBookings &&
-             <Dialog>
-               <DialogTrigger className="w-full">
-                 <Task text="add your booking history" />
-               </DialogTrigger>
-               <DialogContent>
-                 <AddBooking
-                   onSubmit={(booking) => {
-                     toast({
-                       title: `booking added [${booking.name}]`,
-                       description: "your booking has been added, don't be afraid to refresh the page if it isn't showing up",
-                     });
-                   }}
-                 />
-               </DialogContent>
-             </Dialog>
-      }
+      {!hasBookings && (
+        <Dialog>
+          <DialogTrigger className="w-full">
+            <Task text="add your booking history" />
+          </DialogTrigger>
+          <DialogContent>
+            <AddBooking
+              onSubmit={(booking) => {
+                toast({
+                  title: `booking added [${booking.name}]`,
+                  description:
+                    "your booking has been added, don't be afraid to refresh the page if it isn't showing up",
+                });
+              }}
+            />
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }

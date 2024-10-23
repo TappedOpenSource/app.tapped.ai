@@ -11,10 +11,7 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      "stripe-pricing-table": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >;
+      "stripe-pricing-table": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
     }
   }
 }
@@ -46,11 +43,7 @@ export default function Page() {
       <div className="mt-16 flex flex-col items-center justify-center">
         <p>you&apos;re already subscribed</p>
         <Button variant="secondary">
-          <Link
-            href="https://tapped.tolt.io"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <Link href="https://tapped.tolt.io" target="_blank" rel="noopener noreferrer">
             share with a friend
           </Link>
         </Button>

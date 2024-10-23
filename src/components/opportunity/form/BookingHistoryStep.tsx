@@ -59,14 +59,9 @@ export default function BookingHistoryStep() {
             <AlertTitle>ADD YOUR BOOKING HISTORY!!</AlertTitle>
             <AlertDescription>
               for this gig (and any gig for that matter){" "}
-              <b>
-                it is 86% more likely for you to get booked if you have a
-                booking history
-              </b>
-              , small or large. This can be a house show, rooftop event, opening
-              for another performer, literally anything.{" "}
-              <b>DO NOT LEAVE IT EMPTY</b> or you’re basically guaranteeing that
-              you won’t get a response.
+              <b>it is 86% more likely for you to get booked if you have a booking history</b>, small or large. This can
+              be a house show, rooftop event, opening for another performer, literally anything.{" "}
+              <b>DO NOT LEAVE IT EMPTY</b> or you’re basically guaranteeing that you won’t get a response.
             </AlertDescription>
           </Alert>
         </div>
@@ -100,11 +95,7 @@ export default function BookingHistoryStep() {
               </DialogContent>
             </Dialog>
             {bookingHistory.length >= 5 && (
-              <Link
-                referrerPolicy="no-referrer"
-                target="_blank"
-                href={`/history/${authUser.uid}`}
-              >
+              <Link referrerPolicy="no-referrer" target="_blank" href={`/history/${authUser.uid}`}>
                 <Button variant="secondary">view all</Button>
               </Link>
             )}
@@ -112,12 +103,7 @@ export default function BookingHistoryStep() {
         </div>
       </div>
       <div className="flex flex-row justify-center gap-2">
-        <Button
-          disabled={isDisabledStep}
-          onClick={prevStep}
-          size="sm"
-          variant="secondary"
-        >
+        <Button disabled={isDisabledStep} onClick={prevStep} size="sm" variant="secondary">
           prev
         </Button>
         <AlertDialog>
@@ -128,10 +114,8 @@ export default function BookingHistoryStep() {
             <AlertDialogHeader>
               <AlertDialogTitle>are you absolutely sure?</AlertDialogTitle>
               <AlertDialogDescription>
-                your booking history is the most important part of your profile.
-                it is what bookers primarily use to decide talent and
-                you&apos;re 86% more likely to get booked with at least one
-                booking
+                your booking history is the most important part of your profile. it is what bookers primarily use to
+                decide talent and you&apos;re 86% more likely to get booked with at least one booking
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

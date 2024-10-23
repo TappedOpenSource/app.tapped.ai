@@ -22,4 +22,4 @@ export type PlacePrediction = {
   formattedAddress: string;
   latitude: number;
   longitude: number;
-}
+};

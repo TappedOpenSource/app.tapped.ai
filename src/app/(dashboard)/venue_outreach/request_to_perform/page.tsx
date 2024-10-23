@@ -1,4 +1,3 @@
-
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import RequestToPerformForm from "@/components/request_to_perform/RequestToPerformForm";
 import {
@@ -10,7 +9,9 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
-export default function Page({ searchParams }: {
+export default function Page({
+  searchParams,
+}: {
   searchParams: { [key: string]: string };
 }) {
   const rawVenueIds = searchParams["venue_ids"];

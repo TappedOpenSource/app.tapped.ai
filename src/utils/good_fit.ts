@@ -1,4 +1,3 @@
-
 import { type UserModel, suggestMaxCapacity } from "@/domain/types/user_model";
 
 type Params = {
@@ -17,7 +16,7 @@ export function isVenueGoodFit({ user, venue }: Params): Return {
   const category = user.performerInfo?.category;
   const userGenres = user.performerInfo?.genres ?? [];
   const venueCapacity = venue.venueInfo?.capacity;
-  const goodCapFit = (category && venueCapacity) ? suggestMaxCapacity(category) >= venueCapacity : false;
+  const goodCapFit = category && venueCapacity ? suggestMaxCapacity(category) >= venueCapacity : false;
 
   const venueGenres = venue.venueInfo?.genres ?? [];
 

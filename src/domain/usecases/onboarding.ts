@@ -6,11 +6,7 @@ import { convertToNullableString } from "@/utils/strings";
 import { checkUsernameAvailability, createOrUpdateUser } from "@/data/database";
 import * as _ from "lodash";
 import { uploadProfilePicture } from "@/data/storage";
-import {
-  getInstagramHandle,
-  getTiktokHandle,
-  getTwitterHandle,
-} from "@/utils/url_parsing";
+import { getInstagramHandle, getTiktokHandle, getTwitterHandle } from "@/utils/url_parsing";
 
 type OnboardFormUser = {
   username: string;
@@ -32,13 +28,10 @@ export async function onboardNewUser(
   onboardFormUser: OnboardFormUser,
   options?: {
     sleepTime?: number;
-  }
+  },
 ) {
   try {
-    const usernameAvailable = await checkUsernameAvailability(
-      authUser.uid,
-      onboardFormUser.username
-    );
+    const usernameAvailable = await checkUsernameAvailability(authUser.uid, onboardFormUser.username);
 
     if (!usernameAvailable) {
       throw new Error("username already taken");
@@ -46,22 +39,15 @@ export async function onboardNewUser(
 
     const profilePictureUrl = await (async () => {
       if (onboardFormUser.profilePicture) {
-        return await uploadProfilePicture(
-          authUser.uid,
-          onboardFormUser.profilePicture
-        ); // directly return the URL
+        return await uploadProfilePicture(authUser.uid, onboardFormUser.profilePicture); // directly return the URL
       } else {
         return null; // return null if no photo is picked
       }
     })();
 
     const tiktokHandle = convertToNullableString(onboardFormUser.tiktokHandle);
-    const instagramHandle = convertToNullableString(
-      onboardFormUser.instagramHandle
-    );
-    const twitterHandle = convertToNullableString(
-      onboardFormUser.twitterHandle
-    );
+    const instagramHandle = convertToNullableString(onboardFormUser.instagramHandle);
+    const twitterHandle = convertToNullableString(onboardFormUser.twitterHandle);
 
     const newUserObj = _.merge(emptyUserModel, {
       id: authUser.uid,
@@ -69,10 +55,7 @@ export async function onboardNewUser(
       unclaimed: false,
       deleted: false,
       username: onboardFormUser.username,
-      artistName:
-        onboardFormUser.artistName ??
-        authUser.displayName ??
-        onboardFormUser.username,
+      artistName: onboardFormUser.artistName ?? authUser.displayName ?? onboardFormUser.username,
       profilePicture: profilePictureUrl,
       socialFollowing: {
         tiktokHandle: getTiktokHandle(tiktokHandle),
@@ -103,16 +86,10 @@ export async function onboardNewUser(
   }
 }
 
-export async function updateOnboardedUser(
-  dispatch: Dispatch,
-  updatedUser: UserModel
-) {
+export async function updateOnboardedUser(dispatch: Dispatch, updatedUser: UserModel) {
   try {
     // check that username doesn't already exist on someone else
-    const usernameAvailable = await checkUsernameAvailability(
-      updatedUser.id,
-      updatedUser.username
-    );
+    const usernameAvailable = await checkUsernameAvailability(updatedUser.id, updatedUser.username);
 
     if (!usernameAvailable) {
       throw new Error("username already taken");

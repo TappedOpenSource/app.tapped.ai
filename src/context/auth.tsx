@@ -4,13 +4,7 @@ import { getUserById } from "@/data/database";
 import { UserModel } from "@/domain/types/user_model";
 import { auth } from "@/utils/firebase";
 import { User } from "firebase/auth";
-import {
-  type ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-} from "react";
+import { type ReactNode, createContext, useContext, useEffect, useReducer } from "react";
 
 export type Action =
   | { type: "ONBOARD"; currentUser: UserModel; authUser?: User }

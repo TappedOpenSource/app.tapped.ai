@@ -17,6 +17,6 @@ export const useSearchToggle = create(
     {
       name: "searchOpen",
       storage: createJSONStorage(() => localStorage),
-    }
-  )
+    },
+  ),
 );

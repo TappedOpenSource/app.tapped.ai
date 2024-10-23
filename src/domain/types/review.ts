@@ -1,14 +1,14 @@
 import { DocumentData, QueryDocumentSnapshot, SnapshotOptions, Timestamp } from "firebase/firestore";
 
 export type Review = {
-    id: string;
-    bookerId: string;
-    performerId: string;
-    bookingId: string;
-    timestamp: Date;
-    overallRating: number;
-    overallReview: string;
-    type: "performer" | "booker";
+  id: string;
+  bookerId: string;
+  performerId: string;
+  bookingId: string;
+  timestamp: Date;
+  overallRating: number;
+  overallReview: string;
+  type: "performer" | "booker";
 };
 
 export const reviewConverter = {
@@ -18,10 +18,7 @@ export const reviewConverter = {
       timestamp: Timestamp.fromDate(review.timestamp),
     };
   },
-  fromFirestore(
-    snapshot: QueryDocumentSnapshot,
-    options: SnapshotOptions
-  ): Review {
+  fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions): Review {
     const data = snapshot.data(options);
     return {
       id: data.id,

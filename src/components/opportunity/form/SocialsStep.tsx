@@ -1,11 +1,4 @@
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -112,11 +105,7 @@ export default function SocialsStep() {
                 <FormItem>
                   <FormLabel>spotify URL</FormLabel>
                   <FormControl>
-                    <Input
-                      id="spotifyUrl"
-                      placeholder="https://open.spotify.com/artist/..."
-                      {...field}
-                    />
+                    <Input id="spotifyUrl" placeholder="https://open.spotify.com/artist/..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -129,11 +118,7 @@ export default function SocialsStep() {
                 <FormItem>
                   <FormLabel>soundcloud handle</FormLabel>
                   <FormControl>
-                    <Input
-                      id="soundcloudHandle"
-                      placeholder="jonaylor89"
-                      {...field}
-                    />
+                    <Input id="soundcloudHandle" placeholder="jonaylor89" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -148,11 +133,7 @@ export default function SocialsStep() {
                   <FormItem>
                     <FormLabel>instagram handle</FormLabel>
                     <FormControl>
-                      <Input
-                        id="instagram_handle"
-                        placeholder="@champagnepapi"
-                        {...field}
-                      />
+                      <Input id="instagram_handle" placeholder="@champagnepapi" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -165,12 +146,7 @@ export default function SocialsStep() {
                   <FormItem>
                     <FormLabel>instagram followers</FormLabel>
                     <FormControl>
-                      <Input
-                        id="instagram_followers"
-                        type="number"
-                        placeholder="0"
-                        {...field}
-                      />
+                      <Input id="instagram_followers" type="number" placeholder="0" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -185,11 +161,7 @@ export default function SocialsStep() {
                   <FormItem>
                     <FormLabel>twitter handle</FormLabel>
                     <FormControl>
-                      <Input
-                        id="twitter_handle"
-                        placeholder="@taylorswift13"
-                        {...field}
-                      />
+                      <Input id="twitter_handle" placeholder="@taylorswift13" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -202,12 +174,7 @@ export default function SocialsStep() {
                   <FormItem>
                     <FormLabel>twitter followers</FormLabel>
                     <FormControl>
-                      <Input
-                        id="twitter_followers"
-                        type="number"
-                        placeholder="0"
-                        {...field}
-                      />
+                      <Input id="twitter_followers" type="number" placeholder="0" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -222,11 +189,7 @@ export default function SocialsStep() {
                   <FormItem>
                     <FormLabel>tiktok handle</FormLabel>
                     <FormControl>
-                      <Input
-                        id="tiktok_handle"
-                        placeholder="@chandlermatkins"
-                        {...field}
-                      />
+                      <Input id="tiktok_handle" placeholder="@chandlermatkins" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -239,12 +202,7 @@ export default function SocialsStep() {
                   <FormItem>
                     <FormLabel>tiktok followers</FormLabel>
                     <FormControl>
-                      <Input
-                        id="tiktok_followers"
-                        type="number"
-                        placeholder="0"
-                        {...field}
-                      />
+                      <Input id="tiktok_followers" type="number" placeholder="0" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -252,13 +210,7 @@ export default function SocialsStep() {
               />
             </div>
             <div className="flex w-full flex-row gap-2">
-              <Button
-                disabled={isDisabledStep}
-                onClick={prevStep}
-                size="sm"
-                variant="secondary"
-                className="w-full"
-              >
+              <Button disabled={isDisabledStep} onClick={prevStep} size="sm" variant="secondary" className="w-full">
                 prev
               </Button>
               <Button size="sm" type="submit" className="w-full">

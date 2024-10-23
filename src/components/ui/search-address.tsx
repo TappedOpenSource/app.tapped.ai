@@ -3,19 +3,8 @@
 import { Check, ChevronsUpDown } from "lucide-react";
 import React, { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { CommandLoading } from "cmdk";
 import { PlacePrediction } from "@/domain/types/place_data";
@@ -24,19 +13,11 @@ import { useSearchAddress } from "@/context/search-address";
 interface SearchAddressProps {
   onSelectLocation: (item: PlacePrediction | null) => void;
 }
-const SearchAddress: React.FC<SearchAddressProps> = ({
-  onSelectLocation,
-}) => {
+const SearchAddress: React.FC<SearchAddressProps> = ({ onSelectLocation }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
-  const {
-    results,
-    loading,
-    handleSearch,
-    selectedItem,
-    setSelectedItem,
-  } = useSearchAddress();
+  const { results, loading, handleSearch, selectedItem, setSelectedItem } = useSearchAddress();
 
   const resultsList = useMemo(() => {
     return results.map((result, index) => (
@@ -50,14 +31,7 @@ const SearchAddress: React.FC<SearchAddressProps> = ({
           setOpen(false);
         }}
       >
-        <Check
-          className={cn(
-            "mr-2 h-4 w-4",
-            value === result.formattedAddress ?
-              "opacity-100" :
-              "opacity-0",
-          )}
-        />
+        <Check className={cn("mr-2 h-4 w-4", value === result.formattedAddress ? "opacity-100" : "opacity-0")} />
         {result.formattedAddress}
       </CommandItem>
     ));
@@ -66,17 +40,8 @@ const SearchAddress: React.FC<SearchAddressProps> = ({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full justify-between truncate"
-        >
-          <p className="truncate">
-            {selectedItem ?
-              `${selectedItem.formattedAddress}` :
-              "select city..."}
-          </p>
+        <Button variant="outline" role="combobox" aria-expanded={open} className="w-full justify-between truncate">
+          <p className="truncate">{selectedItem ? `${selectedItem.formattedAddress}` : "select city..."}</p>
 
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -96,10 +61,7 @@ const SearchAddress: React.FC<SearchAddressProps> = ({
               </CommandLoading>
             ) : results.length > 0 ? (
               <>
-                <CommandGroup
-                  key="places"
-                  heading="places"
-                >
+                <CommandGroup key="places" heading="places">
                   {resultsList}
                 </CommandGroup>
               </>

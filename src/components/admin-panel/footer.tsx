@@ -6,14 +6,16 @@ export default function Footer() {
     <div className="supports-backdrop-blur:bg-background/60 z-20 w-full shadow bg-background/95 backdrop-blur">
       <div className="mx-4 md:mx-8 flex h-14 items-center justify-between">
         <p className="text-xs md:text-sm leading-loose text-muted-foreground text-left">
-        © {new Date().getFullYear()}.{" "}
+          © {new Date().getFullYear()}.{" "}
           <Link
             href="https://tapped.ai/"
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium underline underline-offset-4"
-          >Tapped Industries Inc.™</Link>.
-            All Rights Reserved. - Made with 💙 in Richmond, Virginia
+          >
+            Tapped Industries Inc.™
+          </Link>
+          . All Rights Reserved. - Made with 💙 in Richmond, Virginia
         </p>
         <div className="mt-4 flex space-x-5 sm:justify-center md:mt-0 rtl:space-x-reverse">
           {/* <Link href="/" className="text-gray-400 hover:text-gray-900 dark:hover:text-white">
@@ -28,16 +30,10 @@ export default function Footer() {
                 </svg>
                 <span className="sr-only">Discord community</span>
               </Link> */}
-          <Link
-            href="https://x.com/tappedai"
-            className="text-gray-400 hover:text-white"
-          >
+          <Link href="https://x.com/tappedai" className="text-gray-400 hover:text-white">
             <Twitter className="h-4 w-4" />
           </Link>
-          <Link
-            href="https://github.com/TappedOpenSource"
-            className="text-gray-400 hover:text-white"
-          >
+          <Link href="https://github.com/TappedOpenSource" className="text-gray-400 hover:text-white">
             <Github className="h-4 w-4" />
           </Link>
           {/* <Link
@@ -46,10 +42,7 @@ export default function Footer() {
           >
             <TikTok
           </Link> */}
-          <Link
-            href="https://instagram.com/tappedai"
-            className="text-gray-400 hover:text-white"
-          >
+          <Link href="https://instagram.com/tappedai" className="text-gray-400 hover:text-white">
             <Instagram className="h-4 w-4" />
           </Link>
         </div>

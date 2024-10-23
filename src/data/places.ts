@@ -5,8 +5,7 @@ import { httpsCallable } from "@firebase/functions";
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { LRUCache } from "lru-cache";
 
-export const googlePlacesApiKey =
-  process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY ?? "";
+export const googlePlacesApiKey = process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY ?? "";
 
 const placeDetailsCache = new LRUCache({
   max: 500,
@@ -29,30 +28,21 @@ export const getPlaceById = async (placeId: string) => {
 };
 
 const _getPlaceDetails = async (placeId: string): Promise<PlaceData> => {
-  const fields = [
-    "id",
-    "location",
-    "shortFormattedAddress",
-    "addressComponents",
-    "photos",
-  ];
+  const fields = ["id", "location", "shortFormattedAddress", "addressComponents", "photos"];
 
   try {
     if (placeDetailsCache.has(placeId)) {
       return placeDetailsCache.get(placeId) as PlaceData;
     }
 
-    const res = await fetch(
-      `https://places.googleapis.com/v1/places/${placeId}?languageCode=en`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Goog-Api-Key": googlePlacesApiKey,
-          "X-Goog-FieldMask": fields.join(","),
-        },
-      }
-    );
+    const res = await fetch(`https://places.googleapis.com/v1/places/${placeId}?languageCode=en`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Goog-Api-Key": googlePlacesApiKey,
+        "X-Goog-FieldMask": fields.join(","),
+      },
+    });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const json = (await res.json()) as {
       error?: Error;
@@ -99,7 +89,7 @@ const _getPlaceDetails = async (placeId: string): Promise<PlaceData> => {
 
 export const autocompleteCities = async (
   q: string,
-  types: string[] = ["locality"]
+  types: string[] = ["locality"],
 ): Promise<
   {
     place_id: string;
@@ -124,21 +114,17 @@ export const autocompleteCities = async (
 };
 
 export const searchPlaces = async (q: string): Promise<PlacePrediction[]> => {
-  const res = await fetch(
-    "https://places.googleapis.com/v1/places:searchText",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Goog-Api-Key": googlePlacesApiKey,
-        "X-Goog-FieldMask":
-          "places.id,places.displayName,places.formattedAddress,places.location",
-      },
-      body: JSON.stringify({
-        textQuery: q,
-      }),
-    }
-  );
+  const res = await fetch("https://places.googleapis.com/v1/places:searchText", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Goog-Api-Key": googlePlacesApiKey,
+      "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.location",
+    },
+    body: JSON.stringify({
+      textQuery: q,
+    }),
+  });
 
   const json = (await res.json()) as {
     places?: {

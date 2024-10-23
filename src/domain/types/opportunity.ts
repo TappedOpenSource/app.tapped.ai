@@ -1,31 +1,24 @@
-
-import {
-  DocumentData,
-  QueryDocumentSnapshot,
-  SnapshotOptions,
-  Timestamp,
-} from "firebase/firestore";
-
+import { DocumentData, QueryDocumentSnapshot, SnapshotOptions, Timestamp } from "firebase/firestore";
 
 export type Opportunity = {
-    id: string;
-    userId: string;
-    title: string;
-    description: string;
-    flierUrl?: string;
-    location: {
-      placeId: string;
-      lat: number;
-      lng: number;
-    };
-    timestamp: Date;
-    startTime: Date;
-    endTime: Date;
-    deadline?: Date;
-    isPaid: boolean;
-    genres?: string[];
-    venueId?: string | null;
-    referenceEventId?: string | null;
+  id: string;
+  userId: string;
+  title: string;
+  description: string;
+  flierUrl?: string;
+  location: {
+    placeId: string;
+    lat: number;
+    lng: number;
+  };
+  timestamp: Date;
+  startTime: Date;
+  endTime: Date;
+  deadline?: Date;
+  isPaid: boolean;
+  genres?: string[];
+  venueId?: string | null;
+  referenceEventId?: string | null;
 };
 
 export const opportunityConverter = {
@@ -38,10 +31,7 @@ export const opportunityConverter = {
       deadline: opportunity.deadline ? Timestamp.fromDate(opportunity.deadline) : null,
     };
   },
-  fromFirestore(
-    snapshot: QueryDocumentSnapshot,
-    options: SnapshotOptions
-  ): Opportunity {
+  fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions): Opportunity {
     const data = snapshot.data(options) as Opportunity & {
       timestamp: Timestamp;
       startTime: Timestamp;
@@ -59,10 +49,7 @@ export const opportunityConverter = {
 };
 
 export const opImage = (opportunity: Opportunity) => {
-  if (
-    opportunity.flierUrl !== undefined &&
-    opportunity.flierUrl !== null &&
-    opportunity.flierUrl !== "") {
+  if (opportunity.flierUrl !== undefined && opportunity.flierUrl !== null && opportunity.flierUrl !== "") {
     return opportunity.flierUrl;
   }
 

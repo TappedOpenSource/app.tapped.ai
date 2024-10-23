@@ -3,7 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import Image from "next/image";
 
-export default function UserChip({ user, onClick }: { user: UserModel, onClick?: () => void }) {
+export default function UserChip({ user, onClick }: { user: UserModel; onClick?: () => void }) {
   const router = useRouter();
   const pathname = usePathname();
   const imageSrc = profileImage(user);
@@ -15,14 +15,14 @@ export default function UserChip({ user, onClick }: { user: UserModel, onClick?:
         onClick={() => {
           onClick?.();
           const newSearchParams = `username=${user.username}`;
-          const newPathname = pathname.includes("?") ? `${pathname}&${newSearchParams}` : `${pathname}?${newSearchParams}`;
+          const newPathname = pathname.includes("?") ?
+            `${pathname}&${newSearchParams}` :
+            `${pathname}?${newSearchParams}`;
           router.push(newPathname);
         }}
       >
         <div className="flex flex-row justify-start items-center">
-          <div
-            className="relative bg-card rounded-xl w-6 h-6"
-          >
+          <div className="relative bg-card rounded-xl w-6 h-6">
             <Image
               src={imageSrc}
               alt="performer profile picture"
@@ -31,9 +31,7 @@ export default function UserChip({ user, onClick }: { user: UserModel, onClick?:
               fill
             />
           </div>
-          <p
-            className="p-1 md:p-2"
-          >{user.artistName ?? user.username}</p>
+          <p className="p-1 md:p-2">{user.artistName ?? user.username}</p>
         </div>
       </Button>
     </>

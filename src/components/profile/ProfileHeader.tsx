@@ -12,32 +12,14 @@ import {
   getUserById,
   isVerified,
 } from "@/data/database";
-import {
-  userAudienceSize,
-  profileImage,
-  reviewCount,
-  type UserModel,
-  performerScore,
-} from "@/domain/types/user_model";
+import { userAudienceSize, profileImage, reviewCount, type UserModel, performerScore } from "@/domain/types/user_model";
 import { cn } from "@/lib/utils";
-import {
-  BadgeCheck,
-  Facebook,
-  Link2,
-  MapPinned,
-  MicVocal,
-  Network,
-} from "lucide-react";
+import { BadgeCheck, Facebook, Link2, MapPinned, MicVocal, Network } from "lucide-react";
 import { Manrope } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import GaugeComponent from "react-gauge-component";
 import { useToast } from "../ui/use-toast";
 import { Card } from "../ui/card";
@@ -72,8 +54,7 @@ export default function ProfileHeader({
   const firstValue = user.venueInfo?.capacity ?? audience;
   const firstLabel = user.venueInfo?.capacity ? "capacity" : "audience";
   const category = user.performerInfo?.category;
-  const isPerformer =
-    user.performerInfo !== null && user.performerInfo !== undefined;
+  const isPerformer = user.performerInfo !== null && user.performerInfo !== undefined;
   const isVenue = user.venueInfo !== null && user.venueInfo !== undefined;
   const dayOfWeekData = user.venueInfo?.bookingsByDayOfWeek ?? [];
   const websiteUrl = user.venueInfo?.websiteUrl?.startsWith("http") ?
@@ -114,11 +95,9 @@ export default function ProfileHeader({
       // fetch latest booking
       const latestRequesteeBookings = await getBookingsByRequestee(user.id, { limit: 40 });
       const latestRequesterBookings = await getBookingsByRequester(user.id, { limit: 40 });
-      const latestBookings = latestRequesteeBookings
-        .concat(latestRequesterBookings)
-        .sort((a, b) => {
-          return b.startTime.getTime() - a.startTime.getTime();
-        });
+      const latestBookings = latestRequesteeBookings.concat(latestRequesterBookings).sort((a, b) => {
+        return b.startTime.getTime() - a.startTime.getTime();
+      });
 
       setBookings(latestBookings);
     };
@@ -130,12 +109,8 @@ export default function ProfileHeader({
       }
 
       // get latest review
-      const latestPerformerReview = await getLatestPerformerReviewByPerformerId(
-        user.id
-      );
-      const latestBookerReview = await getLatestPerformerReviewByPerformerId(
-        user.id
-      );
+      const latestPerformerReview = await getLatestPerformerReviewByPerformerId(user.id);
+      const latestBookerReview = await getLatestPerformerReviewByPerformerId(user.id);
 
       const latestReview = latestPerformerReview ?? latestBookerReview ?? null;
       setLatestReview(latestReview);
@@ -164,7 +139,7 @@ export default function ProfileHeader({
           <h1
             className={cn(
               "line-clamp-3 flex-1 overflow-ellipsis text-4xl font-extrabold md:text-5xl",
-              manrope.className
+              manrope.className,
             )}
           >
             {user.artistName ?? user.username}
@@ -212,9 +187,7 @@ export default function ProfileHeader({
         )}
         <div className="flex flex-col items-center justify-center">
           <h3 className="text-2xl font-bold">
-            {user.performerInfo?.rating ?
-              `${user.performerInfo?.rating}/5` :
-              "N/A"}
+            {user.performerInfo?.rating ? `${user.performerInfo?.rating}/5` : "N/A"}
           </h3>
           <p className="text-sm text-gray-400">rating</p>
         </div>
@@ -222,10 +195,7 @@ export default function ProfileHeader({
       <div className="h-4" />
       {user.venueInfo !== null && user.venueInfo !== undefined && (
         <div className="flex w-full items-center justify-center">
-          <Link
-            href={`/venue_outreach/request_to_perform?venue_ids=${user.id}`}
-            className="w-full"
-          >
+          <Link href={`/venue_outreach/request_to_perform?venue_ids=${user.id}`} className="w-full">
             <Button className="w-full font-bold">request to perform</Button>
           </Link>
         </div>
@@ -270,20 +240,8 @@ export default function ProfileHeader({
                 },
               }}
               arc={{
-                colorArray: [
-                  "#9E9E9E",
-                  "#40C4FF",
-                  "#FF9800",
-                  "#9C27B0",
-                  "#F44336",
-                ],
-                subArcs: [
-                  { limit: 33 },
-                  { limit: 66 },
-                  { limit: 80 },
-                  { limit: 95 },
-                  { limit: 100 },
-                ],
+                colorArray: ["#9E9E9E", "#40C4FF", "#FF9800", "#9C27B0", "#F44336"],
+                subArcs: [{ limit: 33 }, { limit: 66 }, { limit: 80 }, { limit: 95 }, { limit: 100 }],
                 padding: 0.02,
                 width: 0.3,
               }}
@@ -298,13 +256,9 @@ export default function ProfileHeader({
       <div className="h-4" />
       <div className="flex flex-row items-center justify-around">
         {user.socialFollowing?.instagramHandle && (
-          <InstagramButton
-            instagramHandle={user.socialFollowing.instagramHandle}
-          />
+          <InstagramButton instagramHandle={user.socialFollowing.instagramHandle} />
         )}
-        {user.socialFollowing?.twitterHandle && (
-          <TwitterButton twitterHandle={user.socialFollowing.twitterHandle} />
-        )}
+        {user.socialFollowing?.twitterHandle && <TwitterButton twitterHandle={user.socialFollowing.twitterHandle} />}
         {user.socialFollowing?.facebookHandle && (
           <Link
             href={`https://facebook.com/${user.socialFollowing.facebookHandle}`}
@@ -316,12 +270,8 @@ export default function ProfileHeader({
             </Button>
           </Link>
         )}
-        {user.socialFollowing?.tiktokHandle && (
-          <TiktokButton tiktokHandle={user.socialFollowing.tiktokHandle} />
-        )}
-        {user.performerInfo?.spotifyId && (
-          <SpotifyButton spotifyId={user.performerInfo.spotifyId} />
-        )}
+        {user.socialFollowing?.tiktokHandle && <TiktokButton tiktokHandle={user.socialFollowing.tiktokHandle} />}
+        {user.performerInfo?.spotifyId && <SpotifyButton spotifyId={user.performerInfo.spotifyId} />}
         {user.venueInfo?.websiteUrl && (
           <Link href={websiteUrl} target="_blank" rel="noopener noreferrer">
             <Button variant={"outline"} size={"icon"}>
@@ -333,9 +283,7 @@ export default function ProfileHeader({
       <div className="h-4" />
       {isVenue && <DayOfWeekGraph dayOfWeekData={dayOfWeekData} />}
       <div className="h-4" />
-      {full && (
-        <FullRows user={user} bookings={bookings} latestReview={latestReview} />
-      )}
+      {full && <FullRows user={user} bookings={bookings} latestReview={latestReview} />}
     </div>
   );
 }
@@ -350,8 +298,7 @@ function FullRows({
   latestReview: Review | null;
 }) {
   const appleUrl = "https://apps.apple.com/us/app/tapped-network/id1574937614";
-  const googleUrl =
-    "https://play.google.com/store/apps/details?id=com.intheloopstudio";
+  const googleUrl = "https://play.google.com/store/apps/details?id=com.intheloopstudio";
 
   const isVenue = user.venueInfo !== null && user.venueInfo !== undefined;
   const lat = user.location?.lat ?? null;
@@ -366,7 +313,7 @@ function FullRows({
         await Promise.all(
           topPerformerIds.map(async (id) => {
             return await getUserById(id);
-          })
+          }),
         )
       ).filter((user) => user !== null) as UserModel[];
       setTopPerformers(performers);
@@ -383,11 +330,14 @@ function FullRows({
             <h2 className="text-2xl font-bold">top performers</h2>
             <div className="h-2" />
             {subscribed ? (
-              <UserCluster users={topPerformers} onClick={(performer) => {
-                trackEvent("top_performer_click", {
-                  performer_id: performer.id,
-                });
-              }} />
+              <UserCluster
+                users={topPerformers}
+                onClick={(performer) => {
+                  trackEvent("top_performer_click", {
+                    performer_id: performer.id,
+                  });
+                }}
+              />
             ) : (
               <>
                 <Link
@@ -396,9 +346,7 @@ function FullRows({
                     query: { return_url: `/venue/${user.id}` },
                   }}
                 >
-                  <Button variant="secondary">
-                    subscribe to see top performers
-                  </Button>
+                  <Button variant="secondary">subscribe to see top performers</Button>
                 </Link>
               </>
             )}
@@ -412,10 +360,7 @@ function FullRows({
             <div className="flex flex-row items-center">
               <h2 className="text-2xl font-bold">booking history</h2>
               <div className="w-2" />
-              <Link
-                href={`/history/${user.id}`}
-                className="text-sm text-blue-500"
-              >
+              <Link href={`/history/${user.id}`} className="text-sm text-blue-500">
                 see all
               </Link>
             </div>
@@ -431,10 +376,7 @@ function FullRows({
             <div className="flex flex-row items-center">
               <h2 className="text-2xl font-bold">reviews</h2>
               <div className="w-2" />
-              <Link
-                href={`/reviews/${user.id}`}
-                className="text-sm text-blue-500"
-              >
+              <Link href={`/reviews/${user.id}`} className="text-sm text-blue-500">
                 see all
               </Link>
             </div>
@@ -469,8 +411,7 @@ function FullRows({
               <MapPinned />
             </Button>
             <p className="flex-1">
-              discover the venues in your city, with tailored recommendations
-              synced to your booking history
+              discover the venues in your city, with tailored recommendations synced to your booking history
             </p>
           </div>
           <div className="flex flex-row gap-3">
@@ -478,8 +419,7 @@ function FullRows({
               <MicVocal />
             </Button>
             <p className="flex-1">
-              keep track of what&apos;s coming up by getting notified about new
-              events and gig opportunities
+              keep track of what&apos;s coming up by getting notified about new events and gig opportunities
             </p>
           </div>
           <div className="flex flex-row gap-3">
@@ -487,8 +427,7 @@ function FullRows({
               <Network />
             </Button>
             <p className="flex-1">
-              we’ve made it easy to request to perform at thousands of venues
-              across the country. no stress.
+              we’ve made it easy to request to perform at thousands of venues across the country. no stress.
             </p>
           </div>
           <div className="flex flex-col items-center justify-start gap-4">
@@ -497,12 +436,7 @@ function FullRows({
           </div>
         </div>
         <div className="flex-0 hidden">
-          <Image
-            src="/images/icon_1024.png"
-            alt="Tapped App Icon"
-            width={124}
-            height={124}
-          />
+          <Image src="/images/icon_1024.png" alt="Tapped App Icon" width={124} height={124} />
         </div>
       </div>
     </div>

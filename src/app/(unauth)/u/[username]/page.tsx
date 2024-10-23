@@ -10,10 +10,7 @@ type Props = {
 
 const getUserByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/getUserByUsername`;
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const metadataBase = "https://app.tapped.ai";
   try {
     const username = params.username;
