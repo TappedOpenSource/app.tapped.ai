@@ -38,33 +38,20 @@ export default function Page({
           </div>
         }
       >
-        <VenueMap
-          lat={intLat}
-          lng={intLng}
-          zoom={intZoom}
-        />
+        <VenueMap lat={intLat} lng={intLng} zoom={intZoom} />
       </Suspense>
       <div className="bottom-0 z-40 hidden w-full md:absolute no-scroll">
         <div className="flex flex-row items-center justify-center">
           <p className="text-center text-sm">
-            © {new Date().getFullYear()} Tapped Industries Inc. All rights
-            reserved.
+            © {new Date().getFullYear()} Tapped Industries Inc. All rights reserved.
           </p>
           <Button variant="link">
-            <Link
-              href="https://app.tapped.ai/privacy"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
+            <Link href="https://app.tapped.ai/privacy" target="_blank" rel="noreferrer noopener">
               privacy policy
             </Link>
           </Button>
           <Button variant="link">
-            <Link
-              href="https://app.tapped.ai/terms"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
+            <Link href="https://app.tapped.ai/terms" target="_blank" rel="noreferrer noopener">
               terms of service
             </Link>
           </Button>

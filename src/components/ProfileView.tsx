@@ -55,11 +55,9 @@ export default function ProfileView({ username }: { username: string }) {
       // fetch latest booking
       const latestRequesteeBookings = await getBookingsByRequestee(user.id);
       const latestRequesterBookings = await getBookingsByRequester(user.id);
-      const latestBookings = latestRequesteeBookings
-        .concat(latestRequesterBookings)
-        .sort((a, b) => {
-          return b.startTime.getTime() - a.startTime.getTime();
-        });
+      const latestBookings = latestRequesteeBookings.concat(latestRequesterBookings).sort((a, b) => {
+        return b.startTime.getTime() - a.startTime.getTime();
+      });
 
       setBookings(latestBookings);
     };
@@ -71,12 +69,8 @@ export default function ProfileView({ username }: { username: string }) {
       }
 
       // get latest review
-      const latestPerformerReview = await getLatestPerformerReviewByPerformerId(
-        user.id
-      );
-      const latestBookerReview = await getLatestPerformerReviewByPerformerId(
-        user.id
-      );
+      const latestPerformerReview = await getLatestPerformerReviewByPerformerId(user.id);
+      const latestBookerReview = await getLatestPerformerReviewByPerformerId(user.id);
 
       const latestReview = latestPerformerReview ?? latestBookerReview ?? null;
       setLatestReview(latestReview);
@@ -85,9 +79,9 @@ export default function ProfileView({ username }: { username: string }) {
 
     const fetchTopPerformers = async () => {
       const topPerformerIds = user?.venueInfo?.topPerformerIds ?? [];
-      const topPerformers = (await Promise.all(
-        topPerformerIds.map((id) => getUserById(id))
-      )).filter((user) => user !== null) as UserModel[];
+      const topPerformers = (await Promise.all(topPerformerIds.map((id) => getUserById(id)))).filter(
+        (user) => user !== null,
+      ) as UserModel[];
 
       setTopPerformers(topPerformers);
     };
@@ -125,12 +119,7 @@ export default function ProfileView({ username }: { username: string }) {
           </div>
         </div>
         <div className="lg:grow">
-          <BuildRows
-            user={user}
-            bookings={bookings}
-            topPerformers={topPerformers}
-            latestReview={latestReview}
-          />
+          <BuildRows user={user} bookings={bookings} topPerformers={topPerformers} latestReview={latestReview} />
         </div>
       </div>
     </>
@@ -150,17 +139,20 @@ function BuildRows({
 }) {
   return (
     <div className="px-3 py-6 md:w-[70vw] md:px-24 md:py-12">
-      {(topPerformers.length > 0) && (
+      {topPerformers.length > 0 && (
         <>
           <div className="h-4" />
           <div>
             <h2 className="text-2xl font-bold">top performers</h2>
             <div className="h-2" />
-            <UserCluster users={topPerformers} onClick={(performer) => {
-              trackEvent("top_performer_click", {
-                performerId: performer.id,
-              });
-            }} />
+            <UserCluster
+              users={topPerformers}
+              onClick={(performer) => {
+                trackEvent("top_performer_click", {
+                  performerId: performer.id,
+                });
+              }}
+            />
           </div>
         </>
       )}
@@ -171,10 +163,7 @@ function BuildRows({
             <div className="flex flex-row items-center">
               <h2 className="text-2xl font-bold">booking history</h2>
               <div className="w-2" />
-              <Link
-                href={`/history/${user.id}`}
-                className="text-sm text-blue-500"
-              >
+              <Link href={`/history/${user.id}`} className="text-sm text-blue-500">
                 see all
               </Link>
             </div>
@@ -190,11 +179,8 @@ function BuildRows({
             <div className="flex flex-row items-center">
               <h2 className="text-2xl font-bold">reviews</h2>
               <div className="w-2" />
-              <Link
-                href={`/reviews/${user.id}`}
-                className="text-sm text-blue-500"
-              >
-              see all
+              <Link href={`/reviews/${user.id}`} className="text-sm text-blue-500">
+                see all
               </Link>
             </div>
             <div className="h-2" />

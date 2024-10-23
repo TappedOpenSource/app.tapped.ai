@@ -43,9 +43,5 @@ export function PurchasesProvider({ children }: { children: ReactNode }) {
     initPurchases(authUser.uid, state, dispatch);
   }
 
-  return (
-    <PurchasesContext.Provider value={{ state, dispatch }}>
-      {children}
-    </PurchasesContext.Provider>
-  );
+  return <PurchasesContext.Provider value={{ state, dispatch }}>{children}</PurchasesContext.Provider>;
 }

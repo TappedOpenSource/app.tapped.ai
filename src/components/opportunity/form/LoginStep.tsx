@@ -18,17 +18,11 @@ export default function LoginStep() {
         </Suspense>
         <p className="text-muted-foreground px-8 text-center text-sm">
           by clicking continue, you agree to our{" "}
-          <Link
-            href="/terms"
-            className="hover:text-primary underline underline-offset-4"
-          >
+          <Link href="/terms" className="hover:text-primary underline underline-offset-4">
             terms of service
           </Link>{" "}
           and{" "}
-          <Link
-            href="/privacy"
-            className="hover:text-primary underline underline-offset-4"
-          >
+          <Link href="/privacy" className="hover:text-primary underline underline-offset-4">
             privacy policy
           </Link>
           .

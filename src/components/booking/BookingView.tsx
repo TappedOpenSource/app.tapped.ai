@@ -11,8 +11,10 @@ import { Plus } from "lucide-react";
 import UserAvatarList from "../UserAvatarList";
 import UserCluster from "../UserCluster";
 
-export default function BookingView({ bookingId }: {
-    bookingId: string;
+export default function BookingView({
+  bookingId,
+}: {
+  bookingId: string;
 }) {
   const [booking, setBooking] = useState<Booking | null>(null);
   const [loading, setLoading] = useState(true);
@@ -74,9 +76,7 @@ export default function BookingView({ bookingId }: {
         const bookings = await getBookingsByEventId(eventId);
         const filteredBookings = bookings.filter((b) => b.id !== booking.id);
 
-        const performers = await Promise.all(
-          filteredBookings.map((b) => getUserById(b.requesteeId))
-        );
+        const performers = await Promise.all(filteredBookings.map((b) => getUserById(b.requesteeId)));
         setLinkedPerformers(performers.filter((p) => p !== null) as UserModel[]);
         return;
       }
@@ -85,9 +85,7 @@ export default function BookingView({ bookingId }: {
         const bookings = await getBookingsByEventUrl(eventUrl);
         const filteredBookings = bookings.filter((b) => b.id !== booking.id);
 
-        const performers = await Promise.all(
-          filteredBookings.map((b) => getUserById(b.requesteeId))
-        );
+        const performers = await Promise.all(filteredBookings.map((b) => getUserById(b.requesteeId)));
         setLinkedPerformers(performers.filter((p) => p !== null) as UserModel[]);
         return;
       }
@@ -100,7 +98,7 @@ export default function BookingView({ bookingId }: {
   if (booking === null) {
     return (
       <>
-        <div className='min-h-screen flex justify-center items-center'>
+        <div className="min-h-screen flex justify-center items-center">
           <LoadingSpinner />
         </div>
       </>
@@ -109,20 +107,18 @@ export default function BookingView({ bookingId }: {
 
   // const duration = formatDuration(booking.startTime, booking.endTime);
 
-  const bookerStuff = booker === null ?
-    null :
-    (
+  const bookerStuff =
+    booker === null ? null : (
       <>
-        <h3 className='font-extrabold text-xl'>booker</h3>
+        <h3 className="font-extrabold text-xl">booker</h3>
         <UserTile user={booker} />
       </>
     );
 
-  const performerStuff = performer === null ?
-    null :
-    (
+  const performerStuff =
+    performer === null ? null : (
       <>
-        <h3 className='font-extrabold text-xl'>performer</h3>
+        <h3 className="font-extrabold text-xl">performer</h3>
         <div className="flex flex-row items-center gap-4">
           <UserTile user={performer} />
           {linkedPerformers.length > 0 && (
@@ -140,30 +136,26 @@ export default function BookingView({ bookingId }: {
 
   return (
     <>
-      <div className='flex justify-center'>
-        <div className='px-6 pb-12 w-auto md:w-1/2'>
-          {(booking.flierUrl !== null && booking.flierUrl !== undefined) && (
-            <div className='relative h-[60vh] w-[95vw] md:w-full rounded-xl'>
-              <Image
-                src={booking.flierUrl}
-                alt='flier'
-                fill
-                objectFit='cover'
-                className='rounded-xl'
-              />
+      <div className="flex justify-center">
+        <div className="px-6 pb-12 w-auto md:w-1/2">
+          {booking.flierUrl !== null && booking.flierUrl !== undefined && (
+            <div className="relative h-[60vh] w-[95vw] md:w-full rounded-xl">
+              <Image src={booking.flierUrl} alt="flier" fill objectFit="cover" className="rounded-xl" />
             </div>
           )}
-          <h1 className='font-extrabold text-4xl'>{booking.name}</h1>
-          <div className='h-8' />
+          <h1 className="font-extrabold text-4xl">{booking.name}</h1>
+          <div className="h-8" />
           {bookerStuff}
-          <div className='h-6' />
+          <div className="h-6" />
           {performerStuff}
-          <div className='h-6' />
-          <h3 className='font-extrabold text-xl'>Date</h3>
-          <p>{dateString} @ {timeString}</p>
+          <div className="h-6" />
+          <h3 className="font-extrabold text-xl">Date</h3>
+          <p>
+            {dateString} @ {timeString}
+          </p>
         </div>
       </div>
-      <div className='h-42' />
+      <div className="h-42" />
     </>
   );
 }

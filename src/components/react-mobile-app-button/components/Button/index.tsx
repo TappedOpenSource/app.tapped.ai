@@ -28,18 +28,14 @@ const Button: FC<ButtonProps> = ({
   return (
     <Link
       href={url}
-      target='_blank'
+      target="_blank"
       rel="noopener noreferrer"
       style={{
         height: height,
         width: width,
         borderRadius: border,
       }}
-      className={classNames(
-        "button-container",
-        `button-container-${theme}`,
-        className
-      )}
+      className={classNames("button-container", `button-container-${theme}`, className)}
     >
       <img src={logo} alt={storeName} />
       <div className="button-text-container">

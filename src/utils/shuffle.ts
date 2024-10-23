@@ -1,5 +1,6 @@
 export function shuffle(array) {
-  let currentIndex = array.length; let randomIndex;
+  let currentIndex = array.length;
+  let randomIndex;
 
   // While there remain elements to shuffle.
   while (currentIndex > 0) {
@@ -8,8 +9,7 @@ export function shuffle(array) {
     currentIndex--;
 
     // And swap it with tihe current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
   }
 
   return array;

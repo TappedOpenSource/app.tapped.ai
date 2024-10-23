@@ -19,12 +19,7 @@ export function FileUploader({
         <Card className="flex aspect-video flex-col items-center justify-center p-4">
           <CloudUpload className="text-foreground/70 h-12 w-12" />
           <h4 className="text-foreground/70">{label}</h4>
-          <input
-            type="file"
-            accept={accept}
-            className="sr-only"
-            onChange={onChange}
-          />
+          <input type="file" accept={accept} className="sr-only" onChange={onChange} />
         </Card>
       </label>
     </>

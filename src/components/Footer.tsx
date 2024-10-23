@@ -18,10 +18,7 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://tapped.tolt.io"
-                    className=" hover:underline"
-                  >
+                  <Link href="https://tapped.tolt.io" className=" hover:underline">
                     become affiliate
                   </Link>
                 </li>
@@ -42,73 +39,47 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://blog.tapped.ai"
-                    className="hover:underline"
-                  >
+                  <Link href="https://blog.tapped.ai" className="hover:underline">
                     blog
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="mailto:support@tapped.ai"
-                    className="hover:underline"
-                  >
+                  <Link href="mailto:support@tapped.ai" className="hover:underline">
                     contact us
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase ">
-                tool suite
-              </h2>
+              <h2 className="mb-6 text-sm font-semibold uppercase ">tool suite</h2>
               <ul className="font-medium text-gray-400">
                 <li className="mb-4">
-                  <Link
-                    href="https://api.tapped.ai/docs"
-                    className="hover:underline"
-                  >
+                  <Link href="https://api.tapped.ai/docs" className="hover:underline">
                     api
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://getmusicart.com"
-                    className="hover:underline"
-                  >
+                  <Link href="https://getmusicart.com" className="hover:underline">
                     cover art
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://getmusicepk.com"
-                    className="hover:underline"
-                  >
+                  <Link href="https://getmusicepk.com" className="hover:underline">
                     press kit
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://getmusicmarketing.com"
-                    className="hover:underline"
-                  >
+                  <Link href="https://getmusicmarketing.com" className="hover:underline">
                     marketing plan
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://getmusicviralchecker.com"
-                    className="hover:underline"
-                  >
+                  <Link href="https://getmusicviralchecker.com" className="hover:underline">
                     viral checker
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://getmusiccontent.com"
-                    className="hover:underline"
-                  >
+                  <Link href="https://getmusiccontent.com" className="hover:underline">
                     social media ideas
                   </Link>
                 </li>
@@ -118,10 +89,7 @@ const Footer = () => {
               <h2 className="mb-6 text-sm font-semibold uppercase ">legal</h2>
               <ul className="font-medium text-gray-400">
                 <li className="mb-4">
-                  <Link
-                    href="https://tapped.ai/privacy"
-                    className="hover:underline"
-                  >
+                  <Link href="https://tapped.ai/privacy" className="hover:underline">
                     privacy policy
                   </Link>
                 </li>
@@ -129,25 +97,17 @@ const Footer = () => {
                   <Link href="/" className="hover:underline">Licensing</Link>
                 </li> */}
                 <li className="mb-4">
-                  <Link
-                    href="https://tapped.ai/terms"
-                    className="hover:underline"
-                  >
+                  <Link href="https://tapped.ai/terms" className="hover:underline">
                     terms &amp; conditions
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase ">
-                download
-              </h2>
+              <h2 className="mb-6 text-sm font-semibold uppercase ">download</h2>
               <ul className="font-medium text-gray-400">
                 <li className="mb-4">
-                  <Link
-                    href="https://apps.apple.com/us/app/tapped-ai/id1574937614"
-                    className="hover:underline"
-                  >
+                  <Link href="https://apps.apple.com/us/app/tapped-ai/id1574937614" className="hover:underline">
                     ios
                   </Link>
                 </li>
@@ -170,9 +130,8 @@ const Footer = () => {
           </div>
           <div className="px-4 py-6 md:flex md:items-center md:justify-between">
             <span className="text-foreground/50 text-sm sm:text-center">
-              © {new Date().getFullYear()}.{" "}
-              <Link href="https://tapped.ai/">Tapped Industries Inc.™</Link>.
-              All Rights Reserved. - Made with 💙 in Richmond, Virginia
+              © {new Date().getFullYear()}. <Link href="https://tapped.ai/">Tapped Industries Inc.™</Link>. All Rights
+              Reserved. - Made with 💙 in Richmond, Virginia
             </span>
             <div className="mt-4 flex space-x-5 sm:justify-center md:mt-0 rtl:space-x-reverse">
               {/* <Link href="/" className="text-gray-400 hover:text-gray-900 dark:hover:text-white">
@@ -187,10 +146,7 @@ const Footer = () => {
                 </svg>
                 <span className="sr-only">Discord community</span>
               </Link> */}
-              <Link
-                href="https://twitter.com/tappedai"
-                className="text-gray-400 hover:text-white"
-              >
+              <Link href="https://twitter.com/tappedai" className="text-gray-400 hover:text-white">
                 <svg
                   className="h-4 w-4"
                   aria-hidden="true"
@@ -206,10 +162,7 @@ const Footer = () => {
                 </svg>
                 <span className="sr-only">Twitter page</span>
               </Link>
-              <Link
-                href="https://github.com/TappedOpenSource"
-                className="text-gray-400 hover:text-white"
-              >
+              <Link href="https://github.com/TappedOpenSource" className="text-gray-400 hover:text-white">
                 <svg
                   className="h-4 w-4"
                   aria-hidden="true"
@@ -225,17 +178,11 @@ const Footer = () => {
                 </svg>
                 <span className="sr-only">GitHub account</span>
               </Link>
-              <Link
-                href="https://tiktok.com/@tappedai"
-                className="text-gray-400 hover:text-white"
-              >
+              <Link href="https://tiktok.com/@tappedai" className="text-gray-400 hover:text-white">
                 <FaTiktok className="h-4 w-4" />
                 <span className="sr-only">TikTok account</span>
               </Link>
-              <Link
-                href="https://instagram.com/tappedai"
-                className="text-gray-400 hover:text-white"
-              >
+              <Link href="https://instagram.com/tappedai" className="text-gray-400 hover:text-white">
                 <AiFillInstagram className="h-4 w-4" />
               </Link>
             </div>

@@ -1,22 +1,10 @@
 import { autocompleteCities, searchPlaces } from "@/data/places";
-import {
-  BoundingBox,
-  queryVenuesInBoundedBox,
-  queryUsers,
-  UserSearchOptions,
-} from "@/data/search";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
+import { BoundingBox, queryVenuesInBoundedBox, queryUsers, UserSearchOptions } from "@/data/search";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { ReactNode } from "react";
 
 export const useSearch = () => {
-  const useVenueData = (
-    boundingBox: BoundingBox | null,
-    options: UserSearchOptions
-  ) =>
+  const useVenueData = (boundingBox: BoundingBox | null, options: UserSearchOptions) =>
     useQuery({
       queryKey: ["venues", boundingBox],
       queryFn: async () => {
@@ -77,7 +65,5 @@ export const useSearch = () => {
 
 export function SearchProvider({ children }: { children: ReactNode }) {
   const queryClient = new QueryClient();
-  return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }

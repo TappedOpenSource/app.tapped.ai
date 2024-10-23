@@ -9,10 +9,13 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { getServiceById, getUserById } from "@/data/database";
 
-export default function BookingCard({ booking, user }: {
-    booking: Booking;
-    user: UserModel;
- }) {
+export default function BookingCard({
+  booking,
+  user,
+}: {
+  booking: Booking;
+  user: UserModel;
+}) {
   const [booker, setBooker] = useState<Option<UserModel>>(null);
   const [performer, setPerformer] = useState<Option<UserModel>>(null);
   const [service, setService] = useState<Option<Service>>(null); // TODO: [service, setService
@@ -66,26 +69,21 @@ export default function BookingCard({ booking, user }: {
 
   return (
     <>
-      <Link
-        href={`/booking/${booking.id}`}
-        className="group"
-      >
-        <div className='relative w-[156px] h-[156px] overflow-hidden rounded-lg'>
+      <Link href={`/booking/${booking.id}`} className="group">
+        <div className="relative w-[156px] h-[156px] overflow-hidden rounded-lg">
           <Image
             src={bookerImageSrc}
             alt={"booking image"}
             className="rounded-lg aspect-square transition-all duration-150 ease-in-out group-hover:scale-105"
-            objectFit='cover'
+            objectFit="cover"
             fill
           />
         </div>
-        <div className='w-6' />
-        <p className='font-bold line-clamp-2 text-ellipsis'>{
-          booking.name ?? "live performance"
-        }</p>
-        <div className='w-3' />
+        <div className="w-6" />
+        <p className="font-bold line-clamp-2 text-ellipsis">{booking.name ?? "live performance"}</p>
+        <div className="w-3" />
         <div>
-          <p className='text-xs font-thin text-gray-300'>{startTimeStr}</p>
+          <p className="text-xs font-thin text-gray-300">{startTimeStr}</p>
         </div>
       </Link>
     </>

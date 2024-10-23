@@ -1,22 +1,13 @@
 "use client";
 
-import {
-  flexRender,
-} from "@tanstack/react-table";
+import { flexRender } from "@tanstack/react-table";
 import type { Table as TB } from "@tanstack/react-table";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
 interface DataTableProps<TData> {
-    table: TB<TData>;
+  table: TB<TData>;
 }
 
 export function DataTable<TData>({ table }: DataTableProps<TData>) {
@@ -30,9 +21,8 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
 
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
-
 
   return (
     <>
@@ -44,12 +34,7 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder ?
-                        null :
-                        flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -67,16 +52,14 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
                   }}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
                 <TableCell colSpan={table.getAllColumns().length} className="h-24 text-center">
-                no results.
+                  no results.
                 </TableCell>
               </TableRow>
             )}

@@ -10,7 +10,9 @@ import { getBookingsByRequestee, getBookingsByRequester, getContactedVenues, get
 import { UserModel } from "@/domain/types/user_model";
 
 export default function StatsSection() {
-  const { state: { currentUser } } = useAuth();
+  const {
+    state: { currentUser },
+  } = useAuth();
   const [venuesContacted, setVenuesContacted] = useState<ContactVenueRequest[]>([]);
   //   const [totalGigsApplied, setTotalGigsApplied] = useState(0);
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -125,11 +127,9 @@ export default function StatsSection() {
       // fetch latest booking
       const latestRequesteeBookings = await getBookingsByRequestee(currentUser.id, { limit: 40 });
       const latestRequesterBookings = await getBookingsByRequester(currentUser.id, { limit: 40 });
-      const latestBookings = latestRequesteeBookings
-        .concat(latestRequesterBookings)
-        .sort((a, b) => {
-          return b.startTime.getTime() - a.startTime.getTime();
-        });
+      const latestBookings = latestRequesteeBookings.concat(latestRequesterBookings).sort((a, b) => {
+        return b.startTime.getTime() - a.startTime.getTime();
+      });
 
       setBookings(latestBookings);
     };
@@ -155,37 +155,29 @@ export default function StatsSection() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-                responded / contacted
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">responded / contacted</CardTitle>
             <Handshake className="h-4 w-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{venuesRespondedThisMonth.length} / {venuesContactedThisMonth.length}</div>
-            <p className="text-xs text-muted-foreground">
-              {respondContactRatio}% response rate
-            </p>
+            <div className="text-2xl font-bold">
+              {venuesRespondedThisMonth.length} / {venuesContactedThisMonth.length}
+            </div>
+            <p className="text-xs text-muted-foreground">{respondContactRatio}% response rate</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-                shows this month
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">shows this month</CardTitle>
             <Theater className="h-4 w-4" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{showsThisMonth.length}</div>
-            <p className="text-xs text-muted-foreground">
-              {bookingsRatio}% from last month
-            </p>
+            <p className="text-xs text-muted-foreground">{bookingsRatio}% from last month</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-               top venue
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">top venue</CardTitle>
             <Mailbox className="h-4 w-4" />
           </CardHeader>
           <CardContent>
@@ -197,16 +189,12 @@ export default function StatsSection() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-                payouts earned
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">payouts earned</CardTitle>
             <Bitcoin className="h-4 w-4" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">${moneyMadeThisMonth}</div>
-            <p className="text-xs text-muted-foreground">
-              {percentDiffFromLastMonth}% from last month
-            </p>
+            <p className="text-xs text-muted-foreground">{percentDiffFromLastMonth}% from last month</p>
           </CardContent>
         </Card>
       </div>
@@ -231,7 +219,6 @@ export default function StatsSection() {
           </CardContent>
         </Card>
       </div> */}
-
     </>
   );
 }

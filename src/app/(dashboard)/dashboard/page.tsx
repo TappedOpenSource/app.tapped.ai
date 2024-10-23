@@ -35,9 +35,7 @@ export default function Page() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>
-                dashboard
-              </BreadcrumbPage>
+              <BreadcrumbPage>dashboard</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

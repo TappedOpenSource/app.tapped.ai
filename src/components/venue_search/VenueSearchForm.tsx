@@ -1,15 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import MultipleSelector from "@/components/ui/multiple-selector";
 import SearchAddress from "@/components/ui/search-address";
 import { Slider } from "@/components/ui/slider";
@@ -76,21 +68,15 @@ export default function VenueSearchForm() {
             <SignUpForm doRedirect={false} />
           </Suspense>
           <p className="px-8 text-center text-sm text-muted-foreground">
-              by clicking continue, you agree to our{" "}
-            <Link
-              href="/terms"
-              className="underline underline-offset-4 hover:text-primary"
-            >
-                terms of service
+            by clicking continue, you agree to our{" "}
+            <Link href="/terms" className="underline underline-offset-4 hover:text-primary">
+              terms of service
             </Link>{" "}
-              and{" "}
-            <Link
-              href="/privacy"
-              className="underline underline-offset-4 hover:text-primary"
-            >
-                privacy policy
+            and{" "}
+            <Link href="/privacy" className="underline underline-offset-4 hover:text-primary">
+              privacy policy
             </Link>
-              .
+            .
           </p>
         </div>
       </div>
@@ -98,9 +84,7 @@ export default function VenueSearchForm() {
   }
 
   if (currentUser === null) {
-    return (
-      <OnboardingForm />
-    );
+    return <OnboardingForm />;
   }
 
   if (!subscribed) {
@@ -109,9 +93,7 @@ export default function VenueSearchForm() {
         <div className="mx-auto max-w-lg">
           <h1 className="text-3xl font-bold">find the right venues</h1>
           <div className="space-y-6">
-            <p className="text-lg">
-              subscribe to send booking requests to venues
-            </p>
+            <p className="text-lg">subscribe to send booking requests to venues</p>
             <Button onClick={() => router.push("/premium")} className="w-full">
               subscribe
             </Button>
@@ -205,10 +187,7 @@ export default function VenueSearchForm() {
                     />
                   </FormControl>
                   <FormDescription>
-                    max capacity of{" "}
-                    {form.watch("capacity") === 1000 ?
-                      "1000+" :
-                      form.watch("capacity")}
+                    max capacity of {form.watch("capacity") === 1000 ? "1000+" : form.watch("capacity")}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

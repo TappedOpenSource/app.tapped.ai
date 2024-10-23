@@ -11,8 +11,10 @@ import ResultsTable from "@/components/venue_search/results_table";
 
 import Link from "next/link";
 
-export default function Page({ searchParams }: {
-    searchParams: { [key: string]: string };
+export default function Page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string };
 }) {
   const capacity = searchParams["capacity"] ?? "500";
   const genres = searchParams["genres"] ?? "";
@@ -42,13 +44,7 @@ export default function Page({ searchParams }: {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <ResultsTable
-          genres={performerGenres}
-          lat={intLat}
-          lng={intLng}
-          radius={intRadius}
-          capacity={intCapacity}
-        />
+        <ResultsTable genres={performerGenres} lat={intLat} lng={intLng} radius={intRadius} capacity={intCapacity} />
       </ContentLayout>
     </>
   );

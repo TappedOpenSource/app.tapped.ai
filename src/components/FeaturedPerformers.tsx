@@ -27,21 +27,28 @@ export default function FeaturedPerformers() {
     getPerformers();
   }, []);
 
-  useHotkeys("space", () => {
-    const newPerformers = performers.sort(() => 0.5 - Math.random()).slice(0, 10);
-    setSampledPerformers(newPerformers);
-  }, { preventDefault: true });
+  useHotkeys(
+    "space",
+    () => {
+      const newPerformers = performers.sort(() => 0.5 - Math.random()).slice(0, 10);
+      setSampledPerformers(newPerformers);
+    },
+    { preventDefault: true },
+  );
 
   return (
     <>
       <div className="my-6 flex flex-wrap gap-1">
         {sampledPerformers.map((performer) => (
-          <UserChip key={performer.id} user={performer} onClick={() => {
-            trackEvent("featured_performer_click", { performer_id: performer.id });
-          }} />
+          <UserChip
+            key={performer.id}
+            user={performer}
+            onClick={() => {
+              trackEvent("featured_performer_click", { performer_id: performer.id });
+            }}
+          />
         ))}
         {!loading && (
-
           <Button
             variant={"outline"}
             onClick={() => {
@@ -50,14 +57,10 @@ export default function FeaturedPerformers() {
             }}
           >
             <div className="flex flex-row justify-start items-center">
-              <div
-                className="relative bg-card rounded-xl w-6 h-6"
-              >
+              <div className="relative bg-card rounded-xl w-6 h-6">
                 <Dices className="h-6 w-6" />
               </div>
-              <p
-                className="p-1 md:p-2"
-              >show more</p>
+              <p className="p-1 md:p-2">show more</p>
             </div>
           </Button>
         )}

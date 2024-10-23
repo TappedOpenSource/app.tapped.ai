@@ -6,8 +6,10 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
-export default function VenueCard({ venue }: {
-    venue: UserModel;
+export default function VenueCard({
+  venue,
+}: {
+  venue: UserModel;
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -18,15 +20,13 @@ export default function VenueCard({ venue }: {
 
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
   const pfp = profileImage(venue);
   return (
     <>
-      <Link
-        href={`${pathname}?${createQueryString("username", venue.username)}`}
-      >
+      <Link href={`${pathname}?${createQueryString("username", venue.username)}`}>
         <div className="flex flex-col items-start rounded-lg group">
           <div className="overflow-hidden relative w-32 h-32 aspect-square rounded-lg bg-card">
             <Image
@@ -37,8 +37,7 @@ export default function VenueCard({ venue }: {
               fill
             />
           </div>
-          <p
-            className="text-sm font-semibold font-bold line-clamp-2 text-ellipsis">
+          <p className="text-sm font-semibold font-bold line-clamp-2 text-ellipsis">
             {venue.artistName ?? venue.username}
           </p>
         </div>

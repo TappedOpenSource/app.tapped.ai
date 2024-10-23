@@ -18,10 +18,9 @@ export default function SearchToggle() {
               className="rounded-full w-8 h-8 bg-background"
               variant="outline"
               size="icon"
-              onClick={searchBar?.setIsOpen}>
-              <SearchIcon
-                className="w-[1.2rem] h-[1.2rem]"
-              />
+              onClick={searchBar?.setIsOpen}
+            >
+              <SearchIcon className="w-[1.2rem] h-[1.2rem]" />
             </Button>
           </TooltipTrigger>
           <TooltipContent side="bottom">search</TooltipContent>

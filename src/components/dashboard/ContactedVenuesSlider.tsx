@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 import VenueCard from "../location/VenueCard";
 
 export default function ContactedVenuesSlider() {
-  const { state: { currentUser } } = useAuth();
+  const {
+    state: { currentUser },
+  } = useAuth();
   const [contactRequests, setContactRequests] = useState<ContactVenueRequest[]>([]);
 
   useEffect(() => {

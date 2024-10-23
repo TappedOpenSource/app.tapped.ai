@@ -1,4 +1,3 @@
-
 import { functions } from "@/utils/firebase";
 import { httpsCallable } from "firebase/functions";
 

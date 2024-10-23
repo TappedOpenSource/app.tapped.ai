@@ -36,16 +36,16 @@ export default function SearchDialog() {
   const { data: placesData } = useCityData(debouncedQuery);
   const performerData = useMemo(() => {
     return (data ?? []).filter((hit) => {
-      return (
-        !hit.occupations?.includes("venue") && !hit.occupations?.includes("Venue")
-      );
+      return !hit.occupations?.includes("venue") && !hit.occupations?.includes("Venue");
     });
   }, [data]);
-  const venueData = useMemo(() => (data ?? []).filter((hit) => {
-    return (
-      hit.occupations?.includes("venue") || hit.occupations?.includes("Venue")
-    );
-  }), [data]);
+  const venueData = useMemo(
+    () =>
+      (data ?? []).filter((hit) => {
+        return hit.occupations?.includes("venue") || hit.occupations?.includes("Venue");
+      }),
+    [data],
+  );
 
   const PerformerResultsList = useMemo(() => {
     if (performerData.length === 0 || !showPerformers) {
@@ -142,34 +142,19 @@ export default function SearchDialog() {
 
   return (
     <>
-      <CommandDialog
-        open={searchBar?.isOpen}
-        onOpenChange={searchBar?.setIsOpen}
-      >
-        <CommandInput
-          placeholder="search tapped..."
-          onValueChange={(value) => setQuery(value)}
-        />
+      <CommandDialog open={searchBar?.isOpen} onOpenChange={searchBar?.setIsOpen}>
+        <CommandInput placeholder="search tapped..." onValueChange={(value) => setQuery(value)} />
         <CommandList>
           <div className="flex w-full flex-row justify-start gap-4 px-2 py-2">
-            <Button
-              onClick={() => setShowPerformers(!showPerformers)}
-              variant="outline"
-            >
+            <Button onClick={() => setShowPerformers(!showPerformers)} variant="outline">
               {showPerformers && <X className="mr-2 h-4 w-4" />}
               performers
             </Button>
-            <Button
-              onClick={() => setShowVenues(!showVenues)}
-              variant="outline"
-            >
+            <Button onClick={() => setShowVenues(!showVenues)} variant="outline">
               {showVenues && <X className="mr-2 h-4 w-4" />}
               venues
             </Button>
-            <Button
-              onClick={() => setShowCities(!showCities)}
-              variant="outline"
-            >
+            <Button onClick={() => setShowCities(!showCities)} variant="outline">
               {showCities && <X className="mr-2 h-4 w-4" />}
               cities
             </Button>

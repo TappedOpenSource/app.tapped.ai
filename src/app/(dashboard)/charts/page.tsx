@@ -14,16 +14,18 @@ const validatedType = (type: string): LeaderboardType => {
   switch (type) {
   case "rising":
   case "performer":
-  // case "venue":
-  // case "genre":
-  // case "city":
+    // case "venue":
+    // case "genre":
+    // case "city":
     return type;
   default:
     return "rising";
   }
 };
 
-export default function Page({ searchParams }: {
+export default function Page({
+  searchParams,
+}: {
   searchParams: { [key: string]: string };
 }) {
   const rawListType = searchParams["type"] ?? "rising";

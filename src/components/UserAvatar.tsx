@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 
-export default function UserAvatar({ user }: {
-    user: UserModel | string; // user model or user id
+export default function UserAvatar({
+  user,
+}: {
+  user: UserModel | string; // user model or user id
 }) {
-  const [fetchedUser, setFetchedUser] = useState<UserModel | null>(
-    typeof user === "string" ? null : user
-  );
+  const [fetchedUser, setFetchedUser] = useState<UserModel | null>(typeof user === "string" ? null : user);
 
   useEffect(() => {
     if (typeof user === "string") {
@@ -32,9 +32,7 @@ export default function UserAvatar({ user }: {
   const pfp = profileImage(fetchedUser);
   return (
     <>
-      <Link
-        href={`/u/${fetchedUser?.id}`}
-      >
+      <Link href={`/u/${fetchedUser?.id}`}>
         <Avatar className="h-12 w-12">
           <AvatarImage src={pfp} alt="user pfp" />
           <AvatarFallback className="bg-transparent">{fetchedUser.username.slice(0, 2) ?? "JD"}</AvatarFallback>

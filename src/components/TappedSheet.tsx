@@ -17,7 +17,8 @@ export default function TappedSheet() {
           <div className="flex items-center justify-center">
             <LoadingSpinner />
           </div>
-        }>
+        }
+      >
         {screenIsSmall ? <UserBottomSheet /> : <UserSideSheet />}
       </Suspense>
     </>

@@ -22,15 +22,7 @@ export default function DayOfWeekGraph({
   }
 
   const data = {
-    labels: [
-      "sunday",
-      "monday",
-      "tuesday",
-      "wednesday",
-      "thursday",
-      "friday",
-      "saturday",
-    ],
+    labels: ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
     datasets: [
       {
         label,

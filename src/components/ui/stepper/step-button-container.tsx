@@ -17,12 +17,7 @@ const StepButtonContainer = ({
   isLoading: isLoadingProp,
   onClickStep,
 }: StepButtonContainerProps) => {
-  const {
-    clickable,
-    isLoading: isLoadingContext,
-    variant,
-    styles,
-  } = useStepper();
+  const { clickable, isLoading: isLoadingContext, variant, styles } = useStepper();
 
   const currentStepClickable = clickable || !!onClickStep;
 
@@ -46,7 +41,7 @@ const StepButtonContainer = ({
         "data-[active=true]:bg-primary data-[active=true]:border-primary data-[active=true]:text-primary-foreground",
         "data-[current=true]:border-primary data-[current=true]:bg-secondary",
         "data-[invalid=true]:bg-destructive data-[invalid=true]:border-destructive data-[invalid=true]:text-destructive-foreground",
-        styles?.["step-button-container"]
+        styles?.["step-button-container"],
       )}
       aria-current={isCurrentStep ? "step" : undefined}
       data-current={isCurrentStep}

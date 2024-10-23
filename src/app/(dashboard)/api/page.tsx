@@ -29,41 +29,23 @@ export default function Page() {
           </BreadcrumbList>
         </Breadcrumb>
         <div className="flex flex-col gap-4 py-12">
-          <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl dark:text-gray-100">
-            tapped developer api
-          </h1>
-          <p>
-            for software developers and organizations building custom analytics
-            solutions
-          </p>
+          <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl dark:text-gray-100">tapped developer api</h1>
+          <p>for software developers and organizations building custom analytics solutions</p>
 
           <div className="flex flex-col gap-4 md:flex-row">
             <Card className="p-4">
-              <h3 className="py-1 text-lg font-bold text-gray-900 dark:text-gray-100">
-                extensive documentation
-              </h3>
-              <p>
-                comprehensive guides and dedicated support ensure smooth api
-                implementation and troubleshooting.
-              </p>
+              <h3 className="py-1 text-lg font-bold text-gray-900 dark:text-gray-100">extensive documentation</h3>
+              <p>comprehensive guides and dedicated support ensure smooth api implementation and troubleshooting.</p>
             </Card>
             <Card className="p-4">
-              <h3 className="py-1 text-lg font-bold text-gray-900 dark:text-gray-100">
-                scalable access and control
-              </h3>
-              <p>
-                scale your api usage with flexible access tiers and robust user
-                management features.
-              </p>
+              <h3 className="py-1 text-lg font-bold text-gray-900 dark:text-gray-100">scalable access and control</h3>
+              <p>scale your api usage with flexible access tiers and robust user management features.</p>
             </Card>
             <Card className="p-4">
               <h3 className="py-1 text-lg font-bold text-gray-900 dark:text-gray-100">
                 performance scaling with pricing
               </h3>
-              <p>
-                api performance and request speed scale with your chosen pricing
-                tier to match your business needs.
-              </p>
+              <p>api performance and request speed scale with your chosen pricing tier to match your business needs.</p>
             </Card>
           </div>
           <Card>

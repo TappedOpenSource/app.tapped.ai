@@ -17,9 +17,7 @@ export default function SearchVenueButton({
   onChange,
 }: {
   onChange: (
-    value:
-      | (UserModel & { type: "venue" })
-      | (Location & { type: "location"; formattedAddress: string })
+    value: (UserModel & { type: "venue" }) | (Location & { type: "location"; formattedAddress: string }),
   ) => void;
 }) {
   const [open, setOpen] = useState<boolean>(false);
@@ -32,9 +30,7 @@ export default function SearchVenueButton({
   });
   const { data: placesData } = usePlaceData(debouncedQuery);
   const venueData = data?.filter((hit) => {
-    return (
-      hit.occupations?.includes("venue") || hit.occupations?.includes("Venue")
-    );
+    return hit.occupations?.includes("venue") || hit.occupations?.includes("Venue");
   });
 
   const venueResultsList = useMemo(() => {
@@ -91,10 +87,7 @@ export default function SearchVenueButton({
         search venues...
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput
-          placeholder="search venues..."
-          onValueChange={(value) => setQuery(value)}
-        />
+        <CommandInput placeholder="search venues..." onValueChange={(value) => setQuery(value)} />
         <CommandList>
           {venueData?.length === 0 && placesData?.length === 0 ? (
             <CommandEmpty>no results found.</CommandEmpty>
@@ -104,9 +97,7 @@ export default function SearchVenueButton({
                 <CommandGroup heading="venues">{venueResultsList}</CommandGroup>
               )}
               {!placesData || placesData.length === 0 ? null : (
-                <CommandGroup heading="addresses">
-                  {placesResultsList}
-                </CommandGroup>
+                <CommandGroup heading="addresses">{placesResultsList}</CommandGroup>
               )}
             </>
           )}

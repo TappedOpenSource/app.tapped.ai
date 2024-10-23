@@ -9,7 +9,6 @@
   }
 }
 
-
 .button-container {
   display: flex;
   align-items: center;
@@ -390,8 +389,7 @@
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 [data-theme="light"] .react-modal-sheet-container {
@@ -454,44 +452,44 @@ code {
    * using javascript.
    */
   .str-chat__channel {
-      height: var(--app-height);
+    height: var(--app-height);
   }
 
   #mobile-channel-list {
-      width: 100vw;
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      transform: translate3d(-100vw, 0, 0);
-      transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate3d(-100vw, 0, 0);
+    transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
   }
 
   #mobile-channel-list.show {
-      transform: translate3d(0vw, 0, 0);
-      z-index: 1000;
+    transform: translate3d(0vw, 0, 0);
+    z-index: 1000;
   }
 }
 
 /* To fix inherited styles (as per Team and Customer Support apps */
 @media screen and (max-width: 960px) {
   .str-chat__channel-list {
-      position: unset;
-      left: unset;
-      top: unset;
-      z-index: unset;
-      min-height: unset;
-      overflow-y: unset;
-      transition: unset;
+    position: unset;
+    left: unset;
+    top: unset;
+    z-index: unset;
+    min-height: unset;
+    overflow-y: unset;
+    transition: unset;
   }
 
   .str-chat__thread {
-      flex: 1;
-      position: absolute;
-      z-index: 1;
-      left: 0;
-      right: 0;
-      max-width: 100%;
+    flex: 1;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    max-width: 100%;
   }
 }
 
@@ -549,22 +547,22 @@ code {
 }
 
 .str-chat .str-chat {
-    --str-chat__primary-color: #005fff;
-    --str-chat__background-color: #fff;
-    --str-chat__secondary-background-color: rgba(255, 255, 255, 0.9);
-    --str-chat__thread-background-color: var(--str-chat__background-color);
-    --str-chat__notification-list-background-color: var(--str-chat__background-color);
-    --str-chat__message-list-background-color: var(--str-chat__background-color);
+  --str-chat__primary-color: #005fff;
+  --str-chat__background-color: #fff;
+  --str-chat__secondary-background-color: rgba(255, 255, 255, 0.9);
+  --str-chat__thread-background-color: var(--str-chat__background-color);
+  --str-chat__notification-list-background-color: var(--str-chat__background-color);
+  --str-chat__message-list-background-color: var(--str-chat__background-color);
 
-    --messaging__header-shadow: 0 7px 9px rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.03);
+  --messaging__header-shadow: 0 7px 9px rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.03);
 }
 
 .str-chat .avatar-subgroup.avatar-subgroup--split {
-    --str-chat__avatar-size: 20px;
+  --str-chat__avatar-size: 20px;
 }
 
 .str-chat .str-chat__message {
-    --str-chat__avatar-size: 32px;
+  --str-chat__avatar-size: 32px;
 }
 
 .str-chat {
@@ -572,8 +570,8 @@ code {
 }
 
 .str-chat.str-chat__theme-dark {
-    --str-chat__background-color: #282a2d;
-    --str-chat__secondary-background-color: #212326;
-    --str-chat__primary-surface-color: #18191b;
-    --str-chat__secondary-surface-color: #343434;
+  --str-chat__background-color: #282a2d;
+  --str-chat__secondary-background-color: #212326;
+  --str-chat__primary-surface-color: #18191b;
+  --str-chat__secondary-surface-color: #343434;
 }

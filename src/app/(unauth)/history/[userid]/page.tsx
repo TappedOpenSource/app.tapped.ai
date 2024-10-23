@@ -1,11 +1,7 @@
 "use client";
 
 import BookingTile from "@/components/profile/BookingTile";
-import {
-  getBookingsByRequestee,
-  getBookingsByRequester,
-  getUserById,
-} from "@/data/database";
+import { getBookingsByRequestee, getBookingsByRequester, getUserById } from "@/data/database";
 import { Booking } from "@/domain/types/booking";
 import { UserModel } from "@/domain/types/user_model";
 import { useRouter } from "next/navigation";
@@ -28,11 +24,9 @@ export default function History({ params }: { params: { userid: string } }) {
       // fetch latest booking
       const latestRequesteeBookings = await getBookingsByRequestee(userId);
       const latestRequesterBookings = await getBookingsByRequester(userId);
-      const latestBookings = latestRequesteeBookings
-        .concat(latestRequesterBookings)
-        .sort((a, b) => {
-          return b.startTime.getTime() - a.startTime.getTime();
-        });
+      const latestBookings = latestRequesteeBookings.concat(latestRequesterBookings).sort((a, b) => {
+        return b.startTime.getTime() - a.startTime.getTime();
+      });
 
       setBookings(latestBookings);
     };

@@ -35,14 +35,10 @@ export default function Page() {
         Paginator={InfiniteScroll}
         showChannelSearch
       />
-      <Channel
-        enrichURLForPreview
-      >
+      <Channel enrichURLForPreview>
         <div className="h-screen">
           <Window>
-            <ChannelHeader
-              MenuIcon={Menu}
-            />
+            <ChannelHeader MenuIcon={Menu} />
             <MessageList />
             <MessageInput focus />
           </Window>

@@ -2,8 +2,10 @@ import { profileImage, type UserModel } from "@/domain/types/user_model";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 
-export default function UserAvatarList({ users }: {
-    users: UserModel[];
+export default function UserAvatarList({
+  users,
+}: {
+  users: UserModel[];
 }) {
   if (users.length === 0) {
     return null;

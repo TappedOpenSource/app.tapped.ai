@@ -2,14 +2,7 @@
 
 import ContinueWithGoogleButton from "@/components/login/ContinueWithGoogleButton";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password_input";
 import { signupWithCredentials } from "@/data/auth";
@@ -22,9 +15,7 @@ import { z } from "zod";
 
 const formSchema = z.object({
   email: z.string().email({ message: "enter a valid email address" }),
-  password: z
-    .string()
-    .min(8, { message: "password must be at least 8 characters" }),
+  password: z.string().min(8, { message: "password must be at least 8 characters" }),
   confirmPassword: z.string(),
 });
 
@@ -79,10 +70,7 @@ export default function SignUpForm({
   return (
     <>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-2"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-2">
           <FormField
             control={form.control}
             name="email"
@@ -109,12 +97,7 @@ export default function SignUpForm({
               <FormItem>
                 <FormLabel>password</FormLabel>
                 <FormControl>
-                  <PasswordInput
-                    autoComplete="new-password"
-                    placeholder="********"
-                    disabled={loading}
-                    {...field}
-                  />
+                  <PasswordInput autoComplete="new-password" placeholder="********" disabled={loading} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -127,12 +110,7 @@ export default function SignUpForm({
               <FormItem>
                 <FormLabel>confirm password</FormLabel>
                 <FormControl>
-                  <PasswordInput
-                    autoComplete="new-password"
-                    placeholder="********"
-                    disabled={loading}
-                    {...field}
-                  />
+                  <PasswordInput autoComplete="new-password" placeholder="********" disabled={loading} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -141,9 +119,7 @@ export default function SignUpForm({
 
           <div className="flex flex-row gap-4">
             <Button variant={"secondary"}>
-              <Link href={`/login?return_url=${encodeURIComponent(returnUrl)}`}>
-                already have an account?
-              </Link>
+              <Link href={`/login?return_url=${encodeURIComponent(returnUrl)}`}>already have an account?</Link>
             </Button>
             <Button disabled={loading} className="ml-auto w-full" type="submit">
               sign up

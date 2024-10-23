@@ -20,16 +20,15 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      "stripe-pricing-table": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >;
+      "stripe-pricing-table": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
     }
   }
 }
 
 export default function Page() {
-  const { state: { currentUser, authUser } } = useAuth();
+  const {
+    state: { currentUser, authUser },
+  } = useAuth();
   const { state: subscribed } = usePurchases();
 
   if (!currentUser || !authUser) {
@@ -37,8 +36,9 @@ export default function Page() {
   }
 
   if (!subscribed) {
-    return (<>
-      <Script id="pricing-table-fix">{`const updatePricingTables = () => {
+    return (
+      <>
+        <Script id="pricing-table-fix">{`const updatePricingTables = () => {
   var stripePricingTables = document.querySelectorAll("stripe-pricing-table");
   if (window.tolt_referral !== null && stripePricingTables.length > 0) {
     stripePricingTables.forEach(stripePricingTable => {
@@ -55,15 +55,15 @@ if (window.tolt_referral) {
 }
 })
 `}</Script>
-      <div className="mx-12 rounded-xl bg-black px-12">
-        <stripe-pricing-table
-          pricing-table-id="prctbl_1PFJ5XDYybu1wznE3NpaCEH4"
-          publishable-key="pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil"
-          client-reference-id={authUser.uid}
-          customer-email={authUser.email}
-        ></stripe-pricing-table>
-      </div>
-    </>
+        <div className="mx-12 rounded-xl bg-black px-12">
+          <stripe-pricing-table
+            pricing-table-id="prctbl_1PFJ5XDYybu1wznE3NpaCEH4"
+            publishable-key="pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil"
+            client-reference-id={authUser.uid}
+            customer-email={authUser.email}
+          ></stripe-pricing-table>
+        </div>
+      </>
     );
   }
 
@@ -79,15 +79,12 @@ if (window.tolt_referral) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>
-                billing
-              </BreadcrumbPage>
+              <BreadcrumbPage>billing</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
         you are subscribed
       </ContentLayout>
     </>
-
   );
 }

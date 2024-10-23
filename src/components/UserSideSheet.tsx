@@ -47,9 +47,7 @@ export default function UserSideSheet() {
             <Button
               variant="secondary"
               onClick={() => {
-                navigator.clipboard.writeText(
-                  `${window.location.origin}/u/${username}`
-                );
+                navigator.clipboard.writeText(`${window.location.origin}/u/${username}`);
 
                 trackEvent("user_profile_link_copied", {
                   user_id: selectedUser?.id,

@@ -21,12 +21,14 @@ const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY ?? "";
 export default function DashboardLayout({
   children,
 }: {
-    children: React.ReactNode;
-  }) {
+  children: React.ReactNode;
+}) {
   const { resolvedTheme } = useTheme();
   const sidebar = useStore(useSidebarToggle, (state) => state);
   const searchBar = useStore(useSearchToggle, (state) => state);
-  const { state: { authUser } } = useAuth();
+  const {
+    state: { authUser },
+  } = useAuth();
   const currentUserId = authUser?.uid;
 
   const loggedIn = currentUserId !== undefined && currentUserId !== null;
@@ -50,7 +52,6 @@ export default function DashboardLayout({
     searchBar?.setIsOpen();
   });
 
-
   if (!loggedIn) {
     return (
       <>
@@ -61,7 +62,7 @@ export default function DashboardLayout({
           <main
             className={cn(
               "min-h-[calc(100vh_-_56px)] bg-zinc-50 dark:bg-zinc-900 transition-[margin-left] ease-in-out duration-300",
-              sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
+              sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72",
             )}
           >
             {children}
@@ -91,16 +92,13 @@ export default function DashboardLayout({
     <>
       <TappedSheet />
       <SearchProvider>
-        <Chat
-          client={client}
-          theme={`str-chat__theme-${resolvedTheme === "dark" ? "dark" : "light"}`}
-        >
+        <Chat client={client} theme={`str-chat__theme-${resolvedTheme === "dark" ? "dark" : "light"}`}>
           <SearchDialog />
           <Sidebar />
           <main
             className={cn(
               "min-h-[calc(100vh_-_56px)] bg-zinc-50 dark:bg-zinc-900 transition-[margin-left] ease-in-out duration-300",
-              sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
+              sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72",
             )}
           >
             {children}

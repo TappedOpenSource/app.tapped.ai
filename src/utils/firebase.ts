@@ -15,9 +15,7 @@ const clientCredentials = {
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID || "",
 };
 
-const app = getApps().length <= 0 ?
-  initializeApp(clientCredentials) :
-  getApp();
+const app = getApps().length <= 0 ? initializeApp(clientCredentials) : getApp();
 
 const auth = getAuth(app);
 // if (isSignInWithEmailLink(auth, window.location.href)) {
@@ -57,18 +55,12 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 // const analytics = getAnalytics(app);
 let analytics: Analytics | null = null;
-isSupported().then((supported)=>{
-  if (supported) {
-    analytics = getAnalytics(app);
-  }
-}).catch((e) => console.warn("analytics is not supported in this environment.", e.message));
+isSupported()
+  .then((supported) => {
+    if (supported) {
+      analytics = getAnalytics(app);
+    }
+  })
+  .catch((e) => console.warn("analytics is not supported in this environment.", e.message));
 
-
-export {
-  app,
-  auth,
-  functions,
-  db,
-  storage,
-  analytics,
-};
+export { app, auth, functions, db, storage, analytics };

@@ -5,15 +5,7 @@ import { getPlaceById } from "@/data/places";
 import { Opportunity, opImage } from "@/domain/types/opportunity";
 import { PlaceData } from "@/domain/types/place_data";
 import { UserModel } from "@/domain/types/user_model";
-import {
-  ArrowUpRight,
-  Calendar,
-  Check,
-  Coins,
-  MapPin,
-  Share,
-  Info,
-} from "lucide-react";
+import { ArrowUpRight, Calendar, Check, Coins, MapPin, Share, Info } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -23,12 +15,7 @@ import EmbededMap from "../profile/EmbededMap";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import ApplyButton from "./ApplyButton";
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 
 export default function OpportunityView({
   opportunityId,
@@ -121,9 +108,7 @@ export default function OpportunityView({
       </div>
       <div>
         <div className="flex flex-col gap-4 md:relative md:flex-row md:items-start md:justify-center md:px-12">
-          <div className="flex items-start justify-center px-4 md:sticky md:top-0 md:px-0 lg:pt-16">
-            {flierImage()}
-          </div>
+          <div className="flex items-start justify-center px-4 md:sticky md:top-0 md:px-0 lg:pt-16">{flierImage()}</div>
           <div className="md:flex md:grow md:justify-start">
             <div className="px-6 py-4">
               <h1 className="text-4xl font-extrabold">{opportunity.title}</h1>
@@ -135,9 +120,7 @@ export default function OpportunityView({
                     variant="secondary"
                     disabled={linkCopied}
                     onClick={() => {
-                      navigator.clipboard.writeText(
-                        `${window.location.origin}/opportunity/${opportunityId}`
-                      );
+                      navigator.clipboard.writeText(`${window.location.origin}/opportunity/${opportunityId}`);
                       toast({
                         title: "link copied!",
                         description: "share this with another performer",
@@ -152,9 +135,7 @@ export default function OpportunityView({
                     variant="secondary"
                     disabled={linkCopied}
                     onClick={() => {
-                      navigator.clipboard.writeText(
-                        `${window.location.origin}/opportunity/${opportunityId}`
-                      );
+                      navigator.clipboard.writeText(`${window.location.origin}/opportunity/${opportunityId}`);
                       setLinkCopied(true);
                       setTimeout(() => setLinkCopied(false), 5000);
                       toast({
@@ -203,19 +184,14 @@ export default function OpportunityView({
                           </Button>
                           {opportunity.genres.length > 3 ? (
                             <span>
-                              {opportunity.genres.slice(0, 3).join(", ")} +
-                              {opportunity.genres.length - 3}
+                              {opportunity.genres.slice(0, 3).join(", ")} +{opportunity.genres.length - 3}
                             </span>
                           ) : (
                             <span>{opportunity.genres.join(", ")}</span>
                           )}
                         </div>
                       </TooltipTrigger>
-                      <TooltipContent
-                        side="right"
-                        align="start"
-                        alignOffset={2}
-                      >
+                      <TooltipContent side="right" align="start" alignOffset={2}>
                         {opportunity.genres.join(", ")}
                       </TooltipContent>
                     </Tooltip>
@@ -251,13 +227,8 @@ export default function OpportunityView({
                 {booker && <UserChip user={booker} />}
                 <div className="h-1" />
                 <Link href="/download">
-                  <Button
-                    variant="link"
-                    className="flex flex-row items-center gap-1 p-0"
-                  >
-                    <p className="text-foreground/70 text-xs font-bold">
-                      contact booker
-                    </p>
+                  <Button variant="link" className="flex flex-row items-center gap-1 p-0">
+                    <p className="text-foreground/70 text-xs font-bold">contact booker</p>
                     <ArrowUpRight className="text-foreground/70 h-3 w-3" />
                   </Button>
                 </Link>
@@ -277,14 +248,9 @@ export default function OpportunityView({
                 <div>
                   <div>
                     <h3 className="text-md font-bold">location</h3>
-                    <p className="text-foreground/70 text-sm">
-                      {location.shortFormattedAddress}
-                    </p>
+                    <p className="text-foreground/70 text-sm">{location.shortFormattedAddress}</p>
                     <div className="h-2" />
-                    <EmbededMap
-                      lat={opportunity.location.lat}
-                      lng={opportunity.location.lng}
-                    />
+                    <EmbededMap lat={opportunity.location.lat} lng={opportunity.location.lng} />
                   </div>
                 </div>
               )}

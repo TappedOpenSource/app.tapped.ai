@@ -1,13 +1,7 @@
 import { type Booking, bookingConverter } from "@/domain/types/booking";
 import { ContactVenueRequest } from "@/domain/types/contact_venue_request";
-import {
-  LabelApplication,
-  labelApplicationConverter,
-} from "@/domain/types/label_application";
-import {
-  type Opportunity,
-  opportunityConverter,
-} from "@/domain/types/opportunity";
+import { LabelApplication, labelApplicationConverter } from "@/domain/types/label_application";
+import { type Opportunity, opportunityConverter } from "@/domain/types/opportunity";
 import type { Option } from "@/domain/types/option";
 import { RecursivePartial } from "@/domain/types/recursive_partial";
 import { type Review, reviewConverter } from "@/domain/types/review";
@@ -37,10 +31,7 @@ import { LRUCache } from "lru-cache";
 
 const verifiedBadgeId = "0aa46576-1fbe-4312-8b69-e2fef3269083";
 
-export async function checkUsernameAvailability(
-  userId: string,
-  username: string
-): Promise<boolean> {
+export async function checkUsernameAvailability(userId: string, username: string): Promise<boolean> {
   const blacklist = ["anonymous", "*deleted*"];
 
   if (blacklist.includes(username)) {
@@ -48,21 +39,14 @@ export async function checkUsernameAvailability(
   }
 
   const usersRef = collection(db, "users");
-  const userQuery = query(
-    usersRef,
-    where("username", "==", username),
-    limit(1)
-  );
+  const userQuery = query(usersRef, where("username", "==", username), limit(1));
   const userQuerySnapshot = await getDocs(userQuery);
   const userQueryDocs = userQuerySnapshot.docs;
 
   return !(userQueryDocs.length > 0 && userQueryDocs[0].id !== userId);
 }
 
-export async function createOrUpdateUser(
-  id: string,
-  user: RecursivePartial<UserModel>
-): Promise<void> {
+export async function createOrUpdateUser(id: string, user: RecursivePartial<UserModel>): Promise<void> {
   const docRef = doc(db, "users", id);
   await setDoc(docRef, user, { merge: true });
 }
@@ -92,9 +76,7 @@ export async function getUserById(userId: string): Promise<Option<UserModel>> {
 const userByUsernameCache = new LRUCache<string, UserModel>({
   max: 500,
 });
-export async function getUserByUsername(
-  username: string
-): Promise<Option<UserModel>> {
+export async function getUserByUsername(username: string): Promise<Option<UserModel>> {
   const cached = userByUsernameCache.get(username);
   if (cached !== undefined) {
     return cached;
@@ -127,9 +109,7 @@ export async function isVerified(userId: string): Promise<boolean> {
 
     const badgesSentRef = collection(db, "badgesSent");
 
-    const verifiedBadgeSentDoc = await getDoc(
-      doc(badgesSentRef, userId, "badges", verifiedBadgeId)
-    );
+    const verifiedBadgeSentDoc = await getDoc(doc(badgesSentRef, userId, "badges", verifiedBadgeId));
 
     const verified = verifiedBadgeSentDoc.exists();
     verifiedCache.set(userId, verified);
@@ -142,10 +122,7 @@ export async function isVerified(userId: string): Promise<boolean> {
 }
 
 export async function getBookingCount(userId: string) {
-  const bookingQuery = query(
-    collection(db, "bookings"),
-    where("requesteeId", "==", userId)
-  );
+  const bookingQuery = query(collection(db, "bookings"), where("requesteeId", "==", userId));
   const aggr = await getAggregateFromServer(bookingQuery, {
     bookingCount: count(),
   });
@@ -155,16 +132,14 @@ export async function getBookingCount(userId: string) {
   return data.bookingCount;
 }
 
-export async function getLatestBookingByRequestee(
-  userId: string
-): Promise<Option<Booking>> {
+export async function getLatestBookingByRequestee(userId: string): Promise<Option<Booking>> {
   const bookingsCollection = collection(db, "bookings");
   const querySnapshot = query(
     bookingsCollection,
     where("requesteeId", "==", userId),
     where("status", "==", "confirmed"),
     orderBy("timestamp", "desc"),
-    limit(1)
+    limit(1),
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
 
@@ -176,16 +151,14 @@ export async function getLatestBookingByRequestee(
   return queryDocs.docs[0].data();
 }
 
-export async function getLatestBookingByRequester(
-  userId: string
-): Promise<Option<Booking>> {
+export async function getLatestBookingByRequester(userId: string): Promise<Option<Booking>> {
   const bookingsCollection = collection(db, "bookings");
   const querySnapshot = query(
     bookingsCollection,
     where("requesterId", "==", userId),
     where("status", "==", "confirmed"),
     orderBy("timestamp", "desc"),
-    limit(1)
+    limit(1),
   ).withConverter(bookingConverter);
   const queryDocs = await getDocs(querySnapshot);
 
@@ -197,18 +170,9 @@ export async function getLatestBookingByRequester(
   return queryDocs.docs[0].data();
 }
 
-export async function getLatestPerformerReviewByPerformerId(
-  userId: string
-): Promise<Option<Review>> {
-  const reviewsCollection = collection(
-    db,
-    `reviews/${userId}/performerReviews`
-  );
-  const querySnapshot = query(
-    reviewsCollection,
-    orderBy("timestamp", "desc"),
-    limit(1)
-  ).withConverter(reviewConverter);
+export async function getLatestPerformerReviewByPerformerId(userId: string): Promise<Option<Review>> {
+  const reviewsCollection = collection(db, `reviews/${userId}/performerReviews`);
+  const querySnapshot = query(reviewsCollection, orderBy("timestamp", "desc"), limit(1)).withConverter(reviewConverter);
 
   const queryDocs = await getDocs(querySnapshot);
 
@@ -220,15 +184,9 @@ export async function getLatestPerformerReviewByPerformerId(
   return queryDocs.docs[0].data();
 }
 
-export async function getLatestBookerReviewByBookerId(
-  userId: string
-): Promise<Option<Review>> {
+export async function getLatestBookerReviewByBookerId(userId: string): Promise<Option<Review>> {
   const reviewsCollection = collection(db, `reviews/${userId}/bookerReviews`);
-  const querySnapshot = query(
-    reviewsCollection,
-    orderBy("timestamp", "desc"),
-    limit(1)
-  ).withConverter(reviewConverter);
+  const querySnapshot = query(reviewsCollection, orderBy("timestamp", "desc"), limit(1)).withConverter(reviewConverter);
 
   const queryDocs = await getDocs(querySnapshot);
 
@@ -240,13 +198,11 @@ export async function getLatestBookerReviewByBookerId(
   return queryDocs.docs[0].data();
 }
 
-export async function getBookingsByEventId(
-  eventId: string
-): Promise<Booking[]> {
+export async function getBookingsByEventId(eventId: string): Promise<Booking[]> {
   const bookingsQuery = query(
     collection(db, "bookings"),
     where("referenceEventId", "==", eventId),
-    where("status", "==", "confirmed")
+    where("status", "==", "confirmed"),
   ).withConverter(bookingConverter);
 
   const querySnapshot = await getDocs(bookingsQuery);
@@ -255,13 +211,11 @@ export async function getBookingsByEventId(
   return queryDocs.map((doc) => doc.data());
 }
 
-export async function getBookingsByEventUrl(
-  eventUrl: string
-): Promise<Booking[]> {
+export async function getBookingsByEventUrl(eventUrl: string): Promise<Booking[]> {
   const bookingsQuery = query(
     collection(db, "bookings"),
     where("eventUrl", "==", eventUrl),
-    where("status", "==", "confirmed")
+    where("status", "==", "confirmed"),
   ).withConverter(bookingConverter);
 
   const querySnapshot = await getDocs(bookingsQuery);
@@ -270,16 +224,14 @@ export async function getBookingsByEventUrl(
   return queryDocs.map((doc) => doc.data());
 }
 
-export async function getUserOpportunities(
-  userId: string
-): Promise<Opportunity[]> {
+export async function getUserOpportunities(userId: string): Promise<Opportunity[]> {
   const opportunitiesCollection = collection(db, "opportunities");
   const querySnapshot = query(
     opportunitiesCollection,
     orderBy("startTime", "desc"),
     where("startTime", ">", new Date()),
     where("deleted", "==", false),
-    where("userId", "==", userId)
+    where("userId", "==", userId),
   ).withConverter(opportunityConverter);
 
   const queryDocs = await getDocs(querySnapshot);
@@ -292,9 +244,7 @@ export async function getUserOpportunities(
 }
 
 export async function getOpportunityById(opportunityId: string) {
-  const docRef = doc(db, "opportunities", opportunityId).withConverter(
-    opportunityConverter
-  );
+  const docRef = doc(db, "opportunities", opportunityId).withConverter(opportunityConverter);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
     console.log("No such document!");
@@ -312,7 +262,7 @@ export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
     where("deleted", "==", false),
     where("startTime", ">", new Date()),
     orderBy("startTime", "desc"),
-    limit(3)
+    limit(3),
   ).withConverter(opportunityConverter);
   const tccOpsSnap = await getDocs(tccOpsQuery);
   const tccOps = tccOpsSnap.docs.map((doc) => doc.data());
@@ -323,9 +273,9 @@ export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
   const { featuredOpportunities } = leadersDoc.data() as {
     featuredOpportunities: string[];
   };
-  const leaderOps = (
-    await Promise.all(featuredOpportunities.map(getOpportunityById))
-  ).filter((u) => u !== null) as Opportunity[];
+  const leaderOps = (await Promise.all(featuredOpportunities.map(getOpportunityById))).filter(
+    (u) => u !== null,
+  ) as Opportunity[];
 
   return [...tccOps, ...leaderOps];
 }
@@ -389,9 +339,7 @@ export async function getOpportunityQuota(opId: string): Promise<number> {
   }
 }
 
-export async function getInterestedUsersForOpportunity(
-  opId: string
-): Promise<UserModel[]> {
+export async function getInterestedUsersForOpportunity(opId: string): Promise<UserModel[]> {
   const opsRef = collection(db, "opportunities");
   const interestedCollection = collection(opsRef, `${opId}/interestedUsers`);
   const interestedUsers = await getDocs(interestedCollection);
@@ -400,7 +348,7 @@ export async function getInterestedUsersForOpportunity(
     await Promise.all(
       interestedUsers.docs.map(async (doc) => {
         return await getUserById(doc.id);
-      })
+      }),
     )
   ).filter((u) => u !== null) as UserModel[];
 }
@@ -420,9 +368,9 @@ export async function getFeaturedPerformers(): Promise<UserModel[]> {
   const { featuredPerformers } = leadersDoc.data() as {
     featuredPerformers: string[];
   };
-  const featured = (
-    await Promise.all(featuredPerformers.map(getUserByUsername))
-  ).filter((u) => u !== null) as UserModel[];
+  const featured = (await Promise.all(featuredPerformers.map(getUserByUsername))).filter(
+    (u) => u !== null,
+  ) as UserModel[];
 
   featuredPerformersCache.set("featuredPerformers", featured);
   return featured;
@@ -443,9 +391,7 @@ export async function getBookingLeaders(): Promise<UserModel[]> {
   const { bookingLeaders } = leadersDoc.data() as {
     bookingLeaders: string[];
   };
-  const leaders = (
-    await Promise.all(bookingLeaders.map(getUserByUsername))
-  ).filter((u) => u !== null) as UserModel[];
+  const leaders = (await Promise.all(bookingLeaders.map(getUserByUsername))).filter((u) => u !== null) as UserModel[];
 
   bookingLeadersCache.set("bookingLeaders", leaders);
   return leaders;
@@ -458,10 +404,7 @@ export async function getServiceById({
   userId: string;
   serviceId: string;
 }): Promise<Option<Service>> {
-  const docRef = doc(
-    db,
-    `/services/${userId}/userServices/${serviceId}`
-  ).withConverter(serviceConverter);
+  const docRef = doc(db, `/services/${userId}/userServices/${serviceId}`).withConverter(serviceConverter);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
     return null;
@@ -470,17 +413,9 @@ export async function getServiceById({
   return docSnap.data();
 }
 
-export async function getReviewsByPerformerId(
-  userId: string
-): Promise<Review[]> {
-  const reviewsCollection = collection(
-    db,
-    `reviews/${userId}/performerReviews`
-  );
-  const querySnapshot = query(
-    reviewsCollection,
-    orderBy("timestamp", "desc")
-  ).withConverter(reviewConverter);
+export async function getReviewsByPerformerId(userId: string): Promise<Review[]> {
+  const reviewsCollection = collection(db, `reviews/${userId}/performerReviews`);
+  const querySnapshot = query(reviewsCollection, orderBy("timestamp", "desc")).withConverter(reviewConverter);
 
   const queryDocs = await getDocs(querySnapshot);
 
@@ -489,20 +424,14 @@ export async function getReviewsByPerformerId(
 
 export async function getReviewsByBookerId(userId: string): Promise<Review[]> {
   const reviewsCollection = collection(db, `reviews/${userId}/bookerReviews`);
-  const querySnapshot = query(
-    reviewsCollection,
-    orderBy("timestamp", "desc")
-  ).withConverter(reviewConverter);
+  const querySnapshot = query(reviewsCollection, orderBy("timestamp", "desc")).withConverter(reviewConverter);
 
   const queryDocs = await getDocs(querySnapshot);
 
   return queryDocs.docs.map((doc) => doc.data());
 }
 
-export async function getBookingsByRequestee(
-  userId: string,
-  params?: { limit: number },
-): Promise<Booking[]> {
+export async function getBookingsByRequestee(userId: string, params?: { limit: number }): Promise<Booking[]> {
   const bookingsCollection = collection(db, "bookings");
   const querySnapshot = query(
     bookingsCollection,
@@ -516,10 +445,7 @@ export async function getBookingsByRequestee(
   return queryDocs.docs.map((doc) => doc.data());
 }
 
-export async function getBookingsByRequester(
-  userId: string,
-  params?: { limit: number },
-): Promise<Booking[]> {
+export async function getBookingsByRequester(userId: string, params?: { limit: number }): Promise<Booking[]> {
   const bookingsCollection = collection(db, "bookings");
   const querySnapshot = query(
     bookingsCollection,
@@ -533,9 +459,7 @@ export async function getBookingsByRequester(
   return queryDocs.docs.map((doc) => doc.data());
 }
 
-export async function getBookingById(
-  bookingId: string
-): Promise<Option<Booking>> {
+export async function getBookingById(bookingId: string): Promise<Option<Booking>> {
   const docRef = doc(db, "bookings", bookingId).withConverter(bookingConverter);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
@@ -579,20 +503,13 @@ export async function getActiveProducts(): Promise<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   { product: any; prices: any }[]
   > {
-  const productsQuery = query(
-    collection(db, "products"),
-    where("active", "==", true)
-  );
+  const productsQuery = query(collection(db, "products"), where("active", "==", true));
   const products = await getDocs(productsQuery);
 
   return await Promise.all(
     products.docs.map(async (product) => {
       const priceRef = collection(db, `products/${product.id}/prices`);
-      const pricesQuery = query(
-        priceRef,
-        where("active", "==", true),
-        orderBy("unit_amount")
-      );
+      const pricesQuery = query(priceRef, where("active", "==", true), orderBy("unit_amount"));
       const prices = await getDocs(pricesQuery);
 
       return {
@@ -607,15 +524,12 @@ export async function getActiveProducts(): Promise<
           };
         }),
       };
-    })
+    }),
   );
 }
 export async function addCustomerSubscriptionListener(userId, callback) {
   const subscriptionsRef = collection(db, `customers/${userId}/subscriptions`);
-  const queryRef = query(
-    subscriptionsRef,
-    where("status", "in", ["trialing", "active"])
-  );
+  const queryRef = query(subscriptionsRef, where("status", "in", ["trialing", "active"]));
   return onSnapshot(queryRef, callback);
 }
 
@@ -644,10 +558,7 @@ export async function hasUserSentContactRequest({
 }) {
   try {
     const contactVenuesRef = collection(db, "contactVenues");
-    const userCollection = collection(
-      contactVenuesRef,
-      `${userId}/venuesContacted`
-    );
+    const userCollection = collection(contactVenuesRef, `${userId}/venuesContacted`);
     const venueDoc = doc(userCollection, venueId);
 
     const docSnap = await getDoc(venueDoc);
@@ -658,10 +569,7 @@ export async function hasUserSentContactRequest({
   }
 }
 
-export async function getContactedVenues(
-  userId: string,
-  params?: { limit: number },
-): Promise<ContactVenueRequest[]> {
+export async function getContactedVenues(userId: string, params?: { limit: number }): Promise<ContactVenueRequest[]> {
   try {
     const contactVenuesRef = collection(db, "contactVenues");
     const userCollection = collection(contactVenuesRef, `${userId}/venuesContacted`);
@@ -721,10 +629,7 @@ export async function contactVenue({
     console.info("contactVenueRequest $contactVenueRequest");
 
     const contactVenuesRef = collection(db, "contactVenues");
-    const userCollection = collection(
-      contactVenuesRef,
-      `${currentUser.id}/venuesContacted`
-    );
+    const userCollection = collection(contactVenuesRef, `${currentUser.id}/venuesContacted`);
     const venueDoc = doc(userCollection, venue.id);
     await setDoc(venueDoc, contactVenueRequest);
 

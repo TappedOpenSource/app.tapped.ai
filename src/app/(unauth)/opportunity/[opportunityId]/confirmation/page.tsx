@@ -2,16 +2,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-const colors = [
-  "blue-500",
-  "purple-500",
-  "green-600",
-  "red-600",
-  "yellow-800",
-  "indigo-300",
-  "pink-500",
-  "yellow-800",
-];
+const colors = ["blue-500", "purple-500", "green-600", "red-600", "yellow-800", "indigo-300", "pink-500", "yellow-800"];
 
 export default function Page({
   params,
@@ -24,12 +15,8 @@ export default function Page({
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-4 px-4 py-6">
-        <h1 className="text-center text-4xl font-bold">
-          your application has been submitted!
-        </h1>
-        <h2 className="text-center text-lg">
-          download the tapped app to discover more!
-        </h2>
+        <h1 className="text-center text-4xl font-bold">your application has been submitted!</h1>
+        <h2 className="text-center text-lg">download the tapped app to discover more!</h2>
         <div className="flex flex-col items-center justify-center gap-4 md:flex-row">
           <Link href="/download">
             <Button>download</Button>

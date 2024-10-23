@@ -47,28 +47,28 @@ export default function SearchBar(props: {
           <div className="flex items-center justify-center">
             <LoadingSpinner />
           </div>
-        }>
+        }
+      >
         <QueryClientProvider client={queryClient}>
           <SearchDialog />
           <TooltipProvider disableHoverableContent>
             <Tooltip delayDuration={100}>
               <TooltipTrigger asChild>
-                {
-                  (props.openDialog ?? true) ? (
-                    <button
-                      className="w-full"
-                      onClick={() => {
-                        trackEvent("search_bar_clicked", {
-                          open: searchBar?.isOpen,
-                        });
-                        searchBar?.setIsOpen();
-                      }}>
-                      <_SearchBar {...props} />
-                    </button>
-                  ) : (
+                {(props.openDialog ?? true) ? (
+                  <button
+                    className="w-full"
+                    onClick={() => {
+                      trackEvent("search_bar_clicked", {
+                        open: searchBar?.isOpen,
+                      });
+                      searchBar?.setIsOpen();
+                    }}
+                  >
                     <_SearchBar {...props} />
-                  )
-                }
+                  </button>
+                ) : (
+                  <_SearchBar {...props} />
+                )}
               </TooltipTrigger>
               <TooltipContent side="bottom">search</TooltipContent>
             </Tooltip>
@@ -79,7 +79,9 @@ export default function SearchBar(props: {
   );
 }
 
-function _SearchBar({ animatedPlaceholder = false }: {
+function _SearchBar({
+  animatedPlaceholder = false,
+}: {
   animatedPlaceholder?: boolean;
 }) {
   const [query, setQuery] = useState<string>("");

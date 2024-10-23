@@ -6,14 +6,7 @@ import { useEffect, useState } from "react";
 import { userAudienceSize, type UserModel } from "@/domain/types/user_model";
 import { getBookingLeaders, getFeaturedPerformers } from "@/data/database";
 import { columns } from "./columns";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { useRouter } from "next/navigation";
 
 export type LeaderboardType = "rising" | "performer";
@@ -74,9 +67,7 @@ export default function LeaderboardTable({ type }: { type: LeaderboardType }) {
     <>
       <div className="container mx-auto py-10 overflow-y-scroll">
         <div className="flex flex-row justify-start items-center gap-4">
-          <h1 className="text-3xl font-bold py-6">
-            {type}
-          </h1>
+          <h1 className="text-3xl font-bold py-6">{type}</h1>
           <div className="hidden md:block">
             <Select
               onValueChange={(value) => {

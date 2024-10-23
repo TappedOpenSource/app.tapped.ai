@@ -5,12 +5,7 @@ import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  TooltipProvider,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 
 export function ModeToggle() {
   const { setTheme, theme } = useTheme();

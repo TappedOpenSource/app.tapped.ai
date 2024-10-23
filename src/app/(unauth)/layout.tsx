@@ -1,8 +1,10 @@
 import TappedSheet from "@/components/TappedSheet";
 import UnauthHeader from "@/components/unauth_header";
 
-export default function UnauthLayout({ children }: {
-    children: React.ReactNode;
+export default function UnauthLayout({
+  children,
+}: {
+  children: React.ReactNode;
 }) {
   return (
     <>
