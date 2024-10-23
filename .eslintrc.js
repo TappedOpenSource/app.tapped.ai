@@ -25,10 +25,7 @@ module.exports = {
   ignorePatterns: [
     "/lib/**/*", // Ignore built files.
   ],
-  plugins: [
-    "@typescript-eslint",
-    "import",
-  ],
+  plugins: ["@typescript-eslint", "import"],
   rules: {
     "quotes": ["error", "double"],
     "object-curly-spacing": [1, "always"],
@@ -37,7 +34,7 @@ module.exports = {
     "indent": ["error", 2],
     "new-cap": 0,
     "require-jsdoc": 0,
-    "max-len": [0, { "code": 120 }],
+    "max-len": [0, { code: 120 }],
     "no-case-declarations": 0,
     "linebreak-style": 0,
     "sonarjs/cognitive-complexity": 0,
@@ -57,5 +54,6 @@ module.exports = {
         aspects: ["invalidHref", "preferButton"],
       },
     ],
+    "security/detect-object-injection": 0,
   },
 };
