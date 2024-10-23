@@ -7,6 +7,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
+    "format": "biome format ./src",
+    "format:write": "biome format ./src --write",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -57,7 +59,7 @@
     "lru-cache": "^10.2.2",
     "lucide-react": "^0.378.0",
     "mapbox-gl": "^3.3.0",
-    "next": "^14.2.6",
+    "next": "^15.0.1",
     "next-themes": "^0.3.0",
     "posthog-js": "^1.164.1",
     "react": "^18.2.0",
@@ -90,6 +92,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/date-fns": "^2.6.0",
     "@types/lodash": "^4.17.4",
     "@types/node": "18.11.9",
