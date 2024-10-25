@@ -9,7 +9,9 @@ export function middleware(request: NextRequest) {
   requestHeaders.set("x-pathname", request.nextUrl.pathname);
 
   if (request.nextUrl.pathname === "/") {
-    return NextResponse.redirect("/map");
+    return NextResponse.redirect("/map", {
+      headers: requestHeaders,
+    });
   }
 
   // You can also set request headers in NextResponse.rewrite
