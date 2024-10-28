@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   sendSignInLinkToEmail,
+  signInWithCredential,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
@@ -65,6 +66,15 @@ export async function loginWithGoogle() {
   console.debug("loginWithGoogle");
   const provider = new GoogleAuthProvider();
   const userCred = await signInWithPopup(auth, provider);
+
+  trackEvent("login", { method: "google", email: userCred.user.email });
+  return { uid: userCred.user.uid, email: userCred.user.email };
+}
+
+export async function loginWithToken(token: string) {
+  console.debug("loginWithToken");
+  const credentials = GoogleAuthProvider.credential(token);
+  const userCred = await signInWithCredential(auth, credentials);
 
   trackEvent("login", { method: "google", email: userCred.user.email });
   return { uid: userCred.user.uid, email: userCred.user.email };

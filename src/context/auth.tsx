@@ -5,6 +5,7 @@ import { UserModel } from "@/domain/types/user_model";
 import { auth } from "@/utils/firebase";
 import { User } from "firebase/auth";
 import { type ReactNode, createContext, useContext, useEffect, useReducer } from "react";
+import GoogleOneTap from "@/components/google-one-tap";
 
 export type Action =
   | { type: "ONBOARD"; currentUser: UserModel; authUser?: User }
@@ -92,5 +93,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [state]);
 
   const value = { state, dispatch };
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!state.authUser && <GoogleOneTap />}
+      {children}
+    </AuthContext.Provider>
+  );
 }
