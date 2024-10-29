@@ -1,10 +1,13 @@
 "use client";
 
-import { getBookingsByRequestee, getBookingsByRequester } from "@/data/database";
+import {
+  getBookingsByRequestee,
+  getBookingsByRequester,
+} from "@/data/database";
 import BookingHistoryPreview from "../profile/BookingHistoryPreview";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/auth";
-import { Booking } from "@/domain/types/booking";
+import type { Booking } from "@/domain/types/booking";
 import AddBooking from "../opportunity/form/AddBooking";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { Button } from "../ui/button";
@@ -22,11 +25,19 @@ export default function BookingHistory() {
       }
 
       // fetch latest booking
-      const latestRequesteeBookings = await getBookingsByRequestee(currentUser.id, { limit: 40 });
-      const latestRequesterBookings = await getBookingsByRequester(currentUser.id, { limit: 40 });
-      const latestBookings = latestRequesteeBookings.concat(latestRequesterBookings).sort((a, b) => {
-        return b.startTime.getTime() - a.startTime.getTime();
-      });
+      const latestRequesteeBookings = await getBookingsByRequestee(
+        currentUser.id,
+        { limit: 40 }
+      );
+      const latestRequesterBookings = await getBookingsByRequester(
+        currentUser.id,
+        { limit: 40 }
+      );
+      const latestBookings = latestRequesteeBookings
+        .concat(latestRequesterBookings)
+        .sort((a, b) => {
+          return b.startTime.getTime() - a.startTime.getTime();
+        });
 
       setBookings(latestBookings);
     };
@@ -39,7 +50,7 @@ export default function BookingHistory() {
 
   return (
     <>
-      <div className="flex gap-2 justify-start items-center">
+      <div className="flex items-center justify-start gap-2">
         <h3 className="font-bold text-gray-500">booking history</h3>
         <Dialog>
           <DialogTrigger asChild>

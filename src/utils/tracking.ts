@@ -1,6 +1,7 @@
 import posthog from "posthog-js";
 
 type EventName =
+  | "search"
   | "marker_clicked"
   | "sidebar_toggle"
   | "contact_venue"

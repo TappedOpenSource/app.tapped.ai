@@ -4,15 +4,28 @@ import { useAuth } from "@/context/auth";
 import { useDebounce } from "@/context/debounce";
 import { usePurchases } from "@/context/purchases";
 import { useSearch } from "@/context/search";
-import { BoundingBox } from "@/data/search";
+import type { BoundingBox } from "@/data/search";
 import { profileImage } from "@/domain/types/user_model";
 import { isVenueGoodFit } from "@/utils/good_fit";
 import classNames from "classnames";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { FullscreenControl, GeolocateControl, Map, MapEvent, Marker } from "react-map-gl";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import {
+  FullscreenControl,
+  GeolocateControl,
+  Map as MapBoxGL,
+  type MapEvent,
+  Marker,
+} from "react-map-gl";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { cn } from "@/lib/utils";
@@ -36,7 +49,7 @@ export default function VenueMap(props: {
       <QueryClientProvider client={queryClient}>
         <Suspense
           fallback={
-            <div className="flex min-h-screen w-full items-center justify-center">
+            <div className="flex min-h-screen w-full items-center justify-center pt-[60px]">
               <LoadingSpinner />
             </div>
           }
@@ -76,7 +89,11 @@ function _VenueMap({
 
   // redirect to signup if user is not logged in
   useEffect(() => {
-    if (env !== "production" || authState.authUser !== null || authState.currentUser !== null) {
+    if (
+      env !== "production" ||
+      authState.authUser !== null ||
+      authState.currentUser !== null
+    ) {
       return;
     }
 
@@ -146,7 +163,9 @@ function _VenueMap({
               venue,
             }) :
             false;
-        const hasBookingData = venue.venueInfo?.bookingsByDayOfWeek?.some((val) => val !== 0);
+        const hasBookingData = venue.venueInfo?.bookingsByDayOfWeek?.some(
+          (val) => val !== 0
+        );
         return (
           <Marker
             key={venue.id}
@@ -164,7 +183,9 @@ function _VenueMap({
             <div
               className={cn(
                 "bg-background flex transform flex-row items-center justify-center rounded-xl px-1 py-1 shadow-lg transition-all duration-200 ease-in-out hover:scale-105 hover:cursor-pointer",
-                hasBookingData ? "border-2 border-dotted border-yellow-500" : "border-background border-none",
+                hasBookingData ?
+                  "border-2 border-dotted border-yellow-500" :
+                  "border-background border-none"
               )}
             >
               <div className="relative h-[22px] w-[22px]">
@@ -178,11 +199,14 @@ function _VenueMap({
                 />
               </div>
               {venueCapacity !== 0 && (
-                <>
-                  <p className={classNames("pl-1 pr-1", goodFit ? "text-green-500" : "")}>
-                    {venueCapacity.toLocaleString()}
-                  </p>
-                </>
+                <p
+                  className={classNames(
+                    "pl-1 pr-1",
+                    goodFit ? "text-green-500" : ""
+                  )}
+                >
+                  {venueCapacity.toLocaleString()}
+                </p>
               )}
             </div>
           </Marker>
@@ -195,7 +219,8 @@ function _VenueMap({
     return newMarkers;
   }, [data, currentUser, subscribed, router, isFetching]);
 
-  const mapTheme = resolvedTheme === "light" ? mapboxLightStyle : mapboxDarkStyle;
+  const mapTheme =
+    resolvedTheme === "light" ? mapboxLightStyle : mapboxDarkStyle;
   return (
     <>
       <LocationSideSheet
@@ -206,12 +231,13 @@ function _VenueMap({
         isOpen={sidebarIsOpen}
         onOpenChange={() => setSidebarIsOpen(!sidebarIsOpen)}
       />
-      <div className="relative z-0 flex flex-col grow no-scroll overflow-hidden">
-        <div className="absolute t-0 w-full z-40">
+      <div className="fixed inset-0 z-0 flex flex-col overflow-hidden">
+        {/* <div className="t-0 absolute z-40 w-full">
           <MapHeader onMenuClick={() => setSidebarIsOpen(!sidebarIsOpen)} />
-        </div>
-        <div className="m-0 h-screen w-full z-0">
-          <Map
+        </div> */}
+        <div className="relative flex-1">
+          <MapBoxGL
+            style={{ height: "100% !important", width: "100% !important" }}
             initialViewState={{
               latitude: lat,
               longitude: lng,
@@ -223,37 +249,17 @@ function _VenueMap({
             mapboxAccessToken={defaultMapboxToken}
             onRender={onRender}
           >
-            <GeolocateControl position="bottom-right" showUserHeading trackUserLocation />
+            <GeolocateControl
+              position="bottom-right"
+              showUserHeading
+              trackUserLocation
+            />
             <FullscreenControl position="bottom-right" />
-            {/* <NavigationControl position="bottom-right" /> */}
-            {/* <ScaleControl /> */}
-
             {markers}
-            {/*
-        {popupInfo && (
-          <Popup
-            anchor="top"
-            longitude={Number(popupInfo.longitude)}
-            latitude={Number(popupInfo.latitude)}
-            onClose={() => setPopupInfo(null)}
-          >
-            <div>
-              {popupInfo.city}, {popupInfo.state} |{" "}
-              <a
-                target="_new"
-                href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=${popupInfo.city}, ${popupInfo.state}`}
-              >
-                Wikipedia
-              </a>
-            </div>
-            <img width="100%" src={popupInfo.image} />
-          </Popup>
-        )} */}
-          </Map>
-
-          {/* <ControlPanel /> */}
+          </MapBoxGL>
         </div>
       </div>
+      {/* <ControlPanel /> */}
     </>
   );
 }

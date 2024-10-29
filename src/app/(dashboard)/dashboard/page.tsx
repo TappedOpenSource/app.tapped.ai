@@ -39,7 +39,7 @@ export default function Page() {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <div className="hidden md:block py-16 px-8">
+        <div className="hidden flex-col px-8 py-16 md:flex">
           <TasksSection />
           <div className="py-4" />
           <StatsSection />

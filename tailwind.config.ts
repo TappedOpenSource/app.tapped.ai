@@ -27,9 +27,15 @@ const config = {
         highlight: "inset 0 0 0 1px rgba(255, 255, 255, 0.05)",
       },
       screens: {
-        "narrow": { raw: "(max-aspect-ratio: 3 / 2)" },
-        "wide": { raw: "(min-aspect-ratio: 3 / 2)" },
-        "taller-than-854": { raw: "(min-height: 854px)" },
+        "narrow": {
+          raw: "(max-aspect-ratio: 3 / 2)",
+        },
+        "wide": {
+          raw: "(min-aspect-ratio: 3 / 2)",
+        },
+        "taller-than-854": {
+          raw: "(min-height: 854px)",
+        },
       },
       colors: {
         border: "hsl(var(--border))",
@@ -65,6 +71,16 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        sidebar: {
+          "DEFAULT": "hsl(var(--sidebar-background))",
+          "foreground": "hsl(var(--sidebar-foreground))",
+          "primary": "hsl(var(--sidebar-primary))",
+          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
+          "accent": "hsl(var(--sidebar-accent))",
+          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+          "border": "hsl(var(--sidebar-border))",
+          "ring": "hsl(var(--sidebar-ring))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -73,36 +89,68 @@ const config = {
       },
       keyframes: {
         "collapsible-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-collapsible-content-height)" },
+          from: {
+            height: "0",
+          },
+          to: {
+            height: "var(--radix-collapsible-content-height)",
+          },
         },
         "collapsible-up": {
-          from: { height: "var(--radix-collapsible-content-height)" },
-          to: { height: "0" },
+          from: {
+            height: "var(--radix-collapsible-content-height)",
+          },
+          to: {
+            height: "0",
+          },
         },
         "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          from: {
+            height: "0",
+          },
+          to: {
+            height: "var(--radix-accordion-content-height)",
+          },
         },
         "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          from: {
+            height: "var(--radix-accordion-content-height)",
+          },
+          to: {
+            height: "0",
+          },
         },
         "marquee": {
-          "0%": { transform: "translateX(0%)" },
-          "100%": { transform: "translateX(-100%)" },
+          "0%": {
+            transform: "translateX(0%)",
+          },
+          "100%": {
+            transform: "translateX(-100%)",
+          },
         },
         "marquee2": {
-          "0%": { transform: "translateX(100%)" },
-          "100%": { transform: "translateX(0%)" },
+          "0%": {
+            transform: "translateX(100%)",
+          },
+          "100%": {
+            transform: "translateX(0%)",
+          },
         },
         "fadeIn": {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
         },
         "shine": {
-          from: { backgroundPosition: "200% 0" },
-          to: { backgroundPosition: "-200% 0" },
+          from: {
+            backgroundPosition: "200% 0",
+          },
+          to: {
+            backgroundPosition: "-200% 0",
+          },
         },
         "moveHorizontal": {
           "0%": {

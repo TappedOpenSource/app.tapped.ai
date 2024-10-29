@@ -95,7 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const value = { state, dispatch };
   return (
     <AuthContext.Provider value={value}>
-      {!state.authUser && <GoogleOneTap />}
+      {state.authUser === null && <GoogleOneTap />}
       {children}
     </AuthContext.Provider>
   );

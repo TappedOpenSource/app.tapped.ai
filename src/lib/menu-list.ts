@@ -30,14 +30,14 @@ type Menu = {
 };
 
 type Group = {
-  groupLabel: string;
+  groupLabel: string | null;
   menus: Menu[];
 };
 
 export function getMenuList(pathname: string): Group[] {
   return [
     {
-      groupLabel: "",
+      groupLabel: null,
       menus: [
         {
           href: "/map",

@@ -7,11 +7,22 @@ interface ContentLayoutProps {
   children: React.ReactNode;
 }
 
-export function ContentLayout({ title, children, noPadding = false }: ContentLayoutProps) {
+export function ContentLayout({
+  title,
+  children,
+  noPadding = false,
+}: ContentLayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen w-full flex-col">
       <Navbar title={title} />
-      <div className={cn("flex flex-col grow", noPadding ? "" : "pt-8 pb-8 px-4 sm:px-8")}>{children}</div>
+      <div
+        className={cn(
+          "flex grow flex-col",
+          noPadding ? "" : "px-4 pb-8 pt-8 sm:px-8"
+        )}
+      >
+        {children}
+      </div>
     </div>
   );
 }

@@ -1,9 +1,5 @@
 "use client";
 
-import { Sidebar } from "@/components/admin-panel/sidebar";
-import { useSidebarToggle } from "@/context/use-sidebar-toggle";
-import { useStore } from "@/context/use-store";
-import { cn } from "@/lib/utils";
 import { SearchProvider } from "@/context/search";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
@@ -16,6 +12,9 @@ import { useHotkeys } from "react-hotkeys-hook";
 import { useSearchToggle } from "@/context/use-search-toggle";
 import SearchDialog from "@/components/admin-panel/search-dialog";
 import TappedSheet from "@/components/TappedSheet";
+import { useStore } from "@/context/use-store";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY ?? "";
 export default function DashboardLayout({
@@ -24,7 +23,6 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const { resolvedTheme } = useTheme();
-  const sidebar = useStore(useSidebarToggle, (state) => state);
   const searchBar = useStore(useSearchToggle, (state) => state);
   const {
     state: { authUser },
@@ -58,23 +56,10 @@ export default function DashboardLayout({
         <TappedSheet />
         <SearchProvider>
           <SearchDialog />
-          <Sidebar />
-          <main
-            className={cn(
-              "min-h-[calc(100vh_-_56px)] bg-zinc-50 dark:bg-zinc-900 transition-[margin-left] ease-in-out duration-300",
-              sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72",
-            )}
-          >
-            {children}
-          </main>
-          {/* <footer
-            className={cn(
-              "transition-[margin-left] ease-in-out duration-300",
-              sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
-            )}
-          >
-            <Footer />
-          </footer> */}
+          <SidebarProvider>
+            <AppSidebar />
+            <main className="w-full">{children}</main>
+          </SidebarProvider>
         </SearchProvider>
       </>
     );
@@ -92,17 +77,17 @@ export default function DashboardLayout({
     <>
       <TappedSheet />
       <SearchProvider>
-        <Chat client={client} theme={`str-chat__theme-${resolvedTheme === "dark" ? "dark" : "light"}`}>
+        <Chat
+          client={client}
+          theme={`str-chat__theme-${
+            resolvedTheme === "dark" ? "dark" : "light"
+          }`}
+        >
           <SearchDialog />
-          <Sidebar />
-          <main
-            className={cn(
-              "min-h-[calc(100vh_-_56px)] bg-zinc-50 dark:bg-zinc-900 transition-[margin-left] ease-in-out duration-300",
-              sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72",
-            )}
-          >
-            {children}
-          </main>
+          <SidebarProvider>
+            <AppSidebar />
+            <main className="w-full">{children}</main>
+          </SidebarProvider>
         </Chat>
       </SearchProvider>
     </>

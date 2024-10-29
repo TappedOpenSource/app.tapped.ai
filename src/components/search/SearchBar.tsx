@@ -4,9 +4,13 @@ import { type UserModel } from "@/domain/types/user_model";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useDebounce } from "@/context/debounce";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { track } from "@vercel/analytics/react";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { useStore } from "@/context/use-store";
 import { useSearchToggle } from "@/context/use-search-toggle";
@@ -54,7 +58,7 @@ export default function SearchBar(props: {
           <TooltipProvider disableHoverableContent>
             <Tooltip delayDuration={100}>
               <TooltipTrigger asChild>
-                {(props.openDialog ?? true) ? (
+                {props.openDialog ?? true ? (
                   <button
                     className="w-full"
                     onClick={() => {
@@ -89,7 +93,7 @@ function _SearchBar({
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (debouncedQuery === "") return;
-    track("search", { query: debouncedQuery });
+    trackEvent("search", { query: debouncedQuery });
   }, [debouncedQuery]);
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
