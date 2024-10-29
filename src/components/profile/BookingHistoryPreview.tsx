@@ -1,7 +1,6 @@
-import { Booking } from "@/domain/types/booking";
-import { UserModel } from "@/domain/types/user_model";
+import type { Booking } from "@/domain/types/booking";
+import type { UserModel } from "@/domain/types/user_model";
 import BookingCard from "./BookingCard";
-import { trackEvent } from "@/utils/tracking";
 
 export default function BookingHistoryPreview({
   user,
@@ -16,13 +15,15 @@ export default function BookingHistoryPreview({
 
   return (
     <>
-      <div className="flex justify-start items-center">
-        <div className="flex flex-row items-start justify-start overflow-x-auto space-x-5">
-          {bookings.map((booking, index) => (
-            <div key={index}>
-              <BookingCard booking={booking} user={user} />
-            </div>
-          ))}
+      <div className="relative w-full">
+        <div className="absolute inset-x-0 flex overflow-x-auto">
+          <div className="flex gap-6">
+            {bookings.map((booking) => (
+              <div key={booking.id} className="shrink-0">
+                <BookingCard booking={booking} user={user} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>

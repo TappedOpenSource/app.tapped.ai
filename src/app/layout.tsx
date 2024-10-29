@@ -1,4 +1,3 @@
-import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Titillium_Web as FontSans } from "next/font/google";
 import React from "react";
@@ -70,7 +69,6 @@ export default function RootLayout({
           </AuthProvider>
         </CSPostHogProvider>
         <Toaster />
-        <Analytics />
       </body>
     </html>
   );

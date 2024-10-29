@@ -38,6 +38,7 @@ module.exports = {
     "no-case-declarations": 0,
     "linebreak-style": 0,
     "sonarjs/cognitive-complexity": 0,
+    "sonarjs/no-duplicate-string": 0,
     "react/jsx-props-no-spreading": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [

@@ -24,13 +24,12 @@ export default function Page({
   const lat = searchParams["lat"] ?? latlng[value].lat ?? "40.730610";
   const lng = searchParams["lng"] ?? latlng[value].lng ?? "-73.935242";
   const zoom = searchParams["zoom"] ?? "11.5";
-  const intLat = parseFloat(lat);
-  const intLng = parseFloat(lng);
-  const intZoom = parseInt(zoom);
+  const intLat = Number.parseFloat(lat);
+  const intLng = Number.parseFloat(lng);
+  const intZoom = Number.parseInt(zoom);
 
   return (
     <>
-      <TappedSheet />
       <Suspense
         fallback={
           <div className="flex min-h-screen w-screen items-center justify-center">
@@ -38,20 +37,31 @@ export default function Page({
           </div>
         }
       >
-        <VenueMap lat={intLat} lng={intLng} zoom={intZoom} />
+        <div className="h-screen">
+          <VenueMap lat={intLat} lng={intLng} zoom={intZoom} />
+        </div>
       </Suspense>
-      <div className="bottom-0 z-40 hidden w-full md:absolute no-scroll">
+      <div className="no-scroll bottom-0 z-40 hidden w-full md:absolute">
         <div className="flex flex-row items-center justify-center">
           <p className="text-center text-sm">
-            © {new Date().getFullYear()} Tapped Industries Inc. All rights reserved.
+            © {new Date().getFullYear()} Tapped Industries Inc. All rights
+            reserved.
           </p>
           <Button variant="link">
-            <Link href="https://app.tapped.ai/privacy" target="_blank" rel="noreferrer noopener">
+            <Link
+              href="https://app.tapped.ai/privacy"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               privacy policy
             </Link>
           </Button>
           <Button variant="link">
-            <Link href="https://app.tapped.ai/terms" target="_blank" rel="noreferrer noopener">
+            <Link
+              href="https://app.tapped.ai/terms"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               terms of service
             </Link>
           </Button>
