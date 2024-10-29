@@ -29,9 +29,9 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { cn } from "@/lib/utils";
-import MapHeader from "./map_header";
 import LocationSideSheet from "./LocationSideSheet";
 import { trackEvent } from "@/utils/tracking";
+import { Button } from "@/components/ui/button";
 
 const env = process.env.NODE_ENV || "development";
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
@@ -70,13 +70,6 @@ function _VenueMap({
   lng: number;
   zoom: number;
 }) {
-  // const [popupInfo, setPopupInfo] = useState<{
-  //   longitude: number;
-  //   latitude: number;
-  //   city: string;
-  //   state: string;
-  //   image: string;
-  // } | null>(null);
   const [bounds, setBounds] = useState<null | BoundingBox>(null);
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const { useVenueData } = useSearch();
@@ -231,13 +224,21 @@ function _VenueMap({
         isOpen={sidebarIsOpen}
         onOpenChange={() => setSidebarIsOpen(!sidebarIsOpen)}
       />
-      <div className="fixed inset-0 z-0 flex flex-col overflow-hidden">
-        {/* <div className="t-0 absolute z-40 w-full">
-          <MapHeader onMenuClick={() => setSidebarIsOpen(!sidebarIsOpen)} />
-        </div> */}
+      <div className="fixed inset-0 z-0 flex h-full w-full flex-col overflow-hidden">
+        <div className="t-0 absolute z-40 flex w-full justify-end">
+          <Button
+            className="m-3"
+            onClick={() => {
+              trackEvent("menu_click");
+              setSidebarIsOpen(!sidebarIsOpen);
+            }}
+          >
+            location details
+          </Button>
+        </div>
         <div className="relative flex-1">
           <MapBoxGL
-            style={{ height: "100% !important", width: "100% !important" }}
+            style={{ height: "100vh !important", width: "100% !important" }}
             initialViewState={{
               latitude: lat,
               longitude: lng,

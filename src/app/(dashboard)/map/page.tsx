@@ -1,6 +1,5 @@
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import VenueMap from "@/components/map/map";
-import TappedSheet from "@/components/TappedSheet";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Suspense } from "react";
