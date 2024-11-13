@@ -15,7 +15,7 @@ export default function BookingHistoryPreview({
 
   return (
     <>
-      <div className="relative w-full">
+      <div className="relative w-full h-48">
         <div className="absolute inset-x-0 flex overflow-x-auto">
           <div className="flex gap-6">
             {bookings.map((booking) => (
