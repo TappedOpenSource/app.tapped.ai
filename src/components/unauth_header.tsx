@@ -78,27 +78,6 @@ function UnauthHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
               </span>
             </Button>
           </Link>
-          <div className="hidden md:block">
-            <Select
-              onValueChange={(value) => {
-                router.push(`/location/${value}`);
-              }}
-            >
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="top cities" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="ChIJOwg_06VPwokRYv534QaPC8g">new york city</SelectItem>
-                  <SelectItem value="ChIJW-T2Wt7Gt4kRKl2I1CJFUsI">washington dc</SelectItem>
-                  <SelectItem value="ChIJE9on3F3HwoAR9AhGJW_fL-I">los angeles</SelectItem>
-                  <SelectItem value="ChIJ7cv00DwsDogRAMDACa2m4K8">chicago</SelectItem>
-                  <SelectItem value="ChIJjQmTaV0E9YgRC2MLmS_e_mY">atlanta</SelectItem>
-                  <SelectItem value="ChIJLwPMoJm1RIYRetVp1EtGm10">austin</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
           {currentUser === null ? (
             <>
               <Link href={`/signup?return_url=${encodeURIComponent(pathname)}`}>
