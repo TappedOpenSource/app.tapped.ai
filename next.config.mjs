@@ -1,4 +1,3 @@
-
 const nextConfig = {
   webpack: (config) => {
     config.resolve.fallback = {
@@ -59,6 +58,11 @@ const nextConfig = {
       {
         source: "/ingest/decide",
         destination: "https://us.i.posthog.com/decide",
+      },
+      {
+        source: "/roadmap",
+        destination:
+          "https://tappedapp.notion.site/Technical-Roadmap-4edc036572bd4d89913f5cd5a4cde0f6?pvs=4",
       },
     ];
   },
