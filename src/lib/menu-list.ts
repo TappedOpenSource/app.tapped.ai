@@ -103,15 +103,6 @@ export function getMenuList(pathname: string): Group[] {
           requireAuth: true,
         },
         {
-          href: "https://tapped.tolt.io",
-          external: true,
-          label: "join the team",
-          active: pathname.includes("/affiliate"),
-          icon: Handshake,
-          submenus: [],
-          requireAuth: true,
-        },
-        {
           href: "https://tapped.canny.io/ideas-bugs",
           external: true,
           label: "feedback",
