@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <div className="supports-backdrop-blur:bg-background/60 z-20 w-full shadow bg-background/95 backdrop-blur">
-      <div className="mx-4 md:mx-8 flex h-14 items-center justify-between">
-        <p className="text-xs md:text-sm leading-loose text-muted-foreground text-left">
+    <div className="supports-backdrop-blur:bg-background/60 bg-background/95 z-20 w-full shadow backdrop-blur">
+      <div className="mx-4 flex h-14 items-center justify-between md:mx-8">
+        <p className="text-muted-foreground text-left text-xs leading-loose md:text-sm">
           © {new Date().getFullYear()}.{" "}
           <Link
             href="https://tapped.ai/"
@@ -30,19 +30,28 @@ export default function Footer() {
                 </svg>
                 <span className="sr-only">Discord community</span>
               </Link> */}
-          <Link href="https://x.com/tappedai" className="text-gray-400 hover:text-white">
+          <Link
+            href="https://x.com/tappedx"
+            className="text-gray-400 hover:text-white"
+          >
             <Twitter className="h-4 w-4" />
           </Link>
-          <Link href="https://github.com/TappedOpenSource" className="text-gray-400 hover:text-white">
+          <Link
+            href="https://github.com/TappedOpenSource"
+            className="text-gray-400 hover:text-white"
+          >
             <Github className="h-4 w-4" />
           </Link>
           {/* <Link
-            href="https://tiktok.com/@tappedai"
+            href="https://tiktok.com/@tappedx"
             className="text-gray-400 hover:text-white"
           >
             <TikTok
           </Link> */}
-          <Link href="https://instagram.com/tappedai" className="text-gray-400 hover:text-white">
+          <Link
+            href="https://instagram.com/tappedx"
+            className="text-gray-400 hover:text-white"
+          >
             <Instagram className="h-4 w-4" />
           </Link>
         </div>

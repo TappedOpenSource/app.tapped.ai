@@ -10,7 +10,10 @@ type Props = {
 
 const getUserByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/getUserByUsername`;
 
-export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const metadataBase = "https://app.tapped.ai";
   try {
     const username = params.username;
@@ -34,7 +37,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
       },
       twitter: {
         card: "summary_large_image",
-        site: "@tappedai",
+        site: "@tappedx",
         title: `${displayName}`,
         description: `${displayName} on tapped ai | create a world tour from your iPhone`,
         images: imageSrc,
@@ -56,7 +59,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
       },
       twitter: {
         card: "summary_large_image",
-        site: "@tappedai",
+        site: "@tappedx",
         title: "tapped ai",
         description: "tapped ai | create a world your from your iPhone",
         images: `${metadataBase}/og.png`,

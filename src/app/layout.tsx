@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@tappedai",
+    site: "@tappedx",
     title,
     description,
     images: `${metadataBase}/map-og.png`,
@@ -54,15 +54,32 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet" />
+        <link
+          href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
+          rel="stylesheet"
+        />
         <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-        <script async src="https://cdn.tolt.io/tolt.js" data-tolt="c77a5dc4-85f0-4852-9474-d07e64a12ace"></script>
+        <script
+          async
+          src="https://cdn.tolt.io/tolt.js"
+          data-tolt="c77a5dc4-85f0-4852-9474-d07e64a12ace"
+        ></script>
       </head>
-      <body className={cn("bg-background min-h-screen font-sans antialiased", fontSans.variable)}>
+      <body
+        className={cn(
+          "bg-background min-h-screen font-sans antialiased",
+          fontSans.variable
+        )}
+      >
         <CSPostHogProvider>
           <AuthProvider>
             <PurchasesProvider>
-              <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="dark"
+                enableSystem
+                disableTransitionOnChange
+              >
                 {children}
               </ThemeProvider>
             </PurchasesProvider>

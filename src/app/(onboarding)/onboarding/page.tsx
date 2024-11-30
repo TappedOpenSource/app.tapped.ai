@@ -10,13 +10,13 @@ export default function Page({
   const returnUrl = redirectUrl ? decodeURIComponent(redirectUrl) : null;
 
   return (
-    <>
-      <main>
+    <div className="flex min-h-screen flex-col">
+      <main className="flex grow items-center justify-center">
         <OnboardingForm returnUrl={returnUrl} />
       </main>
       <footer>
         <Footer />
       </footer>
-    </>
+    </div>
   );
 }

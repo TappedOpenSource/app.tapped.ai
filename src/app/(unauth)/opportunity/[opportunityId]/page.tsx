@@ -10,7 +10,10 @@ type Props = {
 
 const getOpportunityByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/getOpportunityById`;
 
-export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const metadataBase = "https://app.tapped.ai";
   try {
     const { opportunityId } = params;
@@ -36,7 +39,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
       },
       twitter: {
         card: "summary_large_image",
-        site: "@tappedai",
+        site: "@tappedx",
         title,
         description,
         images: imageSrc,
@@ -58,7 +61,10 @@ export default function Page({ params, searchParams }: Props) {
 
   return (
     <>
-      <OpportunityView opportunityId={opportunityId} showConfirmation={showConfirmation} />
+      <OpportunityView
+        opportunityId={opportunityId}
+        showConfirmation={showConfirmation}
+      />
       <Footer />
     </>
   );
