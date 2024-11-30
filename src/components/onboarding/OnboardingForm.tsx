@@ -67,20 +67,23 @@ export default function OnboardingForm({
 
   if (authUser === null) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen flex-col items-center justify-center">
         <p>you must be logged in to access this page.</p>
+        <Link href="/signup">
+          <Button variant="secondary">sign in</Button>
+        </Link>
       </div>
     );
   }
 
-  if (currentUser !== undefined) {
-    redirect("/dashboard");
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoadingSpinner />
-      </div>
-    );
-  }
+  // if (currentUser !== undefined) {
+  //   router.push("/dashboard");
+  //   return (
+  //     <div className="flex min-h-screen items-center justify-center">
+  //       <LoadingSpinner />
+  //     </div>
+  //   );
+  // }
 
   if (loading) {
     return (
@@ -117,9 +120,6 @@ export default function OnboardingForm({
       <div className="mx-auto w-full max-w-lg py-12">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold">complete your profile</h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            enter your information to get started.
-          </p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -128,7 +128,7 @@ export default function OnboardingForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>preferred username</FormLabel>
+                  <FormLabel>username</FormLabel>
                   <FormControl>
                     <Input
                       id="username"
@@ -140,138 +140,6 @@ export default function OnboardingForm({
                 </FormItem>
               )}
             />
-            {/* <FormField
-              control={form.control}
-              name="profilePicture"
-              render={({ field: { value, onChange, ...fieldProps } }) => (
-                <FormItem>
-                  <FormLabel>profile picture</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...fieldProps}
-                      placeholder="profile picture"
-                      type="file"
-                      accept="image/*"
-                      onChange={(event) =>
-                        onChange(event.target.files && event.target.files[0])
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
-            {/* <div className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="instagramHandle"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>instagram handle</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="instagram_handle"
-                        placeholder="@champagnepapi"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="instagramFollowers"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>instagram followers</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="instagram_followers"
-                        type="number"
-                        placeholder="0"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="twitterHandle"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>twitter handle</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="twitter_handle"
-                        placeholder="@taylorswift13"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="twitterFollowers"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>twitter followers</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="twitter_followers"
-                        type="number"
-                        placeholder="0"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="tiktokHandle"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>tiktok handle</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="tiktok_handle"
-                        placeholder="@chandlermatkins"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="tiktokFollowers"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>tiktok followers</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="tiktok_followers"
-                        type="number"
-                        placeholder="0"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div> */}
             <div className="flex items-center gap-2">
               <FormField
                 control={form.control}

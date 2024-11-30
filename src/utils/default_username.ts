@@ -37,5 +37,5 @@ export function generateDefaultUsername() {
   if (Math.random() < 0.7) username += randomSuffix; // 70% chance of suffix
   username += Math.floor(Math.random() * 1000); // Still good to have a number
 
-  return username;
+  return username.toLowerCase();
 }

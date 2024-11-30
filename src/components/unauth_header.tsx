@@ -4,7 +4,18 @@ import { useAuth } from "@/context/auth";
 import { usePurchases } from "@/context/purchases";
 import { logout } from "@/data/auth";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Download, Gem, Globe2, Home, LayoutDashboard, LogOut, Map, Moon, Sun, UserCheck } from "lucide-react";
+import {
+  Download,
+  Gem,
+  Globe2,
+  Home,
+  LayoutDashboard,
+  LogOut,
+  Map,
+  Moon,
+  Sun,
+  UserCheck,
+} from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -25,7 +36,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
 const queryClient = new QueryClient();
 
@@ -89,7 +99,10 @@ function UnauthHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
               <DropdownMenuTrigger asChild>
                 <Avatar className="bg-background ml-2 hover:cursor-pointer hover:shadow-xl">
                   {currentUser?.profilePicture !== null && (
-                    <AvatarImage src={currentUser?.profilePicture} style={{ objectFit: "cover", overflow: "hidden" }} />
+                    <AvatarImage
+                      src={currentUser?.profilePicture}
+                      style={{ objectFit: "cover", overflow: "hidden" }}
+                    />
                   )}
                   <AvatarFallback>
                     <UserCheck className="h-4 w-4" />
@@ -119,9 +132,15 @@ function UnauthHeaderUi({ showSearch = true }: { showSearch?: boolean }) {
                   </DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
                     <DropdownMenuSubContent>
-                      <DropdownMenuItem onClick={() => setTheme("light")}>light</DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme("dark")}>dark</DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme("system")}>system</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme("light")}>
+                        light
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme("dark")}>
+                        dark
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme("system")}>
+                        system
+                      </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
                 </DropdownMenuSub>
