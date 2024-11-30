@@ -11,7 +11,10 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      "stripe-pricing-table": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+      "stripe-pricing-table": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >;
     }
   }
 }
@@ -43,7 +46,11 @@ export default function Page() {
       <div className="mt-16 flex flex-col items-center justify-center">
         <p>you&apos;re already subscribed</p>
         <Button variant="secondary">
-          <Link href="https://tapped.tolt.io" target="_blank" rel="noopener noreferrer">
+          <Link
+            href="https://tapped.tolt.io"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             share with a friend
           </Link>
         </Button>
@@ -53,23 +60,6 @@ export default function Page() {
 
   return (
     <>
-      <Script id="pricing-table-fix">{`const updatePricingTables = () => {
-  var stripePricingTables = document.querySelectorAll("stripe-pricing-table");
-  if (window.tolt_referral !== null && stripePricingTables.length > 0) {
-    stripePricingTables.forEach(stripePricingTable => {
-      stripePricingTable.setAttribute("client-reference-id", window.tolt_referral);
-    })
-  }
-}
-setTimeout(updatePricingTables, 1000);
-setTimeout(updatePricingTables, 2200);
-setTimeout(updatePricingTables, 3200);
-window.addEventListener("tolt_referral_ready", () => {
-if (window.tolt_referral) {
-  updatePricingTables()
-}
-})
-`}</Script>
       <div className="mx-12 rounded-xl bg-black px-12">
         <stripe-pricing-table
           pricing-table-id="prctbl_1PFJ5XDYybu1wznE3NpaCEH4"

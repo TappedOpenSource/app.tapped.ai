@@ -9,18 +9,33 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import Link from "next/link";
 import { usePurchases } from "@/context/purchases";
 import { useAuth } from "@/context/auth";
 import { RequestLoginPage } from "@/components/login/RequireLogin";
-import Script from "next/script";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { getCustomerInfo } from "@/data/purchases";
+import { CustomerInfo } from "@revenuecat/purchases-js";
+import { format } from "date-fns";
 
 // If using TypeScript, add the following snippet to your file as well.
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      "stripe-pricing-table": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+      "stripe-pricing-table": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >;
     }
   }
 }
@@ -30,6 +45,19 @@ export default function Page() {
     state: { currentUser, authUser },
   } = useAuth();
   const { state: subscribed } = usePurchases();
+  const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
+
+  useEffect(() => {
+    if (!currentUser || !subscribed) {
+      return;
+    }
+
+    const getURL = async () => {
+      const info = await getCustomerInfo(currentUser.id);
+      setCustomerInfo(info);
+    };
+    getURL();
+  }, [currentUser, subscribed]);
 
   if (!currentUser || !authUser) {
     return <RequestLoginPage />;
@@ -37,33 +65,24 @@ export default function Page() {
 
   if (!subscribed) {
     return (
-      <>
-        <Script id="pricing-table-fix">{`const updatePricingTables = () => {
-  var stripePricingTables = document.querySelectorAll("stripe-pricing-table");
-  if (window.tolt_referral !== null && stripePricingTables.length > 0) {
-    stripePricingTables.forEach(stripePricingTable => {
-      stripePricingTable.setAttribute("client-reference-id", window.tolt_referral);
-    })
-  }
-}
-setTimeout(updatePricingTables, 1000);
-setTimeout(updatePricingTables, 2200);
-setTimeout(updatePricingTables, 3200);
-window.addEventListener("tolt_referral_ready", () => {
-if (window.tolt_referral) {
-  updatePricingTables()
-}
-})
-`}</Script>
-        <div className="mx-12 rounded-xl bg-black px-12">
-          <stripe-pricing-table
-            pricing-table-id="prctbl_1PFJ5XDYybu1wznE3NpaCEH4"
-            publishable-key="pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil"
-            client-reference-id={authUser.uid}
-            customer-email={authUser.email}
-          ></stripe-pricing-table>
-        </div>
-      </>
+      <div className="mx-auto w-[90%] rounded-xl bg-black/5 p-6 md:w-2/3 lg:w-1/2">
+        <Card>
+          <CardHeader>
+            <CardTitle>Choose a Plan</CardTitle>
+            <CardDescription>
+              Select a plan that fits your needs.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <stripe-pricing-table
+              pricing-table-id="prctbl_1PFJ5XDYybu1wznE3NpaCEH4"
+              publishable-key="pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil"
+              client-reference-id={authUser.uid}
+              customer-email={authUser.email}
+            ></stripe-pricing-table>
+          </CardContent>
+        </Card>
+      </div>
     );
   }
 
@@ -83,7 +102,55 @@ if (window.tolt_referral) {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        you are subscribed
+        <div className="flex grow items-center justify-center">
+          <Card>
+            <CardHeader>
+              <CardTitle>Your Subscription</CardTitle>
+              <CardDescription>
+                Manage your active subscription details.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-4">
+              {customerInfo && (
+                <>
+                  <div>
+                    <span className="font-medium">Next Billing Date:</span>{" "}
+                    {customerInfo.allExpirationDatesByProduct[
+                      Array.from(customerInfo.activeSubscriptions)[0]
+                    ] ?
+                      format(
+                          customerInfo.allExpirationDatesByProduct[
+                            Array.from(customerInfo.activeSubscriptions)[0]
+                          ]!,
+                          "MMMM do, yyyy"
+                      ) :
+                      "N/A"}
+                  </div>
+                  <div>
+                    <span className="font-medium">Original Purchase Date:</span>{" "}
+                    {customerInfo.originalPurchaseDate ?
+                      format(
+                        customerInfo.originalPurchaseDate,
+                        "MMMM do, yyyy"
+                      ) :
+                      "N/A"}
+                  </div>
+                </>
+              )}
+            </CardContent>
+            <CardFooter>
+              {customerInfo?.managementURL && (
+                <Link
+                  href={customerInfo.managementURL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button variant="outline">Manage Subscription</Button>
+                </Link>
+              )}
+            </CardFooter>
+          </Card>
+        </div>
       </ContentLayout>
     </>
   );

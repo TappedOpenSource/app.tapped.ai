@@ -1,9 +1,12 @@
 import type { Dispatch } from "@/context/purchases";
+import { revenueCatApiKey } from "@/data/purchases";
 import { Purchases } from "@revenuecat/purchases-js";
 
-const revenueCatApiKey = process.env["NEXT_PUBLIC_REVENUECAT_BILLING_API_KEY"];
-
-export async function initPurchases(currentUserId: string, state: boolean | null, dispatch: Dispatch) {
+export async function initPurchases(
+  currentUserId: string,
+  state: boolean | null,
+  dispatch: Dispatch
+) {
   try {
     if (revenueCatApiKey === undefined) {
       throw new Error("RevenueCat API key is not set");
