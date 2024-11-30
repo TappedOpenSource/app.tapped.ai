@@ -76,14 +76,14 @@ export default function OnboardingForm({
     );
   }
 
-  // if (currentUser !== undefined) {
-  //   router.push("/dashboard");
-  //   return (
-  //     <div className="flex min-h-screen items-center justify-center">
-  //       <LoadingSpinner />
-  //     </div>
-  //   );
-  // }
+  if (currentUser !== undefined) {
+    router.push("/dashboard");
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   if (loading) {
     return (
