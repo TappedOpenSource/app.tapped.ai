@@ -32,11 +32,18 @@ import { cn } from "@/lib/utils";
 import LocationSideSheet from "./LocationSideSheet";
 import { trackEvent } from "@/utils/tracking";
 import { Button } from "@/components/ui/button";
+import { Card } from "../ui/card";
+import NumberFlow from "@number-flow/react";
+import Link from "next/link";
+import { Search, Theater } from "lucide-react";
+import { useSearchToggle } from "@/context/use-search-toggle";
+import { useStore } from "@/context/use-store";
 
 const env = process.env.NODE_ENV || "development";
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const mapboxDarkStyle = "mapbox/dark-v11";
 const mapboxLightStyle = "mapbox/light-v11";
+const LIMIT = 250;
 
 const queryClient = new QueryClient();
 export default function VenueMap(props: {
@@ -71,9 +78,10 @@ function _VenueMap({
   zoom: number;
 }) {
   const [bounds, setBounds] = useState<null | BoundingBox>(null);
+  const searchBar = useStore(useSearchToggle, (state) => state);
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const { useVenueData } = useSearch();
-  const debouncedBounds = useDebounce<null | BoundingBox>(bounds, 250);
+  const debouncedBounds = useDebounce<null | BoundingBox>(bounds, LIMIT);
   const router = useRouter();
   const { state: authState } = useAuth();
   const { state: subscribed } = usePurchases();
@@ -104,7 +112,7 @@ function _VenueMap({
   }, [authState.authUser, authState.currentUser, router]);
 
   const { data, isFetching } = useVenueData(debouncedBounds, {
-    hitsPerPage: 250,
+    hitsPerPage: LIMIT,
   });
 
   const onRender = useCallback((e: MapEvent) => {
@@ -132,6 +140,7 @@ function _VenueMap({
   }, []);
 
   const cachedMarkers = useRef<JSX.Element[]>([]);
+
   const markers = useMemo(() => {
     if (isFetching) {
       return cachedMarkers.current;
@@ -212,6 +221,14 @@ function _VenueMap({
     return newMarkers;
   }, [data, currentUser, subscribed, router, isFetching]);
 
+  const markersCount = useMemo(() => {
+    if (isFetching) {
+      return cachedMarkers.current.length;
+    }
+
+    return markers.length;
+  }, [isFetching, markers]);
+
   const mapTheme =
     resolvedTheme === "light" ? mapboxLightStyle : mapboxDarkStyle;
   return (
@@ -225,16 +242,33 @@ function _VenueMap({
         onOpenChange={() => setSidebarIsOpen(!sidebarIsOpen)}
       />
       <div className="fixed inset-0 z-0 flex h-full w-full flex-col overflow-hidden">
-        <div className="t-0 absolute z-40 flex w-full justify-end">
-          <Button
-            className="m-3"
-            onClick={() => {
-              trackEvent("menu_click");
-              setSidebarIsOpen(!sidebarIsOpen);
-            }}
-          >
-            location details
-          </Button>
+        <div className="absolute bottom-0 z-40 flex w-full justify-center">
+          <Card className="m-3 flex gap-3 p-1">
+            <Button
+              variant="outline"
+              className={cn("flex gap-1")}
+              onClick={() => {
+                trackEvent("menu_click");
+                setSidebarIsOpen(!sidebarIsOpen);
+              }}
+            >
+              <span>
+                {markersCount === LIMIT && "+"}
+                <NumberFlow value={markersCount} />
+              </span>
+              venues
+            </Button>
+            <Link href="/venue_outreach">
+              <Button variant="secondary">apply to perform</Button>
+            </Link>
+            <Button
+              size="icon"
+              variant="secondary"
+              onClick={() => searchBar?.setIsOpen()}
+            >
+              <Search className="size-3" />
+            </Button>
+          </Card>
         </div>
         <div className="relative flex-1">
           <MapBoxGL

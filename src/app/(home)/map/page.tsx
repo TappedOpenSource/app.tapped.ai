@@ -12,7 +12,7 @@ export default function Page({
 }) {
   const { value } = useFeatureFlag("map-city-center");
   const latlng = {
-    control: { lat: "40.730610", lng: "-73.935242" },
+    control: { lat: "40.730610", lng: "-73.935242" }, // new york
     los_angles: { lat: "34.052235", lng: "-118.243683" },
     chicago: { lat: "41.878113", lng: "-87.629799" },
     miami: { lat: "25.761681", lng: "-80.191788" },
