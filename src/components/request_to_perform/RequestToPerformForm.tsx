@@ -2,7 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -43,7 +50,7 @@ export default function RequestToPerformForm({
         await Promise.all(
           venueIds.map(async (id) => {
             return getUserById(id);
-          }),
+          })
         )
       ).filter((v) => v !== null) as UserModel[];
 
@@ -82,7 +89,7 @@ export default function RequestToPerformForm({
   }
 
   if (!subscribed) {
-    router.push("/premium");
+    router.push("/billing");
   }
 
   return (
@@ -90,6 +97,12 @@ export default function RequestToPerformForm({
       <div className="space-y-6 p-6">
         <UserAvatarList users={venues} />
         <h1 className="text-3xl font-bold">send them a note</h1>
+        <h3 className="text-md text-gray-400">
+          we&apos;ll be taking your note as well as info from your profile,
+          rewording it all with ChatGPT to make it sound as appealing to the
+          promoter/venue owner as possible, and sending it to the venues you
+          selected.
+        </h3>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -99,7 +112,11 @@ export default function RequestToPerformForm({
                 <FormItem>
                   <FormLabel>note</FormLabel>
                   <FormControl>
-                    <Textarea {...onChange} placeholder="i've got an idea for a show..." rows={4} />
+                    <Textarea
+                      {...onChange}
+                      placeholder="i've got an idea for a show..."
+                      rows={4}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

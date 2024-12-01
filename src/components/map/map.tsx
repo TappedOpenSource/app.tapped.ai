@@ -31,13 +31,37 @@ import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { cn } from "@/lib/utils";
 import LocationSideSheet from "./LocationSideSheet";
 import { trackEvent } from "@/utils/tracking";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuGroup,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "../ui/card";
 import NumberFlow from "@number-flow/react";
 import Link from "next/link";
-import { Search, Theater } from "lucide-react";
+import {
+  Bug,
+  Download,
+  Gem,
+  Home,
+  LogOut,
+  MapIcon,
+  MessageCircle,
+  Search,
+  Settings,
+  Theater,
+  User,
+  User2,
+} from "lucide-react";
 import { useSearchToggle } from "@/context/use-search-toggle";
 import { useStore } from "@/context/use-store";
+import { logout } from "@/data/auth";
 
 const env = process.env.NODE_ENV || "development";
 const defaultMapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
@@ -83,23 +107,23 @@ function _VenueMap({
   const { useVenueData } = useSearch();
   const debouncedBounds = useDebounce<null | BoundingBox>(bounds, LIMIT);
   const router = useRouter();
-  const { state: authState } = useAuth();
+  const {
+    state: { currentUser, authUser },
+  } = useAuth();
   const { state: subscribed } = usePurchases();
   const { resolvedTheme } = useTheme();
-  const currentUser = authState?.currentUser ?? null;
+  const isLoggedIn = authUser !== null;
+  const displayName = currentUser?.artistName ?? currentUser?.username ?? "use";
+  const email = currentUser?.email ?? authUser?.email ?? "user@tapped.ai";
 
   // redirect to signup if user is not logged in
   useEffect(() => {
-    if (
-      env !== "production" ||
-      authState.authUser !== null ||
-      authState.currentUser !== null
-    ) {
+    if (env !== "production" || authUser !== null || currentUser !== null) {
       return;
     }
 
     const timeout = setTimeout(() => {
-      if (authState.authUser !== null || authState.currentUser !== null) {
+      if (authUser !== null || currentUser !== null) {
         return;
       }
 
@@ -109,7 +133,7 @@ function _VenueMap({
     return () => {
       clearTimeout(timeout);
     };
-  }, [authState.authUser, authState.currentUser, router]);
+  }, [authUser, currentUser, router]);
 
   const { data, isFetching } = useVenueData(debouncedBounds, {
     hitsPerPage: LIMIT,
@@ -258,16 +282,144 @@ function _VenueMap({
               </span>
               venues
             </Button>
-            <Link href="/venue_outreach">
+            <Link href="/venue_outreach" className="hidden lg:block">
               <Button variant="secondary">apply to perform</Button>
             </Link>
-            <Button
-              size="icon"
-              variant="secondary"
-              onClick={() => searchBar?.setIsOpen()}
-            >
-              <Search className="size-3" />
-            </Button>
+
+            <div className="flex gap-1">
+              <Link href="/venue_outreach" className="lg:hidden">
+                <Button size="icon" variant="secondary">
+                  <Theater className="size-3" />
+                </Button>
+              </Link>
+              <Link href="/messages">
+                <Button size="icon" variant="secondary">
+                  <MessageCircle className="size-3" />
+                </Button>
+              </Link>
+              <Button
+                size="icon"
+                variant="secondary"
+                onClick={() => searchBar?.setIsOpen()}
+              >
+                <Search className="size-3" />
+              </Button>
+              <Link href="/download" className="lg:hidden">
+                <Button size="icon" variant="secondary">
+                  <Download className="size-3" />
+                </Button>
+              </Link>
+              {isLoggedIn ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button size="icon" variant="ghost">
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage
+                          src={currentUser?.profilePicture ?? undefined}
+                          alt="Avatar"
+                        />
+                        <AvatarFallback className="bg-transparent">
+                          {currentUser?.username.slice(0, 2) ?? "JD"}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56" align="end" forceMount>
+                    <DropdownMenuLabel className="font-normal">
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium leading-none">
+                          {displayName}
+                        </p>
+                        <p className="text-muted-foreground text-xs leading-none">
+                          {email}
+                        </p>
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem
+                        className="hover:cursor-pointer"
+                        asChild
+                      >
+                        <Link href="/" className="flex items-center">
+                          <Home className="text-muted-foreground mr-3 h-4 w-4" />
+                          dashboard
+                        </Link>
+                      </DropdownMenuItem>
+                      {currentUser?.username !== undefined && (
+                        <>
+                          <DropdownMenuItem
+                            className="hover:cursor-pointer"
+                            asChild
+                          >
+                            <Link
+                              href={`/u/${currentUser?.username ?? ""}`}
+                              className="flex items-center"
+                            >
+                              <User className="text-muted-foreground mr-3 h-4 w-4" />
+                              public profile
+                            </Link>
+                          </DropdownMenuItem>
+                        </>
+                      )}
+                      <DropdownMenuItem
+                        className="hover:cursor-pointer"
+                        asChild
+                      >
+                        <Link href="/billing" className="flex items-center">
+                          <Gem className="text-muted-foreground mr-3 h-4 w-4" />
+                          billing
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        className="hover:cursor-pointer"
+                        asChild
+                      >
+                        <Link
+                          href="https://tapped.canny.io/ideas-bugs"
+                          className="flex items-center"
+                        >
+                          <Bug className="text-muted-foreground mr-3 h-4 w-4" />
+                          report bugs
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        className="hover:cursor-pointer"
+                        asChild
+                      >
+                        <Link href="/settings" className="flex items-center">
+                          <Settings className="text-muted-foreground mr-3 h-4 w-4" />
+                          settings
+                        </Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="hover:cursor-pointer" asChild>
+                      <Link href="/download" className="flex items-center">
+                        <Download className="text-muted-foreground mr-3 h-4 w-4" />
+                        get the app
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="hover:cursor-pointer"
+                      onClick={() => {
+                        logout();
+                        router.push("/");
+                      }}
+                    >
+                      <LogOut className="text-muted-foreground mr-3 h-4 w-4" />
+                      sign out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Link href={`/signup?return_url=${encodeURIComponent("/map")}`}>
+                  <Button size="icon">
+                    <User2 className="size-3" />
+                  </Button>
+                </Link>
+              )}
+            </div>
           </Card>
         </div>
         <div className="relative flex-1">

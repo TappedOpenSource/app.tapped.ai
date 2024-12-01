@@ -13,8 +13,6 @@ import { useSearchToggle } from "@/context/use-search-toggle";
 import SearchDialog from "@/components/admin-panel/search-dialog";
 import TappedSheet from "@/components/TappedSheet";
 import { useStore } from "@/context/use-store";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY ?? "";
 export default function DashboardLayout({
@@ -56,10 +54,7 @@ export default function DashboardLayout({
         <TappedSheet />
         <SearchProvider>
           <SearchDialog />
-          <SidebarProvider>
-            <AppSidebar />
-            <main className="w-full">{children}</main>
-          </SidebarProvider>
+          <main className="w-full">{children}</main>
         </SearchProvider>
       </>
     );
@@ -84,10 +79,7 @@ export default function DashboardLayout({
           }`}
         >
           <SearchDialog />
-          <SidebarProvider>
-            <AppSidebar />
-            <main className="w-full">{children}</main>
-          </SidebarProvider>
+          <main className="w-full">{children}</main>
         </Chat>
       </SearchProvider>
     </>

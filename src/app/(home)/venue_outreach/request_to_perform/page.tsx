@@ -1,14 +1,5 @@
-import { ContentLayout } from "@/components/admin-panel/content-layout";
 import RequestToPerformForm from "@/components/request_to_perform/RequestToPerformForm";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import Link from "next/link";
+import UnauthHeader from "@/components/unauth_header";
 export default function Page({
   searchParams,
 }: {
@@ -19,22 +10,8 @@ export default function Page({
 
   return (
     <>
-      <ContentLayout title="build a show">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>build a show</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <RequestToPerformForm venueIds={venueIds} />
-      </ContentLayout>
+      <UnauthHeader />
+      <RequestToPerformForm venueIds={venueIds} />
     </>
   );
 }

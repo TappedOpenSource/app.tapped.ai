@@ -26,6 +26,7 @@ import { useEffect, useState } from "react";
 import { getCustomerInfo } from "@/data/purchases";
 import { CustomerInfo } from "@revenuecat/purchases-js";
 import { format } from "date-fns";
+import UnauthHeader from "@/components/unauth_header";
 
 // If using TypeScript, add the following snippet to your file as well.
 declare global {
@@ -87,71 +88,54 @@ export default function Page() {
   }
 
   return (
-    <>
-      <ContentLayout title="dashboard">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>billing</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <div className="flex grow items-center justify-center">
-          <Card>
-            <CardHeader>
-              <CardTitle>Your Subscription</CardTitle>
-              <CardDescription>
-                Manage your active subscription details.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-4">
-              {customerInfo && (
-                <>
-                  <div>
-                    <span className="font-medium">Next Billing Date:</span>{" "}
-                    {customerInfo.allExpirationDatesByProduct[
-                      Array.from(customerInfo.activeSubscriptions)[0]
-                    ] ?
-                      format(
-                          customerInfo.allExpirationDatesByProduct[
-                            Array.from(customerInfo.activeSubscriptions)[0]
-                          ]!,
-                          "MMMM do, yyyy"
-                      ) :
-                      "N/A"}
-                  </div>
-                  <div>
-                    <span className="font-medium">Original Purchase Date:</span>{" "}
-                    {customerInfo.originalPurchaseDate ?
-                      format(
-                        customerInfo.originalPurchaseDate,
+    <div className="flex min-h-screen flex-col">
+      <UnauthHeader />
+      <div className="flex grow items-center justify-center">
+        <Card>
+          <CardHeader>
+            <CardTitle>your subscription</CardTitle>
+            <CardDescription>
+              manage your active subscription details.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            {customerInfo && (
+              <>
+                <div>
+                  <span className="font-medium">Next Billing Date:</span>{" "}
+                  {customerInfo.allExpirationDatesByProduct[
+                    Array.from(customerInfo.activeSubscriptions)[0]
+                  ] ?
+                    format(
+                        customerInfo.allExpirationDatesByProduct[
+                          Array.from(customerInfo.activeSubscriptions)[0]
+                        ]!,
                         "MMMM do, yyyy"
-                      ) :
-                      "N/A"}
-                  </div>
-                </>
-              )}
-            </CardContent>
-            <CardFooter>
-              {customerInfo?.managementURL && (
-                <Link
-                  href={customerInfo.managementURL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button variant="outline">Manage Subscription</Button>
-                </Link>
-              )}
-            </CardFooter>
-          </Card>
-        </div>
-      </ContentLayout>
-    </>
+                    ) :
+                    "N/A"}
+                </div>
+                <div>
+                  <span className="font-medium">Original Purchase Date:</span>{" "}
+                  {customerInfo.originalPurchaseDate ?
+                    format(customerInfo.originalPurchaseDate, "MMMM do, yyyy") :
+                    "N/A"}
+                </div>
+              </>
+            )}
+          </CardContent>
+          <CardFooter>
+            {customerInfo?.managementURL && (
+              <Link
+                href={customerInfo.managementURL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="outline">Manage Subscription</Button>
+              </Link>
+            )}
+          </CardFooter>
+        </Card>
+      </div>
+    </div>
   );
 }

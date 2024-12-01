@@ -20,10 +20,22 @@ export default function UserSideSheet() {
   const isOpen = username !== null;
 
   const [selectedUser, setSelectedUser] = useState<UserModel | null>(null);
+  const [initialSearchParams, setInitialSearchParams] = useState<string | null>(
+    null
+  );
+
+  useEffect(() => {
+    // Store initial search params when the sheet opens
+    if (!initialSearchParams) {
+      setInitialSearchParams(searchParams.toString());
+    }
+  }, [searchParams, initialSearchParams]);
+
   useEffect(() => {
     if (username === null) {
       return;
     }
+
     const fetchUser = async () => {
       const user = await getUserByUsername(username);
       setSelectedUser(user ?? null);
@@ -32,10 +44,18 @@ export default function UserSideSheet() {
   }, [username]);
 
   const onOpenChange = (isOpen: boolean) => {
-    if (!isOpen) {
+    if (!isOpen && initialSearchParams) {
       setSelectedUser(null);
-      const newPathname = pathname.replace(`?username=${username}`, "");
-      router.push(newPathname);
+      const params = new URLSearchParams(initialSearchParams);
+
+      // Remove the username parameter if it exists
+      params.delete("username");
+
+      const newQueryString =
+        params.toString() === "" ? "" : `?${params.toString()}`;
+      const newUrl = `${pathname}${newQueryString}`;
+      router.push(newUrl);
+      setInitialSearchParams(null); // Reset for next open
     }
   };
 
@@ -47,7 +67,9 @@ export default function UserSideSheet() {
             <Button
               variant="secondary"
               onClick={() => {
-                navigator.clipboard.writeText(`${window.location.origin}/u/${username}`);
+                navigator.clipboard.writeText(
+                  `${window.location.origin}/u/${username}`
+                );
 
                 trackEvent("user_profile_link_copied", {
                   user_id: selectedUser?.id,
@@ -64,7 +86,11 @@ export default function UserSideSheet() {
               </div>
             </Button>
             <div className="w-2" />
-            <Link href={`/u/${username}`} target="_blank" rel="noreferrer noopener">
+            <Link
+              href={`/u/${username}`}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               <Button variant="secondary">
                 <div className="flex flex-row justify-center">
                   <p>open profile</p>
