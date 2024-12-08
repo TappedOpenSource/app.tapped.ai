@@ -1,15 +1,5 @@
-import { ContentLayout } from "@/components/admin-panel/content-layout";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import UnauthHeader from "@/components/unauth_header";
 import ResultsTable from "@/components/venue_search/results_table";
-
-import Link from "next/link";
 
 export default function Page({
   searchParams,
@@ -30,22 +20,14 @@ export default function Page({
 
   return (
     <>
-      <ContentLayout title="build a show">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>build a show</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <ResultsTable genres={performerGenres} lat={intLat} lng={intLng} radius={intRadius} capacity={intCapacity} />
-      </ContentLayout>
+      <UnauthHeader />
+      <ResultsTable
+        genres={performerGenres}
+        lat={intLat}
+        lng={intLng}
+        radius={intRadius}
+        capacity={intCapacity}
+      />
     </>
   );
 }
