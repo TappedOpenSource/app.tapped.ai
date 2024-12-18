@@ -40,6 +40,7 @@ export const metadata: Metadata = {
     ios: {
       url: "https://app.tapped.ai",
       app_store_id: "1574937614",
+      app_name: "Tapped Ai",
     },
     android: {
       package: "com.intheloopstudio",
