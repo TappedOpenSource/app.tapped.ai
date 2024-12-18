@@ -36,6 +36,20 @@ export const metadata: Metadata = {
     description,
     images: `${metadataBase}/map-og.png`,
   },
+  appLinks: {
+    ios: {
+      url: "https://app.tapped.ai",
+      app_store_id: "id1574937614",
+    },
+    android: {
+      package: "com.intheloopstudio",
+      app_name: "Tapped Ai",
+    },
+    web: {
+      url: "https://app.tapped.ai",
+      should_fallback: true,
+    },
+  },
 };
 
 const fontSans = FontSans({
