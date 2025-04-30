@@ -43,7 +43,7 @@ export default function Page() {
       </header>
 
       {/* Mission Statement */}
-      <section className="bg-slate-50 px-4 py-20 md:px-6 lg:px-8 dark:bg-slate-900">
+      <section className="px-4 py-20 md:px-6 lg:px-8">
         <div className="container mx-auto max-w-4xl text-center">
           <p className="text-xl font-medium italic leading-relaxed text-slate-700 md:text-2xl dark:text-slate-300">
             &quot;Tapped Ai connects performers with the right venues,
@@ -108,7 +108,7 @@ export default function Page() {
       </section>
 
       {/* Premium Features */}
-      <section className="bg-white px-4 py-20 md:px-6 lg:px-8 dark:bg-slate-800">
+      <section className="px-4 py-20 md:px-6 lg:px-8">
         <div className="container mx-auto max-w-5xl">
           <h2 className="mb-12 text-center text-4xl font-bold tracking-tight md:text-5xl">
             get to know &quot;
@@ -195,7 +195,7 @@ export default function Page() {
       </section>
 
       {/* Founders Section */}
-      <section className="bg-slate-50 px-4 py-20 md:px-6 lg:px-8 dark:bg-slate-900">
+      <section className="px-4 py-20 md:px-6 lg:px-8">
         <div className="container mx-auto mb-12 max-w-5xl">
           <h2 className="mb-12 text-center text-4xl font-bold tracking-tight md:text-5xl">
             founders
@@ -210,7 +210,7 @@ export default function Page() {
                       src="/images/landing/johannes.jpeg"
                       alt="Johannes Naylor"
                       fill
-                      objectFit="cover"
+                      style={{ objectFit: "cover" }}
                       className="rounded-t-md"
                     />
                   </div>
@@ -230,7 +230,7 @@ export default function Page() {
                       src="/images/landing/ilias.jpg"
                       alt="Ilias Anwar"
                       fill
-                      objectFit="cover"
+                      style={{ objectFit: "cover" }}
                       className="rounded-t-md"
                     />
                   </div>
@@ -266,7 +266,7 @@ export default function Page() {
                       src="/images/landing/anuj.png"
                       alt="Anuj Gupta"
                       fill
-                      objectFit="cover"
+                      style={{ objectFit: "cover" }}
                       className="rounded-t-md"
                     />
                   </div>
@@ -286,7 +286,7 @@ export default function Page() {
                       src="/images/landing/chibu.jpg"
                       alt="Celestine Amajoyi"
                       fill
-                      objectFit="cover"
+                      style={{ objectFit: "cover" }}
                       className="rounded-t-md"
                     />
                   </div>
@@ -306,7 +306,7 @@ export default function Page() {
                       src="/images/landing/quinelle.jpg"
                       alt="Quinelle Holder"
                       fill
-                      objectFit="cover"
+                      style={{ objectFit: "cover" }}
                       className="rounded-t-md"
                     />
                   </div>
@@ -328,7 +328,7 @@ export default function Page() {
                       src="/images/landing/draj.jpeg"
                       alt="Dheeraj Manjunath"
                       fill
-                      objectFit="cover"
+                      style={{ objectFit: "cover" }}
                       className="rounded-t-md"
                     />
                   </div>
@@ -348,7 +348,7 @@ export default function Page() {
                       src="/images/landing/dave.jpg"
                       alt="Dave Harris Jr."
                       fill
-                      objectFit="cover"
+                      style={{ objectFit: "cover" }}
                       className="rounded-t-md"
                     />
                   </div>
@@ -368,7 +368,7 @@ export default function Page() {
                       src="/images/landing/alisha.jpg"
                       alt="Alisha Outridge"
                       fill
-                      objectFit="cover"
+                      style={{ objectFit: "cover" }}
                       className="rounded-t-md"
                     />
                   </div>
@@ -432,7 +432,7 @@ export default function Page() {
       </section>
 
       {/* Press Section */}
-      <section className="bg-white px-4 py-20 md:px-6 lg:px-8 dark:bg-slate-800">
+      <section className="px-4 py-20 md:px-6 lg:px-8">
         <div className="container mx-auto max-w-5xl">
           <h2 className="mb-10 text-center text-4xl font-bold tracking-tight md:text-5xl">
             recent press:
@@ -482,7 +482,7 @@ export default function Page() {
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-slate-50 px-4 py-20 md:px-6 lg:px-8 dark:bg-slate-900">
+      <section className="px-4 py-20 md:px-6 lg:px-8">
         <div className="container mx-auto max-w-4xl">
           <h2 className="mb-12 text-center text-4xl font-bold tracking-tight md:text-5xl">
             FAQ&apos;s
