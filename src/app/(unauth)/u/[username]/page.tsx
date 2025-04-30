@@ -14,7 +14,7 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const metadataBase = "https://app.tapped.ai";
+  const metadataBase = "https://tapped.ai";
   try {
     const username = params.username;
 

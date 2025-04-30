@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const host = "https://app.tapped.ai";
+  const host = "https://tapped.ai";
   return [
     {
       url: host,

@@ -10,12 +10,14 @@ const Footer = () => {
         <div className="mx-auto w-full max-w-screen-xl">
           <div className="grid grid-cols-2 gap-8 px-4 py-6 md:grid-cols-4 lg:py-8">
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase">company</h2>
-              <ul className="font-medium text-gray-400">
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-700 dark:text-white">
+                company
+              </h2>
+              <ul className="font-medium text-gray-600 dark:text-gray-400">
                 <li className="mb-4">
                   <Link
                     href="https://tapped.ai/about"
-                    className=" hover:underline"
+                    className="hover:underline"
                   >
                     about
                   </Link>
@@ -55,10 +57,10 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase ">
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-700 dark:text-white">
                 tool suite
               </h2>
-              <ul className="font-medium text-gray-400">
+              <ul className="font-medium text-gray-600 dark:text-gray-400">
                 <li className="mb-4">
                   <Link
                     href="https://api.tapped.ai/docs"
@@ -110,8 +112,10 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase ">legal</h2>
-              <ul className="font-medium text-gray-400">
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-700 dark:text-white">
+                legal
+              </h2>
+              <ul className="font-medium text-gray-600 dark:text-gray-400">
                 <li className="mb-4">
                   <Link href="/privacy" className="hover:underline">
                     privacy policy
@@ -128,10 +132,10 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase ">
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-700 dark:text-white">
                 download
               </h2>
-              <ul className="font-medium text-gray-400">
+              <ul className="font-medium text-gray-600 dark:text-gray-400">
                 <li className="mb-4">
                   <Link
                     href="https://apps.apple.com/us/app/tapped-ai/id1574937614"
@@ -158,7 +162,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="px-4 py-6 md:flex md:items-center md:justify-between">
-            <span className="text-foreground/50 text-sm sm:text-center">
+            <span className="dark:text-foreground/50 text-sm text-gray-600 sm:text-center">
               © {new Date().getFullYear()}.{" "}
               <Link href="https://tapped.ai/">Tapped Industries Inc.™</Link>.
               All Rights Reserved. - Made with 💙 in Richmond, Virginia
@@ -178,7 +182,7 @@ const Footer = () => {
               </Link> */}
               <Link
                 href="https://twitter.com/tappedx"
-                className="text-gray-400 hover:text-white"
+                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
               >
                 <svg
                   className="h-4 w-4"
@@ -197,7 +201,7 @@ const Footer = () => {
               </Link>
               <Link
                 href="https://github.com/TappedOpenSource"
-                className="text-gray-400 hover:text-white"
+                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
               >
                 <svg
                   className="h-4 w-4"
@@ -216,16 +220,17 @@ const Footer = () => {
               </Link>
               <Link
                 href="https://tiktok.com/@tappedx"
-                className="text-gray-400 hover:text-white"
+                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
               >
                 <FaTiktok className="h-4 w-4" />
                 <span className="sr-only">TikTok account</span>
               </Link>
               <Link
                 href="https://instagram.com/tappedx"
-                className="text-gray-400 hover:text-white"
+                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
               >
                 <AiFillInstagram className="h-4 w-4" />
+                <span className="sr-only">Instagram account</span>
               </Link>
             </div>
           </div>

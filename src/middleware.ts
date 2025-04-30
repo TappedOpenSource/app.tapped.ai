@@ -8,11 +8,11 @@ export function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-pathname", request.nextUrl.pathname);
 
-  if (request.nextUrl.pathname === "/") {
-    return NextResponse.redirect(new URL("/map", request.url), {
-      headers: requestHeaders,
-    });
-  }
+  // if (request.nextUrl.pathname === "/") {
+  //   return NextResponse.redirect(new URL("/map", request.url), {
+  //     headers: requestHeaders,
+  //   });
+  // }
 
   // You can also set request headers in NextResponse.rewrite
   return NextResponse.next({

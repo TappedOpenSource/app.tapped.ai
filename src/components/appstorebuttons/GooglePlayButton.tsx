@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC } from "react";
 
 import Button from "./Button";
@@ -10,7 +12,13 @@ type GooglePlayButtonProps = {
   url: string;
 };
 
-const GooglePlayButton: FC<GooglePlayButtonProps> = ({ theme = "light", height, width, className, url }) => {
+const GooglePlayButton: FC<GooglePlayButtonProps> = ({
+  theme = "light",
+  height,
+  width,
+  className,
+  url,
+}) => {
   return (
     <Button
       theme={theme}

@@ -48,7 +48,7 @@ export default function Page({
           </p>
           <Button variant="link">
             <Link
-              href="https://app.tapped.ai/privacy"
+              href="https://tapped.ai/privacy"
               target="_blank"
               rel="noreferrer noopener"
             >
@@ -57,7 +57,7 @@ export default function Page({
           </Button>
           <Button variant="link">
             <Link
-              href="https://app.tapped.ai/terms"
+              href="https://tapped.ai/terms"
               target="_blank"
               rel="noreferrer noopener"
             >

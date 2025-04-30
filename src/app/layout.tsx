@@ -15,7 +15,7 @@ import "./globals.css";
 const title = "perform live | tapped ai";
 const description =
   "Live Music Data Analytic - Tapped Ai predicts the future of the live performance industry and gives performers the means of creating a world tour from their phone. We use new tech to gather data across the US to analyze/predict trends in the live performance space to ultimately increase bookings and ticket sales";
-const metadataBase = "https://app.tapped.ai";
+const metadataBase = "https://tapped.ai";
 
 export const metadata: Metadata = {
   metadataBase: new URL(metadataBase),
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
   appLinks: {
     ios: {
-      url: "https://app.tapped.ai",
+      url: "https://tapped.ai",
       app_store_id: "1574937614",
       app_name: "Tapped Ai",
     },
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
       app_name: "Tapped Ai",
     },
     web: {
-      url: "https://app.tapped.ai",
+      url: "https://tapped.ai",
       should_fallback: true,
     },
   },
