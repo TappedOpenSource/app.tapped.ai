@@ -1,10 +1,11 @@
 import BookingView from "@/components/booking/BookingView";
 
-export default function Page({
-  params,
-}: {
-  params: { bookingId: string };
-}) {
+export default async function Page(
+  props: {
+    params: Promise<{ bookingId: string }>;
+  }
+) {
+  const params = await props.params;
   const { bookingId } = params;
   return <BookingView bookingId={bookingId} />;
 }

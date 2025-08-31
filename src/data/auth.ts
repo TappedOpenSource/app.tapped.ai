@@ -17,11 +17,7 @@ export type SignupResult = { uid: string };
 
 export async function loginWithCredentials(credentials: Credentials) {
   console.debug("loginWithCredentials", credentials.email);
-  const loginResult = await signInWithEmailAndPassword(
-    auth,
-    credentials.email,
-    credentials.password
-  );
+  const loginResult = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
   trackEvent("login", { method: "email", email: credentials.email });
   return { uid: loginResult.user.uid };
 }
@@ -34,11 +30,7 @@ export async function signupWithCredentials({
   password: string;
 }) {
   console.debug("signup");
-  const loginResult = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
+  const loginResult = await createUserWithEmailAndPassword(auth, email, password);
   trackEvent("signup", { method: "email", email });
   return { uid: loginResult.user.uid };
 }
@@ -49,7 +41,7 @@ export async function sendPasswordlessEmail(
     returnUrl,
   }: {
     returnUrl: string;
-  }
+  },
 ) {
   const fullReturnUrl = `https://tapped.ai/${returnUrl}`;
   await sendSignInLinkToEmail(auth, email, {

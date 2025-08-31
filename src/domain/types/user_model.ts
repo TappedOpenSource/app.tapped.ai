@@ -1,4 +1,9 @@
-import { DocumentData, QueryDocumentSnapshot, SnapshotOptions, Timestamp } from "firebase/firestore";
+import {
+  DocumentData,
+  QueryDocumentSnapshot,
+  SnapshotOptions,
+  Timestamp,
+} from "firebase/firestore";
 import type { Option } from "./option";
 
 export type Location = {
@@ -31,7 +36,12 @@ export type BookerInfo = {
   reviewCount: number;
 };
 
-type PerformerCategory = "undiscovered" | "emerging" | "hometownHero" | "mainstream" | "legendary";
+type PerformerCategory =
+  | "undiscovered"
+  | "emerging"
+  | "hometownHero"
+  | "mainstream"
+  | "legendary";
 export type PerformerInfo = {
   pressKitUrl?: Option<string>;
   genres: string[];
@@ -54,7 +64,9 @@ export function suggestMaxCapacity(category: PerformerCategory): number {
   return mapping[category];
 }
 
-export function suggestTicketPriceRange(category: PerformerCategory): [number, number] {
+export function suggestTicketPriceRange(
+  category: PerformerCategory
+): [number, number] {
   const mapping: Record<PerformerCategory, [number, number]> = {
     undiscovered: [0, 10],
     emerging: [10, 20],
@@ -174,7 +186,10 @@ export const userModelConverter = {
   toFirestore(user: UserModel): DocumentData {
     return { ...user };
   },
-  fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions): UserModel {
+  fromFirestore(
+    snapshot: QueryDocumentSnapshot,
+    options: SnapshotOptions
+  ): UserModel {
     const data = snapshot.data(options) as UserModel;
     return {
       ...data,
@@ -187,7 +202,9 @@ export const performerScore = (category: PerformerCategory): number => {
   return Math.round((range[0] + range[0]) / 2);
 };
 
-export const performerScoreRange = (category: PerformerCategory): [number, number] => {
+export const performerScoreRange = (
+  category: PerformerCategory
+): [number, number] => {
   const mapping: {
     [key in PerformerCategory]: [number, number];
   } = {
@@ -204,17 +221,39 @@ export const performerScoreRange = (category: PerformerCategory): [number, numbe
 export const reviewCount = (user: UserModel): number =>
   (user.bookerInfo?.reviewCount ?? 0) + (user.performerInfo?.reviewCount ?? 0);
 
-export const userAudienceSize = (user: UserModel): number => totalSocialFollowing(user.socialFollowing);
+export const userAudienceSize = (user: UserModel): number =>
+  totalSocialFollowing(user.socialFollowing);
 
-export const totalSocialFollowing = (socialFollowing: SocialFollowing | null): number =>
+export const totalSocialFollowing = (
+  socialFollowing: SocialFollowing | null
+): number =>
   (socialFollowing?.twitterFollowers ?? 0) +
   (socialFollowing?.instagramFollowers ?? 0) +
   (socialFollowing?.tiktokFollowers ?? 0);
 
-export const profileImage = (user: UserModel): string => imageOrDefault(user.profilePicture);
-export const imageOrDefault = (url: string | null | undefined): string => {
+export const isVenue = (user: UserModel): boolean =>
+  user.venueInfo !== null && user.venueInfo !== undefined;
+
+export const profileImage = (user: UserModel): string =>
+  isVenue(user) ?
+    imageOrDefault({
+      url: user.profilePicture,
+      defaultImage: "/images/default_venue.png",
+    }) :
+    imageOrDefault({
+      url: user.profilePicture,
+      defaultImage: "/images/default_avatar.png",
+    });
+
+export const imageOrDefault = ({
+  url,
+  defaultImage = "/images/default_avatar.png",
+}: {
+  url: string | null | undefined;
+  defaultImage?: string;
+}): string => {
   if (url === undefined || url === null) {
-    return "/images/default_avatar.png";
+    return defaultImage;
   }
 
   return url;

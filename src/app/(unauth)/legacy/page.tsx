@@ -13,23 +13,18 @@ export default function Page() {
           <div className="flex flex-col items-center text-center">
             <h1 className="mb-6 text-4xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl">
               Unlock the{" "}
-              <span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
-                secret
-              </span>{" "}
+              <span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">secret</span>{" "}
               to
             </h1>
             <div className="space-y-2 text-2xl font-medium tracking-tight text-white md:text-3xl lg:text-4xl">
               <p>
-                -build your{" "}
-                <span className="italic text-purple-400">community</span>.
+                -build your <span className="italic text-purple-400">community</span>.
               </p>
               <p>
-                -connect with{" "}
-                <span className="font-bold text-blue-400">superfans</span>.
+                -connect with <span className="font-bold text-blue-400">superfans</span>.
               </p>
               <p>
-                -sell out{" "}
-                <span className="italic text-purple-400">your events</span>.
+                -sell out <span className="italic text-purple-400">your events</span>.
               </p>
             </div>
 
@@ -46,10 +41,9 @@ export default function Page() {
       <section className="px-4 py-20 md:px-6 lg:px-8">
         <div className="container mx-auto max-w-4xl text-center">
           <p className="text-xl font-medium italic leading-relaxed text-slate-700 md:text-2xl dark:text-slate-300">
-            &quot;Tapped Ai connects performers with the right venues,
-            superfans, and opportunities to grow their careers. Whether
-            you&apos;re an artist, organizer, or fan, we make live music
-            smarter, easier, and more impactful.&quot;
+            &quot;Tapped Ai connects performers with the right venues, superfans, and opportunities to grow their
+            careers. Whether you&apos;re an artist, organizer, or fan, we make live music smarter, easier, and more
+            impactful.&quot;
           </p>
         </div>
       </section>
@@ -60,22 +54,15 @@ export default function Page() {
           <div className="text-center">
             <h2 className="mb-3 text-4xl font-bold tracking-tight md:text-5xl">
               unlock <span className="italic">this </span>
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                DATA
-              </span>
+              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">DATA</span>
               <span className="italic"> with </span>
-              <span className="text-purple-600 dark:text-purple-400">
-                tapped premium
-              </span>
+              <span className="text-purple-600 dark:text-purple-400">tapped premium</span>
               <span className="italic"></span>
             </h2>
-            <p className="mb-6 text-lg text-slate-700 dark:text-slate-300">
-              this isn&apos;t for everyone.
-            </p>
+            <p className="mb-6 text-lg text-slate-700 dark:text-slate-300">this isn&apos;t for everyone.</p>
             <p className="mx-auto max-w-3xl text-lg leading-relaxed text-slate-700 dark:text-slate-300">
-              tapped premium gives you insider access to the tools, data, and
-              opportunities reserved for the top 1% of artists ready to take
-              over the live events world.
+              tapped premium gives you insider access to the tools, data, and opportunities reserved for the top 1% of
+              artists ready to take over the live events world.
             </p>
           </div>
         </div>
@@ -86,21 +73,15 @@ export default function Page() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div className="text-center">
-              <h3 className="mb-2 text-4xl font-bold md:text-5xl lg:text-6xl">
-                100k+
-              </h3>
+              <h3 className="mb-2 text-4xl font-bold md:text-5xl lg:text-6xl">100k+</h3>
               <p className="text-xl font-semibold italic">performers</p>
             </div>
             <div className="text-center">
-              <h3 className="mb-2 text-4xl font-bold md:text-5xl lg:text-6xl">
-                35k+
-              </h3>
+              <h3 className="mb-2 text-4xl font-bold md:text-5xl lg:text-6xl">35k+</h3>
               <p className="text-xl font-semibold italic">venues</p>
             </div>
             <div className="text-center">
-              <h3 className="mb-2 text-4xl font-bold md:text-5xl lg:text-6xl">
-                160k+
-              </h3>
+              <h3 className="mb-2 text-4xl font-bold md:text-5xl lg:text-6xl">160k+</h3>
               <p className="text-xl font-semibold italic">bookings</p>
             </div>
           </div>
@@ -112,9 +93,7 @@ export default function Page() {
         <div className="container mx-auto max-w-5xl">
           <h2 className="mb-12 text-center text-4xl font-bold tracking-tight md:text-5xl">
             get to know &quot;
-            <span className="text-purple-600 dark:text-purple-400">
-              tapped premium
-            </span>
+            <span className="text-purple-600 dark:text-purple-400">tapped premium</span>
             &quot;.
           </h2>
 
@@ -136,8 +115,7 @@ export default function Page() {
               </CardHeader>
               <CardContent>
                 <p className="italic text-slate-600 dark:text-slate-400">
-                  Find out where superfans live, their favorite venues, and how
-                  to sell out every show.
+                  Find out where superfans live, their favorite venues, and how to sell out every show.
                 </p>
               </CardContent>
             </Card>
@@ -148,8 +126,7 @@ export default function Page() {
               </CardHeader>
               <CardContent>
                 <p className="italic text-slate-600 dark:text-slate-400">
-                  Be the first to hear about high-profile performances and
-                  festivals.
+                  Be the first to hear about high-profile performances and festivals.
                 </p>
               </CardContent>
             </Card>
@@ -160,8 +137,7 @@ export default function Page() {
               </CardHeader>
               <CardContent>
                 <p className="italic text-slate-600 dark:text-slate-400">
-                  Connect with other top-tier artists to create unforgettable
-                  experiences.
+                  Connect with other top-tier artists to create unforgettable experiences.
                 </p>
               </CardContent>
             </Card>
@@ -172,8 +148,7 @@ export default function Page() {
               </CardHeader>
               <CardContent>
                 <p className="italic text-slate-600 dark:text-slate-400">
-                  Access to major labels touring data by some of the top
-                  celebrities in the world.
+                  Access to major labels touring data by some of the top celebrities in the world.
                 </p>
               </CardContent>
             </Card>
@@ -197,9 +172,7 @@ export default function Page() {
       {/* Founders Section */}
       <section className="px-4 py-20 md:px-6 lg:px-8">
         <div className="container mx-auto mb-12 max-w-5xl">
-          <h2 className="mb-12 text-center text-4xl font-bold tracking-tight md:text-5xl">
-            founders
-          </h2>
+          <h2 className="mb-12 text-center text-4xl font-bold tracking-tight md:text-5xl">founders</h2>
 
           <div className="flex flex-col items-center justify-center gap-6 md:flex-row">
             <Link href="https://linkedin.com/in/john-naylor">
@@ -246,14 +219,12 @@ export default function Page() {
 
         {/* Advisors Section */}
         <div className="container mx-auto max-w-5xl">
-          <h2 className="mb-10 text-center text-4xl font-bold tracking-tight md:text-5xl">
-            advisors
-          </h2>
+          <h2 className="mb-10 text-center text-4xl font-bold tracking-tight md:text-5xl">advisors</h2>
 
           <div className="mb-12 text-center">
             <p className="text-lg font-medium text-slate-700 dark:text-slate-300">
-              our advisor network has been carefully crafted to be one degree
-              away from everyone in the live events, music and tech industry.
+              our advisor network has been carefully crafted to be one degree away from everyone in the live events,
+              music and tech industry.
             </p>
           </div>
 
@@ -390,8 +361,8 @@ export default function Page() {
             &quot;<span className="text-purple-400">tapped mixer</span>&quot;
           </h2>
           <p className="mb-10 text-lg">
-            a networking event to bring together a room of music, tech, and
-            investors to connect and elevate their careers.
+            a networking event to bring together a room of music, tech, and investors to connect and elevate their
+            careers.
           </p>
         </div>
 
@@ -434,13 +405,10 @@ export default function Page() {
       {/* Press Section */}
       <section className="px-4 py-20 md:px-6 lg:px-8">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="mb-10 text-center text-4xl font-bold tracking-tight md:text-5xl">
-            recent press:
-          </h2>
+          <h2 className="mb-10 text-center text-4xl font-bold tracking-tight md:text-5xl">recent press:</h2>
           <p className="text-center text-lg italic text-slate-700 dark:text-slate-300">
-            find out how ilias and johannes tricked the music industry with an
-            april fools prank to end up meeting the three biggest multi billion
-            dollar corporations in the space.
+            find out how ilias and johannes tricked the music industry with an april fools prank to end up meeting the
+            three biggest multi billion dollar corporations in the space.
           </p>
         </div>
 
@@ -484,9 +452,7 @@ export default function Page() {
       {/* FAQ Section */}
       <section className="px-4 py-20 md:px-6 lg:px-8">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="mb-12 text-center text-4xl font-bold tracking-tight md:text-5xl">
-            FAQ&apos;s
-          </h2>
+          <h2 className="mb-12 text-center text-4xl font-bold tracking-tight md:text-5xl">FAQ&apos;s</h2>
 
           <div className="flex flex-col gap-4">
             <Card>
@@ -495,17 +461,13 @@ export default function Page() {
               </CardHeader>
               <CardContent>
                 <p className="text-slate-700 dark:text-slate-300">
-                  Upgrading to Tapped AI Premium unlocks a suite of advanced
-                  features designed to significantly enhance your booking and
-                  touring capabilities. With Premium, you gain unlimited access
-                  to in-depth analytics, comprehensive data sets, and
-                  sophisticated booking tools that streamline the planning
-                  process. This subscription also provides exclusive insights
-                  into venue performance and audience preferences, allowing for
-                  more informed decision-making. Additionally, Premium users
-                  benefit from priority customer support and regular updates
-                  that include the latest industry trends and data enhancements,
-                  ensuring you have a competitive edge in the music industry.
+                  Upgrading to Tapped AI Premium unlocks a suite of advanced features designed to significantly enhance
+                  your booking and touring capabilities. With Premium, you gain unlimited access to in-depth analytics,
+                  comprehensive data sets, and sophisticated booking tools that streamline the planning process. This
+                  subscription also provides exclusive insights into venue performance and audience preferences,
+                  allowing for more informed decision-making. Additionally, Premium users benefit from priority customer
+                  support and regular updates that include the latest industry trends and data enhancements, ensuring
+                  you have a competitive edge in the music industry.
                 </p>
               </CardContent>
             </Card>
@@ -516,8 +478,7 @@ export default function Page() {
               </CardHeader>
               <CardContent>
                 <p className="text-slate-700 dark:text-slate-300">
-                  The monthly subscription for performers cost $10 on desktop
-                  and $12.99 on app store.
+                  The monthly subscription for performers cost $10 on desktop and $12.99 on app store.
                 </p>
               </CardContent>
             </Card>
@@ -528,26 +489,22 @@ export default function Page() {
               </CardHeader>
               <CardContent>
                 <p className="text-slate-700 dark:text-slate-300">
-                  Yes, you can cancel your subscription at any time. Upon
-                  cancellation, your subscription will remain active until the
-                  end of the current billing period. This means you&apos;ll
-                  still have access to the subscribed features until the end of
-                  your billing cycle, after which the subscription will
-                  terminate automatically.
+                  Yes, you can cancel your subscription at any time. Upon cancellation, your subscription will remain
+                  active until the end of the current billing period. This means you&apos;ll still have access to the
+                  subscribed features until the end of your billing cycle, after which the subscription will terminate
+                  automatically.
                 </p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>
-                  is there a tutorial on how to use tapped ai?
-                </CardTitle>
+                <CardTitle>is there a tutorial on how to use tapped ai?</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-slate-700 dark:text-slate-300">
-                  Yes! We have a video from our founder Johannes Naylor that you
-                  can check if you scroll up or go to our youtube page here.
+                  Yes! We have a video from our founder Johannes Naylor that you can check if you scroll up or go to our
+                  youtube page here.
                 </p>
               </CardContent>
             </Card>

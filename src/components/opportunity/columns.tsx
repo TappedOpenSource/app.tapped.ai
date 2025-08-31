@@ -1,6 +1,11 @@
 "use client";
 
-import { UserModel, imageOrDefault, profileImage, totalSocialFollowing } from "@/domain/types/user_model";
+import {
+  UserModel,
+  imageOrDefault,
+  profileImage,
+  totalSocialFollowing,
+} from "@/domain/types/user_model";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 
@@ -10,9 +15,11 @@ export const columns: ColumnDef<UserModel>[] = [
     accessorKey: "profilePicture",
     header: "pfp",
     cell: ({ row }) => {
-      const profilePicture = row.getValue("profilePicture") as UserModel["profilePicture"];
+      const profilePicture = row.getValue(
+        "profilePicture"
+      ) as UserModel["profilePicture"];
 
-      const profilePictureUrl = imageOrDefault(profilePicture);
+      const profilePictureUrl = imageOrDefault({ url: profilePicture });
 
       return (
         <div className="relative h-6 w-6 rounded-xl">
@@ -40,10 +47,13 @@ export const columns: ColumnDef<UserModel>[] = [
     accessorKey: "socialFollowing",
     header: "audience",
     cell: ({ row }) => {
-      const socialFollowing = row.getValue("audience") as UserModel["socialFollowing"];
+      const socialFollowing = row.getValue(
+        "audience"
+      ) as UserModel["socialFollowing"];
 
       const audienceSize = totalSocialFollowing(socialFollowing);
-      const formatted = audienceSize === 0 ? "N/A" : audienceSize.toLocaleString();
+      const formatted =
+        audienceSize === 0 ? "N/A" : audienceSize.toLocaleString();
 
       return <div className="text-center font-medium">{formatted}</div>;
     },

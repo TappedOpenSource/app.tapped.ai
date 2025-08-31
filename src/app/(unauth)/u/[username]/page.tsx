@@ -4,16 +4,14 @@ import { UserModel, profileImage } from "@/domain/types/user_model";
 import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
-  params: { username: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ username: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 const getUserByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/getUserByUsername`;
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
+  const params = await props.params;
   const metadataBase = "https://tapped.ai";
   try {
     const username = params.username;
@@ -68,7 +66,8 @@ export async function generateMetadata(
   }
 }
 
-export default function Page({ params }: Props) {
+export default async function Page(props: Props) {
+  const params = await props.params;
   const username = params.username;
   return (
     <>

@@ -1,10 +1,11 @@
 import ApplyForm from "@/components/opportunity/form/ApplyForm";
 
-export default function Page({
-  params,
-}: {
-  params: { opportunityId: string };
-}) {
+export default async function Page(
+  props: {
+    params: Promise<{ opportunityId: string }>;
+  }
+) {
+  const params = await props.params;
   const opId = params.opportunityId;
   return (
     <>

@@ -13,24 +13,11 @@ import { usePurchases } from "@/context/purchases";
 import { useAuth } from "@/context/auth";
 import { RequestLoginPage } from "@/components/login/RequireLogin";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getCustomerInfo } from "@/data/purchases";
 import { CustomerInfo } from "@revenuecat/purchases-js";
 import { format } from "date-fns";
 import UnauthHeader from "@/components/unauth_header";
-
-// If using TypeScript, add the following snippet to your file as well.
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      "stripe-pricing-table": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >;
-    }
-  }
-}
 
 export default function Page() {
   const {
@@ -66,12 +53,14 @@ export default function Page() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <stripe-pricing-table
-              pricing-table-id="prctbl_1PFJ5XDYybu1wznE3NpaCEH4"
-              publishable-key="pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil"
-              client-reference-id={authUser.uid}
-              customer-email={authUser.email}
-            ></stripe-pricing-table>
+            {/* Stripe pricing table custom element */}
+            {React.createElement("stripe-pricing-table", {
+              "pricing-table-id": "prctbl_1PFJ5XDYybu1wznE3NpaCEH4",
+              "publishable-key":
+                "pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil",
+              "client-reference-id": authUser.uid,
+              "customer-email": authUser.email,
+            })}
           </CardContent>
         </Card>
       </div>
@@ -100,7 +89,7 @@ export default function Page() {
                     format(
                         customerInfo.allExpirationDatesByProduct[
                           Array.from(customerInfo.activeSubscriptions)[0]
-                        ]!,
+                        ] as Date,
                         "MMMM do, yyyy"
                     ) :
                     "N/A"}

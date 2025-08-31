@@ -23,6 +23,7 @@ import {
   Home,
   LogOut,
   MessageCircle,
+  Play,
   Search,
   Settings,
   Theater,
@@ -32,7 +33,7 @@ import {
 import { logout } from "@/data/auth";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/utils/tracking";
-import { useMemo } from "react";
+import { useMemo, useEffect, useState, type JSX } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -62,6 +63,48 @@ export default function BottomNavBar({
   const email = currentUser?.email ?? authUser?.email ?? "user@tapped.ai";
   const router = useRouter();
 
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  // Check if user should see tutorial
+  useEffect(() => {
+    if (!isLoggedIn) {
+      // Always show for logged out users
+      setShowTutorial(true);
+      return;
+    }
+
+    // Check if user has already seen tutorial
+    const hasSeenTutorial = localStorage.getItem("tapped-tutorial-seen");
+    if (hasSeenTutorial) {
+      setShowTutorial(false);
+      return;
+    }
+
+    // Check if user is "new" (created account within last 7 days)
+    if (currentUser?.timestamp) {
+      const accountAge = Date.now() - currentUser.timestamp.toDate().getTime();
+      const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
+
+      if (accountAge <= sevenDaysMs) {
+        setShowTutorial(true);
+      } else {
+        setShowTutorial(false);
+      }
+    }
+  }, [isLoggedIn, currentUser]);
+
+  const handleTutorialClick = () => {
+    // Mark tutorial as seen
+    localStorage.setItem("tapped-tutorial-seen", "true");
+    setShowTutorial(false);
+
+    // Track the event
+    trackEvent("tutorial_click", {
+      user_id: currentUser?.id,
+      user_type: isLoggedIn ? "logged_in" : "logged_out",
+    });
+  };
+
   const markersCount = useMemo(() => {
     if (isFetching) {
       return cachedMarkers.current.length;
@@ -72,7 +115,26 @@ export default function BottomNavBar({
 
   return (
     <TooltipProvider>
-      <div className="absolute bottom-0 z-40 flex w-full justify-center">
+      <div className="absolute bottom-0 z-40 flex w-full flex-row items-center justify-center">
+        {showTutorial && (
+          <Card className="m-1 flex gap-3 p-1">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link href="https://www.youtube.com/watch?v=DPiogp-D4ig">
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    className={cn("flex gap-1")}
+                    onClick={handleTutorialClick}
+                  >
+                    <Play className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent>learn how to best use Tapped Ai</TooltipContent>
+            </Tooltip>
+          </Card>
+        )}
         <Card className="m-3 flex gap-3 p-1">
           <Tooltip>
             <TooltipTrigger asChild>

@@ -4,21 +4,14 @@ import { useAuth } from "@/context/auth";
 import { useDebounce } from "@/context/debounce";
 import { usePurchases } from "@/context/purchases";
 import { useSearch } from "@/context/search";
-import type { BoundingBox } from "@/data/search";
+import type { BoundingBox } from "@/data/typesense";
 import { profileImage } from "@/domain/types/user_model";
 import { isVenueGoodFit } from "@/utils/good_fit";
 import classNames from "classnames";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState, type JSX } from "react";
 import {
   FullscreenControl,
   GeolocateControl,
@@ -138,6 +131,8 @@ function _VenueMap({
 
     const newMarkers = (data ?? [])
       .map((venue) => {
+        console.log({ venue });
+
         const lat = venue.location?.lat ?? null;
         const lng = venue.location?.lng ?? null;
 

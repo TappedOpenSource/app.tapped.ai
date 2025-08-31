@@ -1,12 +1,13 @@
 import ApplicantsTable from "@/components/opportunity/ApplicantsTable";
 
-export default function Page({
-  params,
-}: {
-  params: {
-    opportunityId: string;
-  };
-}) {
+export default async function Page(
+  props: {
+    params: Promise<{
+      opportunityId: string;
+    }>;
+  }
+) {
+  const params = await props.params;
   const { opportunityId } = params;
   return (
     <>

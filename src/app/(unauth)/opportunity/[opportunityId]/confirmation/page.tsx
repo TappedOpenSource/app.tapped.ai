@@ -4,13 +4,14 @@ import Link from "next/link";
 
 const colors = ["blue-500", "purple-500", "green-600", "red-600", "yellow-800", "indigo-300", "pink-500", "yellow-800"];
 
-export default function Page({
-  params,
-}: {
-  params: {
-    opportunityId: string;
-  };
-}) {
+export default async function Page(
+  props: {
+    params: Promise<{
+      opportunityId: string;
+    }>;
+  }
+) {
+  const params = await props.params;
   const { opportunityId } = params;
   return (
     <>

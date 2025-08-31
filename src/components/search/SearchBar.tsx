@@ -4,12 +4,7 @@ import { type UserModel } from "@/domain/types/user_model";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useDebounce } from "@/context/debounce";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { useStore } from "@/context/use-store";
@@ -58,7 +53,7 @@ export default function SearchBar(props: {
           <TooltipProvider disableHoverableContent>
             <Tooltip delayDuration={100}>
               <TooltipTrigger asChild>
-                {props.openDialog ?? true ? (
+                {(props.openDialog ?? true) ? (
                   <button
                     className="w-full"
                     onClick={() => {

@@ -4,16 +4,14 @@ import { Opportunity, opImage } from "@/domain/types/opportunity";
 import Footer from "@/components/Footer";
 
 type Props = {
-  params: { opportunityId: string };
-  searchParams: { [key: string]: string };
+  params: Promise<{ opportunityId: string }>;
+  searchParams: Promise<{ [key: string]: string }>;
 };
 
 const getOpportunityByIdUrl = `${process.env.NEXT_PUBLIC_API_URL}/getOpportunityById`;
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
+  const params = await props.params;
   const metadataBase = "https://tapped.ai";
   try {
     const { opportunityId } = params;
@@ -54,17 +52,16 @@ export async function generateMetadata(
   }
 }
 
-export default function Page({ params, searchParams }: Props) {
+export default async function Page(props: Props) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const { opportunityId } = params;
   const rawShowConfirmation = searchParams["show_confirmation"] ?? "false";
   const showConfirmation = rawShowConfirmation === "true";
 
   return (
     <>
-      <OpportunityView
-        opportunityId={opportunityId}
-        showConfirmation={showConfirmation}
-      />
+      <OpportunityView opportunityId={opportunityId} showConfirmation={showConfirmation} />
       <Footer />
     </>
   );

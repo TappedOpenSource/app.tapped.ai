@@ -5,9 +5,10 @@ import { getBookingsByRequestee, getBookingsByRequester, getUserById } from "@/d
 import { Booking } from "@/domain/types/booking";
 import { UserModel } from "@/domain/types/user_model";
 import { useRouter } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 
-export default function History({ params }: { params: { userid: string } }) {
+export default function History(props: { params: Promise<{ userid: string }> }) {
+  const params = use(props.params);
   const router = useRouter();
   const userId = params.userid;
 

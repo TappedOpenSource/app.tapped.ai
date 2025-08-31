@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  typesense:
+    image: typesense/typesense:29.0
+    restart: on-failure
+    ports:
+      - "8108:8108"
+    volumes:
+      - typesense-data:/data
+    command: "--data-dir /data --api-key=devapikey123 --enable-cors"
+    environment:
+      - TYPESENSE_API_KEY=devapikey123
+      - TYPESENSE_DATA_DIR=/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8108/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Typesense Dashboard for easy management
+  typesense-dashboard:
+    image: ghcr.io/bfritscher/typesense-dashboard:latest
+    ports:
+      - "3001:80"
+    environment:
+      - TYPESENSE_HOST=typesense
+      - TYPESENSE_PORT=8108
+      - TYPESENSE_PROTOCOL=http
+      - TYPESENSE_API_KEY=devapikey123
+    depends_on:
+      - typesense
+
+volumes:
+  typesense-data:
+    driver: local

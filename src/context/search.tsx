@@ -1,5 +1,5 @@
 import { autocompleteCities, searchPlaces } from "@/data/places";
-import { BoundingBox, queryVenuesInBoundedBox, queryUsers, UserSearchOptions } from "@/data/search";
+import { BoundingBox, queryVenuesInBoundedBox, queryUsers, UserSearchOptions } from "@/data/typesense";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { ReactNode } from "react";
 

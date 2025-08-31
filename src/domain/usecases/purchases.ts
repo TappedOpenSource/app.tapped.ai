@@ -2,11 +2,7 @@ import type { Dispatch } from "@/context/purchases";
 import { revenueCatApiKey } from "@/data/purchases";
 import { Purchases } from "@revenuecat/purchases-js";
 
-export async function initPurchases(
-  currentUserId: string,
-  state: boolean | null,
-  dispatch: Dispatch
-) {
+export async function initPurchases(currentUserId: string, state: boolean | null, dispatch: Dispatch) {
   try {
     if (revenueCatApiKey === undefined) {
       throw new Error("RevenueCat API key is not set");
