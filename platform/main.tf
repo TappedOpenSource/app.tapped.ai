@@ -54,10 +54,13 @@ variable "email" {
   default     = "support@tapped.ai"
 }
 
-# Generate a random API key for Typesense
+# Generate a random API key for Typesense (URL-safe)
 resource "random_password" "typesense_api_key" {
   length  = 32
-  special = true
+  special = false
+  upper   = true
+  lower   = true
+  numeric = true
 }
 
 # Store the API key in Secret Manager
@@ -87,7 +90,7 @@ resource "google_compute_firewall" "web_firewall" {
 
   allow {
     protocol = "tcp"
-    ports    = ["80", "443"] # HTTP and HTTPS only
+    ports    = ["80"] # HTTP only
   }
 
   allow {
@@ -160,8 +163,7 @@ resource "google_compute_instance" "typesense_instance" {
     systemctl enable nginx
     systemctl start nginx
 
-    # Install Certbot
-    apt-get install -y certbot python3-certbot-nginx
+    # Skip Certbot installation for HTTP-only setup
 
     # Install Docker and Google Cloud SDK
     if ! command -v docker &> /dev/null; then
@@ -186,48 +188,33 @@ resource "google_compute_instance" "typesense_instance" {
     mkdir -p /opt/typesense/data
     chown -R ubuntu:ubuntu /opt/typesense
 
-    # Create Nginx configuration for Typesense
-    cat > /etc/nginx/sites-available/${var.domain_name} << 'EOL'
+    # Create Nginx configuration for Typesense (HTTP only)
+    cat > /etc/nginx/sites-available/${var.domain_name} << EOL
 server {
     listen 80;
     server_name ${var.domain_name};
 
-    location /.well-known/acme-challenge/ {
-        root /var/www/html;
-    }
-
     location / {
-        return 301 https://$$server_name$$request_uri;
-    }
-}
+        # Handle preflight requests
+        if (\$request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' '*' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-TYPESENSE-API-KEY' always;
+            add_header 'Content-Length' 0;
+            add_header 'Content-Type' 'text/plain charset=UTF-8';
+            return 204;
+        }
 
-server {
-    listen 443 ssl http2;
-    server_name ${var.domain_name};
+        # CORS headers for all other requests
+        add_header 'Access-Control-Allow-Origin' '*' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-TYPESENSE-API-KEY' always;
 
-    # SSL configuration will be added by Certbot
-
-    # CORS headers
-    add_header 'Access-Control-Allow-Origin' '*' always;
-    add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
-    add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-TYPESENSE-API-KEY' always;
-
-    # Handle preflight requests
-    if ($$request_method = 'OPTIONS') {
-        add_header 'Access-Control-Allow-Origin' '*';
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
-        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-TYPESENSE-API-KEY';
-        add_header 'Content-Length' 0;
-        add_header 'Content-Type' 'text/plain charset=UTF-8';
-        return 204;
-    }
-
-    location / {
         proxy_pass http://127.0.0.1:8108;
-        proxy_set_header Host $$host;
-        proxy_set_header X-Real-IP $$remote_addr;
-        proxy_set_header X-Forwarded-For $$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $$scheme;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
     }
 }
 EOL
@@ -280,16 +267,10 @@ EOL
     systemctl daemon-reload
     systemctl reload nginx
 
-    # Create SSL certificate script
-    cat > /opt/setup-ssl.sh << 'EOL'
-#!/bin/bash
-# Run this script after DNS is pointed to this server
-certbot --nginx -d ${var.domain_name} --non-interactive --agree-tos --email ${var.email} --redirect
-systemctl enable --now typesense
-EOL
-    chmod +x /opt/setup-ssl.sh
+    # Start Typesense service immediately
+    systemctl enable --now typesense
 
-    echo "Setup completed at $(date). Run /opt/setup-ssl.sh after DNS propagation."
+    echo "Setup completed at $(date). Typesense is running on HTTP."
     touch /var/log/startup-script.log
 
   EOF
@@ -325,14 +306,9 @@ output "typesense_url_http" {
   value       = "http://${google_compute_address.typesense_ip.address}:8108"
 }
 
-output "typesense_url_https" {
-  description = "Typesense server URL with HTTPS (after DNS setup)"
-  value       = "https://${var.domain_name}"
-}
-
-output "ssl_setup_command" {
-  description = "Command to run after DNS propagation to setup SSL"
-  value       = "ssh to server and run: /opt/setup-ssl.sh"
+output "typesense_url" {
+  description = "Typesense server URL"
+  value       = "http://${var.domain_name}"
 }
 
 output "typesense_api_key" {
