@@ -90,7 +90,7 @@ resource "google_compute_firewall" "web_firewall" {
 
   allow {
     protocol = "tcp"
-    ports    = ["80"] # HTTP only
+    ports    = ["8108"] # Typesense direct access
   }
 
   allow {
@@ -188,39 +188,7 @@ resource "google_compute_instance" "typesense_instance" {
     mkdir -p /opt/typesense/data
     chown -R ubuntu:ubuntu /opt/typesense
 
-    # Create Nginx configuration for Typesense (HTTP only)
-    cat > /etc/nginx/sites-available/${var.domain_name} << EOL
-server {
-    listen 80;
-    server_name ${var.domain_name};
-
-    location / {
-        # Handle preflight requests
-        if (\$request_method = 'OPTIONS') {
-            add_header 'Access-Control-Allow-Origin' '*' always;
-            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
-            add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-TYPESENSE-API-KEY' always;
-            add_header 'Content-Length' 0;
-            add_header 'Content-Type' 'text/plain charset=UTF-8';
-            return 204;
-        }
-
-        # CORS headers for all other requests
-        add_header 'Access-Control-Allow-Origin' '*' always;
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
-        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-TYPESENSE-API-KEY' always;
-
-        proxy_pass http://127.0.0.1:8108;
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
-    }
-}
-EOL
-
-    # Enable the site
-    ln -sf /etc/nginx/sites-available/${var.domain_name} /etc/nginx/sites-enabled/
+    # Remove default Nginx site
     rm -f /etc/nginx/sites-enabled/default
 
     # Test Nginx configuration
@@ -237,7 +205,7 @@ if [ -z "$API_KEY" ]; then
 fi
 
 # Start Typesense with the retrieved API key
-exec /usr/bin/docker run --rm --name typesense -p 127.0.0.1:8108:8108 -v /opt/typesense/data:/data typesense/typesense:0.25.2 --data-dir /data --api-key="$API_KEY" --enable-cors
+exec /usr/bin/docker run --rm --name typesense -p 8108:8108 -v /opt/typesense/data:/data typesense/typesense:0.25.2 --data-dir /data --api-key="$API_KEY" --enable-cors
 EOL
     chmod +x /opt/typesense/start-typesense.sh
     chown ubuntu:ubuntu /opt/typesense/start-typesense.sh

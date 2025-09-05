@@ -26,7 +26,6 @@ export async function POST(request: NextRequest) {
     }
 
     let results;
-
     switch (type) {
       case "users":
         if (typeof query !== "string") {
