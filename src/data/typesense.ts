@@ -231,22 +231,22 @@ export function convertTypesenseDocumentToUserModel(doc: any): UserModel {
     id: doc.id || "",
     email: doc.email || "",
     unclaimed: doc.unclaimed || false,
-    timestamp: doc.timestamp ?
-      Timestamp.fromDate(new Date(doc.timestamp)) :
-      Timestamp.now(),
+    timestamp: doc.timestamp
+      ? Timestamp.fromDate(new Date(doc.timestamp))
+      : Timestamp.now(),
     username: doc.username || "",
     artistName: doc.artistName || "",
     bio: doc.bio || "",
     occupations: doc.occupations || [],
     profilePicture: doc.profilePicture || null,
     location:
-      doc.location && Array.isArray(doc.location) && doc.location.length >= 2 ?
-        {
-          lat: doc.location[0],
-          lng: doc.location[1],
-          placeId: doc["location.placeId"] || "",
-        } :
-        null,
+      doc.location && Array.isArray(doc.location) && doc.location.length >= 2
+        ? {
+            lat: doc.location[0],
+            lng: doc.location[1],
+            placeId: doc["location.placeId"] || "",
+          }
+        : null,
     performerInfo:
       doc["performerInfo.label"] ||
       doc["performerInfo.genres"] ||
@@ -254,17 +254,17 @@ export function convertTypesenseDocumentToUserModel(doc: any): UserModel {
       doc["performerInfo.reviewCount"] !== undefined ||
       doc["performerInfo.spotifyId"] ||
       doc["performerInfo.category"] ||
-      doc["performerInfo.pressKitUrl"] ?
-        {
-          pressKitUrl: doc["performerInfo.pressKitUrl"] || null,
-          genres: doc["performerInfo.genres"] || [],
-          rating: doc["performerInfo.rating"] || null,
-          reviewCount: doc["performerInfo.reviewCount"] || 0,
-          label: doc["performerInfo.label"] || "",
-          spotifyId: doc["performerInfo.spotifyId"] || null,
-          category: doc["performerInfo.category"] || "undiscovered",
-        } :
-        null,
+      doc["performerInfo.pressKitUrl"]
+        ? {
+            pressKitUrl: doc["performerInfo.pressKitUrl"] || null,
+            genres: doc["performerInfo.genres"] || [],
+            rating: doc["performerInfo.rating"] || null,
+            reviewCount: doc["performerInfo.reviewCount"] || 0,
+            label: doc["performerInfo.label"] || "",
+            spotifyId: doc["performerInfo.spotifyId"] || null,
+            category: doc["performerInfo.category"] || "undiscovered",
+          }
+        : null,
     venueInfo:
       doc["venueInfo.genres"] ||
       doc["venueInfo.websiteUrl"] ||
@@ -279,66 +279,66 @@ export function convertTypesenseDocumentToUserModel(doc: any): UserModel {
       doc["venueInfo.monitors"] ||
       doc["venueInfo.microphones"] ||
       doc["venueInfo.lights"] ||
-      doc["venueInfo.topPerformerIds"] ?
-        {
-          genres: doc["venueInfo.genres"] || [],
-          websiteUrl: doc["venueInfo.websiteUrl"] || null,
-          bookingEmail: doc["venueInfo.bookingEmail"] || null,
-          phoneNumber: doc["venueInfo.phoneNumber"] || null,
-          autoReply: doc["venueInfo.autoReply"] || null,
-          capacity: doc["venueInfo.capacity"] || null,
-          idealPerformerProfile:
+      doc["venueInfo.topPerformerIds"]
+        ? {
+            genres: doc["venueInfo.genres"] || [],
+            websiteUrl: doc["venueInfo.websiteUrl"] || null,
+            bookingEmail: doc["venueInfo.bookingEmail"] || null,
+            phoneNumber: doc["venueInfo.phoneNumber"] || null,
+            autoReply: doc["venueInfo.autoReply"] || null,
+            capacity: doc["venueInfo.capacity"] || null,
+            idealPerformerProfile:
               doc["venueInfo.idealPerformerProfile"] || null,
-          type: doc["venueInfo.type"] || null,
-          productionInfo: doc["venueInfo.productionInfo"] || null,
-          frontOfHouse: doc["venueInfo.frontOfHouse"] || null,
-          monitors: doc["venueInfo.monitors"] || null,
-          microphones: doc["venueInfo.microphones"] || null,
-          lights: doc["venueInfo.lights"] || null,
-          topPerformerIds: doc["venueInfo.topPerformerIds"] || [],
-          bookingsByDayOfWeek:
+            type: doc["venueInfo.type"] || null,
+            productionInfo: doc["venueInfo.productionInfo"] || null,
+            frontOfHouse: doc["venueInfo.frontOfHouse"] || null,
+            monitors: doc["venueInfo.monitors"] || null,
+            microphones: doc["venueInfo.microphones"] || null,
+            lights: doc["venueInfo.lights"] || null,
+            topPerformerIds: doc["venueInfo.topPerformerIds"] || [],
+            bookingsByDayOfWeek:
               doc["venueInfo.bookingsByDayOfWeek"] || undefined,
-        } :
-        null,
+          }
+        : null,
     bookerInfo:
       doc["bookerInfo.rating"] !== undefined ||
-      doc["bookerInfo.reviewCount"] !== undefined ?
-        {
-          rating: doc["bookerInfo.rating"] || null,
-          reviewCount: doc["bookerInfo.reviewCount"] || 0,
-        } :
-        null,
+      doc["bookerInfo.reviewCount"] !== undefined
+        ? {
+            rating: doc["bookerInfo.rating"] || null,
+            reviewCount: doc["bookerInfo.reviewCount"] || 0,
+          }
+        : null,
     emailNotifications: {
       appReleases:
-        doc["emailNotifications.appReleases"] !== undefined ?
-          doc["emailNotifications.appReleases"] :
-          true,
+        doc["emailNotifications.appReleases"] !== undefined
+          ? doc["emailNotifications.appReleases"]
+          : true,
       tappedUpdates:
-        doc["emailNotifications.tappedUpdates"] !== undefined ?
-          doc["emailNotifications.tappedUpdates"] :
-          true,
+        doc["emailNotifications.tappedUpdates"] !== undefined
+          ? doc["emailNotifications.tappedUpdates"]
+          : true,
       bookingRequests:
-        doc["emailNotifications.bookingRequests"] !== undefined ?
-          doc["emailNotifications.bookingRequests"] :
-          true,
+        doc["emailNotifications.bookingRequests"] !== undefined
+          ? doc["emailNotifications.bookingRequests"]
+          : true,
     },
     pushNotifications: {
       appReleases:
-        doc["pushNotifications.appReleases"] !== undefined ?
-          doc["pushNotifications.appReleases"] :
-          true,
+        doc["pushNotifications.appReleases"] !== undefined
+          ? doc["pushNotifications.appReleases"]
+          : true,
       tappedUpdates:
-        doc["pushNotifications.tappedUpdates"] !== undefined ?
-          doc["pushNotifications.tappedUpdates"] :
-          true,
+        doc["pushNotifications.tappedUpdates"] !== undefined
+          ? doc["pushNotifications.tappedUpdates"]
+          : true,
       bookingRequests:
-        doc["pushNotifications.bookingRequests"] !== undefined ?
-          doc["pushNotifications.bookingRequests"] :
-          true,
+        doc["pushNotifications.bookingRequests"] !== undefined
+          ? doc["pushNotifications.bookingRequests"]
+          : true,
       directMessages:
-        doc["pushNotifications.directMessages"] !== undefined ?
-          doc["pushNotifications.directMessages"] :
-          true,
+        doc["pushNotifications.directMessages"] !== undefined
+          ? doc["pushNotifications.directMessages"]
+          : true,
     },
     deleted: doc.deleted || false,
     socialFollowing: {
