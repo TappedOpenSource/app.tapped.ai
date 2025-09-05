@@ -8,7 +8,14 @@ import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { onboardNewUser } from "@/domain/usecases/onboarding";
 import { useState } from "react";
 import { LoadingSpinner } from "../LoadingSpinner";
@@ -42,9 +49,12 @@ export default function OnboardingForm({
     dispatch,
   } = useAuth();
   const defaultUsername =
-    authUser?.displayName !== undefined ?
-      `${authUser?.displayName?.replaceAll(" ", "").toLowerCase()}${Math.floor(Math.random() * 1000)}` :
-      generateDefaultUsername();
+    authUser?.displayName !== undefined
+      ? `${authUser?.displayName
+          ?.replaceAll(" ", "")
+          .toLowerCase()}${Math.floor(Math.random() * 1000)}`
+      : generateDefaultUsername();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -121,7 +131,11 @@ export default function OnboardingForm({
                 <FormItem>
                   <FormLabel>username</FormLabel>
                   <FormControl>
-                    <Input id="username" placeholder="handle (no caps or spaces)" {...field} />
+                    <Input
+                      id="username"
+                      placeholder="handle (no caps or spaces)"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -134,12 +148,20 @@ export default function OnboardingForm({
                 render={({ field }) => (
                   <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                     <FormControl>
-                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
                     </FormControl>
                     <div className="space-y-1 leading-none">
                       <FormLabel>
                         i agree to the{" "}
-                        <Link className="underline" href="/eula" target="_blank" rel="noopener noreferrer">
+                        <Link
+                          className="underline"
+                          href="/eula"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           eula
                         </Link>
                       </FormLabel>
@@ -148,7 +170,11 @@ export default function OnboardingForm({
                 )}
               />
             </div>
-            <Button className="w-full" type="submit" disabled={!form.getValues().eula}>
+            <Button
+              className="w-full"
+              type="submit"
+              disabled={!form.getValues().eula}
+            >
               complete onboarding
             </Button>
           </form>

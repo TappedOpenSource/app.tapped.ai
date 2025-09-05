@@ -58,14 +58,14 @@ const Step = React.forwardRef<HTMLLIElement, StepProps>((props, ref: React.Ref<a
   const renderStep = () => {
     // eslint-disable-next-line sonarjs/no-small-switch
     switch (isVertical) {
-    case true:
-      return (
-        <VerticalStep ref={ref} {...sharedProps}>
-          {children}
-        </VerticalStep>
-      );
-    default:
-      return <HorizontalStep ref={ref} {...sharedProps} />;
+      case true:
+        return (
+          <VerticalStep ref={ref} {...sharedProps}>
+            {children}
+          </VerticalStep>
+        );
+      default:
+        return <HorizontalStep ref={ref} {...sharedProps} />;
     }
   };
 

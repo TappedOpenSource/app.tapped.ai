@@ -22,13 +22,13 @@ export type UserSearchOptions = {
 export const typesenseClient = new Typesense.Client({
   nodes: [
     {
-      host: process.env.NEXT_PUBLIC_TYPESENSE_HOST || "localhost",
-      port: parseInt(process.env.NEXT_PUBLIC_TYPESENSE_PORT || "8108"),
-      protocol: process.env.NEXT_PUBLIC_TYPESENSE_PROTOCOL || "http",
+      host: process.env.TYPESENSE_HOST || "localhost",
+      port: parseInt(process.env.TYPESENSE_PORT || "8108"),
+      protocol: process.env.TYPESENSE_PROTOCOL || "http",
     },
   ],
-  apiKey: process.env.NEXT_PUBLIC_TYPESENSE_SEARCH_API_KEY || "",
-  connectionTimeoutSeconds: 2,
+  apiKey: process.env.TYPESENSE_SEARCH_API_KEY || "",
+  connectionTimeoutSeconds: 10,
 });
 
 export type BoundingBox = {

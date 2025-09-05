@@ -15,9 +15,9 @@ export default function UserChip({ user, onClick }: { user: UserModel; onClick?:
         onClick={() => {
           onClick?.();
           const newSearchParams = `username=${user.username}`;
-          const newPathname = pathname.includes("?") ?
-            `${pathname}&${newSearchParams}` :
-            `${pathname}?${newSearchParams}`;
+          const newPathname = pathname.includes("?")
+            ? `${pathname}&${newSearchParams}`
+            : `${pathname}?${newSearchParams}`;
           router.push(newPathname);
         }}
       >

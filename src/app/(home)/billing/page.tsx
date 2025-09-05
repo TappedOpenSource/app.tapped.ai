@@ -85,20 +85,20 @@ export default function Page() {
                   <span className="font-medium">Next Billing Date:</span>{" "}
                   {customerInfo.allExpirationDatesByProduct[
                     Array.from(customerInfo.activeSubscriptions)[0]
-                  ] ?
-                    format(
+                  ]
+                    ? format(
                         customerInfo.allExpirationDatesByProduct[
                           Array.from(customerInfo.activeSubscriptions)[0]
                         ] as Date,
                         "MMMM do, yyyy"
-                    ) :
-                    "N/A"}
+                      )
+                    : "N/A"}
                 </div>
                 <div>
                   <span className="font-medium">Original Purchase Date:</span>{" "}
-                  {customerInfo.originalPurchaseDate ?
-                    format(customerInfo.originalPurchaseDate, "MMMM do, yyyy") :
-                    "N/A"}
+                  {customerInfo.originalPurchaseDate
+                    ? format(customerInfo.originalPurchaseDate, "MMMM do, yyyy")
+                    : "N/A"}
                 </div>
               </>
             )}

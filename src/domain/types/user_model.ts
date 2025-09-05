@@ -235,15 +235,15 @@ export const isVenue = (user: UserModel): boolean =>
   user.venueInfo !== null && user.venueInfo !== undefined;
 
 export const profileImage = (user: UserModel): string =>
-  isVenue(user) ?
-    imageOrDefault({
-      url: user.profilePicture,
-      defaultImage: "/images/default_venue.png",
-    }) :
-    imageOrDefault({
-      url: user.profilePicture,
-      defaultImage: "/images/default_avatar.png",
-    });
+  isVenue(user)
+    ? imageOrDefault({
+        url: user.profilePicture,
+        defaultImage: "/images/default_venue.png",
+      })
+    : imageOrDefault({
+        url: user.profilePicture,
+        defaultImage: "/images/default_avatar.png",
+      });
 
 export const imageOrDefault = ({
   url,

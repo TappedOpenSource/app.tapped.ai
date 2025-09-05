@@ -1,21 +1,46 @@
 import { autocompleteCities, searchPlaces } from "@/data/places";
-import { BoundingBox, queryVenuesInBoundedBox, queryUsers, UserSearchOptions } from "@/data/typesense";
-import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { BoundingBox, UserSearchOptions } from "@/data/typesense";
+import { UserModel } from "@/domain/types/user_model";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 import { ReactNode } from "react";
 
 export const useSearch = () => {
-  const useVenueData = (boundingBox: BoundingBox | null, options: UserSearchOptions) =>
+  const useVenueData = (
+    boundingBox: BoundingBox | null,
+    options: UserSearchOptions
+  ) =>
     useQuery({
       queryKey: ["venues", boundingBox],
-      queryFn: async () => {
-        return await queryVenuesInBoundedBox(boundingBox, options);
+      queryFn: async (): Promise<UserModel[]> => {
+        const response = await fetch("/api/search", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            type: "venues",
+            boundingBox,
+            options,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch venues");
+        }
+
+        const data = await response.json();
+        return data.results;
       },
     });
 
   const useSearchData = (query: string, options: UserSearchOptions) =>
     useQuery({
       queryKey: ["users", `${query}-${JSON.stringify(options)}`],
-      queryFn: async () => {
+      queryFn: async (): Promise<UserModel[]> => {
         if (
           query === "" &&
           options.lat === undefined &&
@@ -27,7 +52,24 @@ export const useSearch = () => {
           return [];
         }
 
-        return await queryUsers(query, options);
+        const response = await fetch("/api/search", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            type: "users",
+            query,
+            options,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch users");
+        }
+
+        const data = await response.json();
+        return data.results;
       },
     });
 
@@ -65,5 +107,7 @@ export const useSearch = () => {
 
 export function SearchProvider({ children }: { children: ReactNode }) {
   const queryClient = new QueryClient();
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
 }

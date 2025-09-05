@@ -57,9 +57,9 @@ export default function ProfileHeader({
   const isPerformer = user.performerInfo !== null && user.performerInfo !== undefined;
   const isVenue = user.venueInfo !== null && user.venueInfo !== undefined;
   const dayOfWeekData = user.venueInfo?.bookingsByDayOfWeek ?? [];
-  const websiteUrl = user.venueInfo?.websiteUrl?.startsWith("http") ?
-    user.venueInfo?.websiteUrl :
-    `https://${user.venueInfo?.websiteUrl}`;
+  const websiteUrl = user.venueInfo?.websiteUrl?.startsWith("http")
+    ? user.venueInfo?.websiteUrl
+    : `https://${user.venueInfo?.websiteUrl}`;
 
   const { resolvedTheme } = useTheme();
 
