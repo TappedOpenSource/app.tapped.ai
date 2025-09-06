@@ -4,21 +4,14 @@ import { useAuth } from "@/context/auth";
 import { useDebounce } from "@/context/debounce";
 import { usePurchases } from "@/context/purchases";
 import { useSearch } from "@/context/search";
-import type { BoundingBox } from "@/data/search";
+import type { BoundingBox } from "@/data/typesense";
 import { profileImage } from "@/domain/types/user_model";
 import { isVenueGoodFit } from "@/utils/good_fit";
 import classNames from "classnames";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState, type JSX } from "react";
 import {
   FullscreenControl,
   GeolocateControl,
@@ -138,6 +131,8 @@ function _VenueMap({
 
     const newMarkers = (data ?? [])
       .map((venue) => {
+        console.log({ venue });
+
         const lat = venue.location?.lat ?? null;
         const lng = venue.location?.lng ?? null;
 
@@ -149,12 +144,12 @@ function _VenueMap({
         const imageSrc = profileImage(venue);
 
         const goodFit =
-          currentUser !== null && subscribed === true ?
-            isVenueGoodFit({
-              user: currentUser,
-              venue,
-            }) :
-            false;
+          currentUser !== null && subscribed === true
+            ? isVenueGoodFit({
+                user: currentUser,
+                venue,
+              })
+            : false;
         const hasBookingData = venue.venueInfo?.bookingsByDayOfWeek?.some(
           (val) => val !== 0
         );
@@ -175,9 +170,9 @@ function _VenueMap({
             <div
               className={cn(
                 "bg-background flex transform flex-row items-center justify-center rounded-xl px-1 py-1 shadow-lg transition-all duration-200 ease-in-out hover:scale-105 hover:cursor-pointer",
-                hasBookingData ?
-                  "border-2 border-dotted border-yellow-500" :
-                  "border-background border-none"
+                hasBookingData
+                  ? "border-2 border-dotted border-yellow-500"
+                  : "border-background border-none"
               )}
             >
               <div className="relative h-[22px] w-[22px]">

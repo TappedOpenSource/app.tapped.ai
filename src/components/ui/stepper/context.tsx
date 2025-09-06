@@ -21,24 +21,24 @@ type StepperContextProviderProps = {
 
 const StepperContext = React.createContext<
   StepperContextValue & {
-    nextStep:() => void;
+    nextStep: () => void;
     prevStep: () => void;
     resetSteps: () => void;
     setStep: (step: number) => void;
-      }
-      >({
-        steps: [],
-        activeStep: 0,
-        initialStep: 0,
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        nextStep: () => {},
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        prevStep: () => {},
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        resetSteps: () => {},
-        // eslint-disable-next-line @typescript-eslint/no-empty-function, indent
+  }
+>({
+  steps: [],
+  activeStep: 0,
+  initialStep: 0,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  nextStep: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  prevStep: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  resetSteps: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function, indent
   setStep: () => {},
-      });
+});
 
 const StepperProvider = ({ value, children }: StepperContextProviderProps) => {
   const isError = value.state === "error";

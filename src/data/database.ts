@@ -502,7 +502,7 @@ export async function createCheckoutSession({
 export async function getActiveProducts(): Promise<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   { product: any; prices: any }[]
-  > {
+> {
   const productsQuery = query(collection(db, "products"), where("active", "==", true));
   const products = await getDocs(productsQuery);
 

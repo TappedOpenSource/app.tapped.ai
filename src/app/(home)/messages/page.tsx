@@ -154,7 +154,7 @@ export default function Page() {
           showChannelSearch
         />
       </div>
-      <Channel enrichURLForPreview>
+      <Channel>
         <div className="h-screen w-full">
           <Window>
             <ChannelHeader MenuIcon={Menu} />

@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, use } from "react";
 import { getReviewsByPerformerId } from "@/data/database";
 import ReviewTile from "@/components/profile/ReviewTile";
 import { Review } from "@/domain/types/review";
 
-export default function Reviews({
-  params,
-}: {
-  params: { userid: string };
-}) {
+export default function Reviews(
+  props: {
+    params: Promise<{ userid: string }>;
+  }
+) {
+  const params = use(props.params);
   const userId = params.userid;
 
   const [loading, setLoading] = useState(true);

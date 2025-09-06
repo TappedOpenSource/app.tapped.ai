@@ -72,12 +72,7 @@ export default function DashboardLayout({
     <>
       <TappedSheet />
       <SearchProvider>
-        <Chat
-          client={client}
-          theme={`str-chat__theme-${
-            resolvedTheme === "dark" ? "dark" : "light"
-          }`}
-        >
+        <Chat client={client} theme={`str-chat__theme-${resolvedTheme === "dark" ? "dark" : "light"}`}>
           <SearchDialog />
           <main className="w-full">{children}</main>
         </Chat>

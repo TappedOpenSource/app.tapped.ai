@@ -2,14 +2,15 @@ import { LoadingSpinner } from "@/components/LoadingSpinner";
 import VenueMap from "@/components/map/map";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, use } from "react";
 import { useFeatureFlag } from "@/context/use-feature-flag";
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string };
-}) {
+export default function Page(
+  props: {
+    searchParams: Promise<{ [key: string]: string }>;
+  }
+) {
+  const searchParams = use(props.searchParams);
   const { value } = useFeatureFlag("map-city-center");
   const latlng = {
     control: { lat: "40.730610", lng: "-73.935242" }, // new york
@@ -43,24 +44,15 @@ export default function Page({
       <div className="no-scroll bottom-0 z-40 hidden w-full md:absolute">
         <div className="flex flex-row items-center justify-center">
           <p className="text-center text-sm">
-            © {new Date().getFullYear()} Tapped Industries Inc. All rights
-            reserved.
+            © {new Date().getFullYear()} Tapped Industries Inc. All rights reserved.
           </p>
           <Button variant="link">
-            <Link
-              href="https://tapped.ai/privacy"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
+            <Link href="https://tapped.ai/privacy" target="_blank" rel="noreferrer noopener">
               privacy policy
             </Link>
           </Button>
           <Button variant="link">
-            <Link
-              href="https://tapped.ai/terms"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
+            <Link href="https://tapped.ai/terms" target="_blank" rel="noreferrer noopener">
               terms of service
             </Link>
           </Button>

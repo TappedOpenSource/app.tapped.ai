@@ -278,98 +278,98 @@ const DateTimePicker = React.forwardRef<
   DateTimePickerRef,
   DatePickerStateOptions<DateValue> & {
     jsDate?: Date | null;
-    onJsDateChange?:(date: Date) => void;
+    onJsDateChange?: (date: Date) => void;
     showClearButton?: boolean;
-      }
-      >(({ jsDate, onJsDateChange, showClearButton = true, ...props }, ref) => {
-        const divRef = useRef<HTMLDivElement | null>(null);
-        const buttonRef = useRef<HTMLButtonElement | null>(null);
-        const contentRef = useRef<HTMLDivElement | null>(null);
-        const [jsDatetime, setJsDatetime] = useState(jsDate || null);
+  }
+>(({ jsDate, onJsDateChange, showClearButton = true, ...props }, ref) => {
+  const divRef = useRef<HTMLDivElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const [jsDatetime, setJsDatetime] = useState(jsDate || null);
 
-        const state = useDatePickerState(props);
+  const state = useDatePickerState(props);
 
-        useImperativeHandle(ref, () => ({
-          divRef: divRef.current,
-          buttonRef: buttonRef.current,
-          contentRef: contentRef.current,
-          jsDate: jsDatetime,
-          state,
-        }));
-        const {
-          groupProps,
-          fieldProps,
-          buttonProps: _buttonProps,
-          dialogProps,
-          calendarProps,
-        } = useDatePicker({ ...props, "aria-label": "date-picker" }, state, divRef);
-        const { buttonProps } = useButton(_buttonProps, buttonRef);
+  useImperativeHandle(ref, () => ({
+    divRef: divRef.current,
+    buttonRef: buttonRef.current,
+    contentRef: contentRef.current,
+    jsDate: jsDatetime,
+    state,
+  }));
+  const {
+    groupProps,
+    fieldProps,
+    buttonProps: _buttonProps,
+    dialogProps,
+    calendarProps,
+  } = useDatePicker({ ...props, "aria-label": "date-picker" }, state, divRef);
+  const { buttonProps } = useButton(_buttonProps, buttonRef);
 
-        const currentValue = useCallback(() => {
-          if (!jsDatetime) {
-            return null;
-          }
+  const currentValue = useCallback(() => {
+    if (!jsDatetime) {
+      return null;
+    }
 
-          const parsed = fromDate(jsDatetime, getLocalTimeZone());
+    const parsed = fromDate(jsDatetime, getLocalTimeZone());
 
-          if (state.hasTime) {
-            return toCalendarDateTime(parsed);
-          }
+    if (state.hasTime) {
+      return toCalendarDateTime(parsed);
+    }
 
-          return toCalendarDate(parsed);
-        }, [jsDatetime, state.hasTime]);
+    return toCalendarDate(parsed);
+  }, [jsDatetime, state.hasTime]);
 
-        useEffect(() => {
-          /**
+  useEffect(() => {
+    /**
      * If user types datetime, it will be a null value until we get the correct datetime.
      * This is controlled by react-aria.
      **/
-          if (state.value) {
-            const date = parseDateTime(state.value.toString()).toDate(getLocalTimeZone());
-            setJsDatetime(date);
-            onJsDateChange?.(date);
-          }
-        }, [state.value, onJsDateChange]);
-        return (
-          <div
-            {...groupProps}
-            ref={divRef}
-            className={cn(
-              groupProps.className,
-              "ring-offset-background focus-within:ring-ring flex items-center rounded-md border focus-within:ring-2 focus-within:ring-offset-2",
-            )}
+    if (state.value) {
+      const date = parseDateTime(state.value.toString()).toDate(getLocalTimeZone());
+      setJsDatetime(date);
+      onJsDateChange?.(date);
+    }
+  }, [state.value, onJsDateChange]);
+  return (
+    <div
+      {...groupProps}
+      ref={divRef}
+      className={cn(
+        groupProps.className,
+        "ring-offset-background focus-within:ring-ring flex items-center rounded-md border focus-within:ring-2 focus-within:ring-offset-2",
+      )}
+    >
+      <Popover open={props.isOpen} onOpenChange={props.onOpenChange}>
+        <PopoverTrigger asChild>
+          <Button
+            {...buttonProps}
+            variant="ghost"
+            className="border-r"
+            disabled={props.isDisabled}
+            onClick={() => {
+              state.setOpen(true);
+            }}
           >
-            <Popover open={props.isOpen} onOpenChange={props.onOpenChange}>
-              <PopoverTrigger asChild>
-                <Button
-                  {...buttonProps}
-                  variant="ghost"
-                  className="border-r"
-                  disabled={props.isDisabled}
-                  onClick={() => {
-                    state.setOpen(true);
-                  }}
-                >
-                  <CalendarIcon className="h-5 w-5" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent ref={contentRef} className="w-full">
-                <div {...dialogProps} className="space-y-3">
-                  <Calendar {...calendarProps} />
-                  {state.hasTime && <TimeField value={state.timeValue} onChange={state.setTimeValue} />}
-                </div>
-              </PopoverContent>
-            </Popover>
-            <DateField {...fieldProps} value={currentValue()} />
-            <div className={cn("-ml-2 mr-2 h-5 w-5", !showClearButton && "hidden")}>
-              <X
-                className={cn("text-primary/30 h-5 w-5 cursor-pointer", !jsDatetime && "hidden")}
-                onClick={() => setJsDatetime(null)}
-              />
-            </div>
+            <CalendarIcon className="h-5 w-5" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent ref={contentRef} className="w-full">
+          <div {...dialogProps} className="space-y-3">
+            <Calendar {...calendarProps} />
+            {state.hasTime && <TimeField value={state.timeValue} onChange={state.setTimeValue} />}
           </div>
-        );
-      });
+        </PopoverContent>
+      </Popover>
+      <DateField {...fieldProps} value={currentValue()} />
+      <div className={cn("-ml-2 mr-2 h-5 w-5", !showClearButton && "hidden")}>
+        <X
+          className={cn("text-primary/30 h-5 w-5 cursor-pointer", !jsDatetime && "hidden")}
+          onClick={() => setJsDatetime(null)}
+        />
+      </div>
+    </div>
+  );
+});
 
 DateTimePicker.displayName = "DateTimePicker";
 

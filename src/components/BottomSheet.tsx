@@ -2,7 +2,7 @@ import { getUserByUsername } from "@/data/database";
 import { UserModel } from "@/domain/types/user_model";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import BSheet from "react-modal-sheet";
+import { Sheet as BSheet } from "react-modal-sheet";
 import { styled } from "styled-components";
 import ProfileView from "./ProfileView";
 
@@ -52,7 +52,9 @@ export default function UserBottomSheet() {
           <BSheet.Header />
           <BSheet.Content>
             <BSheet.Scroller>
-              {selectedUser === null ? null : <ProfileView username={selectedUser.username} />}
+              {selectedUser === null ? null : (
+                <ProfileView username={selectedUser.username} />
+              )}
             </BSheet.Scroller>
           </BSheet.Content>
         </BSheet.Container>

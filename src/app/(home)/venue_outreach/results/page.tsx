@@ -1,11 +1,12 @@
 import UnauthHeader from "@/components/unauth_header";
 import ResultsTable from "@/components/venue_search/results_table";
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string };
-}) {
+export default async function Page(
+  props: {
+    searchParams: Promise<{ [key: string]: string }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   const capacity = searchParams["capacity"] ?? "500";
   const genres = searchParams["genres"] ?? "";
   const lat = searchParams["lat"] ?? "0";
@@ -21,13 +22,7 @@ export default function Page({
   return (
     <>
       <UnauthHeader />
-      <ResultsTable
-        genres={performerGenres}
-        lat={intLat}
-        lng={intLng}
-        radius={intRadius}
-        capacity={intCapacity}
-      />
+      <ResultsTable genres={performerGenres} lat={intLat} lng={intLng} radius={intRadius} capacity={intCapacity} />
     </>
   );
 }

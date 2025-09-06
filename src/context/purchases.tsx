@@ -24,12 +24,12 @@ export function usePurchases() {
 
 function purchasesReducer(state: State, action: Action): State {
   switch (action.type) {
-  case "SUBSCRIBE": {
-    return true;
-  }
-  case "UNSUBSCRIBE": {
-    return false;
-  }
+    case "SUBSCRIBE": {
+      return true;
+    }
+    case "UNSUBSCRIBE": {
+      return false;
+    }
   }
 }
 

@@ -15,7 +15,8 @@ type EventName =
   | "logout"
   | "search_bar_clicked"
   | "gauge_clicked"
-  | "appstore_button_clicked";
+  | "appstore_button_clicked"
+  | "tutorial_click";
 
 export function trackEvent(event: EventName, properties?: Record<string, any>) {
   posthog.capture(event, properties);

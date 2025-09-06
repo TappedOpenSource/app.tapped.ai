@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import Script from "next/script";
 import { usePurchases } from "@/context/purchases";
@@ -7,14 +8,6 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth";
 
 // If using TypeScript, add the following snippet to your file as well.
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      "stripe-pricing-table": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-    }
-  }
-}
 
 export default function Page() {
   const {
@@ -43,7 +36,11 @@ export default function Page() {
       <div className="mt-16 flex flex-col items-center justify-center">
         <p>you&apos;re already subscribed</p>
         <Button variant="secondary">
-          <Link href="https://tapped.tolt.io" target="_blank" rel="noopener noreferrer">
+          <Link
+            href="https://tapped.tolt.io"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             share with a friend
           </Link>
         </Button>
@@ -71,12 +68,14 @@ if (window.tolt_referral) {
 })
 `}</Script>
       <div className="mx-12 rounded-xl bg-black px-12">
-        <stripe-pricing-table
-          pricing-table-id="prctbl_1PFJ5XDYybu1wznE3NpaCEH4"
-          publishable-key="pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil"
-          client-reference-id={authUser.uid}
-          customer-email={authUser.email}
-        ></stripe-pricing-table>
+        {/* Stripe pricing table custom element */}
+        {React.createElement("stripe-pricing-table", {
+          "pricing-table-id": "prctbl_1PFJ5XDYybu1wznE3NpaCEH4",
+          "publishable-key":
+            "pk_live_51O7KGuDYybu1wznED6nNmA0HNrCxwycnz5cw7akKUDBKaNmqdMYkOY3vGKFQF8iFfPGHrjPmGRMNxf9iX120sxV8003rBfQKil",
+          "client-reference-id": authUser.uid,
+          "customer-email": authUser.email,
+        })}
       </div>
     </>
   );

@@ -11,13 +11,7 @@ type AppStoreButtonProps = {
   url: string;
 };
 
-const AppStoreButton: FC<AppStoreButtonProps> = ({
-  theme = "light",
-  height,
-  width,
-  className,
-  url,
-}) => {
+const AppStoreButton: FC<AppStoreButtonProps> = ({ theme = "light", height, width, className, url }) => {
   return (
     <Button
       theme={theme}

@@ -10,15 +10,10 @@ const Footer = () => {
         <div className="mx-auto w-full max-w-screen-xl">
           <div className="grid grid-cols-2 gap-8 px-4 py-6 md:grid-cols-4 lg:py-8">
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-700 dark:text-white">
-                company
-              </h2>
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-700 dark:text-white">company</h2>
               <ul className="font-medium text-gray-600 dark:text-gray-400">
                 <li className="mb-4">
-                  <Link
-                    href="https://tapped.ai/about"
-                    className="hover:underline"
-                  >
+                  <Link href="https://tapped.ai/about" className="hover:underline">
                     about
                   </Link>
                 </li>
@@ -39,82 +34,54 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://blog.tapped.ai"
-                    className="hover:underline"
-                  >
+                  <Link href="https://blog.tapped.ai" className="hover:underline">
                     blog
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="mailto:support@tapped.ai"
-                    className="hover:underline"
-                  >
+                  <Link href="mailto:support@tapped.ai" className="hover:underline">
                     contact us
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-700 dark:text-white">
-                tool suite
-              </h2>
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-700 dark:text-white">tool suite</h2>
               <ul className="font-medium text-gray-600 dark:text-gray-400">
                 <li className="mb-4">
-                  <Link
-                    href="https://api.tapped.ai/docs"
-                    className="hover:underline"
-                  >
+                  <Link href="https://api.tapped.ai/docs" className="hover:underline">
                     api
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://getmusicart.com"
-                    className="hover:underline"
-                  >
+                  <Link href="https://getmusicart.com" className="hover:underline">
                     cover art
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://getmusicepk.com"
-                    className="hover:underline"
-                  >
+                  <Link href="https://getmusicepk.com" className="hover:underline">
                     press kit
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://getmusicmarketing.com"
-                    className="hover:underline"
-                  >
+                  <Link href="https://getmusicmarketing.com" className="hover:underline">
                     marketing plan
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://getmusicviralchecker.com"
-                    className="hover:underline"
-                  >
+                  <Link href="https://getmusicviralchecker.com" className="hover:underline">
                     viral checker
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link
-                    href="https://getmusiccontent.com"
-                    className="hover:underline"
-                  >
+                  <Link href="https://getmusiccontent.com" className="hover:underline">
                     social media ideas
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-700 dark:text-white">
-                legal
-              </h2>
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-700 dark:text-white">legal</h2>
               <ul className="font-medium text-gray-600 dark:text-gray-400">
                 <li className="mb-4">
                   <Link href="/privacy" className="hover:underline">
@@ -132,15 +99,10 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-700 dark:text-white">
-                download
-              </h2>
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-700 dark:text-white">download</h2>
               <ul className="font-medium text-gray-600 dark:text-gray-400">
                 <li className="mb-4">
-                  <Link
-                    href="https://apps.apple.com/us/app/tapped-ai/id1574937614"
-                    className="hover:underline"
-                  >
+                  <Link href="https://apps.apple.com/us/app/tapped-ai/id1574937614" className="hover:underline">
                     ios
                   </Link>
                 </li>
@@ -163,9 +125,8 @@ const Footer = () => {
           </div>
           <div className="px-4 py-6 md:flex md:items-center md:justify-between">
             <span className="dark:text-foreground/50 text-sm text-gray-600 sm:text-center">
-              © {new Date().getFullYear()}.{" "}
-              <Link href="https://tapped.ai/">Tapped Industries Inc.™</Link>.
-              All Rights Reserved. - Made with 💙 in Richmond, Virginia
+              © {new Date().getFullYear()}. <Link href="https://tapped.ai/">Tapped Industries Inc.™</Link>. All Rights
+              Reserved. - Made with 💙 in Richmond, Virginia
             </span>
             <div className="mt-4 flex space-x-5 sm:justify-center md:mt-0 rtl:space-x-reverse">
               {/* <Link href="/" className="text-gray-400 hover:text-gray-900 dark:hover:text-white">

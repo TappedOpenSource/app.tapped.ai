@@ -48,9 +48,11 @@ export function CollapseMenuButton({ icon: Icon, label, active, submenus, isOpen
               <p
                 className={cn(
                   "max-w-[150px] truncate",
-                  isOpen ? // eslint-disable-next-line sonarjs/no-duplicate-string
-                    "translate-x-0 opacity-100" : // eslint-disable-next-line sonarjs/no-duplicate-string
-                    "-translate-x-96 opacity-0",
+                  isOpen
+                    ? // eslint-disable-next-line sonarjs/no-duplicate-string
+                      "translate-x-0 opacity-100"
+                    : // eslint-disable-next-line sonarjs/no-duplicate-string
+                      "-translate-x-96 opacity-0",
                 )}
               >
                 {label}

@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  getBookingsByRequestee,
-  getBookingsByRequester,
-} from "@/data/database";
+import { getBookingsByRequestee, getBookingsByRequester } from "@/data/database";
 import BookingHistoryPreview from "../profile/BookingHistoryPreview";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/auth";
@@ -25,19 +22,11 @@ export default function BookingHistory() {
       }
 
       // fetch latest booking
-      const latestRequesteeBookings = await getBookingsByRequestee(
-        currentUser.id,
-        { limit: 40 }
-      );
-      const latestRequesterBookings = await getBookingsByRequester(
-        currentUser.id,
-        { limit: 40 }
-      );
-      const latestBookings = latestRequesteeBookings
-        .concat(latestRequesterBookings)
-        .sort((a, b) => {
-          return b.startTime.getTime() - a.startTime.getTime();
-        });
+      const latestRequesteeBookings = await getBookingsByRequestee(currentUser.id, { limit: 40 });
+      const latestRequesterBookings = await getBookingsByRequester(currentUser.id, { limit: 40 });
+      const latestBookings = latestRequesteeBookings.concat(latestRequesterBookings).sort((a, b) => {
+        return b.startTime.getTime() - a.startTime.getTime();
+      });
 
       setBookings(latestBookings);
     };

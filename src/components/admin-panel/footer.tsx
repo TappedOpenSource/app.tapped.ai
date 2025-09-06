@@ -30,16 +30,10 @@ export default function Footer() {
                 </svg>
                 <span className="sr-only">Discord community</span>
               </Link> */}
-          <Link
-            href="https://x.com/tappedx"
-            className="text-gray-400 hover:text-white"
-          >
+          <Link href="https://x.com/tappedx" className="text-gray-400 hover:text-white">
             <Twitter className="h-4 w-4" />
           </Link>
-          <Link
-            href="https://github.com/TappedOpenSource"
-            className="text-gray-400 hover:text-white"
-          >
+          <Link href="https://github.com/TappedOpenSource" className="text-gray-400 hover:text-white">
             <Github className="h-4 w-4" />
           </Link>
           {/* <Link
@@ -48,10 +42,7 @@ export default function Footer() {
           >
             <TikTok
           </Link> */}
-          <Link
-            href="https://instagram.com/tappedx"
-            className="text-gray-400 hover:text-white"
-          >
+          <Link href="https://instagram.com/tappedx" className="text-gray-400 hover:text-white">
             <Instagram className="h-4 w-4" />
           </Link>
         </div>

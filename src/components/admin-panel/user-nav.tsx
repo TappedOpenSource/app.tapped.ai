@@ -5,12 +5,7 @@ import { Home, MapIcon, LogOut, User, Settings } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  TooltipProvider,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,15 +31,9 @@ export function UserNav() {
         <Tooltip delayDuration={100}>
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                className="relative h-8 w-8 rounded-full"
-              >
+              <Button variant="outline" className="relative h-8 w-8 rounded-full">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage
-                    src={currentUser?.profilePicture ?? undefined}
-                    alt="Avatar"
-                  />
+                  <AvatarImage src={currentUser?.profilePicture ?? undefined} alt="Avatar" />
                   <AvatarFallback className="bg-transparent">
                     {currentUser?.username.slice(0, 2) ?? "JD"}
                   </AvatarFallback>
@@ -62,9 +51,7 @@ export function UserNav() {
             <p className="text-sm font-medium leading-none">
               {currentUser?.artistName ?? currentUser?.username ?? "John Doe"}
             </p>
-            <p className="text-muted-foreground text-xs leading-none">
-              {currentUser?.email ?? "johndoe@email.com"}
-            </p>
+            <p className="text-muted-foreground text-xs leading-none">{currentUser?.email ?? "johndoe@email.com"}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -84,10 +71,7 @@ export function UserNav() {
           {currentUser?.username !== undefined && (
             <>
               <DropdownMenuItem className="hover:cursor-pointer" asChild>
-                <Link
-                  href={`/u/${currentUser?.username ?? ""}`}
-                  className="flex items-center"
-                >
+                <Link href={`/u/${currentUser?.username ?? ""}`} className="flex items-center">
                   <User className="text-muted-foreground mr-3 h-4 w-4" />
                   account
                 </Link>

@@ -49,11 +49,12 @@ export default function OnboardingForm({
     dispatch,
   } = useAuth();
   const defaultUsername =
-    authUser?.displayName !== undefined ?
-      `${authUser?.displayName
-        ?.replaceAll(" ", "")
-        .toLowerCase()}${Math.floor(Math.random() * 1000)}` :
-      generateDefaultUsername();
+    authUser?.displayName !== undefined
+      ? `${authUser?.displayName
+          ?.replaceAll(" ", "")
+          .toLowerCase()}${Math.floor(Math.random() * 1000)}`
+      : generateDefaultUsername();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
